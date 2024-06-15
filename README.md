@@ -1,27 +1,13 @@
-# Leather Engine
+# Leather Engine Mobile
 
-![](https://img.shields.io/github/repo-size/Vortex2Oblivion/LeatherEngine-Extended-Support) ![](https://badgen.net/github/open-issues/Vortex2Oblivion/LeatherEngine-Extended-Support) ![](https://badgen.net/badge/license/GPL-3.0/green)
-[![CI build](https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/actions/workflows/workflow.yml/badge.svg)](https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/actions/workflows/workflow.yml)
-[![github-pages](https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/actions/workflows/pages.yml/badge.svg)](https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/actions/workflows/pages.yml)
+![](https://img.shields.io/github/repo-size/MobilePorting/LeatherEngine-LTS-Mobile) ![](https://badgen.net/github/open-issues/MobilePorting/LeatherEngine-LTS-Mobile) ![](https://badgen.net/badge/license/GPL-3.0/green)
+[![CI build](https://github.com/MobilePorting/LeatherEngine-LTS-Mobile/actions/workflows/workflow.yml/badge.svg)](https://github.com/MobilePorting/LeatherEngine-LTS-Mobile/actions/workflows/workflow.yml)
+[![github-pages](https://github.com/MobilePorting/LeatherEngine-LTS-Mobile/actions/workflows/pages.yml/badge.svg)](https://github.com/MobilePorting/LeatherEngine-LTS-Mobile/actions/workflows/pages.yml)
 [![Discord](https://img.shields.io/discord/1142524994258215053.svg?logo=discord)](https://discord.gg/fnuhPNqzdZ)
 
 ![Logo](art/Logo.png)
 
 This is the repository for Leather Engine, an engine created for making and playing mods for Friday Night Funkin'.
-
-## Links
-
-- [Discord Server](https://discord.gg/fnuhPNqzdZ)
-
-- [Gamebanana Page](https://gamebanana.com/mods/334945)
-
-- [Some Mod Ports](https://github.com/Leather128/LeathersFNFModPorts)
-
-## Build Instructions
-
-### IMPORTANT:
-
-For build instructions go to [BUILD.md](https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/blob/main/build/BUILD.md)
 
 ## Features
 

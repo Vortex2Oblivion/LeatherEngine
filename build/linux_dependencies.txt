@@ -1,7 +1,0 @@
-Packages:
-
-luajit
-vlc
-
-The names of these will be different for different distros
-so check for yours specifically.
