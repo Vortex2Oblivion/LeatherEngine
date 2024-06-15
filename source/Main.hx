@@ -41,7 +41,7 @@ class Main extends Sprite {
 		CoolUtil.haxe_trace = Log.trace;
 		Log.trace = CoolUtil.haxe_print;
 
-		game = new FlxGame(#if mobile 1280, 720 #else 0, 0 #end, #if (mobile && MODDING_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end TitleState, 60, 60, true);
+		game = new FlxGame(#if mobile 1280, 720, #if MODDING_ALLOWED !CopyState.checkExistingFiles() ? CopyState : #end TitleState #else 0, 0, TitleState #end, 60, 60, true);
 
 		// FlxG.game._customSoundTray wants just the class, it calls new from
 		// create() in there, which gets called when it's added to stage
@@ -60,6 +60,8 @@ class Main extends Sprite {
 		// shader coords fix
 		// stolen from psych engine lol
 		FlxG.signals.gameResized.add(function (w, h) {
+			if(display != null)
+				display.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
 		    if (FlxG.cameras != null) {
 				for (cam in FlxG.cameras.list) {
 					if (cam != null && cam.filters != null) {
