@@ -417,6 +417,10 @@ class CoolUtil {
 	public static inline function getCurrentVersion():String {
 		return 'v' + Application.current.meta.get('version');
 	}
+
+	public static function last<T>(array:Array<T>):T {
+		return array[array.length - 1];
+	}
 }
 
 enum PrintType {

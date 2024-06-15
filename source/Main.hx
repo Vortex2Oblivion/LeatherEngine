@@ -26,9 +26,14 @@ class Main extends Sprite {
 	public function new() {
 		super();
 
-		#if sys
-		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		#if mobile
+		#if android
+		SUtil.doPermissionsShit();
 		#end
+		Sys.setCwd(SUtil.getStorageDirectory());
+		#end
+
+		utilities.CrashHandler.init();
 
 		CoolUtil.haxe_trace = Log.trace;
 		Log.trace = CoolUtil.haxe_print;
@@ -92,73 +97,6 @@ class Main extends Sprite {
 	public static inline function changeFont(font:String):Void {
 		display.defaultTextFormat = new TextFormat(font, (font == "_sans" ? 12 : 14), display.textColor);
 	}
-
-	#if sys
-	/**
-	 * Shoutout to @gedehari for making the crash logging code
-	 * They make some cool stuff check them out!
-	 * @see https://github.com/gedehari/IzzyEngine/blob/master/source/Main.hx
-	 * @param e 
-	 */
-	function onCrash(e:UncaughtErrorEvent):Void {
-		var error:String = "";
-		var path:String;
-		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
-		var date:String = Date.now().toString();
-
-		date = StringTools.replace(date, " ", "_");
-		date = StringTools.replace(date, ":", "'");
-
-		for (stackItem in callStack){
-			switch (stackItem) {
-				case FilePos(s, file, line, column):
-					error += file + " (line " + line + ")\n";
-				default:
-					Sys.println(stackItem);
-			}
-		}
-
-		// see the docs for e.error to see why we do this
-		// since i guess it can sometimes be an issue???
-		// /shrug - what-is-a-git 2024
-		var errorData:String = "";
-		if (Std.isOfType(e.error, Error)) {
-			errorData = cast(e.error, Error).message;
-		} else if (Std.isOfType(e.error, ErrorEvent)) {
-			errorData = cast(e.error, ErrorEvent).text;
-		} else {
-			errorData = Std.string(e.error);
-		}
-		
-		error += "\nUncaught Error: " + errorData;
-		path = "./crash/" + "crash-" + errorData + '-on-' + date + ".txt";
-
-		if (!sys.FileSystem.exists("./crash/")) {
-			sys.FileSystem.createDirectory("./crash/");
-		}
-
-		sys.io.File.saveContent(path, error + "\n");
-
-		Sys.println(error);
-		Sys.println("Crash dump saved in " + Path.normalize(path));
-
-		var crashPath:String = "Crash" #if windows + ".exe" #end;
-
-		if (sys.FileSystem.exists("./" + crashPath)){
-				Sys.println("Found crash dialog: " + crashPath);
-	
-				#if linux
-				crashPath = "./" + crashPath;
-				#end
-				new sys.io.Process(crashPath, [path]);
-		} else {
-			Sys.println("No crash dialog found! Making a simple alert instead...");
-			Application.current.window.alert(error, "Error!");
-		}
-
-		Sys.exit(1);
-	}
-	#end
 }
 /*
                                                                  .:^^.                                                       

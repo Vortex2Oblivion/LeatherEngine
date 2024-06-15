@@ -3,5 +3,4 @@ art/flashFiles/RECOVER_*
 crash/export/
 .*/
 !.github
-pages/
-docs/doc.xml
+.haxelib

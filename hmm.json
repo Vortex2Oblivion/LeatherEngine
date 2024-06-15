@@ -1,0 +1,110 @@
+{
+  "dependencies": [
+    {
+      "name": "discord_rpc",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
+    },
+    {
+      "name": "extension-androidtools",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "flixel",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "flixel-addons",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "flixel-tools",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "flixel-ui",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "flxanimate",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/Vortex2Oblivion/flxanimate"
+    },
+    {
+      "name": "fnf-modcharting-tools",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/Vortex2Oblivion/FNF-Modcharting-Tools"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "ref": "grig-test",
+      "url": "https://github.com/FNF-CNE-Devs/funkVis"
+    },
+    {
+      "name": "grig.audio",
+      "type": "git",
+      "ref": "main",
+      "url": "https://gitlab.com/haxe-grig/grig.audio"
+    },
+    {
+      "name": "hscript-improved",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/FNF-CNE-Devs/hscript-improved"
+    },
+    {
+      "name": "hxNoise",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/whuop/hxNoise"
+    },
+    {
+      "name": "hxcpp",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/mcagabe19-stuff/hxcpp"
+    },
+    {
+      "name": "hxcpp-debug-server",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "hxvlc",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "ref": "develop",
+      "url": "https://github.com/mcagabe19-stuff/lime"
+    },
+    {
+      "name": "linc_luajit",
+      "type": "git",
+      "ref": "main",
+      "url": "https://github.com/mcagabe19/linc_lua"
+    },
+    {
+      "name": "openfl",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "scriptless-polymod",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/swordcube/scriptless-polymod"
+    }
+  ]
+}
