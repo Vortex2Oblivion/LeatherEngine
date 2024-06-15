@@ -22,8 +22,8 @@ class SimpleInfoDisplay extends TextField {
 	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String) {
 		super();
 
-		this.x = x;
-		this.y = y;
+		this.x = #if mobile FlxG.game.x + #end x;
+		this.y = #if mobile FlxG.game.y + #end y;
 		selectable = false;
 		defaultTextFormat = new TextFormat(font != null ? font : Assets.getFont(Paths.font("vcr.ttf")).fontName, (font == "_sans" ? 12 : 14),
         color);

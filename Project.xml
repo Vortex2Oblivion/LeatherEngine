@@ -38,7 +38,7 @@
 	<section if="cpp">
 		<define name="VIDEOS_ALLOWED" />
 		<define name="LUA_ALLOWED" />
-		<define name="DISCORD_ALLOWED" />
+		<define name="DISCORD_ALLOWED" if="cpp" unless="mobile"/>
 	</section>
 
 	<define name="MODDING_ALLOWED" />

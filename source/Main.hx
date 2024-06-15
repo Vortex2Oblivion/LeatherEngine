@@ -16,6 +16,9 @@ import openfl.text.TextFormat;
 import states.TitleState;
 import ui.SimpleInfoDisplay;
 import ui.logs.Logs;
+#if mobile
+import mobile.states.CopyState;
+#end
 
 class Main extends Sprite {
 	public static var instance:Main = null;
@@ -38,7 +41,7 @@ class Main extends Sprite {
 		CoolUtil.haxe_trace = Log.trace;
 		Log.trace = CoolUtil.haxe_print;
 
-		game = new FlxGame(0, 0, TitleState, 60, 60, true);
+		game = new FlxGame(#if mobile 1280, 720 #else 0, 0 #end, #if (mobile && MODDING_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end TitleState, 60, 60, true);
 
 		// FlxG.game._customSoundTray wants just the class, it calls new from
 		// create() in there, which gets called when it's added to stage
