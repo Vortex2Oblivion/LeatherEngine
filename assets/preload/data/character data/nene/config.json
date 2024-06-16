@@ -2,7 +2,7 @@
   "defaultFlipX": false,
   "dancesLeftAndRight": true,
   "imagePath": "Nene",
-  "positionOffset": [0, -125],
+  "positionOffset": [0, -150],
   "animations": [
     {
       "name": "danceLeft",

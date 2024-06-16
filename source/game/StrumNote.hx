@@ -41,7 +41,7 @@ class StrumNote extends FlxSkewedSprite
 	public var modAngle:Float = 0;
 	
 
-	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int, ?isPlayer:Float, customColors:Bool = false)
+	public function new(x:Float, y:Float, leData:Int, ?ui_Skin:String, ?ui_settings:Array<String>, ?mania_size:Array<String>, ?keyCount:Int, ?isPlayer:Float)
 	{
 		if (ui_Skin == null)
 			ui_Skin = PlayState.SONG.ui_Skin;

@@ -227,7 +227,3 @@ class HScript
 
 	}
 }
-interface IHScriptable{
-	function call(func:String, ?args:Array<Dynamic>):Void;
-	var script:HScript;
-}

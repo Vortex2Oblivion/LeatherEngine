@@ -29,11 +29,10 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import flixel.tweens.FlxEase;
-import modding.scripts.languages.HScript.IHScriptable;
 
 using StringTools;
 
-class FreeplayState extends MusicBeatState implements IHScriptable{
+class FreeplayState extends MusicBeatState{
 	var songs:Array<SongMetadata> = [];
 
 	var selector:FlxText;
@@ -83,40 +82,24 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 	// thx psych engine devs
 	var colorTween:FlxTween;
 
-	#if cpp
-	public var loading_songs:Thread;
+	public var loading_songs:#if cpp Thread #else Dynamic #end;
 	public var stop_loading_songs:Bool = false;
-	#else
-	public var loading_songs:Dynamic;
-	public var stop_loading_songs:Bool = false;
-	#end
+
 
 	var ui_Skin:Null<String>;
 	var lastSelectedSong:Int = -1;
-	public var script:HScript;
 
 	/**
 		Current instance of `FreeplayState`.
 	**/
 	public static var instance:FreeplayState = null;
 	public inline function call(func:String, ?args:Array<Dynamic>) {
-		if (script != null ) script.call(func, args);
+		if (stateScript != null ) stateScript.call(func, args);
 	}
 	
 
 	override function create() {
 		instance = this;
-		#if sys
-		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/classes/states/FreeplayState.hx")){
-			script = new HScript("mods/" + Options.getData("curMod") + "/classes/states/FreeplayState.hx", true);
-			script.start();
-		}
-		#else
-		if (Assets.exists("assets/classes/states/FreeplayState.hx")){
-			script = new HScript("assets/classes/states/FreeplayState.hx");
-			script.start();		
-		}
-		#end
 		if (ui_Skin == null || ui_Skin == "default")
 			ui_Skin = Options.getData("uiSkin");
 

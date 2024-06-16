@@ -25,10 +25,8 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import lime.app.Application;
-import modding.scripts.languages.HScript.IHScriptable;
 
-class MainMenuState extends MusicBeatState implements IHScriptable {
+class MainMenuState extends MusicBeatState {
 	/**
 		Current instance of `MainMenuState`.
 	**/
@@ -43,22 +41,15 @@ class MainMenuState extends MusicBeatState implements IHScriptable {
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var ui_Skin:Null<String>;
-	public var script:HScript;
 
 	public inline function call(func:String, ?args:Array<Dynamic>) {
-		if (script != null) {
-			script.call(func, args);
+		if (stateScript != null) {
+			stateScript.call(func, args);
 		}
 	}
 
 	override function create() {
 		instance = this;
-		#if sys
-		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/classes/states/MainMenuState.hx")){
-			script = new HScript("mods/" + Options.getData("curMod") + "/classes/states/MainMenuState.hx", true);
-			script.start();		
-		}
-		#end
 
 		if (ui_Skin == null || ui_Skin == "default")
 			ui_Skin = Options.getData("uiSkin");

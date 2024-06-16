@@ -9,7 +9,7 @@ import states.TitleState;
 import flixel.FlxObject;
 
 
-class CustomState extends MusicBeatState implements IHScriptable{
+class CustomState extends MusicBeatState{
     public var script:HScript;
     public static var instance:CustomState = null;
     override function new(script:String){

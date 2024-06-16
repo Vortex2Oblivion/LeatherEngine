@@ -10,8 +10,9 @@ import shaders.NoteColors;
 import modding.ModList;
 import game.Highscore;
 import utilities.PlayerSettings;
-import modding.scripts.languages.HScript;
-import modding.scripts.languages.HScript.IHScriptable;
+#if discord_rpc
+import utilities.Discord.DiscordClient;
+#end
 import utilities.Options;
 import utilities.NoteVariables;
 import substates.OutdatedSubState;
@@ -41,7 +42,7 @@ import haxe.Http;
 
 using StringTools;
 
-class TitleState extends MusicBeatState implements IHScriptable{
+class TitleState extends MusicBeatState{
 	static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
@@ -60,10 +61,8 @@ class TitleState extends MusicBeatState implements IHScriptable{
 
 	public static var instance:TitleState = null;
 
-	public var script:HScript;
-
 	public inline function call(func:String, ?args:Array<Dynamic>) {
-		if(script != null) script.call(func, args);
+		if(stateScript != null) stateScript.call(func, args);
 	}
 
 	override public function create():Void {
@@ -125,13 +124,6 @@ class TitleState extends MusicBeatState implements IHScriptable{
 
 			firstTimeStarting = true;
 		}
-
-		#if MODDING_ALLOWED
-		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/classes/states/TitleState.hx")){
-			script = new HScript("mods/" + Options.getData("curMod") + "/classes/states/TitleState.hx", true);
-			script.start();		
-		}
-		#end
 
 		new FlxTimer().start(1, function(tmr:FlxTimer) startIntro());
 	}
@@ -383,21 +375,21 @@ class TitleState extends MusicBeatState implements IHScriptable{
 	}
 
 	function createCoolText(textArray:Array<String>) {
-		call("createCoolText");
+		call("createCoolText", textArray);
 		for (i in 0...textArray.length) {
 			addMoreText(textArray[i]);
 		}
-		call("createCoolTextPost");
+		call("createCoolTextPost", textArray);
 	}
 
 	function addMoreText(text:String) {
-		call("addMoreText");
+		call("addMoreText", [text]);
 		var coolText:Alphabet = new Alphabet(0, 0, text.toUpperCase(), true, false);
 		coolText.screenCenter(X);
 		coolText.y += (textGroup.length * 60) + 200;
 		credGroup.add(coolText);
 		textGroup.add(coolText);
-		call("addMoreTextPost");
+		call("addMoreTextPost", [text]);
 	}
 
 	function deleteCoolText() {

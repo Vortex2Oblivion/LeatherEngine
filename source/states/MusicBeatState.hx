@@ -1,5 +1,6 @@
 package states;
 
+import modding.scripts.languages.HScript;
 import flixel.FlxState;
 import flixel.math.FlxMath;
 import flixel.input.FlxInput.FlxInputState;
@@ -31,6 +32,8 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 	public static var windowNamePrefix:String = "Leather Engine";
 
 	public static var fullscreenBind:String = "F11";
+
+	public var stateScript:HScript;
 
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
@@ -112,6 +115,12 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 		if (!Options.getData('memoryLeaks')) {
 			clear_memory();
 		}
+		#if sys
+		if(sys.FileSystem.exists('mods/${Options.getData("curMod")}/classes/${Type.getClassName(Type.getClass(FlxG.state)).replace('.', '/')}.hx')){
+			stateScript = new HScript('mods/${Options.getData("curMod")}/classes/${Type.getClassName(Type.getClass(FlxG.state)).replace('.', '/')}.hx', true);
+			stateScript.start();
+		}
+		#end
 		super();
 	}
 

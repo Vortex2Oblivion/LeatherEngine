@@ -5,7 +5,7 @@ import modding.scripts.languages.HScript;
 import substates.MusicBeatSubstate;
 import flixel.FlxObject;
 
-class CustomSubstate extends MusicBeatSubstate implements IHScriptable{
+class CustomSubstate extends MusicBeatSubstate{
     public var script:HScript;
     public static var instance:CustomSubstate = null;
     override function new(script:String){

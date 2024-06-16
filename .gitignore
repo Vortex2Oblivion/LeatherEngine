@@ -1,6 +1,26 @@
-export/
-art/flashFiles/RECOVER_*
-crash/export/
-.*/
-!.github
+# hmm
 .haxelib
+
+# export
+export/
+
+# stupid adobe recovery files
+art/flashFiles/RECOVER_*
+
+# allow github stuff lol
+!.github
+
+# docs we don't need here
+pages/
+
+# big file
+docs/doc.xml
+
+# hidden folders / files
+.*/
+
+# godot imports
+**.import
+
+# backup files
+**~
