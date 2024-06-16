@@ -46,6 +46,11 @@ import flixel.FlxG;
 import game.Conductor;
 import lime.app.Application;
 import modding.helpers.FlxTextFix;
+#if android
+import android.widget.Toast as AndroidToast;
+import android.Tools as AndroidTools;
+import android.utilities.LeatherJNI;
+#end
 
 using StringTools;
 
@@ -3267,6 +3272,70 @@ class ModchartUtilities {
                 
             });
 		}
+		#end
+
+		#if mobile
+		setLuaFunction("vibrate", (duration:Null<Int>, ?period:Null<Int>) ->
+		{
+			if (duration == null)
+				return trace('vibrate: No duration specified.');
+			else if (period == null)
+				period = 0;
+			return lime.ui.Haptic.vibrate(period, duration);
+		});
+		#end
+
+		#if android
+		setVar("isDolbyAtmos", AndroidTools.isDolbyAtmos());
+		setVar("isAndroidTV", AndroidTools.isAndroidTV());
+		setVar("isTablet", AndroidTools.isTablet());
+		setVar("isChromebook", AndroidTools.isChromebook());
+		setVar("isDeXMode", AndroidTools.isDeXMode());
+
+		setLuaFunction("backJustPressed", FlxG.android.justPressed.BACK);
+		setLuaFunction("backPressed", FlxG.android.pressed.BACK);
+		setLuaFunction("backJustReleased", FlxG.android.justReleased.BACK);
+
+		setLuaFunction("menuJustPressed", FlxG.android.justPressed.MENU);
+		setLuaFunction("menuPressed", FlxG.android.pressed.MENU);
+		setLuaFunction("menuJustReleased", FlxG.android.justReleased.MENU);
+		setLuaFunction("getCurrentOrientation", () -> LeatherJNI.getCurrentOrientationAsString());
+
+		setLuaFunction("setOrientation", function(hint:Null<String>):Void
+			{
+				switch (hint.toLowerCase())
+				{
+					case 'portrait':
+						hint = 'Portrait';
+					case 'portraitupsidedown' | 'upsidedownportrait' | 'upsidedown':
+						hint = 'PortraitUpsideDown';
+					case 'landscapeleft' | 'leftlandscape':
+						hint = 'LandscapeLeft';
+					case 'landscaperight' | 'rightlandscape' | 'landscape':
+						hint = 'LandscapeRight';
+					default:
+						hint = null;
+				}
+				if (hint == null)
+					return trace('setOrientation: No orientation specified.');
+				LeatherJNI.setOrientation(FlxG.stage.stageWidth, FlxG.stage.stageHeight, false, hint);
+			});
+
+		setLuaFunction("minimizeWindow", () -> AndroidTools.minimizeWindow());
+		setLuaFunction("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
+		{
+			if (text == null)
+				return trace('showToast: No text specified.');
+			else if (duration == null)
+				return trace('showToast: No duration specified.');
+
+			if (xOffset == null)
+				xOffset = 0;
+			if (yOffset == null)
+				yOffset = 0;
+
+			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
+		});
 		#end
 
 		executeState("onCreate", []);
