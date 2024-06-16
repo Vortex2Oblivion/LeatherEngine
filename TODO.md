@@ -1,3 +1,2 @@
 - isInSubstate-ish code
-- FlxHitbox (colors)
 - Mobile Lua Functions

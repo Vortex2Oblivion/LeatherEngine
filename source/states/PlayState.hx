@@ -2964,10 +2964,10 @@ class PlayState extends MusicBeatState {
 			}
 		});
 
-		/*splash_group.forEachAlive(function(splash:NoteSplash) {
+		splash_group.forEachAlive(function(splash:NoteSplash) {
 			if (splash.animation.finished)
 				splash.kill();
-		});*/
+		});
 
 		#if LUA_ALLOWED
 		if (((stage.stageScript != null || (luaModchart != null && executeModchart))
