@@ -3456,22 +3456,16 @@ class PlayState extends MusicBeatState {
 				heldArray = [];
 
 				for (i in 0...binds.length) {
-					justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_PRESSED);
-					releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.RELEASED);
-					justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_RELEASED);
-					heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
-
-					// wow, is that easy? - lily
-					justPressedArray[i] = hitbox.hints[i].justPressed;
-					releasedArray[i] = hitbox.hints[i].released;
-					justReleasedArray[i] = hitbox.hints[i].justReleased;
-					heldArray[i] = hitbox.hints[i].pressed;
+					justPressedArray[i] = hitbox.hints[i].justPressed || FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_PRESSED);
+					releasedArray[i] = hitbox.hints[i].released || FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.RELEASED);
+					justReleasedArray[i] = hitbox.hints[i].justReleased || FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_RELEASED);
+					heldArray[i] = hitbox.hints[i].pressed || FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
 
 					if (releasedArray[i] && SONG.playerKeyCount == 4) {
-						justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
-						releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.RELEASED);
-						justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_RELEASED);
-						heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.PRESSED);
+						justPressedArray[i] = hitbox.hints[i].justPressed || FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
+						releasedArray[i] = hitbox.hints[i].released || FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.RELEASED);
+						justReleasedArray[i] = hitbox.hints[i].justReleased || FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_RELEASED);
+						heldArray[i] = hitbox.hints[i].pressed || FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.PRESSED);
 					}
 				}
 
