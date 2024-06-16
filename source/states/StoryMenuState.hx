@@ -72,7 +72,7 @@ class StoryMenuState extends MusicBeatState {
 		// CREATE THE UI //
 		createStoryUI();
 
-		addVirtualPad(LEFT_FULL, A_B_X_Y);
+		addVirtualPad(STORY_MENU, A_B_X_Y);
 
 		super.create();
 	}
@@ -118,9 +118,9 @@ class StoryMenuState extends MusicBeatState {
 				if (controls.LEFT_P)
 					changeDifficulty(-1);
 
-				if (FlxG.keys.justPressed.E)
+				if (virtualPad.buttonRight2.justPressed || FlxG.keys.justPressed.E)
 					changeGroup(1);
-				if (FlxG.keys.justPressed.Q)
+				if (virtualPad.buttonLeft2.justPressed || FlxG.keys.justPressed.Q)
 					changeGroup(-1);
 
 				if (virtualPad.buttonX.justPressed || controls.RESET) {
@@ -148,7 +148,7 @@ class StoryMenuState extends MusicBeatState {
 		changeWeek();
 		persistentUpdate = true;
 		removeVirtualPad();
-		addVirtualPad(LEFT_FULL, A_B_X_Y);
+		addVirtualPad(STORY_MENU, A_B_X_Y);
 		FlxG.mouse.visible = false;
 		super.closeSubState();
 	}
@@ -233,8 +233,12 @@ class StoryMenuState extends MusicBeatState {
 		groupSwitchText.borderSize = 1;
 		add(groupSwitchText);
 
+		final buttonQE:String = controls.mobileC ? 'LEFT + RIGHT (Upper)' : 'Q + E';
+		final buttonReset:String = controls.mobileC ? 'Y' : 'RESET';
+		final textSize:Int = controls.mobileC ? 18 : 24;
+
 		var groupInfoText = new FlxText(leftArrow.x, difficultySprite.y + difficultySprite.height + 96, 0,
-			"Q + E to change groups\nRESET to reset week score\n", 24);
+			'$buttonQE to change groups\n$buttonReset to reset week score\n', textSize);
 		groupInfoText.alignment = LEFT;
 		groupInfoText.font = weekSongListText.font;
 		groupInfoText.color = FlxColor.WHITE;

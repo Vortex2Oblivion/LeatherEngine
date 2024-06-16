@@ -16,6 +16,7 @@ enum FlxDPadMode
 	LEFT_RIGHT;
 	LEFT_FULL;
 	RIGHT_FULL;
+	STORY_MENU;
 	NONE;
 }
 
@@ -42,6 +43,8 @@ enum FlxActionMode
  */
 class FlxVirtualPad extends FlxSpriteGroup
 {
+	public var buttonLeft2:FlxButton = new FlxButton(0, 0);
+	public var buttonRight2:FlxButton = new FlxButton(0, 0);
 	public var buttonLeft:FlxButton = new FlxButton(0, 0);
 	public var buttonUp:FlxButton = new FlxButton(0, 0);
 	public var buttonRight:FlxButton = new FlxButton(0, 0);
@@ -85,6 +88,13 @@ class FlxVirtualPad extends FlxSpriteGroup
 				add(buttonLeft = createButton(FlxG.width - 384, FlxG.height - 309, 'left', 0xFF00FF));
 				add(buttonRight = createButton(FlxG.width - 132, FlxG.height - 309, 'right', 0xFF0000));
 				add(buttonDown = createButton(FlxG.width - 258, FlxG.height - 201, 'down', 0x00FFFF));
+			case STORY_MENU:
+				add(buttonUp = createButton(105, FlxG.height - 345, 'up', 0x00FF00));
+				add(buttonLeft = createButton(0, FlxG.height - 243, 'left', 0xFF00FF));
+				add(buttonRight = createButton(207, FlxG.height - 243, 'right', 0xFF0000));
+				add(buttonDown = createButton(105, FlxG.height - 135, 'down', 0x00FFFF));
+				add(buttonLeft2 = createButton(FlxG.width - 258, 0, 'left', 0xFF00FF));
+				add(buttonRight2 = createButton(FlxG.width - 132, 0, 'right', 0xFF0000));
 			case NONE: // do nothing
 		}
 

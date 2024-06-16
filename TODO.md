@@ -1,4 +1,3 @@
-- StoryMenuState (Q and E thing)
 - isInSubstate-ish code
 - FlxHitbox (colors)
 - Mobile Lua Functions
