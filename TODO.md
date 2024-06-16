@@ -1,5 +1,6 @@
 - NoteColorSubState (vpad)
 - Option's (virtualPad.buttonA returns globally true)
 - FreeplayState (vpad)
+- StoryMenuState (Q and E thing)
 - PlayState (hitbox and pause button)
 - Per hint for notes.
