@@ -1,4 +1,5 @@
 - StoryMenuState (Q and E thing)
-- PlayState (hitbox and pause button)
-- Per hint for notes. (StrumNote's mania_size ig)
+- PlayState (key handle and pause button)
 - Editor vpad's (probably not gonna do idk)
+- FlxHitbox (colors)
+- Mobile Lua Functions

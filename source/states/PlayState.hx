@@ -944,6 +944,10 @@ class PlayState extends MusicBeatState {
 		generateSong(SONG.song);
 		generateEvents();
 
+		addHitbox();
+		addHitboxCamera();
+		hitbox.visible = false;
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(camPos.x, camPos.y);
 
@@ -1609,7 +1613,7 @@ class PlayState extends MusicBeatState {
 		NoteMovement.getDefaultStrumPos(this);
 		#end
 
-		startedCountdown = true;
+		startedCountdown = hitbox.visible = true;
 		Conductor.songPosition = 0;
 		Conductor.songPosition -= Conductor.crochet * 5;
 
@@ -3069,7 +3073,7 @@ class PlayState extends MusicBeatState {
 
 	function endSong():Void {
 		call("endSong", []);
-		canPause = false;
+		canPause = hitbox.visible = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 

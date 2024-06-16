@@ -71,10 +71,11 @@ class MusicBeatSubstate extends FlxSubState
 
 	public function addHitbox(visible:Bool = true):Void
 	{
+		final ammo:Int = /*utilities.Options.getData("playAs") == "bf" ?*/ states.PlayState.SONG.playerKeyCount /*: states.PlayState.SONG.keyCount*/;
 		if (hitbox != null)
 			removeHitbox();
 
-		hitbox = new FlxHitbox(3, Std.int(FlxG.width / 4), FlxG.height, [0xFF00FF, 0x00FFFF, 0x00FF00, 0xFF0000]);
+		hitbox = new FlxHitbox(ammo - 1, Std.int(FlxG.width / ammo), FlxG.height);
 		hitbox.visible = visible;
 		add(hitbox);
 
