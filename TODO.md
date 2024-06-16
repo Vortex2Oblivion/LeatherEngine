@@ -4,3 +4,4 @@
 - StoryMenuState (Q and E thing)
 - PlayState (hitbox and pause button)
 - Per hint for notes.
+- Editor vpad's (probably not gonna do idk)
