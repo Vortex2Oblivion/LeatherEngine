@@ -74,6 +74,11 @@ class Main extends Sprite {
 				resetSpriteCache(FlxG.game);
 			}
 		});
+
+		#if mobile
+		lime.system.System.allowScreenTimeout = utilities.Options.getData("screenSaver");
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		#end
 	}
 
 	public static inline function resetSpriteCache(sprite:Sprite):Void {

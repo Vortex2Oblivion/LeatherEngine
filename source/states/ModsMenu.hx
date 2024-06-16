@@ -91,7 +91,9 @@ class ModsMenu extends MusicBeatState {
 		descriptionText.screenCenter(X);
 		add(descriptionText);
 
-		var leText:String = "Press ENTER to enable / disable the currently selected mod.";
+		final buttonEnter:String = controls.mobileC ? 'A' : 'ENTER';
+
+		var leText:String = 'Press $buttonEnter to enable / disable the currently selected mod.';
 
 		var text:FlxText = new FlxText(0, FlxG.height - 22, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
@@ -100,6 +102,8 @@ class ModsMenu extends MusicBeatState {
 		text.borderSize = 1;
 		text.borderStyle = OUTLINE;
 		add(text);
+
+		addVirtualPad(UP_DOWN, A_B);
 	}
 
 	function loadMods() {

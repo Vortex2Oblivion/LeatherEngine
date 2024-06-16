@@ -320,6 +320,21 @@
     {
       "option": "msSettings",
       "value": [517, 310, 1, 1]
+    },
+    {
+      "option": "mobileCAlpha",
+      "value": 0.6,
+      "save": "mobile"
+    },
+    {
+      "option": "hitboxType",
+      "value": "No Gradient",
+      "save": "mobile"
+    },
+    {
+      "option": "screenSaver",
+      "value": true,
+      "save": "mobile"
     }
   ]
 }

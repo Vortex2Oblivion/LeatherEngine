@@ -2784,8 +2784,8 @@ class ModchartUtilities {
 			}
 		});
 
-		setLuaFunction("createCustomShader", function(id:String, file:String, ?glslVersion:Int = 120){
-			var funnyCustomShader:CustomShader = new CustomShader(Assets.getText(Paths.frag(file)), null, glslVersion);
+		setLuaFunction("createCustomShader", function(id:String, file:String){
+			var funnyCustomShader:CustomShader = new CustomShader(Assets.getText(Paths.frag(file)), null);
 			lua_Custom_Shaders.set(id, funnyCustomShader);
 		});
 
@@ -2888,8 +2888,8 @@ class ModchartUtilities {
 		});
 
 		//dumb vc functions
-		setLuaFunction("initShader", function(id:String, file:String, ?glslVersion:Int = 120){
-			var funnyCustomShader:CustomShader = new CustomShader(Assets.getText(Paths.frag(file)), null, glslVersion);
+		setLuaFunction("initShader", function(id:String, file:String){
+			var funnyCustomShader:CustomShader = new CustomShader(Assets.getText(Paths.frag(file)), null);
 			lua_Custom_Shaders.set(id, funnyCustomShader);
 		});
 

@@ -39,6 +39,7 @@ class OptionsMenu extends MusicBeatState {
 			new PageOption("Gameplay", "Gameplay", "Test Description"),
 			new PageOption("Graphics", "Graphics"),
 			new PageOption("Misc", "Misc"),
+			new PageOption("Mobile Options", "Mobile Options"),
 			new PageOption("Developer Options", "Developer Options")
 		],
 		"Gameplay" => [
@@ -154,6 +155,13 @@ class OptionsMenu extends MusicBeatState {
 			new BoolOption("Screen Shake", "screenShakes"),
 			new BoolOption("Shaders", "shaders")
 		],
+		"Mobile Options" => [
+			new PageOption("Back", "Categories"),
+			new GameSubStateOption("Mobile Controls Opacity", mobile.substates.MobileControlsAlphaMenu),
+			new StringSaveOption("Hitbox Design", ["No Gradient", "No Gradient (Old)", "Gradient", "Hidden"], "hitboxType")#if mobile ,
+			new BoolOption("Allow Phone Screensaver", "screenSaver")
+			#end
+		],
 		"Developer Options" => [
 			new PageOption("Back", "Categories"),
 			new BoolOption("Developer Mode", "developer")
@@ -187,6 +195,8 @@ class OptionsMenu extends MusicBeatState {
 		menuBG.screenCenter();
 		menuBG.antialiasing = true;
 		add(menuBG);
+
+		addVirtualPad(UP_DOWN, A_B);
 
 		super.create();
 
@@ -279,5 +289,12 @@ class OptionsMenu extends MusicBeatState {
 				}
 			}
 		}
+	}
+
+	override function closeSubState() {
+		persistentUpdate = true;
+		removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);
+		super.closeSubState();
 	}
 }

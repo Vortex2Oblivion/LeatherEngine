@@ -2,10 +2,7 @@ package mobile.utilities;
 
 import lime.system.System as LimeSystem;
 #if android
-import android.content.Context as AndroidContext;
-import android.os.Environment as AndroidEnvironment;
 import android.Permissions as AndroidPermissions;
-import android.Settings as AndroidSettings;
 #end
 #if sys
 import sys.FileSystem;
@@ -23,13 +20,9 @@ class SUtil
 	#if sys
 	public static function getStorageDirectory(?force:Bool = false):String
 	{
-		var daPath:String = '';
+		var daPath:String = Sys.getCwd();
 		#if android
-		if (!FileSystem.exists(LimeSystem.applicationStorageDirectory + 'storagetype.txt'))
-			File.saveContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt', 'EXTERNAL_DATA'/*utilities.Options.getData("storageType")*/);
-		var curStorageType:String = File.getContent(LimeSystem.applicationStorageDirectory + 'storagetype.txt');
-		daPath = force ? StorageType.fromStrForce(curStorageType) : StorageType.fromStr(curStorageType);
-		daPath = haxe.io.Path.addTrailingSlash(daPath);
+		daPath = haxe.io.Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : android.content.Context.getExternalFilesDir());
 		#elseif ios
 		daPath = LimeSystem.documentsDirectory;
 		#end
@@ -92,8 +85,6 @@ class SUtil
 			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
 			showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens',
 				'Notice!');
-			if (!AndroidEnvironment.isExternalStorageManager())
-				AndroidSettings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
 		}
 		else
 		{
@@ -109,24 +100,9 @@ class SUtil
 			}
 		}
 	}
-
-	public static function checkExternalPaths(?splitStorage = false):Array<String> {
-		var process = new sys.io.Process('grep -o "/storage/....-...." /proc/mounts | paste -sd \',\'');
-		var paths:String = process.stdout.readAll().toString();
-		if (splitStorage) paths = paths.replace('/storage/', '');
-		return paths.split(',');
-	}
-
-	public static function getExternalDirectory(external:String):String {
-		var daPath:String = '';
-		for (path in checkExternalPaths())
-			if (path.contains(external)) daPath = path;
-
-		daPath = haxe.io.Path.addTrailingSlash(daPath.endsWith("\n") ? daPath.substr(0, daPath.length - 1) : daPath);
-		return daPath;
-	}
 	#end
 	#end
+
 	public static function showPopUp(message:String, title:String):Void
 	{
 		#if !ios
@@ -141,46 +117,3 @@ class SUtil
 		#end
 	}
 }
-
-#if android
-enum abstract StorageType(String) from String to String
-{
-	final forcedPath = '/storage/emulated/0/';
-	final packageNameLocal = 'com.leather128.funkin';
-	final fileLocal = 'LeatherEngine';
-
-	public static function fromStr(str:String):StorageType
-	{
-		final EXTERNAL_DATA = AndroidContext.getExternalFilesDir();
-		final EXTERNAL_OBB = AndroidContext.getObbDir();
-		final EXTERNAL_MEDIA = AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
-		final EXTERNAL = AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
-
-		return switch (str)
-		{
-			case "EXTERNAL_DATA": EXTERNAL_DATA;
-			case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
-		}
-	}
-
-	public static function fromStrForce(str:String):StorageType
-	{
-		final EXTERNAL_DATA = forcedPath + 'Android/data/' + packageNameLocal + '/files';
-		final EXTERNAL_OBB = forcedPath + 'Android/obb/' + packageNameLocal;
-		final EXTERNAL_MEDIA = forcedPath + 'Android/media/' + packageNameLocal;
-		final EXTERNAL = forcedPath + '.' + fileLocal;
-
-		return switch (str)
-		{
-			case "EXTERNAL_DATA": EXTERNAL_DATA;
-			case "EXTERNAL_OBB": EXTERNAL_OBB;
-			case "EXTERNAL_MEDIA": EXTERNAL_MEDIA;
-			case "EXTERNAL": EXTERNAL;
-			default: SUtil.getExternalDirectory(str) + '.' + fileLocal;
-		}
-	}
-}
-#end

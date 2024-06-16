@@ -26,12 +26,15 @@ class OutdatedSubState extends MusicBeatState {
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+		final buttonEnter:String = controls.mobileC ? 'A' : 'ENTER';
+		final buttonESC:String = controls.mobileC ? 'B' : 'ESCAPE';
+
 		var txt:FlxText = new FlxText(0, 0, FlxG.width,
 			"HEY! You're running an outdated version of the game!\nCurrent version is "
 			+ CoolUtil.getCurrentVersion()
 			+ " while the most recent version is "
 			+ version
-			+ "! Press Enter to go to the GitHub Page, or ESCAPE to ignore this!! (Probably shouldn't, but you can.)",
+			+ '! Press $buttonEnter to go to the GitHub Page, or $buttonESC to ignore this!! (Probably shouldn\'t, but you can.)',
 			32);
 		txt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
@@ -42,7 +45,7 @@ class OutdatedSubState extends MusicBeatState {
 		super.update(elapsed);
 
 		if (controls.ACCEPT) {
-			CoolUtil.openURL("https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support");
+			CoolUtil.openURL("https://github.com/MobilePorting/LeatherEngine-LTS-Mobile");
 		}
 
 		if (controls.BACK) {

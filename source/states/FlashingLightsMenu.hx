@@ -11,9 +11,13 @@ class FlashingLightsMenu extends MusicBeatState {
 	private var canInput:Bool = true;
 
 	override public function create() {
+		addVirtualPad(NONE, A_B);
 		super.create();
 
-		text = new FlxText(0, 0, 0, 'This game has flashing lights!\nPress Y to enable them, or N to disable them.\n(Either key closes takes you to the title screen.)',
+		final buttonY:String = controls.mobileC ? 'A' : 'Y';
+		final buttonN:String = controls.mobileC ? 'B' : 'N';
+
+		text = new FlxText(0, 0, 0, 'This game has flashing lights!\nPress $buttonY to enable them, or $buttonN to disable them.\n(Either ${controls.mobileC ? 'button' : 'key'} closes takes you to the title screen.)',
 			32);
 		text.font = Paths.font('vcr.ttf');
 		text.screenCenter();

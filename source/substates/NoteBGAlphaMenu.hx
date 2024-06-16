@@ -30,6 +30,8 @@ class NoteBGAlphaMenu extends MusicBeatSubstate
         offsetText.text = "Alpha: " + alpha_Value;
         offsetText.screenCenter();
         add(offsetText);
+
+        addVirtualPad(LEFT_RIGHT, B);
     }
 
     override function update(elapsed:Float) {

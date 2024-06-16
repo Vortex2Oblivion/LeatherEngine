@@ -7,7 +7,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.math.FlxMath;
 import flixel.graphics.frames.FlxAtlasFrames;
 
-#if desktop
+#if (desktop || mobile)
 import funkin.vis.dsp.SpectralAnalyzer;
 #end
 
@@ -15,7 +15,7 @@ using Lambda;
 
 class ABotVis extends FlxSpriteGroup
 {
-    #if desktop
+    #if (desktop || mobile)
     var analyzer:SpectralAnalyzer;
     #end
 
@@ -51,7 +51,7 @@ class ABotVis extends FlxSpriteGroup
             viz.animation.play('VIZ', false, false, 6);
         }
 
-        #if desktop
+        #if (desktop || mobile)
         @:privateAccess
         analyzer = new SpectralAnalyzer(FlxG.sound.music._channel.__audioSource , 7, 0.01, 30);
         #end
@@ -60,7 +60,7 @@ class ABotVis extends FlxSpriteGroup
 
     override function draw()
     {
-        #if desktop
+        #if (desktop || mobile)
         if(FlxG.sound.music != null){
             var levels = analyzer.getLevels();
 

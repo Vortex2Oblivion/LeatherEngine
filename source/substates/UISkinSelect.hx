@@ -73,6 +73,8 @@ class UISkinSelect extends MusicBeatSubstate
             curSelected = ui_Skins.indexOf(ui_Skin);
         });
         #end
+
+        addVirtualPad(LEFT_RIGHT, A_B);
     }
 
     override function update(elapsed:Float) {

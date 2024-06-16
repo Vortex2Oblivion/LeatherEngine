@@ -40,6 +40,8 @@ class JudgementMenu extends MusicBeatSubstate
 
         update_Text();
         add(judgementText);
+
+        addVirtualPad(LEFT_FULL, B);
     }
 
     override function update(elapsed:Float) {

@@ -12,6 +12,8 @@ import game.Boyfriend;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -59,6 +61,8 @@ class GameOverSubstate extends MusicBeatSubstate {
 			var soundlol:FlxSound = new FlxSound().loadEmbedded(Paths.sound("deaths/fakeout_death", "shared"));
 			soundlol.play();
 			soundlol.onComplete = () -> {
+				addVirtualPad(NONE, A_B);
+				addVirtualPadCamera();
 				bfDies();
 				fakeout.visible = false;
 			}
@@ -74,6 +78,8 @@ class GameOverSubstate extends MusicBeatSubstate {
 			add(fakeout);
 		}
 		else {
+			addVirtualPad(NONE, A_B);
+			addVirtualPadCamera();
 			bfDies();
 		}
 	}
@@ -144,6 +150,7 @@ class GameOverSubstate extends MusicBeatSubstate {
 
 			FlxG.sound.play(soundPath);
 			new FlxTimer().start(0.7, function(tmr:FlxTimer) {
+				if (controls.mobileC) FlxTween.tween(virtualPad, {alpha: 0}, 2.7, {ease: FlxEase.smootherStepOut});
 				FlxG.camera.fade(FlxColor.BLACK, 2, false, function() {
 					PlayState.instance.closeLua();
 					PlayState.SONG.speed = PlayState.previousScrollSpeedLmao;

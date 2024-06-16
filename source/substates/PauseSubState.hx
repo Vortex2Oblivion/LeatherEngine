@@ -263,6 +263,7 @@ class PauseSubState extends MusicBeatSubstate {
 					songText.targetY = i;
 
 					grpMenuShit.add(songText);
+					addVirtualPad(LEFT_FULL, A_B);
 				}
 			else{
 				var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menus.get(menu)[i], true);
@@ -270,10 +271,11 @@ class PauseSubState extends MusicBeatSubstate {
 				songText.targetY = i;
 
 				grpMenuShit.add(songText);
+				addVirtualPad(UP_DOWN, A_B);
 			}
 		}
 
-	
+		addVirtualPadCamera();
 
 		if(jump) curSelected = 0;
 		else FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);

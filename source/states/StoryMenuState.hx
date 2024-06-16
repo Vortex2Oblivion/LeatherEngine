@@ -72,13 +72,15 @@ class StoryMenuState extends MusicBeatState {
 		// CREATE THE UI //
 		createStoryUI();
 
+		addVirtualPad(LEFT_FULL, A_B_X_Y);
+
 		super.create();
 	}
 
 	override function update(elapsed:Float) {
 
-		#if sys
-		if(FlxG.keys.justPressed.TAB){
+		#if MODDING_ALLOWED
+		if(virtualPad.buttonY.justPressed || FlxG.keys.justPressed.TAB){
 			openSubState(new modding.SwitchModSubstate());
 			persistentUpdate = false;
 		}
@@ -120,7 +122,8 @@ class StoryMenuState extends MusicBeatState {
 				if (FlxG.keys.justPressed.Q)
 					changeGroup(-1);
 
-				if (controls.RESET) {
+				if (virtualPad.buttonX.justPressed || controls.RESET) {
+					persistentUpdate = false;
 					openSubState(new ResetScoreSubstate("nonelolthisisweekslmao", curDifficulties[curDifficulty][0], curWeek, currentGroup.pathName + "Week",
 						true));
 					changeWeek();
@@ -142,6 +145,9 @@ class StoryMenuState extends MusicBeatState {
 
 	override function closeSubState() {
 		changeWeek();
+		persistentUpdate = true;
+		removeVirtualPad();
+		addVirtualPad(LEFT_FULL, A_B_X_Y);
 		FlxG.mouse.visible = false;
 		super.closeSubState();
 	}

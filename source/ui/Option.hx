@@ -139,8 +139,10 @@ class GameSubStateOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0)
+		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0) {
+			OptionsMenu.instance.persistentUpdate = false;
 			FlxG.state.openSubState(Type.createInstance(this.gameSubState, []));
+		}
 	}
 }
 
