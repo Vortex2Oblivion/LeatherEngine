@@ -3462,10 +3462,12 @@ class PlayState extends MusicBeatState {
 					heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
 
 					// wow, is that easy? - lily
+					if (controls.mobileC) {
 					justPressedArray[i] = hitbox.hints[i].justPressed;
 					releasedArray[i] = hitbox.hints[i].released;
 					justReleasedArray[i] = hitbox.hints[i].justReleased;
 					heldArray[i] = hitbox.hints[i].pressed;
+					}
 
 					if (releasedArray[i] && SONG.playerKeyCount == 4) {
 						justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
