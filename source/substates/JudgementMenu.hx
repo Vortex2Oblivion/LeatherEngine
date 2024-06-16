@@ -60,6 +60,7 @@ class JudgementMenu extends MusicBeatSubstate
         {
             Options.setData(judgements, "judgementTimings");
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(downP || upP)

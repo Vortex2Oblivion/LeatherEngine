@@ -51,6 +51,7 @@ class MaxFPSMenu extends MusicBeatSubstate
         {
             Options.setData(fps, "maxFPS");
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(left && !FlxG.keys.pressed.SHIFT)

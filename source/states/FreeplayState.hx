@@ -332,6 +332,7 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 		#if sys
 		if(virtualPad.buttonC.justPressed || FlxG.keys.justPressed.TAB){
 			openSubState(new modding.SwitchModSubstate());
+			removeVirtualPad();
 			persistentUpdate = false;
 		}
 		#end

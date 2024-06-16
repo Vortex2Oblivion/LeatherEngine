@@ -73,6 +73,8 @@ class NoteColorSubstate extends MusicBeatSubstate
 
         updateColorValsBase();
         update_Text();
+
+        addVirtualPad(LEFT_FULL, A_B_C);
     }
 
     override function update(elapsed:Float) {
@@ -83,7 +85,7 @@ class NoteColorSubstate extends MusicBeatSubstate
         var upP = controls.UP_P;
 		var downP = controls.DOWN_P;
         var accept = controls.ACCEPT;
-        var reset = controls.RESET;
+        var reset = virtualPad.buttonC.justPressed || controls.RESET;
         var back = controls.BACK;
 
         if(arrow_Group != null)
@@ -105,6 +107,7 @@ class NoteColorSubstate extends MusicBeatSubstate
             {
                 FlxG.mouse.visible = false;
                 states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
             }
     
             for(x in arrow_Group)
@@ -217,7 +220,10 @@ class NoteColorSubstate extends MusicBeatSubstate
                 blue = "> " + blue + " <";
         }
 
-        coolText.text = "Use UP and DOWN to change number of keys or the selected color\nLEFT and RIGHT to change arrow selected or the color selected\nR to Reset Note Colors\nENTER to select a note\nRed: " + red + ", Green: " + green + ", Blue: " + blue + "\n";
+        final buttonReset:String = controls.mobileC ? 'C' : 'R';
+        final buttonEnter:String = controls.mobileC ? 'A' : 'ENTER';
+
+        coolText.text = 'Use UP and DOWN to change number of keys or the selected color\nLEFT and RIGHT to change arrow selected or the color selected\n$buttonReset to Reset Note Colors\n$buttonEnter to select a note\nRed: ' + red + ", Green: " + green + ", Blue: " + blue + "\n";
         coolText.screenCenter(X);
     }
 

@@ -51,6 +51,7 @@ class SongOffsetMenu extends MusicBeatSubstate
             Options.setData(offset, "songOffset");
             Conductor.offset = offset;
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(left && !FlxG.keys.pressed.SHIFT)

@@ -82,6 +82,7 @@ class StoryMenuState extends MusicBeatState {
 		#if MODDING_ALLOWED
 		if(virtualPad.buttonY.justPressed || FlxG.keys.justPressed.TAB){
 			openSubState(new modding.SwitchModSubstate());
+			removeVirtualPad();
 			persistentUpdate = false;
 		}
 		#end

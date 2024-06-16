@@ -1,5 +1,4 @@
-- NoteColorSubState (vpad)
 - StoryMenuState (Q and E thing)
 - PlayState (hitbox and pause button)
-- Per hint for notes.
+- Per hint for notes. (StrumNote's mania_size ig)
 - Editor vpad's (probably not gonna do idk)

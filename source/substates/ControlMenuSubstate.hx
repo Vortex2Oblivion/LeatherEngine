@@ -205,6 +205,7 @@ class ControlMenuSubstate extends MusicBeatSubstate
     
                 FlxG.mouse.visible = false;
                 states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
             }
     
             if(FlxG.mouse.overlaps(fullscreenKey) && FlxG.mouse.justPressed && !selectingStuff)

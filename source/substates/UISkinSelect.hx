@@ -102,6 +102,7 @@ class UISkinSelect extends MusicBeatSubstate
                 },
                 onComplete: function(tween:FlxTween) {
                     states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
                 }
             });
         }

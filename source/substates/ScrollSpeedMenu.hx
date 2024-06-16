@@ -45,6 +45,7 @@ class ScrollSpeedMenu extends MusicBeatSubstate
         {
             Options.setData(alpha_Value, "customScrollSpeed");
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(leftP)

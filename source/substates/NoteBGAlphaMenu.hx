@@ -46,6 +46,7 @@ class NoteBGAlphaMenu extends MusicBeatSubstate
         {
             Options.setData(alpha_Value, "noteBGAlpha");
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(leftP)

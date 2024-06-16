@@ -46,6 +46,7 @@ class MobileControlsAlphaMenu extends substates.MusicBeatSubstate
         {
             Options.setData(opacityValue, "mobileCAlpha");
             states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(leftP)

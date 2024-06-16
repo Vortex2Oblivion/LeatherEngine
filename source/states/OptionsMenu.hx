@@ -206,7 +206,7 @@ class OptionsMenu extends MusicBeatState {
 			FlxG.sound.playMusic(MusicUtilities.GetOptionsMenuMusic(), 0.7, true);
 
 		addVirtualPad(UP_DOWN, A_B);
-		//addVirtualPadCamera();
+		addVirtualPadCamera();
 	}
 
 	public function loadPage(loadedPageName:String):Void {
@@ -297,11 +297,12 @@ class OptionsMenu extends MusicBeatState {
 		super.closeSubState();
 		removeVirtualPad();
 		addVirtualPad(UP_DOWN, A_B);
-		//addVirtualPadCamera();
+		addVirtualPadCamera();
 	}
 
 	override function openSubState(substate:flixel.FlxSubState) {
 		persistentUpdate = false;
+		removeVirtualPad();
 		super.openSubState(substate);
 	}
 }
