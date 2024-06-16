@@ -22,7 +22,7 @@ class MathUtil
    * @return The interpolated value.
    */
   @:deprecated('Use smoothLerp instead')
-  public static function coolLerp(base:Float, target:Float, ratio:Float):Float
+  public static inline function coolLerp(base:Float, target:Float, ratio:Float):Float
   {
     return base + cameraLerp(ratio) * (target - base);
   }
@@ -34,7 +34,7 @@ class MathUtil
    * @return The interpolated value.
    */
   @:deprecated('Use smoothLerp instead')
-  public static function cameraLerp(lerp:Float):Float
+  public static inline function cameraLerp(lerp:Float):Float
   {
     return lerp * (FlxG.elapsed / (1 / 60));
   }
@@ -45,7 +45,7 @@ class MathUtil
    * @param value The value to get the logarithm of.
    * @return `log_base(value)`
    */
-  public static function logBase(base:Float, value:Float):Float
+  public static inline function logBase(base:Float, value:Float):Float
   {
     return Math.log(value) / Math.log(base);
   }
@@ -85,7 +85,7 @@ class MathUtil
    * @param x value
    * @return `2^x`
    */
-  public static function exp2(x:Float):Float
+  public static inline function exp2(x:Float):Float
   {
     return Math.pow(2, x);
   }
@@ -98,7 +98,7 @@ class MathUtil
    * @param progress Value used to interpolate between `base` and `target`.
    * @return The interpolated value.
    */
-  public static function lerp(base:Float, target:Float, progress:Float):Float
+  public static inline function lerp(base:Float, target:Float, progress:Float):Float
   {
     return base + progress * (target - base);
   }

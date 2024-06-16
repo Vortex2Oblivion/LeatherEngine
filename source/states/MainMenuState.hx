@@ -170,7 +170,7 @@ class MainMenuState extends MusicBeatState {
 
 	override function update(elapsed:Float) {
 		#if MODDING_ALLOWED
-		if(virtualPad.buttonC.justPressed || FlxG.keys.justPressed.TAB){
+		if(!selectedSomethin && virtualPad.buttonC.justPressed || FlxG.keys.justPressed.TAB){
 			openSubState(new modding.SwitchModSubstate());
 			persistentUpdate = false;
 		}
