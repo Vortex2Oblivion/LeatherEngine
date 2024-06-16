@@ -49,7 +49,7 @@ class MusicBeatSubstate extends FlxSubState
 		controls.trackedInputsUI = [];
 	}
 
-	public function addVirtualPadCamera(DefaultDrawTarget:Bool = true):Void
+	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false):Void
 	{
 		if (virtualPad != null)
 		{
@@ -83,7 +83,7 @@ class MusicBeatSubstate extends FlxSubState
 		controls.trackedInputsNOTES = [];
 	}
 
-	public function addHitboxCamera(DefaultDrawTarget:Bool = true):Void
+	public function addHitboxCamera(DefaultDrawTarget:Bool = false):Void
 	{
 		if (hitbox != null)
 		{
