@@ -947,6 +947,10 @@ class PlayState extends MusicBeatState {
 		addHitbox();
 		addHitboxCamera();
 		hitbox.visible = false;
+		#if !android
+		addVirtualPad(NONE, P);
+		virtualPad.visible = true;
+		#end
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(camPos.x, camPos.y);
@@ -2867,7 +2871,7 @@ class PlayState extends MusicBeatState {
 		if (!inCutscene && !switchedStates)
 			keyShit();
 
-		if (FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("pauseBind", "binds")), FlxInputState.JUST_PRESSED)
+		if (#if android FlxG.android.justReleased.BACK #else virtualPad.buttonP.justPressed #end || FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("pauseBind", "binds")), FlxInputState.JUST_PRESSED)
 			&& startedCountdown
 			&& canPause
 			&& !switchedStates) {
@@ -3073,7 +3077,7 @@ class PlayState extends MusicBeatState {
 
 	function endSong():Void {
 		call("endSong", []);
-		canPause = hitbox.visible = false;
+		canPause = hitbox.visible = #if !android virtualPad.visible = #end false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 
