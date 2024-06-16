@@ -50,7 +50,7 @@ class SongOffsetMenu extends MusicBeatSubstate
         {
             Options.setData(offset, "songOffset");
             Conductor.offset = offset;
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(left && !FlxG.keys.pressed.SHIFT)

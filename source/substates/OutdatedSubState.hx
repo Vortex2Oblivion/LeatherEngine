@@ -39,6 +39,8 @@ class OutdatedSubState extends MusicBeatState {
 		txt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
 		add(txt);
+
+		addVirtualPad(NONE, A_B);
 	}
 
 	override function update(elapsed:Float) {

@@ -11,7 +11,6 @@ class FlashingLightsMenu extends MusicBeatState {
 	private var canInput:Bool = true;
 
 	override public function create() {
-		addVirtualPad(NONE, A_B);
 		super.create();
 
 		final buttonY:String = controls.mobileC ? 'A' : 'Y';
@@ -22,6 +21,8 @@ class FlashingLightsMenu extends MusicBeatState {
 		text.font = Paths.font('vcr.ttf');
 		text.screenCenter();
 		add(text);
+
+		addVirtualPad(NONE, A_B);
 	}
 
 	override function update(elapsed:Float) {
@@ -31,8 +32,8 @@ class FlashingLightsMenu extends MusicBeatState {
 			return;
 		}
 
-		var yes:Bool = FlxG.keys.justPressed.Y;
-		var no:Bool = FlxG.keys.justPressed.N;
+		var yes:Bool = virtualPad.buttonA.justPressed || FlxG.keys.justPressed.Y;
+		var no:Bool = virtualPad.buttonB.justPressed || FlxG.keys.justPressed.N;
 
 		if (yes) {
 			Options.setData(true, 'flashingLights');

@@ -323,18 +323,15 @@
     },
     {
       "option": "mobileCAlpha",
-      "value": 0.6,
-      "save": "mobile"
+      "value": 0.6
     },
     {
       "option": "hitboxType",
-      "value": "No Gradient",
-      "save": "mobile"
+      "value": "No Gradient"
     },
     {
       "option": "screenSaver",
-      "value": true,
-      "save": "mobile"
+      "value": true
     }
   ]
 }

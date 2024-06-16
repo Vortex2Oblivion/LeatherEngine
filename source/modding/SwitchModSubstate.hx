@@ -60,8 +60,6 @@ class SwitchModSubstate extends MusicBeatSubstate {
         menuBG.scrollFactor.set();
 		add(menuBG);
 
-		addVirtualPad(UP_DOWN, A_B);
-
 		super.create();
 		add(page);
 
@@ -94,6 +92,8 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		text.borderSize = 1;
 		text.borderStyle = OUTLINE;
 		add(text);
+
+		addVirtualPad(UP_DOWN, A_B);
 	}
 
 	function loadMods() {

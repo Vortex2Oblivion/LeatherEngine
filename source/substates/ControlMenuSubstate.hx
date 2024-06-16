@@ -204,7 +204,7 @@ class ControlMenuSubstate extends MusicBeatSubstate
                 PlayerSettings.player1.controls.loadKeyBinds();
     
                 FlxG.mouse.visible = false;
-                FlxG.state.closeSubState();
+                states.OptionsMenu.instance.closeSubState();
             }
     
             if(FlxG.mouse.overlaps(fullscreenKey) && FlxG.mouse.justPressed && !selectingStuff)

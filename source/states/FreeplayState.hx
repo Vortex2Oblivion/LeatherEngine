@@ -299,16 +299,22 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 		textBG.alpha = 0.6;
 		add(textBG);
 
+		final buttonReset:String = controls.mobileC ? 'Y' : 'RESET';
+		final buttonSpace:String = controls.mobileC ? 'X' : 'SPACE';
+		final buttonShift:String = controls.mobileC ? 'Z' : 'SHIFT';
+
 		#if PRELOAD_ALL
-		var leText:String = "Press RESET to reset song score and rank ~ Press SPACE to play Song Audio ~ Shift + LEFT and RIGHT to change song speed";
+		var leText:String = 'Press $buttonReset to reset song score and rank ~ Press $buttonSpace to play Song Audio ~ $buttonShift + LEFT and RIGHT to change song speed';
 		#else
-		var leText:String = "Press RESET to reset song score ~ Shift + LEFT and RIGHT to change song speed";
+		var leText:String = 'Press $buttonReset to reset song score ~ $buttonShift + LEFT and RIGHT to change song speed';
 		#end
 
 		var text:FlxText = new FlxText(textBG.x - 1, textBG.y + 4, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
+
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
 
 		super.create();
 		call("createPost");
@@ -324,7 +330,7 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 	override function update(elapsed:Float) {
 		call("update", [elapsed]);
 		#if sys
-		if(FlxG.keys.justPressed.TAB){
+		if(virtualPad.buttonC.justPressed || FlxG.keys.justPressed.TAB){
 			openSubState(new modding.SwitchModSubstate());
 			persistentUpdate = false;
 		}
@@ -374,12 +380,14 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 		if (curSpeed < 0.25)
 			curSpeed = 0.25;
 
-		speedText.text = "Speed: " + curSpeed + " (R+SHIFT)";
+		final buttonRShift:String = !controls.mobileC ? " (R+SHIFT)" : "";
+
+		speedText.text = "Speed: " + curSpeed + buttonRShift;
 		speedText.x = FlxG.width - speedText.width;
 
 		var leftP = controls.LEFT_P;
 		var rightP = controls.RIGHT_P;
-		var shift = FlxG.keys.pressed.SHIFT;
+		var shift = virtualPad.buttonZ.pressed || FlxG.keys.pressed.SHIFT;
 
 		var upP = controls.UP_P;
 		var downP = controls.DOWN_P;
@@ -425,7 +433,7 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 			}
 
 			#if PRELOAD_ALL
-			if (FlxG.keys.justPressed.SPACE) {
+			if (virtualPad.buttonX.justPressed || FlxG.keys.justPressed.SPACE) {
 				destroyFreeplayVocals();
 
 				if (Assets.exists(Paths.voices(songs[curSelected].songName.toLowerCase(), curDiffString.toLowerCase())))
@@ -462,15 +470,16 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 
 			if (FlxG.sound.music.active && FlxG.sound.music.playing && !FlxG.keys.justPressed.ENTER)
 				FlxG.sound.music.pitch = curSpeed;
-			if (vocals != null && vocals.active && vocals.playing && !FlxG.keys.justPressed.ENTER)
+			if (vocals != null && vocals.active && vocals.playing && !virtualPad.buttonA.justPressed || !FlxG.keys.justPressed.ENTER)
 				vocals.pitch = curSpeed;
 
-			if (controls.RESET && !shift) {
+			if (virtualPad.buttonY.justPressed || controls.RESET && !shift) {
 				openSubState(new ResetScoreSubstate(songs[curSelected].songName, curDiffString));
+				persistentUpdate = false;
 				changeSelection();
 			}
 
-			if (FlxG.keys.justPressed.ENTER && canEnterSong) {
+			if (virtualPad.buttonA.justPressed || FlxG.keys.justPressed.ENTER && canEnterSong) {
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDiffString);
 				trace(poop);
 
@@ -492,7 +501,6 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 							colorTween.cancel();
 
 						PlayState.loadChartEvents = true;
-						destroyFreeplayVocals();
 						LoadingState.loadAndSwitchState(new PlayState());
 					} else {
 						if (Assets.exists(Paths.inst(songs[curSelected].songName.toLowerCase(), curDiffString.toLowerCase())))
@@ -516,6 +524,9 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 	override function closeSubState() {
 		changeSelection();
 		FlxG.mouse.visible = false;
+		persistentUpdate = true;
+		removeVirtualPad();
+		addVirtualPad(LEFT_FULL, A_B_C_X_Y_Z);
 		super.closeSubState();
 	}
 
@@ -653,6 +664,11 @@ class FreeplayState extends MusicBeatState implements IHScriptable{
 		if (lastSelectedSong != -1 && iconArray[lastSelectedSong] != null)
 			iconArray[lastSelectedSong].scale.add(0.2, 0.2);
 		call("beatHitPost");
+	}
+
+	override function destroy() {
+		super.destroy();
+		destroyFreeplayVocals();
 	}
 }
 

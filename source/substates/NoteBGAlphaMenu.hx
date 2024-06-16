@@ -45,7 +45,7 @@ class NoteBGAlphaMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(alpha_Value, "noteBGAlpha");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(leftP)

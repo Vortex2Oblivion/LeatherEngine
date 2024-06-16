@@ -104,7 +104,7 @@ class NoteColorSubstate extends MusicBeatSubstate
             else if(back)
             {
                 FlxG.mouse.visible = false;
-                FlxG.state.closeSubState();
+                states.OptionsMenu.instance.closeSubState();
             }
     
             for(x in arrow_Group)

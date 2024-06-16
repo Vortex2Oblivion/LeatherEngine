@@ -50,7 +50,7 @@ class MaxFPSMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(fps, "maxFPS");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(left && !FlxG.keys.pressed.SHIFT)

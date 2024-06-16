@@ -40,6 +40,7 @@ class CopyState extends states.MusicBeatState
 
 	override function create()
 	{
+		FlxG.fullscreen = false;
 		locatedFiles = [];
 		maxLoopTimes = 0;
 		checkExistingFiles();
@@ -87,6 +88,7 @@ class CopyState extends states.MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		FlxG.fullscreen = false;
 		if (shouldCopy && copyLoop != null)
 		{
 			if (copyLoop.finished && canUpdate)

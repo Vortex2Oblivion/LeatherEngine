@@ -59,7 +59,7 @@ class JudgementMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(judgements, "judgementTimings");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(downP || upP)

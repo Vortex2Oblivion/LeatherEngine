@@ -31,7 +31,6 @@ class Options {
 		createSave("arrowColors", "arrowColors");
 		createSave("autosave", "autosave");
 		createSave("modlist", "modlist");
-		createSave("mobile", "mobile");
 
 		defaultOptions = Json.parse(Assets.getText(Paths.json("defaultOptions")));
 

@@ -44,7 +44,7 @@ class ScrollSpeedMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(alpha_Value, "customScrollSpeed");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(leftP)

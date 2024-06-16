@@ -30,6 +30,8 @@ class MobileControlsAlphaMenu extends substates.MusicBeatSubstate
         offsetText.text = "Opacity: " + opacityValue;
         offsetText.screenCenter();
         add(offsetText);
+
+        addVirtualPad(LEFT_RIGHT, B);
     }
 
     override function update(elapsed:Float) {
@@ -43,7 +45,7 @@ class MobileControlsAlphaMenu extends substates.MusicBeatSubstate
         if(back)
         {
             Options.setData(opacityValue, "mobileCAlpha");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
         }
 
         if(leftP)

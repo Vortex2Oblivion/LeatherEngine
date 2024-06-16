@@ -101,7 +101,7 @@ class UISkinSelect extends MusicBeatSubstate
                     current_UI_Skin.alpha = bg.alpha;
                 },
                 onComplete: function(tween:FlxTween) {
-                    FlxG.state.closeSubState();
+                    states.OptionsMenu.instance.closeSubState();
                 }
             });
         }
