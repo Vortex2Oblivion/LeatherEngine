@@ -1,5 +1,4 @@
 - StoryMenuState (Q and E thing)
-- PlayState (key handle)
-- Editor vpad's (probably not gonna do idk)
+- isInSubstate-ish code
 - FlxHitbox (colors)
 - Mobile Lua Functions

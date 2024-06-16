@@ -1768,7 +1768,7 @@ class PlayState extends MusicBeatState {
 				daNote.active = false;
 				daNote.visible = false;
 
-				daNote.kill();
+				//daNote.kill();
 				unspawnNotes.remove(daNote);
 				daNote.destroy();
 			}
@@ -1788,7 +1788,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	inline function invalidateNote(note:Note):Void {
-		note.kill();
+		//note.kill();
 		notes.remove(note, true);
 		note.destroy();
 	}
@@ -2058,7 +2058,7 @@ class PlayState extends MusicBeatState {
 
 			strumLineNotes.add(babyArrow);
 
-			if (usedKeyCount != 4 && isPlayer && Options.getData("extraKeyReminders") && showReminders) {
+			if (!controls.mobileC && usedKeyCount != 4 && isPlayer && Options.getData("extraKeyReminders") && showReminders) {
 				// var coolWidth = Std.int(40 - ((key_Count - 5) * 2) + (key_Count == 10 ? 30 : 0));
 				// funny 4 key math i guess, full num is 2.836842105263158 (width / previous key width thingy which was 38)
 				var coolWidth = Math.ceil(babyArrow.width / 2.83684);
@@ -2726,7 +2726,7 @@ class PlayState extends MusicBeatState {
 					daNote.active = false;
 					daNote.visible = false;
 
-					daNote.kill();
+					//daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
@@ -2858,7 +2858,7 @@ class PlayState extends MusicBeatState {
 					daNote.active = false;
 					daNote.visible = false;
 
-					daNote.kill();
+					//daNote.kill();
 					notes.remove(daNote, true);
 					daNote.destroy();
 				}
@@ -2964,10 +2964,10 @@ class PlayState extends MusicBeatState {
 			}
 		});
 
-		splash_group.forEachAlive(function(splash:NoteSplash) {
+		/*splash_group.forEachAlive(function(splash:NoteSplash) {
 			if (splash.animation.finished)
 				splash.kill();
-		});
+		});*/
 
 		#if LUA_ALLOWED
 		if (((stage.stageScript != null || (luaModchart != null && executeModchart))
@@ -3460,6 +3460,12 @@ class PlayState extends MusicBeatState {
 					justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_RELEASED);
 					heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
 
+					// wow, is that easy? - lily
+					justPressedArray[i] = hitbox.hints[i].justPressed;
+					releasedArray[i] = hitbox.hints[i].released;
+					justReleasedArray[i] = hitbox.hints[i].justReleased;
+					heldArray[i] = hitbox.hints[i].pressed;
+
 					if (releasedArray[i] && SONG.playerKeyCount == 4) {
 						justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
 						releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.RELEASED);
@@ -3942,7 +3948,7 @@ class PlayState extends MusicBeatState {
 			vocals.volume = 1;
 
 			if (!note.isSustainNote) {
-				note.kill();
+				//note.kill();
 				notes.remove(note, true);
 				note.destroy();
 			}
