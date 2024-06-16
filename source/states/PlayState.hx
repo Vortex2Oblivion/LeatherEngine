@@ -947,6 +947,7 @@ class PlayState extends MusicBeatState {
 		addHitbox();
 		addHitboxCamera();
 		hitbox.visible = false;
+		hitbox.screenCenter();
 		#if !android
 		addVirtualPad(NONE, P);
 		virtualPad.visible = true;
