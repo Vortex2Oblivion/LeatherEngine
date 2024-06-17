@@ -3440,6 +3440,10 @@ class PlayState extends MusicBeatState {
 	var releasedArray:Array<Bool> = [];
 	var justReleasedArray:Array<Bool> = [];
 	var heldArray:Array<Bool> = [];
+	var hitboxjustPressedArray:Array<Bool> = [];
+	var hitboxreleasedArray:Array<Bool> = [];
+	var hitboxjustReleasedArray:Array<Bool> = [];
+	var hitboxheldArray:Array<Bool> = [];
 	var previousReleased:Array<Bool> = [];
 
 	public function keyShit() {
@@ -3455,19 +3459,21 @@ class PlayState extends MusicBeatState {
 				releasedArray = [];
 				heldArray = [];
 
+				hitboxjustPressedArray = [];
+				hitboxjustReleasedArray = [];
+				hitboxreleasedArray = [];
+				hitboxheldArray = [];
+
 				for (i in 0...binds.length) {
 					justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_PRESSED);
 					releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.RELEASED);
 					justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_RELEASED);
 					heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
 
-					// wow, is that easy? - lily
-					if (controls.mobileC) {
-					justPressedArray[i] = hitbox.hints[i].justPressed;
-					releasedArray[i] = hitbox.hints[i].released;
-					justReleasedArray[i] = hitbox.hints[i].justReleased;
-					heldArray[i] = hitbox.hints[i].pressed;
-					}
+					hitboxjustPressedArray[i] = hitbox.hints[i].justPressed;
+					hitboxreleasedArray[i] = hitbox.hints[i].released;
+					hitboxjustReleasedArray[i] = hitbox.hints[i].justReleased;
+					hitboxheldArray[i] = hitbox.hints[i].pressed;
 
 					if (releasedArray[i] && SONG.playerKeyCount == 4) {
 						justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
@@ -3489,7 +3495,19 @@ class PlayState extends MusicBeatState {
 					}
 				}
 
-				if (justPressedArray.contains(true) && generatedMusic) {
+				for (i in 0...hitboxjustPressedArray.length) {
+					if (hitboxjustPressedArray[i]) {
+						call("keyPressed", [i]);
+					}
+				}
+
+				for (i in 0...hitboxreleasedArray.length) {
+					if (hitboxreleasedArray[i]) {
+						call("keyReleased", [i]);
+					}
+				}
+
+				if (hitboxjustPressedArray.contains(true) || justPressedArray.contains(true) && generatedMusic) {
 					// variables
 					var possibleNotes:Array<Note> = [];
 					var dontHit:Array<Note> = [];
@@ -3533,7 +3551,7 @@ class PlayState extends MusicBeatState {
 					// if there is actual notes to hit
 					if (possibleNotes.length > 0) {
 						for (i in 0...possibleNotes.length) {
-							if (justPressedArray[possibleNotes[i].noteData] && !noteDataPossibles[possibleNotes[i].noteData]) {
+							if (hitboxjustPressedArray[possibleNotes[i].noteData]  || justPressedArray[possibleNotes[i].noteData] && !noteDataPossibles[possibleNotes[i].noteData]) {
 								noteDataPossibles[possibleNotes[i].noteData] = true;
 								noteDataTimes[possibleNotes[i].noteData] = possibleNotes[i].strumTime;
 
@@ -3585,14 +3603,18 @@ class PlayState extends MusicBeatState {
 							if (justPressedArray[i] && !noteDataPossibles[i] && !rythmArray[i])
 								noteMiss(i);
 						}
+						for (i in 0...hitboxjustPressedArray.length) {
+							if (hitboxjustPressedArray[i] && !noteDataPossibles[i] && !rythmArray[i])
+								noteMiss(i);
+						}
 					}
 				}
 
-				if (heldArray.contains(true) && generatedMusic) {
+				if (hitboxheldArray.contains(true) || heldArray.contains(true) && generatedMusic) {
 					notes.forEachAlive(function(daNote:Note) {
 						daNote.calculateCanBeHit();
 
-						if (heldArray[daNote.noteData] && daNote.isSustainNote && daNote.checkPlayerMustPress()) {
+						if (hitboxheldArray[daNote.noteData] || heldArray[daNote.noteData] && daNote.isSustainNote && daNote.checkPlayerMustPress()) {
 							if (daNote.canBeHit) {
 								if (characterPlayingAs == 0) {
 									if (boyfriend.otherCharacters == null || boyfriend.otherCharacters.length - 1 < daNote.character)
@@ -3627,14 +3649,14 @@ class PlayState extends MusicBeatState {
 				if (characterPlayingAs == 0) {
 					if (boyfriend.otherCharacters == null) {
 						if (boyfriend.animation.curAnim != null)
-							if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !heldArray.contains(true))
+							if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !(hitboxheldArray.contains(true) || heldArray.contains(true)))
 								if (boyfriend.animation.curAnim.name.startsWith('sing')
 									&& !boyfriend.animation.curAnim.name.endsWith('miss'))
 									boyfriend.dance();
 					} else {
 						for (character in boyfriend.otherCharacters) {
 							if (character.animation.curAnim != null)
-								if (character.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !heldArray.contains(true))
+								if (character.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !(hitboxheldArray.contains(true) || heldArray.contains(true)))
 									if (character.animation.curAnim.name.startsWith('sing')
 										&& !character.animation.curAnim.name.endsWith('miss'))
 										character.dance();
@@ -3643,13 +3665,13 @@ class PlayState extends MusicBeatState {
 				} else {
 					if (dad.otherCharacters == null) {
 						if (dad.animation.curAnim != null)
-							if (dad.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !heldArray.contains(true))
+							if (dad.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !(hitboxheldArray.contains(true) || heldArray.contains(true)))
 								if (dad.animation.curAnim.name.startsWith('sing') && !dad.animation.curAnim.name.endsWith('miss'))
 									dad.dance(altAnim);
 					} else {
 						for (character in dad.otherCharacters) {
 							if (character.animation.curAnim != null)
-								if (character.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !heldArray.contains(true))
+								if (character.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !(hitboxheldArray.contains(true) || heldArray.contains(true)))
 									if (character.animation.curAnim.name.startsWith('sing')
 										&& !character.animation.curAnim.name.endsWith('miss'))
 										character.dance(altAnim);
@@ -3658,14 +3680,14 @@ class PlayState extends MusicBeatState {
 				}
 
 				playerStrums.forEach(function(spr:StrumNote) {
-					if (justPressedArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
+					if (hitboxjustPressedArray[spr.ID] || justPressedArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
 						if (playerStrumsGlow) {
 							spr.playAnim('pressed');
 							spr.resetAnim = 0;
 						}
 					}
 
-					if (releasedArray[spr.ID]) {
+					if (hitboxreleasedArray[spr.ID] || releasedArray[spr.ID]) {
 						spr.playAnim('static');
 						spr.resetAnim = 0;
 					}
