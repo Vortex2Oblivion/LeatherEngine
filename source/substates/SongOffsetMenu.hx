@@ -31,7 +31,7 @@ class SongOffsetMenu extends MusicBeatSubstate
         offsetText.screenCenter();
         add(offsetText);
 
-        addVirtualPad(LEFT_FULL, A_B);
+        addVirtualPad(LEFT_RIGHT, A_B);
     }
 
     override function update(elapsed:Float) {

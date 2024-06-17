@@ -74,7 +74,7 @@ class UISkinSelect extends MusicBeatSubstate
         });
         #end
 
-        addVirtualPad(LEFT_RIGHT, A_B);
+        addVirtualPad(LEFT_RIGHT, B);
     }
 
     override function update(elapsed:Float) {

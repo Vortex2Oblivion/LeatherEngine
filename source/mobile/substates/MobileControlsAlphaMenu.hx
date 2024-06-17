@@ -54,7 +54,8 @@ class MobileControlsAlphaMenu extends substates.MusicBeatSubstate
         if(rightP)
             opacityValue += 0.1;
 
-        opacityValue = FlxMath.roundDecimal(opacityValue, 1);
+        virtualPad.alpha = 0;
+        opacityValue = virtualPad.alpha = FlxMath.roundDecimal(opacityValue, 1);
 
         if(opacityValue > 1)
             opacityValue = 1;
