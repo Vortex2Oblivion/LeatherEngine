@@ -3461,19 +3461,18 @@ class PlayState extends MusicBeatState {
 					justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.JUST_RELEASED);
 					heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(binds[i]), FlxInputState.PRESSED);
 
-					// wow, is that easy? - lily
-					if (controls.mobileC) {
-					justPressedArray[i] = hitbox.hints[i].justPressed;
-					releasedArray[i] = hitbox.hints[i].released;
-					justReleasedArray[i] = hitbox.hints[i].justReleased;
-					heldArray[i] = hitbox.hints[i].pressed;
-					}
-
 					if (releasedArray[i] && SONG.playerKeyCount == 4) {
 						justPressedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_PRESSED);
 						releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.RELEASED);
 						justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_RELEASED);
 						heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.PRESSED);
+					}
+
+					if (controls.mobileC) {
+						justPressedArray[i] = hitbox.hints[i].justPressed;
+						releasedArray[i] = hitbox.hints[i].released;
+						justReleasedArray[i] = hitbox.hints[i].justReleased;
+						heldArray[i] = hitbox.hints[i].pressed;
 					}
 				}
 
