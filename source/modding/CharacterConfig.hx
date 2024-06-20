@@ -10,8 +10,6 @@ typedef CharacterConfig =
 	var graphicsSize:Null<Float>;
 	var graphicSize:Null<Float>;
 	var barColor:Array<Int>;
-	var noteColors:Array<Array<Array<Int>>>;
-	var notesMatchBar:Null<Bool>;
 	var positionOffset:Array<Float>;
 	var cameraOffset:Array<Float>;
 	var singDuration:Null<Float>;
@@ -31,6 +29,8 @@ typedef CharacterConfig =
 	var healthIcon:String;
 	var antialiased:Null<Bool>;
 	var antialiasing:Null<Bool>;
+	//any extra spritesheets to load with the main sheet.
+	var extraSheets:Array<String>;
 }
 
 typedef CharacterData =

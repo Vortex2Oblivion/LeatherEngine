@@ -16,14 +16,21 @@ typedef DefaultOption = {
 	var save:Null<String>; // the save (KEY NAME) to use, by default is 'main'
 }
 
+/**
+ * Class for managing savedata.
+ * 
+ */
 class Options {
-	public static var bindNamePrefix:String = "leather_engine-";
-	public static var bindPath:String = "leather128";
+	public inline static final bindNamePrefix:String = "leather_engine-";
+	public inline static final bindPath:String = "leather128";
 
 	public static var saves:Map<String, FlxSave> = [];
 
 	public static var defaultOptions:DefaultOptions;
 
+	/**
+	 * Inititaizes savedata when starting the game.
+	 */
 	public static function init() {
 		createSave("main", "options");
 		createSave("binds", "binds");
@@ -60,6 +67,11 @@ class Options {
 			setData(new Map<String, Array<Int>>(), "arrowColors", "arrowColors");
 	}
 
+	/**
+	 * Creates a new ``FlxSave`` instance.
+	 * @param key The identifier for the newly created save.
+	 * @param bindNameSuffix The suffix for the newly created save.
+	 */
 	public static function createSave(key:String, bindNameSuffix:String) {
 		var save = new FlxSave();
 		save.bind(bindNamePrefix + bindNameSuffix, bindPath);
@@ -67,6 +79,12 @@ class Options {
 		saves.set(key, save);
 	}
 
+	/**
+	 * Returns an option.
+	 * @param dataKey 
+	 * @param saveKey 
+	 * @return Dynamic
+	 */
 	public static function getData(dataKey:String, ?saveKey:String = "main"):Dynamic {
 		if (saves.exists(saveKey))
 			return Reflect.getProperty(Reflect.getProperty(saves.get(saveKey), "data"), dataKey);
@@ -74,6 +92,13 @@ class Options {
 		return null;
 	}
 
+	/**
+	 * Sets a option.
+	 * Automatically calls ``flush()`` on the save key.
+	 * @param value 
+	 * @param dataKey 
+	 * @param saveKey 
+	 */
 	public static function setData(value:Dynamic, dataKey:String, ?saveKey:String = "main") {
 		if (saves.exists(saveKey)) {
 			Reflect.setProperty(Reflect.getProperty(saves.get(saveKey), "data"), dataKey, value);
@@ -82,7 +107,7 @@ class Options {
 		}
 	}
 
-	public static function fixBinds() {
+	@:noCompletion public static function fixBinds() {
 		if (getData("binds", "binds") == null)
 			setData(NoteVariables.Default_Binds, "binds", "binds");
 		else {

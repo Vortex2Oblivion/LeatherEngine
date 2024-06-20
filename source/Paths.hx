@@ -7,6 +7,9 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 
+/**
+ * Assets paths helper class
+ */
 class Paths {
 	public static inline final SOUND_EXT:String = "ogg";
 

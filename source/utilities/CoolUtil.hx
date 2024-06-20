@@ -20,6 +20,10 @@ import ui.logs.Logs;
 
 using StringTools;
 
+
+/**
+ * Helper class with lots of utilitiy functions.
+ */
 class CoolUtil {
 	public static function boundTo(value:Float, min:Float, max:Float):Float {
 		var newValue:Float = value;

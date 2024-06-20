@@ -5,6 +5,11 @@ import flixel.FlxG;
 
 using StringTools;
 
+
+/**
+ * The ``Boyfriend`` class
+ * Has extra code for playing the death animation and such.
+ */
 class Boyfriend extends Character
 {
 	public var stunned:Bool = false;

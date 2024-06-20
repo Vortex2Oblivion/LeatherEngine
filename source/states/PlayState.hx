@@ -1348,17 +1348,19 @@ class PlayState extends MusicBeatState {
 
 		// @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
 		if (Options.getData('colorQuantization')) {
+			var col:Array<Int> = [142, 142, 142];
 			for (note in unspawnNotes) {
 				if (note.affectedbycolor) {
-					var quantStrumTime = note.isSustainNote ? note.prevNote.prevNoteStrumtime : note.strumTime;
-					var currentStepCrochet = Conductor.stepCrochet;
-					var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
-					var col:Array<Int> = [142, 142, 142];
-					for (beat in 0...note.beats.length - 1) {
-						if ((noteBeat % (192 / note.beats[beat]) == 0)) {
-							noteBeat = note.beats[beat];
-							col = note.quantColors[beat];
-							break;
+					if(!note.isSustainNote){
+						var quantStrumTime = note.strumTime;
+						var currentStepCrochet = Conductor.stepCrochet;
+						var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
+						for (beat in 0...note.beats.length - 1) {
+							if ((noteBeat % (192 / note.beats[beat]) == 0)) {
+								noteBeat = note.beats[beat];
+								col = note.quantColors[beat];
+								break;
+							}
 						}
 					}
 					note.colorSwap.r = col[0];
@@ -2683,10 +2685,16 @@ class PlayState extends MusicBeatState {
 							if (Math.abs(daNote.noteData) == spr.ID) {
 								spr.playAnim('confirm', true);
 								spr.resetAnim = 0;
+								spr.colorSwap.r = daNote.colorSwap.r;
+								spr.colorSwap.g = daNote.colorSwap.g;
+								spr.colorSwap.b = daNote.colorSwap.b;
 
 								if (!daNote.isSustainNote && opponentNoteSplashes) {
 									var splash = splash_group.recycle(NoteSplash);
 									splash.setup_splash(spr.ID, spr, false);
+									splash.colorSwap.r = spr.colorSwap.r;
+									splash.colorSwap.g = spr.colorSwap.g;
+									splash.colorSwap.b = spr.colorSwap.b;
 
 									splash_group.add(splash);
 								}
@@ -3295,11 +3303,13 @@ class PlayState extends MusicBeatState {
 		hitNotes += hitNoteAmount;
 
 		if ((daRating == "sick" || daRating == "marvelous") && playerNoteSplashes) {
-			playerStrums.forEachAlive(function(spr:FlxSprite) {
+			playerStrums.forEachAlive(function(spr:StrumNote) {
 				if (spr.ID == Math.abs(noteData)) {
 					var splash = splash_group.recycle(NoteSplash);
 					splash.setup_splash(noteData, spr, true);
-
+					splash.colorSwap.r = spr.colorSwap.r;
+					splash.colorSwap.g = spr.colorSwap.g;
+					splash.colorSwap.b = spr.colorSwap.b;
 					splash_group.add(splash);
 				}
 			});
@@ -3942,6 +3952,9 @@ class PlayState extends MusicBeatState {
 					if (Math.abs(note.noteData) == spr.ID) {
 						if (playerStrumsGlow) {
 							spr.playAnim('confirm', true);
+							spr.colorSwap.r = note.colorSwap.r;
+							spr.colorSwap.g = note.colorSwap.g;
+							spr.colorSwap.b = note.colorSwap.b;
 						}
 					}
 				});
@@ -4933,46 +4946,6 @@ class PlayState extends MusicBeatState {
 					}
 				}
 				#end
-				if (Options.getData('colorQuantization')) {
-					for (note in notes.members) {
-						if (note.affectedbycolor) {
-							var quantStrumTime = note.isSustainNote ? note.prevNote.prevNoteStrumtime : note.strumTime;
-							var currentStepCrochet = Conductor.stepCrochet;
-							var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
-							var col:Array<Int> = [142, 142, 142];
-							for (beat in 0...note.beats.length - 1) {
-								if ((noteBeat % (192 / note.beats[beat]) == 0)) {
-									noteBeat = note.beats[beat];
-									col = note.quantColors[beat];
-									break;
-								}
-							}
-							note.colorSwap.r = col[0];
-							note.colorSwap.g = col[1];
-							note.colorSwap.b = col[2];
-						}
-					}
-				}
-				if (Options.getData('colorQuantization')) {
-					for (note in unspawnNotes) {
-						if (note.affectedbycolor) {
-							var quantStrumTime = note.isSustainNote ? note.prevNote.prevNoteStrumtime : note.strumTime;
-							var currentStepCrochet = Conductor.stepCrochet;
-							var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
-							var col:Array<Int> = [142, 142, 142];
-							for (beat in 0...note.beats.length - 1) {
-								if ((noteBeat % (192 / note.beats[beat]) == 0)) {
-									noteBeat = note.beats[beat];
-									col = note.quantColors[beat];
-									break;
-								}
-							}
-							note.colorSwap.r = col[0];
-							note.colorSwap.g = col[1];
-							note.colorSwap.b = col[2];
-						}
-					}
-				}
 			case "change ui skin":
 				var noteskin:String = Std.string(event[2]);
 				SONG.ui_Skin = noteskin;

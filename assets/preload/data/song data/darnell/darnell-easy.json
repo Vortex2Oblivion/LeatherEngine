@@ -3,7 +3,7 @@
         "song": "Darnell",
         "bpm": 155,
         "needsVoices": true,
-        "player1": "pico-playable",
+        "player1": "pico",
         "player2": "darnell",
         "cutscene":"darnell",
         "speed": 1.8,

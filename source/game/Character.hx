@@ -1,5 +1,7 @@
 package game;
 
+import flxanimate.frames.FlxAnimateFrames;
+import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -13,6 +15,10 @@ import modding.CharacterConfig;
 import modding.scripts.languages.HScript;
 import states.PlayState;
 
+
+/**
+ * The base character class.
+ */
 class Character extends FlxSprite {
 	public var animOffsets:Map<String, Array<Dynamic>>;
 	public var debugMode:Bool = false;
@@ -197,6 +203,26 @@ class Character extends FlxSprite {
 		}
 	}
 
+
+	private function getAtlas(path:String):FlxAtlasFrames{
+		if (Assets.exists(Paths.file("images/characters/" + path + ".txt", TEXT))) {
+			return Paths.getPackerAtlas('characters/' + path);
+		}
+		else if (Assets.exists(Paths.file("images/characters/" + path + ".json", TEXT))){
+			return Paths.getJsonAtlas('characters/' + path);
+		}
+		else if (Assets.exists(Paths.file("images/characters/" + path + ".plist", TEXT))){
+			return Paths.getCocos2DAtlas('characters/' + path);
+		} 
+		else if (Assets.exists(Paths.file("images/characters/" + path + ".eas", TEXT))){
+			return Paths.getEdgeAnimateAtlas('characters/' + path);
+		} 
+		else if (Assets.exists(Paths.file("images/characters/" + path + ".js", TEXT))){
+			return Paths.getEaselJSAtlas('characters/' + path);
+		} 
+		return Paths.getSparrowAtlas('characters/' + path);
+	}
+
 	public function loadCharacterConfiguration(config:CharacterConfig) {
 		if (config.characters == null || config.characters.length <= 1) {
 			if (!isPlayer)
@@ -225,27 +251,19 @@ class Character extends FlxSprite {
 
 			dancesLeftAndRight = config.dancesLeftAndRight;
 
-			if (Assets.exists(Paths.file("images/characters/" + config.imagePath + ".txt", TEXT))) {
-				frames = Paths.getPackerAtlas('characters/' + config.imagePath);
-			} else if (Assets.exists(Paths.file("images/characters/" + config.imagePath + "/Animation.json", TEXT))){
+			if (Assets.exists(Paths.file("images/characters/" + config.imagePath + "/Animation.json", TEXT))){
 				atlasMode = true;
 				atlas = new FlxAnimate(0.0, 0.0, Paths.getTextureAtlas("characters/" + config.imagePath, "shared"));
 				atlas.showPivot = false;
 			}
-			else if (Assets.exists(Paths.file("images/characters/" + config.imagePath + ".json", TEXT))){
-				frames = Paths.getJsonAtlas('characters/' + config.imagePath);
+			else{
+				frames = getAtlas(config.imagePath);
 			}
-			else if (Assets.exists(Paths.file("images/characters/" + config.imagePath + ".plist", TEXT))){
-				frames = Paths.getCocos2DAtlas('characters/' + config.imagePath);
-			} 
-			else if (Assets.exists(Paths.file("images/characters/" + config.imagePath + ".eas", TEXT))){
-				frames = Paths.getEdgeAnimateAtlas('characters/' + config.imagePath);
-			} 
-			else if (Assets.exists(Paths.file("images/characters/" + config.imagePath + ".js", TEXT))){
-				frames = Paths.getEaselJSAtlas('characters/' + config.imagePath);
-			} 
-			else {
-				frames = Paths.getSparrowAtlas('characters/' + config.imagePath);
+
+			if(config.extraSheets != null){
+				for (sheet in config.extraSheets){
+					cast(frames, FlxAtlasFrames).addAtlas(getAtlas(sheet)); //multiatlas support.
+				}
 			}
 
 			var size:Null<Float> = config.graphicSize;

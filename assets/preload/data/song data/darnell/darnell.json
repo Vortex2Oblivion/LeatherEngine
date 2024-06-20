@@ -4,7 +4,7 @@
         "bpm": 155,
         "cutscene":"darnell",
         "needsVoices": true,
-        "player1": "pico-playable",
+        "player1": "pico",
         "player2": "darnell",
         "speed": 2,
         "notes": [

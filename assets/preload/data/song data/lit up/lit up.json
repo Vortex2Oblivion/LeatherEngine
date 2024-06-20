@@ -3,7 +3,7 @@
         "song": "Lit Up",
         "bpm": 176,
         "needsVoices": true,
-        "player1": "pico-playable",
+        "player1": "pico",
         "player2": "darnell",
         "speed": 2.2,
         "notes": [

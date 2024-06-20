@@ -3,7 +3,7 @@
         "song": "2Hot",
         "bpm": 182,
         "needsVoices": true,
-        "player1": "pico-playable",
+        "player1": "pico",
         "player2": "darnell",
         "speed": 2.6,
         "notes": [
