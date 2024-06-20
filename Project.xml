@@ -131,7 +131,7 @@
 
 	<section if="android">
 			<!-- Do whatever you want I'm tired uninstall and install everytime -->
-			<!--<certificate path="key.keystore" password="leatherengine" alias="leatherport" alias-password="leatherengine" unless="debug" />-->
+			<certificate path="key.keystore" password="leatherengine" alias="leatherport" alias-password="leatherengine" unless="debug" />
 	</section>
 
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
