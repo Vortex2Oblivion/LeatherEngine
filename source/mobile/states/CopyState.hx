@@ -88,7 +88,6 @@ class CopyState extends states.MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		FlxG.fullscreen = false;
 		if (shouldCopy && copyLoop != null)
 		{
 			if (copyLoop.finished && canUpdate)
