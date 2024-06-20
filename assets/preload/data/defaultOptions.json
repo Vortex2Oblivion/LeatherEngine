@@ -332,6 +332,10 @@
     {
       "option": "screenSaver",
       "value": true
+    },
+    {
+      "option": "wideScreen",
+      "value": true
     }
   ]
 }

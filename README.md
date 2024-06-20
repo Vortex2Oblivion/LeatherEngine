@@ -30,6 +30,8 @@ You can have different note types that give different amounts of health or give 
 
 ## Credits
 
+- Lily (mcagabe19) - Main Porting
+
 - KadeDev - Code for downscroll & Modcharts
 
 - SrPerez - Original 9 Key and 6 Key Designs
