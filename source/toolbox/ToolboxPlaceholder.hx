@@ -56,6 +56,7 @@ class ToolboxPlaceholder extends states.MusicBeatState {
 		if (PlayState.instance == null) {
 			pages["Tools"][0] = null;
 		}
+		if (controls.mobileC) pages.clear();
 
 		MusicBeatState.windowNameSuffix = "";
 		instance = this;
@@ -84,6 +85,8 @@ class ToolboxPlaceholder extends states.MusicBeatState {
 
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic(MusicUtilities.GetOptionsMenuMusic(), 0.7, true);
+
+		addVirtualPad(UP_DOWN, A_B);
 	}
 
 	public static function LoadPage(pageName:String):Void {
