@@ -142,7 +142,7 @@ jobs:
           cd export/release/ios/build/*-iphoneos
           mkdir Payload
           mv *.app Payload
-          zip -r PsychEngine.ipa Payload
+          zip -r LeatherEngine.ipa Payload
 
       - name: Upload Artifact
         uses: actions/upload-artifact@main
