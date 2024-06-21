@@ -3,6 +3,7 @@ package mobile.utilities;
 import lime.system.System as LimeSystem;
 #if android
 import android.Permissions as AndroidPermissions;
+import android.os.Environment as AndroidEnvironment;
 #end
 #if sys
 import sys.FileSystem;
@@ -18,11 +19,23 @@ using StringTools;
 class SUtil
 {
 	#if sys
-	public static function getStorageDirectory(?force:Bool = false):String
+	public static final rootDir:String = LimeSystem.applicationStorageDirectory;
+	public static function getStorageDirectory(?forcedType:Null<String>):String
 	{
 		var daPath:String = Sys.getCwd();
 		#if android
-		daPath = haxe.io.Path.addTrailingSlash(android.os.Build.VERSION.SDK_INT > 30 ? android.content.Context.getObbDir() : android.content.Context.getExternalFilesDir());
+		if (!FileSystem.exists(rootDir + 'storagetype.txt'))
+			File.saveContent(rootDir + 'storagetype.txt', utilities.Options.getData("storageType"));
+		var curStorageType:String = File.getContent(rootDir + 'storagetype.txt');
+		if (forcedType != null) curStorageType = forcedType;
+		daPath = switch (curStorageType)
+		{
+			case "EXTERNAL": AndroidEnvironment.getExternalStorageDirectory() + '/.' + lime.app.Application.current.meta.get('file');
+			case "OBB": android.content.Context.getObbDir();
+			case "MEDIA": AndroidEnvironment.getExternalStorageDirectory() + '/Android/media/' + lime.app.Application.current.meta.get('packageName');
+			default: android.content.Context.getExternalFilesDir();
+		}
+		daPath = haxe.io.Path.addTrailingSlash(daPath);
 		#elseif ios
 		daPath = LimeSystem.documentsDirectory;
 		#end
@@ -55,7 +68,7 @@ class SUtil
 						FileSystem.createDirectory(total);
 				}
 				catch (e:haxe.Exception)
-					trace('Error while creating folder. (${e.message})');
+					utilities.CoolUtil.coolError('Error while creating folder. (${e.message})');
 			}
 		}
 	}
@@ -72,7 +85,7 @@ class SUtil
 			showPopUp(fileName + " file has been saved.", "Success!");
 		}
 		catch (e:haxe.Exception)
-			trace('File couldn\'t be saved. (${e.message})');
+			utilities.CoolUtil.coolError('File couldn\'t be saved. (${e.message})');
 	}
 
 	#if android
@@ -85,6 +98,8 @@ class SUtil
 			AndroidPermissions.requestPermission('WRITE_EXTERNAL_STORAGE');
 			showPopUp('If you accepted the permissions you are all good!' + '\nIf you didn\'t then expect a crash' + '\nPress Ok to see what happens',
 				'Notice!');
+			if (!AndroidEnvironment.isExternalStorageManager())
+				android.Settings.requestSetting('MANAGE_APP_ALL_FILES_ACCESS_PERMISSION');
 		}
 		else
 		{
@@ -95,7 +110,7 @@ class SUtil
 			}
 			catch (e:Dynamic)
 			{
-				showPopUp('Please create folder to\n' + SUtil.getStorageDirectory(true) + '\nPress OK to close the game', 'Error!');
+				showPopUp('Please create folder to\n' + SUtil.getStorageDirectory() + '\nPress OK to close the game', 'Error!');
 				LimeSystem.exit(1);
 			}
 		}

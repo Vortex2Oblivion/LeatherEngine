@@ -336,6 +336,10 @@
     {
       "option": "wideScreen",
       "value": false
+    },
+    {
+      "option": "storageType",
+      "value": "DATA"
     }
   ]
 }

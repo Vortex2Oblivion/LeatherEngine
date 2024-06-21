@@ -34,6 +34,8 @@ class OptionsMenu extends MusicBeatState {
 
 	public var inMenu = false;
 
+	#if android final lastStorageType = utilities.Options.getData("storageType"); #end
+
 	public var pages:Map<String, Array<Dynamic>> = [
 		"Categories" => [
 			new PageOption("Gameplay", "Gameplay", "Test Description"),
@@ -157,6 +159,9 @@ class OptionsMenu extends MusicBeatState {
 		],
 		"Mobile Options" => [
 			new PageOption("Back", "Categories"),
+			#if android
+			new StringSaveOption("Storage Type", ["DATA", "OBB", "MEDIA", "EXTERNAL"], "storageType"),
+			#end
 			new GameSubStateOption("Mobile Controls Opacity", mobile.substates.MobileControlsAlphaMenu),
 			new StringSaveOption("Hitbox Design", ["No Gradient", "No Gradient (Old)", "Gradient", "Hidden"], "hitboxType")#if mobile ,
 			new BoolOption("Wide Screen Mode", "wideScreen"),
@@ -233,6 +238,12 @@ class OptionsMenu extends MusicBeatState {
 	}
 
 	function goBack() {
+		if (lastStorageType != utilities.Options.getData("storageType"))
+		{
+			onStorageChange();
+			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+			lime.system.System.exit(0);
+		}
 		if (pageName != "Categories") {
 			loadPage(cast(page.members[0], PageOption).pageName);
 			return;
@@ -306,4 +317,20 @@ class OptionsMenu extends MusicBeatState {
 		removeVirtualPad();
 		super.openSubState(substate);
 	}
+
+	#if android
+	function onStorageChange():Void
+	{
+		sys.io.File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', utilities.Options.getData("storageType"));
+	
+		var lastStoragePath:String = SUtil.getStorageDirectory(lastStorageType);
+	
+		try
+		{
+			Sys.command('rm', ['-rf', lastStoragePath]);
+		}
+		catch (e:haxe.Exception)
+			trace('Failed to remove last directory. (${e.message})');
+	}
+	#end
 }
