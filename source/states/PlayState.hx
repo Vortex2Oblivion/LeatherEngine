@@ -582,7 +582,6 @@ class PlayState extends MusicBeatState {
 	 */
 	public var opponentNoteSplashes:Bool = Options.getData("opponentNoteSplashes");
 
-	public var playerStrumsGlow:Bool = Options.getData("playerStrumsGlow");
 	public var enemyStrumsGlow:Bool = Options.getData("enemyStrumsGlow");
 
 	public var ratingsGroup:FlxSpriteGroup = new FlxSpriteGroup();
@@ -3224,7 +3223,6 @@ class PlayState extends MusicBeatState {
 				LoadingState.loadAndSwitchState(new PlayState());
 			}
 		} else {
-			trace('WENT BACK TO FREEPLAY??');
 			switchedStates = true;
 
 			if (vocals != null && vocals.active)
@@ -3674,10 +3672,8 @@ class PlayState extends MusicBeatState {
 
 				playerStrums.forEach(function(spr:StrumNote) {
 					if (justPressedArray[spr.ID] && spr.animation.curAnim.name != 'confirm') {
-						if (playerStrumsGlow) {
-							spr.playAnim('pressed');
-							spr.resetAnim = 0;
-						}
+						spr.playAnim('pressed');
+						spr.resetAnim = 0;
 					}
 
 					if (releasedArray[spr.ID]) {
@@ -3882,17 +3878,6 @@ class PlayState extends MusicBeatState {
 			note.mustPress
 		]);
 		if (!note.wasGoodHit) {
-			if (note.shouldHit && !note.isSustainNote) {
-				combo++;
-				popUpScore(note.strumTime, note.noteData % getCorrectKeyCount(true), setNoteDiff);
-
-				if (hitSoundString != "none")
-					hitsound.play(true);
-			} else if (!note.shouldHit) {
-				health -= note.hitDamage;
-				misses++;
-				missSounds[FlxG.random.int(0, missSounds.length - 1)].play(true);
-			}
 
 			if (note.shouldHit && note.isSustainNote)
 				health += 0.02;
@@ -3963,16 +3948,28 @@ class PlayState extends MusicBeatState {
 			if (startedCountdown) {
 				playerStrums.forEach(function(spr:StrumNote) {
 					if (Math.abs(note.noteData) == spr.ID) {
-						if (playerStrumsGlow) {
-							spr.playAnim('confirm', true);
-							if(note.colorSwap != null){
-								spr.colorSwap.r = note.colorSwap.r;
-								spr.colorSwap.g = note.colorSwap.g;
-								spr.colorSwap.b = note.colorSwap.b;
-							}
+						spr.playAnim('confirm', true);
+						if(note.colorSwap != null){
+							spr.colorSwap.r = note.colorSwap.r;
+							spr.colorSwap.g = note.colorSwap.g;
+							spr.colorSwap.b = note.colorSwap.b;
 						}
 					}
 				});
+			}
+
+			if (note.shouldHit && !note.isSustainNote) {
+				combo++;
+				popUpScore(note.strumTime, note.noteData % getCorrectKeyCount(true), setNoteDiff);
+
+				if (hitSoundString != "none") {
+					hitsound.play(true);
+				}
+				
+			} else if (!note.shouldHit) {
+				health -= note.hitDamage;
+				misses++;
+				missSounds[FlxG.random.int(0, missSounds.length - 1)].play(true);
 			}
 
 			note.wasGoodHit = true;

@@ -1,16 +1,8 @@
 {
   "options": [
     {
-      "option": "playerStrumsGlow",
-      "value": true
-    },
-    {
       "option": "enemyStrumsGlow",
       "value": true
-    },
-    {
-      "option": "playerStrumsGlowWhenCanBeHit",
-      "value": false
     },
     {
       "option": "fpsCounter",
@@ -238,10 +230,6 @@
     },
     {
       "option": "flixelStartupScreen",
-      "value": false
-    },
-    {
-      "option": "skipResultsScreen",
       "value": false
     },
     {

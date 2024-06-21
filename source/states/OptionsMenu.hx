@@ -139,9 +139,7 @@ class OptionsMenu extends MusicBeatState {
 		"Note Options" => [
 			new PageOption("Back", "Graphics"),
 			new GameSubStateOption("Note BG Alpha", substates.NoteBGAlphaMenu),
-			new BoolOption("Player Note Glow When Hit", "playerStrumsGlow"),
 			new BoolOption("Enemy Note Glow When Hit", "enemyStrumsGlow"),
-			new BoolOption("Note Glow When Can Hit", "playerStrumsGlowWhenCanBeHit"),
 			new BoolOption("Player Note Splashes", "playerNoteSplashes"),
 			new BoolOption("Enemy Note Splashes", "opponentNoteSplashes"),
 			new BoolOption("Note Accuracy Text", "displayMs"),

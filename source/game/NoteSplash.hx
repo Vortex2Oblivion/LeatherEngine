@@ -40,6 +40,8 @@ class NoteSplash extends FlxSprite {
 
 		setGraphicSize(Std.int(target.width * 2.5));
 
+		antialiasing = target.antialiasing;
+
 		updateHitbox();
 		centerOffsets();
 

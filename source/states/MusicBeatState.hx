@@ -102,16 +102,21 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 		if (hitbox != null)
 			remove(hitbox);
 
+	override public function create(){
+		super.create();
+		#if sys
+		var statePath:String = Type.getClassName(Type.getClass(FlxG.state));
+		if(sys.FileSystem.exists('mods/${Options.getData("curMod")}/classes/${statePath}.hx')){
+			stateScript = new HScript('mods/${Options.getData("curMod")}/classes/${statePath}.hx', true);
+			stateScript.start();
+		}
+		#end
+	}
+
 	override public function new() {
 		if (!Options.getData('memoryLeaks')) {
 			clear_memory();
 		}
-		#if sys
-		if(sys.FileSystem.exists('mods/${Options.getData("curMod")}/classes/${Type.getClassName(Type.getClass(FlxG.state)).replace('.', '/')}.hx')){
-			stateScript = new HScript('mods/${Options.getData("curMod")}/classes/${Type.getClassName(Type.getClass(FlxG.state)).replace('.', '/')}.hx', true);
-			stateScript.start();
-		}
-		#end
 		super();
 	}
 
