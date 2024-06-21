@@ -255,9 +255,6 @@ class Note extends FlxSkewedSprite {
 					alpha = 0.3;
 			}
 		}
-		if (canBeHit && canGlow && !isSustainNote && !inEditor && animation.curAnim.name.contains("default") && animation != null){
-			animation.play("glow");
-		}
 	}
 
 	public inline function checkPlayerMustPress() //flips must press for opponent mode
