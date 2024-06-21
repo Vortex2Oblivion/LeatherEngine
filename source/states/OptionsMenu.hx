@@ -330,7 +330,7 @@ class OptionsMenu extends MusicBeatState {
 			Sys.command('rm', ['-rf', lastStoragePath]);
 		}
 		catch (e:haxe.Exception)
-			trace('Failed to remove last directory. (${e.message})');
+			utilities.CoolUtil.coolError('Failed to remove last directory. (${e.message})');
 	}
 	#end
 }
