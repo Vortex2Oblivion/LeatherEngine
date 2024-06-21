@@ -238,12 +238,14 @@ class OptionsMenu extends MusicBeatState {
 	}
 
 	function goBack() {
+		#if android
 		if (lastStorageType != utilities.Options.getData("storageType"))
 		{
 			onStorageChange();
 			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
 			lime.system.System.exit(0);
 		}
+		#end
 		if (pageName != "Categories") {
 			loadPage(cast(page.members[0], PageOption).pageName);
 			return;
