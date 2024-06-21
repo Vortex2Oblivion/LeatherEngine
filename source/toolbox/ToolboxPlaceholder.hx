@@ -56,7 +56,6 @@ class ToolboxPlaceholder extends states.MusicBeatState {
 		if (PlayState.instance == null) {
 			pages["Tools"][0] = null;
 		}
-		if (controls.mobileC) pages.clear();
 
 		MusicBeatState.windowNameSuffix = "";
 		instance = this;
