@@ -2,4 +2,6 @@ default
 death
 caution
 hurt
+hey
+cheer
 no animation

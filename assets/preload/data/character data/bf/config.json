@@ -5,6 +5,7 @@
   "barColor": [81, 201, 219],
   "offsetsFlipWhenEnemy": true,
   "offsetsFlipWhenPlayer": false,
+  "extraSheets": ["BFCheer"],
   "animations": [
     {
       "name": "idle",
@@ -63,6 +64,12 @@
     {
       "name": "hey",
       "animation_name": "BF HEY",
+      "fps": 24,
+      "looped": false
+    },
+    {
+      "name": "cheer",
+      "animation_name": "Cheer",
       "fps": 24,
       "looped": false
     },

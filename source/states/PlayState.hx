@@ -2685,17 +2685,20 @@ class PlayState extends MusicBeatState {
 							if (Math.abs(daNote.noteData) == spr.ID) {
 								spr.playAnim('confirm', true);
 								spr.resetAnim = 0;
-								spr.colorSwap.r = daNote.colorSwap.r;
-								spr.colorSwap.g = daNote.colorSwap.g;
-								spr.colorSwap.b = daNote.colorSwap.b;
+								if(daNote.colorSwap != null){
+									spr.colorSwap.r = daNote.colorSwap.r;
+									spr.colorSwap.g = daNote.colorSwap.g;
+									spr.colorSwap.b = daNote.colorSwap.b;
+								}
 
 								if (!daNote.isSustainNote && opponentNoteSplashes) {
 									var splash = splash_group.recycle(NoteSplash);
 									splash.setup_splash(spr.ID, spr, false);
-									splash.colorSwap.r = spr.colorSwap.r;
-									splash.colorSwap.g = spr.colorSwap.g;
-									splash.colorSwap.b = spr.colorSwap.b;
-
+									if(daNote.colorSwap != null){
+										splash.colorSwap.r = daNote.colorSwap.r;
+										splash.colorSwap.g = daNote.colorSwap.g;
+										splash.colorSwap.b = daNote.colorSwap.b;
+									}
 									splash_group.add(splash);
 								}
 
@@ -3307,9 +3310,11 @@ class PlayState extends MusicBeatState {
 				if (spr.ID == Math.abs(noteData)) {
 					var splash = splash_group.recycle(NoteSplash);
 					splash.setup_splash(noteData, spr, true);
-					splash.colorSwap.r = spr.colorSwap.r;
-					splash.colorSwap.g = spr.colorSwap.g;
-					splash.colorSwap.b = spr.colorSwap.b;
+					if(spr.colorSwap != null){
+						splash.colorSwap.r = spr.colorSwap.r;
+						splash.colorSwap.g = spr.colorSwap.g;
+						splash.colorSwap.b = spr.colorSwap.b;
+					}
 					splash_group.add(splash);
 				}
 			});
@@ -3868,6 +3873,14 @@ class PlayState extends MusicBeatState {
 	var hitsound:FlxSound;
 
 	function goodNoteHit(note:Note, ?setNoteDiff:Float):Void {
+		call("goodNoteHit", [
+			note.noteData,
+			Conductor.songPosition,
+			note.arrow_Type,
+			note.strumTime,
+			note.character,
+			note.mustPress
+		]);
 		if (!note.wasGoodHit) {
 			if (note.shouldHit && !note.isSustainNote) {
 				combo++;
@@ -3952,9 +3965,11 @@ class PlayState extends MusicBeatState {
 					if (Math.abs(note.noteData) == spr.ID) {
 						if (playerStrumsGlow) {
 							spr.playAnim('confirm', true);
-							spr.colorSwap.r = note.colorSwap.r;
-							spr.colorSwap.g = note.colorSwap.g;
-							spr.colorSwap.b = note.colorSwap.b;
+							if(note.colorSwap != null){
+								spr.colorSwap.r = note.colorSwap.r;
+								spr.colorSwap.g = note.colorSwap.g;
+								spr.colorSwap.b = note.colorSwap.b;
+							}
 						}
 					}
 				});
@@ -3969,6 +3984,14 @@ class PlayState extends MusicBeatState {
 				note.destroy();
 			}
 		}
+		call("goodNoteHitPost", [
+			note.noteData,
+			Conductor.songPosition,
+			note.arrow_Type,
+			note.strumTime,
+			note.character,
+			note.mustPress
+		]);
 	}
 
 	override function stepHit() {

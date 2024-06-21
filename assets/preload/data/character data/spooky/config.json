@@ -6,39 +6,45 @@
   "animations": [
     {
       "name": "danceLeft",
-      "animation_name": "spooky dance idle",
-      "fps": 12,
+      "animation_name": "Idle",
+      "fps": 24,
       "looped": false,
-      "indices": [0, 2, 6]
+      "indices": [0, 1, 2, 3, 4, 5, 6, 7]
     },
     {
       "name": "danceRight",
-      "animation_name": "spooky dance idle",
-      "fps": 12,
+      "animation_name": "Idle",
+      "fps": 24,
       "looped": false,
-      "indices": [8, 10, 12, 14]
+      "indices": [8, 9, 10, 11, 12, 13, 14, 15]
     },
     {
       "name": "singLEFT",
-      "animation_name": "note sing left",
+      "animation_name": "SingLEFT",
       "fps": 24,
       "looped": false
     },
     {
       "name": "singDOWN",
-      "animation_name": "spooky DOWN note",
+      "animation_name": "SingDOWN",
       "fps": 24,
       "looped": false
     },
     {
       "name": "singUP",
-      "animation_name": "spooky UP NOTE",
+      "animation_name": "SingUP",
       "fps": 24,
       "looped": false
     },
     {
       "name": "singRIGHT",
-      "animation_name": "spooky sing right",
+      "animation_name": "SingRIGHT",
+      "fps": 24,
+      "looped": false
+    },
+    {
+      "name": "cheer",
+      "animation_name": "Cheer",
       "fps": 24,
       "looped": false
     }
