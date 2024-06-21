@@ -74,7 +74,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: iOSBuild
-          path: export/release/ios/build/Release-iphoneos/*.ipa
+          path: export/release/ios/build/Release-iphoneos/*.zip
           if-no-files-found: error
 
   Releaser:
