@@ -68,7 +68,7 @@ class SUtil
 						FileSystem.createDirectory(total);
 				}
 				catch (e:haxe.Exception)
-					utilities.CoolUtil.coolError('Error while creating folder. (${e.message})');
+					CoolUtil.coolError('Error while creating folder. (${e.message})');
 			}
 		}
 	}
@@ -85,7 +85,7 @@ class SUtil
 			showPopUp(fileName + " file has been saved.", "Success!");
 		}
 		catch (e:haxe.Exception)
-			utilities.CoolUtil.coolError('File couldn\'t be saved. (${e.message})');
+			CoolUtil.coolError('File couldn\'t be saved. (${e.message})');
 	}
 
 	#if android
