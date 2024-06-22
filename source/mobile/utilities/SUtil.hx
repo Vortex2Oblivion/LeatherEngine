@@ -25,7 +25,7 @@ class SUtil
 		var daPath:String = Sys.getCwd();
 		#if android
 		if (!FileSystem.exists(rootDir + 'storagetype.txt'))
-			File.saveContent(rootDir + 'storagetype.txt', utilities.Options.getData("storageType"));
+			File.saveContent(rootDir + 'storagetype.txt', Options.getData("storageType"));
 		var curStorageType:String = File.getContent(rootDir + 'storagetype.txt');
 		if (forcedType != null) curStorageType = forcedType;
 		daPath = switch (curStorageType)

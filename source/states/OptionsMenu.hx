@@ -35,7 +35,7 @@ class OptionsMenu extends MusicBeatState {
 
 	public var inMenu = false;
 
-	#if android final lastStorageType = utilities.Options.getData("storageType"); #end
+	#if android final lastStorageType = Options.getData("storageType"); #end
 
 	public var pages:Map<String, Array<Dynamic>> = [
 		"Categories" => [
@@ -238,7 +238,7 @@ class OptionsMenu extends MusicBeatState {
 
 	function goBack() {
 		#if android
-		if (lastStorageType != utilities.Options.getData("storageType"))
+		if (lastStorageType != Options.getData("storageType"))
 		{
 			onStorageChange();
 			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
@@ -323,7 +323,7 @@ class OptionsMenu extends MusicBeatState {
 	#if android
 	function onStorageChange():Void
 	{
-		sys.io.File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', utilities.Options.getData("storageType"));
+		sys.io.File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', Options.getData("storageType"));
 	
 		var lastStoragePath:String = SUtil.getStorageDirectory(lastStorageType);
 	

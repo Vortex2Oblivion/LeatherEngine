@@ -19,7 +19,7 @@ class FlxHitbox extends FlxSpriteGroup
 {
 	public var hints(default, null):Array<FlxButton>;
 	final guh2:Float = 0.00001;
-	final guh:Float = utilities.Options.getData("mobileCAlpha") >= 0.9 ? utilities.Options.getData("mobileCAlpha") - 0.2 : utilities.Options.getData("mobileCAlpha");
+	final guh:Float = Options.getData("mobileCAlpha") >= 0.9 ? Options.getData("mobileCAlpha") - 0.2 : Options.getData("mobileCAlpha");
 
 	/**
 	 * Create the zone.
@@ -87,10 +87,10 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.multiTouch = true;
 		hint.immovable = true;
 		hint.moves = false;
-		hint.antialiasing = utilities.Options.getData("antialiasing");
+		hint.antialiasing = Options.getData("antialiasing");
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		if (utilities.Options.getData("hitboxType") != "Hidden" || !utilities.Options.getData("bot"))
+		if (Options.getData("hitboxType") != "Hidden" || !Options.getData("botplay"))
 		{
 			hint.onDown.callback = function()
 			{
@@ -118,7 +118,7 @@ class FlxHitbox extends FlxSpriteGroup
 	{
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
-		if (utilities.Options.getData("hitboxType") == "No Gradient")
+		if (Options.getData("hitboxType") == "No Gradient")
 		{
 			var matrix:Matrix = new Matrix();
 			matrix.createGradientBox(Width, Height, 0, 0, 0);
@@ -127,7 +127,7 @@ class FlxHitbox extends FlxSpriteGroup
 			shape.graphics.drawRect(0, 0, Width, Height);
 			shape.graphics.endFill();
 		}
-		else if (utilities.Options.getData("hitboxType") == "No Gradient (Old)")
+		else if (Options.getData("hitboxType") == "No Gradient (Old)")
 		{
 			shape.graphics.lineStyle(10, Color, 1);
 			shape.graphics.drawRect(0, 0, Width, Height);

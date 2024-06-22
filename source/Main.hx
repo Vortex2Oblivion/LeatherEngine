@@ -83,7 +83,7 @@ class Main extends Sprite {
 		});
 
 		#if mobile
-		lime.system.System.allowScreenTimeout = utilities.Options.getData("screenSaver");
+		lime.system.System.allowScreenTimeout = Options.getData("screenSaver");
 		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
 		#end
 	}

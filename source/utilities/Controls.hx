@@ -272,7 +272,7 @@ class Controls extends FlxActionSet {
 	@:noCompletion
 	private function get_mobileC():Bool
 	{
-		if (utilities.Options.getData("mobileCAlpha") >= 0.1)
+		if (Options.getData("mobileCAlpha") >= 0.1)
 			return true;
 		else
 			return false;
