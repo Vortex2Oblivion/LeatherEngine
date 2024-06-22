@@ -90,7 +90,8 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.antialiasing = Options.getData("antialiasing");
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		if (Options.getData("hitboxType") != "Hidden" || !Options.getData("botplay"))
+		hint.active = !Options.getData("botplay");
+		if (Options.getData("hitboxType") != "Hidden")
 		{
 			hint.onDown.callback = function()
 			{
