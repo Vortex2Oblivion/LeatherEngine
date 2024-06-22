@@ -859,12 +859,16 @@ class StageMakingState extends MusicBeatState {
 		var data:String = Json.stringify(stageData, null, "\t");
 
 		if ((data != null) && (data.length > 0)) {
+			#if mobile
+			SUtil.saveContent(stage_Name, '.json', data.trim());
+			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 
 			_file.save(data.trim(), stage_Name + ".json");
+			#end
 		}
 	}
 

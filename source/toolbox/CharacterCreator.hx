@@ -547,12 +547,16 @@ class CharacterCreator extends MusicBeatState {
 			if (offsetsText.endsWith("\n"))
 				offsetsText = offsetsText.substr(0, offsetsText.length - 1);
 
+			#if mobile
+			SUtil.saveContent('offsets', '.txt', offsetsText);
+			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 
 			_file.save(offsetsText, "offsets.txt");
+			#end
 		}
 	}
 

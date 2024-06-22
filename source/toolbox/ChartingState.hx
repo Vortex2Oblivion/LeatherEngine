@@ -2220,10 +2220,12 @@ class ChartingState extends MusicBeatState {
 		var data:String = Json.stringify(json);
 
 		if ((data != null) && (data.length > 0)) {
+			#if !mobile
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+			#end
 
 			var gamingName = _song.song.toLowerCase();
 
@@ -2233,7 +2235,11 @@ class ChartingState extends MusicBeatState {
 			if (saveEvents)
 				gamingName = "events";
 
+			#if mobile
+			SUtil.saveContent(gamingName, '.json', data.trim());
+			#else
 			_file.save(data.trim(), gamingName + ".json");
+			#end
 		}
 	}
 
