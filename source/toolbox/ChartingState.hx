@@ -316,6 +316,9 @@ class ChartingState extends MusicBeatState {
 		new FlxTimer().start(Options.getData("backupDuration") * 60, backupChart, 0);
 		new FlxTimer().start(Options.getData("backupDuration") * 60, backupEvents, 0);
 
+		addVirtualPad(LEFT_FULL, A_B_X_Y);
+		addVirtualPadCamera();
+
 		super.create();
 
 		loadedAutosave = false;
@@ -1387,14 +1390,14 @@ class ChartingState extends MusicBeatState {
 
 			dummyArrow.x = Math.floor(FlxG.mouse.x / GRID_SIZE) * GRID_SIZE;
 
-			if (FlxG.keys.pressed.SHIFT)
+			if (FlxG.keys.pressed.SHIFT || virtualPad.buttonB.justPressed)
 				dummyArrow.y = FlxG.mouse.y;
 			else
 				dummyArrow.y = Math.floor(FlxG.mouse.y / snappedGridSize) * snappedGridSize;
 		}
 
 		if (!blockInput) {
-			if (FlxG.keys.justPressed.ENTER) {
+			if (virtualPad.buttonA.justPressed || FlxG.keys.justPressed.ENTER) {
 				_song.events = events;
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
@@ -1438,7 +1441,7 @@ class ChartingState extends MusicBeatState {
 
 			var control = FlxG.keys.pressed.CONTROL;
 
-			if (FlxG.keys.justPressed.SPACE) {
+			if (virtualPad.buttonX.justPressed || FlxG.keys.justPressed.SPACE) {
 				lilBf.animation.play("idle", true);
 				lilOpp.animation.play("idle", true);
 				if (FlxG.sound.music.playing) {
@@ -1457,7 +1460,7 @@ class ChartingState extends MusicBeatState {
 					resetSection();
 			}
 
-			if (FlxG.mouse.wheel != 0 && !control) {
+			if (!controls.mobileC && FlxG.mouse.wheel != 0 && !control) {
 				lilBf.animation.play("idle", true);
 				lilOpp.animation.play("idle", true);
 				FlxG.sound.music.pause();
@@ -1465,7 +1468,7 @@ class ChartingState extends MusicBeatState {
 
 				FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet * 0.4);
 				vocals.time = FlxG.sound.music.time;
-			} else if (FlxG.mouse.wheel != 0) {
+			} else if (!controls.mobileC && FlxG.mouse.wheel != 0) {
 				cameraShitThing.x += FlxG.mouse.wheel * 5;
 
 				if (cameraShitThing.x > gridBG.x + gridBG.width)
@@ -1475,8 +1478,8 @@ class ChartingState extends MusicBeatState {
 					cameraShitThing.x = 0;
 			}
 
-			if (!FlxG.keys.pressed.SHIFT) {
-				if (FlxG.keys.pressed.W || FlxG.keys.pressed.S) {
+			if (!(FlxG.keys.pressed.SHIFT || virtualPad.buttonB.justPressed)) {
+				if ((virtualPad.buttonUp.pressed || FlxG.keys.pressed.W) || (virtualPad.buttonDown.pressed || FlxG.keys.pressed.S)) {
 					lilBf.animation.play("idle", true);
 					lilOpp.animation.play("idle", true);
 					FlxG.sound.music.pause();
@@ -1484,7 +1487,7 @@ class ChartingState extends MusicBeatState {
 
 					var daTime:Float = 700 * FlxG.elapsed;
 
-					if (FlxG.keys.pressed.W) {
+					if (virtualPad.buttonUp.pressed || FlxG.keys.pressed.W) {
 						FlxG.sound.music.time -= daTime;
 					} else
 						FlxG.sound.music.time += daTime;
@@ -1511,7 +1514,7 @@ class ChartingState extends MusicBeatState {
 
 			var shiftThing:Int = 1;
 
-			if (FlxG.keys.pressed.SHIFT)
+			if (FlxG.keys.pressed.SHIFT || virtualPad.buttonB.justPressed)
 				shiftThing = 4;
 			if ((controls.RIGHT_P) && !control)
 				changeSection(curSection + shiftThing);
@@ -1554,7 +1557,7 @@ class ChartingState extends MusicBeatState {
 			+ curBeat
 			+ "\nNote Snap: "
 			+ beatSnap
-			+ (FlxG.keys.pressed.SHIFT ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
+			+ ((FlxG.keys.pressed.SHIFT || virtualPad.buttonB.justPressed) ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
 			+ "\nZoom Level: "
 			+ zoom_level
 			+ "\n");

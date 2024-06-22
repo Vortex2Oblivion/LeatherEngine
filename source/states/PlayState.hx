@@ -2900,62 +2900,13 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (!Options.getData("disableDebugMenus")) {
-			if (FlxG.keys.justPressed.SEVEN && !switchedStates && !inCutscene) {
-				closeLua();
-
-				PlayState.chartingMode = true;
-
-				switchedStates = true;
-
-				vocals.stop();
-
-				SONG.keyCount = ogKeyCount;
-				SONG.playerKeyCount = ogPlayerKeyCount;
-
-				FlxG.switchState(new ChartingState());
-
-				#if DISCORD_ALLOWED
-				DiscordClient.changePresence("Chart Editor", null, null, true);
-				#end
-			}
+			if (FlxG.keys.justPressed.SEVEN && !switchedStates && !inCutscene) openChartEditor();
 
 			// #if debug
-			if (FlxG.keys.justPressed.EIGHT && !switchedStates && !inCutscene) {
-				closeLua();
-
-				switchedStates = true;
-
-				vocals.stop();
-
-				SONG.keyCount = ogKeyCount;
-				SONG.playerKeyCount = ogPlayerKeyCount;
-
-				FlxG.switchState(new toolbox.CharacterCreator(SONG.player2, curStage));
-
-				toolbox.CharacterCreator.lastState = "PlayState";
-
-				#if DISCORD_ALLOWED
-				DiscordClient.changePresence("Creating A Character", null, null, true);
-				#end
-			}
+			if (FlxG.keys.justPressed.EIGHT && !switchedStates && !inCutscene) openCharacterEditor();
 
 			#if MODCHARTING_TOOLS
-			if (FlxG.keys.justPressed.NINE && !switchedStates && !inCutscene) {
-				closeLua();
-
-				switchedStates = true;
-
-				vocals.stop();
-
-				SONG.keyCount = ogKeyCount;
-				SONG.playerKeyCount = ogPlayerKeyCount;
-
-				FlxG.switchState(new modcharting.ModchartEditorState());
-
-				#if DISCORD_ALLOWED
-				DiscordClient.changePresence("In The Modchart Editor", null, null, true);
-				#end
-			}
+			if (FlxG.keys.justPressed.NINE && !switchedStates && !inCutscene) openModchartEditor();
 			#end
 		}
 
@@ -5212,6 +5163,64 @@ class PlayState extends MusicBeatState {
 
 	public function addBehindBF(behind:FlxBasic) {
 		insert(members.indexOf(boyfriend), behind);
+	}
+
+	public function openChartEditor():Void
+	{
+		closeLua();
+
+		PlayState.chartingMode = true;
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new ChartingState());
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("Chart Editor", null, null, true);
+		#end
+	}
+
+	public function openCharacterEditor():Void
+	{
+		closeLua();
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new toolbox.CharacterCreator(SONG.player2, curStage));
+
+		toolbox.CharacterCreator.lastState = "PlayState";
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("Creating A Character", null, null, true);
+		#end
+	}
+
+	public function openModchartEditor():Void
+	{
+		closeLua();
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new modcharting.ModchartEditorState());
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("In The Modchart Editor", null, null, true);
+		#end
 	}
 }
 

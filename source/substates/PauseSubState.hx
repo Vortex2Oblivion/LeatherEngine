@@ -27,6 +27,7 @@ class PauseSubState extends MusicBeatSubstate {
 	var menus:Map<String, Array<String>> = [
 		"default" => ['Resume', 'Restart Song', 'Options', 'Exit To Menu'],
 		"restart" => ['Back', 'No Cutscenes', 'With Cutscenes'],
+		"editors" => ['Back', 'Chart Editor', 'Character Editor', 'Modchart Editor']
 	];
 
 	var menu:String = "default";
@@ -48,6 +49,12 @@ class PauseSubState extends MusicBeatSubstate {
 
 		if(PlayState.chartingMode){
 			optionsArray.insert(optionsArray.length - 1, "Skip Time");
+			menus.set("default", optionsArray);
+		}
+
+		if (controls.mobileC) {
+			final num:Int = !PlayState.chartingMode ? 2 : 3;
+			optionsArray.insert(optionsArray.length - num, "Editors");
 			menus.set("default", optionsArray);
 		}
 
@@ -247,6 +254,15 @@ class PauseSubState extends MusicBeatSubstate {
 					} else {
 						FlxG.switchState(new FreeplayState());
 					}
+				case "editors":
+					menu = "editors";
+					updateAlphabets();
+				case "chart editor":
+					PlayState.instance.openChartEditor();
+				case "character editor":
+					PlayState.instance.openCharacterEditor();
+				case "modchart editor":
+					PlayState.instance.openModchartEditor();
 			}
 		}
 	}
@@ -263,6 +279,7 @@ class PauseSubState extends MusicBeatSubstate {
 					songText.targetY = i;
 
 					grpMenuShit.add(songText);
+					removeVirtualPad();
 					addVirtualPad(LEFT_FULL, A_B);
 				}
 			else{
@@ -271,6 +288,7 @@ class PauseSubState extends MusicBeatSubstate {
 				songText.targetY = i;
 
 				grpMenuShit.add(songText);
+				removeVirtualPad();
 				addVirtualPad(UP_DOWN, A_B);
 			}
 		}
