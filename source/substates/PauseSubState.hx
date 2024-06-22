@@ -264,8 +264,10 @@ class PauseSubState extends MusicBeatSubstate {
 					PlayState.instance.openChartEditor();
 				case "character editor":
 					PlayState.instance.openCharacterEditor();
+				#if MODCHARTING_TOOLS
 				case "modchart editor":
 					PlayState.instance.openModchartEditor();
+				#end
 			}
 		}
 	}

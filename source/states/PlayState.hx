@@ -5210,6 +5210,7 @@ class PlayState extends MusicBeatState {
 		#end
 	}
 
+	#if MODCHARTING_TOOLS
 	public function openModchartEditor():Void
 	{
 		closeLua();
@@ -5227,6 +5228,7 @@ class PlayState extends MusicBeatState {
 		DiscordClient.changePresence("In The Modchart Editor", null, null, true);
 		#end
 	}
+	#end
 }
 
 enum Execute_On {
