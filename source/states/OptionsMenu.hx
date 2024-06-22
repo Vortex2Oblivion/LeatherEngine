@@ -31,6 +31,7 @@ import openfl.utils.Assets as OpenFLAssets;
 class OptionsMenu extends MusicBeatState {
 	var curSelected:Int = 0;
 	var ui_Skin:Null<String>;
+	var removeVpad:Bool = true;
 
 	public var inMenu = false;
 
@@ -249,6 +250,7 @@ class OptionsMenu extends MusicBeatState {
 			return;
 		}
 
+		removeVpad = false;
 		FlxG.switchState(new MainMenuState());
 	}
 
@@ -307,14 +309,14 @@ class OptionsMenu extends MusicBeatState {
 	override function closeSubState() {
 		persistentUpdate = true;
 		super.closeSubState();
-		removeVirtualPad();
-		addVirtualPad(UP_DOWN, A_B);
+		if (removeVpad) {removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);}
 		addVirtualPadCamera();
 	}
 
 	override function openSubState(substate:flixel.FlxSubState) {
 		persistentUpdate = false;
-		removeVirtualPad();
+		if (removeVpad) removeVirtualPad();
 		super.openSubState(substate);
 	}
 

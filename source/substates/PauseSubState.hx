@@ -97,6 +97,9 @@ class PauseSubState extends MusicBeatSubstate {
 		cameras = [pauseCamera];
 		if (PlayState.instance.usedLuaCameras)
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
+
+		addVirtualPad(PlayState.chartingMode ? LEFT_FULL : UP_DOWN, A_B);
+		addVirtualPadCamera();
 	}
 
 	var justPressedAcceptLol:Bool = true;
@@ -279,8 +282,6 @@ class PauseSubState extends MusicBeatSubstate {
 					songText.targetY = i;
 
 					grpMenuShit.add(songText);
-					removeVirtualPad();
-					addVirtualPad(LEFT_FULL, A_B);
 				}
 			else{
 				var songText:Alphabet = new Alphabet(0, (70 * i) + 30, menus.get(menu)[i], true);
@@ -288,12 +289,8 @@ class PauseSubState extends MusicBeatSubstate {
 				songText.targetY = i;
 
 				grpMenuShit.add(songText);
-				removeVirtualPad();
-				addVirtualPad(UP_DOWN, A_B);
 			}
 		}
-
-		addVirtualPadCamera();
 
 		if(jump) curSelected = 0;
 		else FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
