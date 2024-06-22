@@ -68,6 +68,12 @@
       "url": "https://github.com/whuop/hxNoise"
     },
     {
+      "name": "thx.semver",
+      "type": "git",
+      "ref": "master",
+      "url": "https://github.com/fponticelli/thx.semver"
+    },
+    {
       "name": "hxcpp",
       "type": "git",
       "ref": "master",
