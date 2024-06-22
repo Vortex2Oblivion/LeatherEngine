@@ -18,6 +18,8 @@ import mobile.flixel.FlxButton;
 class FlxHitbox extends FlxSpriteGroup
 {
 	public var hints(default, null):Array<FlxButton>;
+	final guh2:Float = 0.00001;
+	final guh:Float = utilities.Options.getData("mobileCAlpha") >= 0.9 ? utilities.Options.getData("mobileCAlpha") - 0.2 : utilities.Options.getData("mobileCAlpha");
 
 	/**
 	 * Create the zone.
@@ -79,8 +81,6 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHint(X:Float, Y:Float, Width:Int, Height:Int, Color:Int = 0xFFFFFF):FlxButton
 	{
-		final guh2:Float = 0.00001;
-		final guh:Float = utilities.Options.getData("mobileCAlpha") >= 0.9 ? utilities.Options.getData("mobileCAlpha") - 0.2 : utilities.Options.getData("mobileCAlpha");
 		var hint:FlxButton = new FlxButton(X, Y);
 		hint.loadGraphic(createHintGraphic(Width, Height, Color));
 		hint.solid = false;
@@ -90,7 +90,7 @@ class FlxHitbox extends FlxSpriteGroup
 		hint.antialiasing = utilities.Options.getData("antialiasing");
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
-		if (utilities.Options.getData("hitboxType") != "Hidden")
+		if (utilities.Options.getData("hitboxType") != "Hidden" || !utilities.Options.getData("bot"))
 		{
 			hint.onDown.callback = function()
 			{
@@ -116,9 +116,6 @@ class FlxHitbox extends FlxSpriteGroup
 
 	private function createHintGraphic(Width:Int, Height:Int, Color:Int = 0xFFFFFF):BitmapData
 	{
-		var guh:Float = utilities.Options.getData("mobileCAlpha");
-		if (guh >= 0.9)
-			guh = utilities.Options.getData("mobileCAlpha") - 0.07;
 		var shape:Shape = new Shape();
 		shape.graphics.beginFill(Color);
 		if (utilities.Options.getData("hitboxType") == "No Gradient")

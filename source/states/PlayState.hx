@@ -3899,6 +3899,14 @@ class PlayState extends MusicBeatState {
 			if (startedCountdown) {
 				playerStrums.forEach(function(spr:StrumNote) {
 					if (Math.abs(note.noteData) == spr.ID) {
+						@:privateAccess
+						if (utilities.Options.getData("hitboxType") != "Hidden") {
+							final sprID:Int = spr.ID;
+							final susScale:Float = note.sustainScaleY != 1 ? note.sustainScaleY * 100 : 1.0;
+							trace(susScale);
+							hitbox.hints[sprID].alpha = hitbox.guh;
+							haxe.Timer.delay(() -> hitbox.hints[sprID].alpha = hitbox.guh2, Std.int(note.height) + Std.int(susScale));
+						}
 						spr.playAnim('confirm', true);
 						if(note.colorSwap != null){
 							spr.colorSwap.r = note.colorSwap.r;
