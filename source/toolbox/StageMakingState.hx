@@ -722,13 +722,14 @@ class StageMakingState extends MusicBeatState {
 		cam_Zoom.x = FlxG.width - cam_Zoom.width - 2;
 	}
 
-	function reloadStage() {
+	function reloadStage(changing:Bool = true) {
 		objects = [];
 		stageObjectPos = [];
 		selectedObject = 0;
 
-		clear();
-
+		if(stage != null) {
+			remove(stage);
+		}
 		add(camFollow);
 
 		stage = new StageGroup(stage_Name);
@@ -740,49 +741,70 @@ class StageMakingState extends MusicBeatState {
 		stage.setCharOffsets(bf, gf, dad);
 
 		if (gf.otherCharacters == null) {
-			if (gf.coolTrail != null)
+			if (gf.coolTrail != null){
+				remove(gf.coolTrail);
 				add(gf.coolTrail);
+			}
 
+			remove(gf);
 			add(gf);
 		} else {
 			for (character in gf.otherCharacters) {
-				if (character.coolTrail != null)
+				if (character.coolTrail != null){
+					remove(character.coolTrail);
 					add(character.coolTrail);
+				}
 
+				remove(character);
 				add(character);
 			}
 		}
 
+		remove(stage.infrontOfGFSprites);
 		add(stage.infrontOfGFSprites);
 
 		if (dad.otherCharacters == null) {
-			if (dad.coolTrail != null)
+			if (dad.coolTrail != null){
+				remove(dad.coolTrail);
 				add(dad.coolTrail);
+			}
 
+			remove(dad);
 			add(dad);
 		} else {
 			for (character in dad.otherCharacters) {
-				if (character.coolTrail != null)
+				if (character.coolTrail != null){
+					remove(character.coolTrail);
 					add(character.coolTrail);
+				}
 
+				remove(character);
 				add(character);
 			}
 		}
 
 		if (bf.otherCharacters == null) {
-			if (bf.coolTrail != null)
+			if (bf.coolTrail != null){
+				remove(bf.coolTrail);
 				add(bf.coolTrail);
 
+			}
+
+			remove(bf);
 			add(bf);
 		} else {
 			for (character in bf.otherCharacters) {
-				if (character.coolTrail != null)
+				if (character.coolTrail != null){
+					remove(character.coolTrail);
 					add(character.coolTrail);
+				}
 
+				remove(character);
 				add(character);
 			}
 		}
 
+		remove(stage.foregroundSprites);
 		add(stage.foregroundSprites);
 
 		add(bf_Pos);

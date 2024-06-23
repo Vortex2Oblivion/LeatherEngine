@@ -339,13 +339,14 @@ class StageGroup extends FlxGroup {
 							}
 						}
 					if (Assets.exists(Paths.hx('data/stage data/${stage}'))) {
-	
-						stage_script = new HScript(Paths.hx('data/stage data/${stage}'));
-						for (object in stage_Objects){
-							stage_script.interp.variables.set(object[0], object[1]);
+						if (FlxG.state is PlayState) {
+							stage_script = new HScript(Paths.hx('data/stage data/${stage}'));
+							for (object in stage_Objects){
+								stage_script.interp.variables.set(object[0], object[1]);
+							}
+							stage_script.start();
+							PlayState.instance.scripts.push(stage_script);
 						}
-						stage_script.start();
-						PlayState.instance.scripts.push(stage_script);
 					}
 				}
 			}

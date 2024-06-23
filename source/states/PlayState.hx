@@ -2020,7 +2020,7 @@ class PlayState extends MusicBeatState {
 		for (i in 0...usedKeyCount) {
 			var babyArrow = new StrumNote(0, strumLine.y, i, null, null, null, usedKeyCount, player);
 
-			babyArrow.frames = Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default");
+			babyArrow.frames = Assets.exists(Paths.image("ui skins/" + SONG.ui_Skin + "/arrows/strums")) ? Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/strums") : Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default");
 
 			babyArrow.antialiasing = ui_settings[3] == "true";
 
