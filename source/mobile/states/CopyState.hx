@@ -16,7 +16,7 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 
-class CopyState extends MusicBeatState
+class CopyState extends states.MusicBeatState
 {
 	public static var locatedFiles:Array<String> = [];
 	public static var maxLoopTimes:Int = 0;
@@ -42,7 +42,7 @@ class CopyState extends MusicBeatState
 		checkExistingFiles();
 		if (maxLoopTimes <= 0)
 		{
-			MusicBeatState.switchState(new TitleState());
+			FlxG.switchState(new TitleState());
 			return;
 		}
 
@@ -92,7 +92,7 @@ class CopyState extends MusicBeatState
 				}
 				canUpdate = false;
 				FlxG.sound.play(Paths.sound('confirmMenu')).onComplete = () -> {
-					MusicBeatState.switchState(new TitleState());
+					FlxG.switchState(new TitleState());
 				};
 			}
 
