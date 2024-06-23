@@ -19,6 +19,9 @@ import flixel.FlxCamera;
 import flixel.input.actions.FlxActionInput;
 import flixel.util.FlxDestroyUtil;
 
+/**
+ * The backend state all states will extend from.
+ */
 class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeatState #else flixel.addons.ui.FlxUIState #end {
 	public var lastBeat:Float = 0;
 	public var lastStep:Float = 0;

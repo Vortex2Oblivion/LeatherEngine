@@ -5,6 +5,11 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import openfl.display.BitmapData;
 
+/**
+ * Helper class to fix text outlines on LUA scripts.
+ * @author TheZoroForce240
+ * @see https://github.com/TheZoroForce240/Voiid-Chronicles-V2-Source/blob/2a1b5d2b6309971db401f3fcbb6c1591615e65ea/source/modding/ModchartUtilities.hx#L3206
+ */
 class FlxTextFix extends FlxText
 {
 	override function regenGraphic()

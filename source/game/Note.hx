@@ -65,7 +65,15 @@ class Note extends FlxSkewedSprite {
 	public var inEditor:Bool = false;
 
 	#if MODCHARTING_TOOLS
+	/**
+	 * The mesh used for sustains to make them stretchy
+	 * Used only on modchart songs
+	 */
 	public var mesh:modcharting.SustainStrip = null;
+	/**
+	 * The Z value for the note.
+	 * Used only on modchart songs
+	 */
 	public var z:Float = 0;
 	#end
 
@@ -93,8 +101,6 @@ class Note extends FlxSkewedSprite {
 	 * @see https://step-mania.fandom.com/wiki/Notes
 	 */
 	public var beats:Array<Int> = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
-
-	public var canGlow:Bool = Options.getData("playerStrumsGlowWhenCanBeHit");
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?character:Int = 0, ?arrowType:String = "default",
 			?song:SwagSong, ?characters:Array<Int>, ?mustPress:Bool = false, ?inEditor:Bool = false) {
@@ -257,14 +263,10 @@ class Note extends FlxSkewedSprite {
 		}
 	}
 
-	public inline function checkPlayerMustPress() //flips must press for opponent mode
-	{
-		return (/*PlayState.characterPlayingAs == 1 ? !mustPress :*/ mustPress);
-	}
 
 	public function calculateCanBeHit() {
 		if (this != null) {
-			if (checkPlayerMustPress()) {
+			if (mustPress) {
 				/**
 					TODO: make this shit use something from the arrow config .txt file
 				**/

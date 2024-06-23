@@ -21,7 +21,6 @@ import mobile.states.CopyState;
 #end
 
 class Main extends Sprite {
-	public static var instance:Main = null;
 	public static var game:FlxGame;
 	public static var display:SimpleInfoDisplay;
 	public static var logsOverlay:Logs;
