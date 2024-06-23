@@ -56,7 +56,7 @@ jobs:
         run: |
             haxelib install hmm --quiet
             haxelib run hmm install --quiet
-            haxelib git dox https://github.com/HaxeFoundation/dox
+            haxelib git dox https://github.com/HaxeFoundation/dox --quiet
             mkdir pages
       
       - name: Create Documentation Site 🌐
