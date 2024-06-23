@@ -133,7 +133,7 @@ class FreeplayState extends MusicBeatState{
 		if(!ModList.modList.get(Options.getData("curMod"))){
 			Options.setData("Friday Night Funkin'", "curMod");
 			CoolUtil.coolError("Hmmm... I couldnt find the mod you are trying to switch to.\nIt is either disabled or not in the files.\nI switched the mod to base game to avoid a crash!","Leather Engine's No Crash, We Help Fix Stuff Tool");
-			CoolUtil.setWindowIcon("mods/"+Options.getData("curMod")+"/_polymod_icon.png")
+			CoolUtil.setWindowIcon("mods/"+Options.getData("curMod")+"/_polymod_icon.png");
 		}
 		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/data/freeplaySonglist.txt"))
 			initSonglist = CoolUtil.coolTextFileSys("mods/" + Options.getData("curMod") + "/data/freeplaySonglist.txt");
