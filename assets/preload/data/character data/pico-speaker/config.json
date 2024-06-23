@@ -9,9 +9,9 @@
   "animations": [
     {
       "name": "idle",
-      "animation_name": "Pico shoot 1",
+      "animation_name": "Pico idle",
       "fps": 24,
-      "looped": false
+      "looped": true
     },
     {
       "name": "shoot1",
