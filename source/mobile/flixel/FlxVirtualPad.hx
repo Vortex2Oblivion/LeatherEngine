@@ -38,7 +38,6 @@ enum FlxActionMode
  * A gamepad.
  * It's easy to customize the layout.
  *
- * @author Ka Wing Chin
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
 class FlxVirtualPad extends FlxSpriteGroup
@@ -147,8 +146,8 @@ class FlxVirtualPad extends FlxSpriteGroup
 	}
 
 	/**
-	 * Clean up memory.
-	 */
+     * Cleans up memory.
+     */
 	override public function destroy():Void
 	{
 		super.destroy();
@@ -157,6 +156,15 @@ class FlxVirtualPad extends FlxSpriteGroup
 				Reflect.setField(this, field, FlxDestroyUtil.destroy(Reflect.field(this, field)));
 	}
 
+	/**
+ 	* Creates a button with specified properties.
+ 	*
+ 	* @param X The x position of the button.
+ 	* @param Y The y position of the button.
+ 	* @param Graphic The graphic to use for the button.
+ 	* @param Color The color of the button. Defaults to 0xFFFFFF (white).
+ 	* @return The created FlxButton.
+ 	*/
 	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
 	{
 		var graphic:FlxGraphic;
