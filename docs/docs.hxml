@@ -29,6 +29,7 @@
 
 --macro include('game')
 --macro include('android')
+--macro include('android', true, ['android.utilities.*'])
 --macro include('hxvlc')
 --macro include('flixel', true, [ 'flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*' ])
 --macro keep('Main')
