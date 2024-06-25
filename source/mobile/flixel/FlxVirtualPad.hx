@@ -171,7 +171,7 @@ class FlxVirtualPad extends FlxSpriteGroup {
 		else
 		#end if (Assets.exists(path))
 			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
-	else
+		else
 			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
 
 		var button:FlxButton = new FlxButton(X, Y);
