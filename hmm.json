@@ -14,12 +14,12 @@
     {
       "name": "flixel",
       "type": "haxelib",
-      "version": "5.5.0"
+      "version": "5.7.0"
     },
     {
       "name": "flixel-addons",
       "type": "haxelib",
-      "version": "3.2.1"
+      "version": "3.2.3"
     },
     {
       "name": "flixel-tools",
@@ -29,7 +29,7 @@
     {
       "name": "flixel-ui",
       "type": "haxelib",
-      "version": "2.5.0"
+      "version": "2.6.1"
     },
     {
       "name": "flxanimate",
