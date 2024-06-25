@@ -19,6 +19,9 @@ class LeatherJNI #if (lime >= "8.0.0") implements JNISafety #end
 	public static inline function setOrientation(width:Int, height:Int, resizeable:Bool, hint:String):Dynamic
 		return setOrientation_jni(width, height, resizeable, hint);
 
+	public static inline function showMessageBox(flags:Int, title:String, message:String, buttonFlags:Array<Int>, buttonIds:Array<Int>, buttonTexts:Array<String>, colors:Array<Int>):Dynamic
+		return showMessageBox_jni(flags, title, message, buttonFlags, buttonIds, buttonTexts, colors);
+
 	public static inline function getCurrentOrientationAsString():String {
 		return switch (getCurrentOrientation_jni()) {
 			case SDL_ORIENTATION_PORTRAIT: "Portrait";
@@ -33,5 +36,8 @@ class LeatherJNI #if (lime >= "8.0.0") implements JNISafety #end
 		'(IIZLjava/lang/String;)V');
 
 	@:noCompletion private static var getCurrentOrientation_jni:Dynamic = JNI.createStaticMethod('org/libsdl/app/SDLActivity', 'getCurrentOrientation', '()I');
+
+	@:noCompletion private static var showMessageBox_jni:Dynamic = JNI.createStaticMethod('org/libsdl/app/SDLActivity', 'messageboxShowMessageBox',
+		'(Ijava/lang/String;java/lang/String;[I[I[java/lang/String;[I)I');
 }
 #end
