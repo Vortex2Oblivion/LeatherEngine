@@ -10,6 +10,7 @@ import mobile.flixel.FlxButton;
 import openfl.display.BitmapData;
 import openfl.utils.Assets;
 
+@:dox(hide)
 enum FlxDPadMode
 {
 	UP_DOWN;
@@ -20,6 +21,7 @@ enum FlxDPadMode
 	NONE;
 }
 
+@:dox(hide)
 enum FlxActionMode
 {
 	A;

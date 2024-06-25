@@ -105,6 +105,7 @@ class FlxButton extends FlxTypedButton<FlxText>
 #if !display
 @:generic
 #end
+@:dox(hide)
 class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 {
 	/**
@@ -533,6 +534,7 @@ class FlxTypedButton<T:FlxSprite> extends FlxSprite implements IFlxInput
 /** 
  * Helper function for `FlxButton` which handles its events.
  */
+@:dox(hide)
 private class FlxButtonEvent implements IFlxDestroyable
 {
 	/**
