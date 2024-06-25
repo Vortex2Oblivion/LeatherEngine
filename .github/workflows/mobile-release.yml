@@ -56,7 +56,9 @@ jobs:
           haxelib run hmm install --quiet
 
       - name: Compile
-        run: haxelib run lime build ios -nosign -arm64 -final
+        run: |
+          rm -rf source/lime # https://github.com/openfl/lime/issues/1558
+          haxelib run lime build ios -nosign -arm64
 
       - name: Make Ipa
         run: |
@@ -102,8 +104,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "dev-0ad78c7"
-          title: "DevBuild 0ad78c7"
+          automatic_release_tag: "dev-6697182"
+          title: "DevBuild 6697182"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
