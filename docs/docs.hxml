@@ -11,7 +11,6 @@
 -L fnf-modcharting-tools
 -L funkin.vis
 -L linc_luajit
--L extension-androidtools
 
 --macro lime._internal.macros.DefineMacro.run()
 --macro openfl.utils._internal.ExtraParamsMacro.include()
