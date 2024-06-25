@@ -5,7 +5,6 @@
 
 package android.utilities;
 
-#if android
 import lime.system.JNI;
 
 class LeatherJNI #if (lime >= "8.0.0") implements JNISafety #end
@@ -34,4 +33,3 @@ class LeatherJNI #if (lime >= "8.0.0") implements JNISafety #end
 
 	@:noCompletion private static var getCurrentOrientation_jni:Dynamic = JNI.createStaticMethod('org/libsdl/app/SDLActivity', 'getCurrentOrientation', '()I');
 }
-#end
