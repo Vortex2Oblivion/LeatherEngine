@@ -11,8 +11,7 @@ import openfl.display.BitmapData;
 import openfl.utils.Assets;
 
 @:dox(hide)
-enum FlxDPadMode
-{
+enum FlxDPadMode {
 	UP_DOWN;
 	LEFT_RIGHT;
 	LEFT_FULL;
@@ -22,8 +21,7 @@ enum FlxDPadMode
 }
 
 @:dox(hide)
-enum FlxActionMode
-{
+enum FlxActionMode {
 	A;
 	B;
 	P;
@@ -42,24 +40,23 @@ enum FlxActionMode
  *
  * @author Mihai Alexandru (M.A. Jigsaw)
  */
-class FlxVirtualPad extends FlxSpriteGroup
-{
-	public var buttonLeft2:FlxButton = new FlxButton(0, 0);
-	public var buttonRight2:FlxButton = new FlxButton(0, 0);
-	public var buttonLeft:FlxButton = new FlxButton(0, 0);
-	public var buttonUp:FlxButton = new FlxButton(0, 0);
-	public var buttonRight:FlxButton = new FlxButton(0, 0);
-	public var buttonDown:FlxButton = new FlxButton(0, 0);
-	public var buttonA:FlxButton = new FlxButton(0, 0);
-	public var buttonB:FlxButton = new FlxButton(0, 0);
-	public var buttonC:FlxButton = new FlxButton(0, 0);
-	public var buttonD:FlxButton = new FlxButton(0, 0);
-	public var buttonE:FlxButton = new FlxButton(0, 0);
-	public var buttonP:FlxButton = new FlxButton(0, 0);
-	public var buttonV:FlxButton = new FlxButton(0, 0);
-	public var buttonX:FlxButton = new FlxButton(0, 0);
-	public var buttonY:FlxButton = new FlxButton(0, 0);
-	public var buttonZ:FlxButton = new FlxButton(0, 0);
+class FlxVirtualPad extends FlxSpriteGroup {
+	@:dox(hide) public var buttonLeft2:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonRight2:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonLeft:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonUp:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonRight:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonDown:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonA:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonB:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonC:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonD:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonE:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonP:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonV:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonX:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonY:FlxButton = new FlxButton(0, 0);
+	@:dox(hide) public var buttonZ:FlxButton = new FlxButton(0, 0);
 
 	/**
 	 * Create a gamepad.
@@ -67,12 +64,10 @@ class FlxVirtualPad extends FlxSpriteGroup
 	 * @param   DPadMode     The D-Pad mode. `LEFT_FULL` for example.
 	 * @param   ActionMode   The action buttons mode. `A_B_C` for example.
 	 */
-	public function new(DPad:FlxDPadMode, Action:FlxActionMode):Void
-	{
+	public function new(DPad:FlxDPadMode, Action:FlxActionMode):Void {
 		super();
 
-		switch (DPad)
-		{
+		switch (DPad) {
 			case UP_DOWN:
 				add(buttonUp = createButton(0, FlxG.height - 255, 'up', 0x00FF00));
 				add(buttonDown = createButton(0, FlxG.height - 135, 'down', 0x00FFFF));
@@ -99,8 +94,7 @@ class FlxVirtualPad extends FlxSpriteGroup
 			case NONE: // do nothing
 		}
 
-		switch (Action)
-		{
+		switch (Action) {
 			case A:
 				add(buttonA = createButton(FlxG.width - 132, FlxG.height - 135, 'a', 0xFF0000));
 			case B:
@@ -148,10 +142,9 @@ class FlxVirtualPad extends FlxSpriteGroup
 	}
 
 	/**
-     * Cleans up memory.
-     */
-	override public function destroy():Void
-	{
+	 * Cleans up memory.
+	 */
+	override public function destroy():Void {
 		super.destroy();
 		for (field in Reflect.fields(this))
 			if (Std.isOfType(Reflect.field(this, field), FlxButton))
@@ -159,26 +152,26 @@ class FlxVirtualPad extends FlxSpriteGroup
 	}
 
 	/**
- 	* Creates a button with specified properties.
- 	*
- 	* @param X The x position of the button.
- 	* @param Y The y position of the button.
- 	* @param Graphic The graphic to use for the button.
- 	* @param Color The color of the button. Defaults to 0xFFFFFF (white).
- 	* @return The created FlxButton.
- 	*/
-	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton
-	{
+	 * Creates a button with specified properties.
+	 *
+	 * @param X The x position of the button.
+	 * @param Y The y position of the button.
+	 * @param Graphic The graphic to use for the button.
+	 * @param Color The color of the button. Defaults to 0xFFFFFF (white).
+	 * @return The created FlxButton.
+	 */
+	private function createButton(X:Float, Y:Float, Graphic:String, Color:Int = 0xFFFFFF):FlxButton {
 		var graphic:FlxGraphic;
 
 		final path:String = 'shared:assets/shared/images/virtualpad/$Graphic.png';
 		#if MODDING_ALLOWED
 		final modsPath:String = 'mods/${Options.getData("curMod")}/images/virtualpad/$Graphic.png';
-		if(sys.FileSystem.exists(modsPath))
+		if (sys.FileSystem.exists(modsPath))
 			graphic = FlxGraphic.fromBitmapData(BitmapData.fromFile(modsPath));
-		else #end if(Assets.exists(path))
-			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
 		else
+		#end if (Assets.exists(path))
+			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData(path));
+	else
 			graphic = FlxGraphic.fromBitmapData(Assets.getBitmapData('shared:assets/shared/images/virtualpad/default.png'));
 
 		var button:FlxButton = new FlxButton(X, Y);
