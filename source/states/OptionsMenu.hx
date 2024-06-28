@@ -117,8 +117,7 @@ class OptionsMenu extends MusicBeatState {
 				OpenFLAssets.getFont(Paths.font("pixel.otf")).fontName
 			], "infoDisplayFont"),
 			new BoolOption("FPS Counter", "fpsCounter"),
-			new BoolOption("Memory Counter", "memoryCounter"),
-			new BoolOption("Version Display", "versionDisplay")
+			new BoolOption("Memory Counter", "memoryCounter")
 		],
 		"Judgements" => [
 			new PageOption("Back", "Gameplay"),
