@@ -80,7 +80,7 @@ class StageGroup extends FlxGroup {
 		if (newStage != null)
 			stage = newStage;
 
-		var bruhStages:Array<String> = ['school', 'school-mad', 'evil-school'];
+		var bruhStages:Array<String> = ['school', 'school-mad'];
 		var stagesNormally:Array<String> = CoolUtil.coolTextFile(Paths.txt('stageList'));
 
 		if (stage != "") {
@@ -231,23 +231,6 @@ class StageGroup extends FlxGroup {
 						add(bgGirls);
 
 						stage = "school-mad";
-					}
-				case "evil-school":
-					{
-						player_1_Point.x = 995;
-						player_1_Point.y = 918;
-						gf_Point.x = 645;
-						gf_Point.y = 834;
-						player_2_Point.x = 325;
-						player_2_Point.y = 918;
-
-						var bg:FlxSprite = new FlxSprite(400, 220);
-						bg.frames = Paths.getSparrowAtlas(stage + '/animatedEvilSchool', 'stages');
-						bg.animation.addByPrefix('idle', 'background 2', 24);
-						bg.animation.play('idle');
-						bg.scrollFactor.set(0.8, 0.9);
-						bg.scale.set(6, 6);
-						add(bg);
 					}
 				// CUSTOM SHIT
 				default:

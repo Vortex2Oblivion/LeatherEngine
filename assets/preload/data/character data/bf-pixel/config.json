@@ -3,6 +3,7 @@
   "dancesLeftAndRight": false,
   "imagePath": "bfPixel",
   "barColor": [123, 214, 246],
+  "singDuration": 8.0,
   "offsetsFlipWhenEnemy": true,
   "offsetsFlipWhenPlayer": false,
   "swapLeftAndRightSingPlayer": false,
