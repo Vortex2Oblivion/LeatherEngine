@@ -59,6 +59,12 @@ class SUtil {
 	 * @param directory The path of the directory to create.
 	 */
 	public static function mkDirs(directory:String):Void {
+		try {
+			if (FileSystem.exists(directory) && FileSystem.isDirectory(directory))
+				return;
+		} catch (e:haxe.Exception) {
+			trace('Something went wrong while looking at folder. (${e.message})');
+		}
 		var total:String = '';
 		if (directory.substr(0, 1) == '/')
 			total = '/';
