@@ -12,11 +12,6 @@
 -L funkin.vis
 -L linc_luajit
 
---macro lime._internal.macros.DefineMacro.run()
---macro openfl.utils._internal.ExtraParamsMacro.include()
---remap flash:openfl
---macro flixel.system.macros.FlxDefines.run()
-
 -cp source
 
 --define polymod
@@ -24,6 +19,11 @@
 --define VIDEOS_ALLOWED
 --define LEATHER
 --define MODDING_ALLOWED
+
+--macro lime._internal.macros.DefineMacro.run()
+--macro openfl.utils._internal.ExtraParamsMacro.include()
+--remap flash:openfl
+--macro flixel.system.macros.FlxDefines.run()
 
 
 --macro include('game')
@@ -39,3 +39,5 @@
 
 -xml docs/doc.xml
 --cpp docs-bin/
+
+-dce no
