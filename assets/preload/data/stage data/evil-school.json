@@ -1,39 +1,29 @@
 {
-    "scriptName": "evil-school",
-      "objects": [
-        {
-          "position": [-200, 0],
-          "scroll_Factor": [0.6, 0.9],
-          "scale": 6,
-          "antialiased": false,
-          "file_Name": "evilSchoolBG",
-          "is_Animated": true,
-          "animations": [
-            {
-              "name": "idle",
-              "animation_name": "background 2",
-              "fps": 24,
-              "looped": true
-            }
-          ],
-          "start_Animation": "idle",
-          "object_Name": "evilSchoolBG"
-        },
-        {
-          "is_Animated": false,
-          "antialiased": false,
-          "scroll_Factor": [0.95, 0.95],
-          "position": [-200, 0],
-          "file_Name": "evilSchoolFG",
-          "scale": 6,
-          "object_Name": "evilSchoolFG"
-        }
-      ],
-      "character_Positions": [
-        [995, 918],
-        [325, 918],
-        [645, 834]
-      ],
-      "camera_Zoom": 1
+  "scriptName": "evil-school",
+  "objects": [
+    {
+      "position": [-200, 0],
+      "scroll_Factor": [0.6, 0.9],
+      "scale": 6,
+      "antialiased": false,
+      "file_Name": "evilSchoolBG",
+      "is_Animated": false,
+      "object_Name": "evilSchoolBG"
+    },
+    {
+      "is_Animated": false,
+      "antialiased": false,
+      "scroll_Factor": [0.95, 0.95],
+      "position": [-200, 0],
+      "file_Name": "evilSchoolFG",
+      "scale": 6,
+      "object_Name": "evilSchoolFG"
     }
-    
+  ],
+  "character_Positions": [
+    [995, 918],
+    [325, 918],
+    [645, 834]
+  ],
+  "camera_Zoom": 1
+}
