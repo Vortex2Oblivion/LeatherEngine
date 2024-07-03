@@ -1,5 +1,8 @@
 package states;
 
+import substates.ResultsSubstate;
+import substates.ResultsSubstate.SaveScoreData;
+import game.Tallies;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -250,6 +253,11 @@ class PlayState extends MusicBeatState {
 		Current combo (or amount of notes hit in a row without a combo break).
 	**/
 	public var combo:Int = 0;
+
+	/**
+		Current combo (or amount of notes hit in a row without a combo break).
+	**/
+	public var maxCombo:Int = 0;
 
 	/**
 		Current score for the player.
@@ -1484,7 +1492,7 @@ class PlayState extends MusicBeatState {
 					if (!endSongVar)
 						startCountdown();
 					else
-						finishSongStuffs();
+						moveToResultsScreen();
 				} else {
 					var oldcutscene = cutscene;
 
@@ -1516,7 +1524,7 @@ class PlayState extends MusicBeatState {
 							if (!endSongVar)
 								startCountdown();
 							else
-								finishSongStuffs();
+								moveToResultsScreen();
 					}
 				}
 			}
@@ -1555,7 +1563,7 @@ class PlayState extends MusicBeatState {
 			if (!endSongVar)
 				startCountdown();
 			else
-				finishSongStuffs();
+				moveToResultsScreen();
 		} else {
 			var oldcutscene = cutscene;
 
@@ -1587,7 +1595,7 @@ class PlayState extends MusicBeatState {
 					if (!endSongVar)
 						startCountdown();
 					else
-						finishSongStuffs();
+						moveToResultsScreen();
 			}
 		}
 	}
@@ -3093,21 +3101,21 @@ class PlayState extends MusicBeatState {
 							persistentDraw = true;
 							paused = true;
 
-							finishSongStuffs();
+							moveToResultsScreen();
 					}
 				} else {
 					persistentUpdate = false;
 					persistentDraw = true;
 					paused = true;
 
-					finishSongStuffs();
+					moveToResultsScreen();
 				}
 			} else {
 				persistentUpdate = false;
 				persistentDraw = true;
 				paused = true;
 
-				finishSongStuffs();
+				moveToResultsScreen();
 			}
 		}
 	}
@@ -3916,6 +3924,7 @@ class PlayState extends MusicBeatState {
 
 			if (note.shouldHit && !note.isSustainNote) {
 				combo++;
+				maxCombo = Std.int(Math.max(maxCombo, combo));
 				popUpScore(note.strumTime, note.noteData % getCorrectKeyCount(true), setNoteDiff);
 
 				if (hitSoundString != "none") {
@@ -4088,6 +4097,44 @@ class PlayState extends MusicBeatState {
 			ratingText.text = returnStupidRatingText();
 			ratingText.screenCenter(Y);
 		}
+	}
+
+	/**
+   * Move to the results screen right goddamn now.
+   */
+   function moveToResultsScreen(?prevScoreData:SaveScoreData):Void
+	{
+		var isNewHighscore:Bool = (SONG.validScore) ? (isStoryMode ? campaignScore >= Highscore.getWeekScore(storyWeek, storyDifficultyStr, (groupWeek != "" ? groupWeek + "Week" : "week") + Std.string(storyWeek)) : songScore >= Highscore.getScore(SONG.song, storyDifficultyStr)) : false;
+		persistentUpdate = false;
+		vocals.stop();
+		camHUD.alpha = 1;
+		
+		var res:ResultsSubstate = new ResultsSubstate(
+			{
+			storyMode: isStoryMode,
+			difficultyId: storyDifficultyStr.toLowerCase(),
+			title: /*isStoryMode ? ('${PlayStatePlaylist.campaignTitle}') :*/ ('${SONG.song}'),
+			prevScoreData: prevScoreData,
+			scoreData:
+				{
+				score: isStoryMode ? campaignScore : songScore,
+				tallies:
+					{
+					sick: ratings.get("marvelous") + ratings.get("sick"),
+					good: ratings.get("good"),
+					bad: ratings.get("bad"),
+					shit: ratings.get("shit"),
+					missed: misses,
+					combo: combo,
+					maxCombo: maxCombo,
+					totalNotesHit: ratings.get("marvelous") + ratings.get("sick") + ratings.get("good") + ratings.get("bad") + ratings.get("shit"),
+					totalNotes: totalNotes,
+					},
+				},
+			isNewHighscore: isNewHighscore
+			});
+		this.persistentDraw = false;
+		openSubState(res);
 	}
 
 	public function returnStupidRatingText():String {
@@ -5020,8 +5067,6 @@ class PlayState extends MusicBeatState {
 		}
 
 		for (event in events) {
-			var map:Map<String, Dynamic>;
-
 			// cache shit
 			if (event[0].toLowerCase() == "change keycount" || event[0].toLowerCase() == "change mania") {
 				maniaChanges.push([event[1], Std.parseInt(event[2]), Std.parseInt(event[3])]); // track strumtime, p1 keycount, p2 keycount

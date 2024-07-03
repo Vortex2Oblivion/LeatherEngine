@@ -41,7 +41,7 @@ class Main extends Sprite {
 		Log.trace = CoolUtil.haxe_print;
 
 		#if VIDEOS_ALLOWED
-		hxvlc.util.Handle.initAsync();
+		hxvlc.util.Handle.init();
 		#end
 
 		game = new FlxGame(1280, 720, #if (mobile && MODDING_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end TitleState, 60, 60, true);

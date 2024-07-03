@@ -2,9 +2,23 @@ package game;
 
 import flixel.FlxG;
 import flixel.math.FlxMath;
+import game.Tallies;
 
 class Highscore
 {
+
+  /**
+   * Keeps track of notes hit for the current song
+   * and how accurate you were with each note (bad, missed, shit, etc.)
+   */
+   public static var tallies:Tallies = new Tallies();
+
+   /**
+	* Keeps track of notes hit for the current WEEK / level
+	* for use with storymode, or likely any other "playlist" esque option
+	*/
+   public static var talliesLevel:Tallies = new Tallies();
+
 	public static var songScores:Map<String, Int> = new Map<String, Int>();
 	public static var songRanks:Map<String, String> = new Map<String, String>();
 	public static var songAccuracies:Map<String, Float> = new Map<String, Float>();
