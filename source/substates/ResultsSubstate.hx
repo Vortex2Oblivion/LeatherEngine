@@ -53,14 +53,14 @@ class ResultsSubstate extends MusicBeatSubstate
   final highscoreNew:FlxSprite;
   final score:ResultScore;
 
-  var bfPerfect:Null<FlxAtlasSprite> = null;
-  var heartsPerfect:Null<FlxAtlasSprite> = null;
-  var bfExcellent:Null<FlxAtlasSprite> = null;
-  var bfGreat:Null<FlxAtlasSprite> = null;
-  var gfGreat:Null<FlxAtlasSprite> = null;
-  var bfGood:Null<FlxSprite> = null;
-  var gfGood:Null<FlxSprite> = null;
-  var bfShit:Null<FlxAtlasSprite> = null;
+  var bfPerfect:FlxAtlasSprite = null;
+  var heartsPerfect:FlxAtlasSprite = null;
+  var bfExcellent:FlxAtlasSprite = null;
+  var bfGreat:FlxAtlasSprite = null;
+  var gfGreat:FlxAtlasSprite = null;
+  var bfGood:FlxSprite = null;
+  var gfGood:FlxSprite = null;
+  var bfShit:FlxAtlasSprite = null;
 
   var rankBg:FlxSprite;
   final cameraBG:FlxCamera;
@@ -260,7 +260,7 @@ class ResultsSubstate extends MusicBeatSubstate
         };
 
       case GOOD:
-        var gfGood:FlxSprite = new FlxSprite(625, 325);
+        gfGood = new FlxSprite(625, 325);
         gfGood.frames = Paths.getSparrowAtlas('resultScreen/results-bf/resultsGOOD/resultGirlfriendGOOD');
         gfGood.animation.addByPrefix("clap", "Girlfriend Good Anim", 24, false);
         gfGood.visible = false;
@@ -273,7 +273,7 @@ class ResultsSubstate extends MusicBeatSubstate
         };
         add(gfGood);
 
-        var bfGood:FlxSprite = new FlxSprite(640, -200);
+        bfGood = new FlxSprite(640, -200);
         bfGood.frames = Paths.getSparrowAtlas('resultScreen/results-bf/resultsGOOD/resultBoyfriendGOOD');
         bfGood.animation.addByPrefix("fall", "Boyfriend Good Anim0", 24, false);
         bfGood.visible = false;
@@ -705,7 +705,7 @@ class ResultsSubstate extends MusicBeatSubstate
         if (bfGood == null)
         {
             bfGood = new FlxSprite(640, -200);
-            //trace("Could not build GOOD animation!");
+            trace("Could not build GOOD animation!", ERROR);
         }
         else
         {
