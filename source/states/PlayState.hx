@@ -130,6 +130,11 @@ class PlayState extends MusicBeatState {
 	public static var campaignScore:Int = 0;
 
 	/**
+		Title of current week in Story Mode.
+	**/
+	public static var campaignTitle:String;
+
+	/**
 		Vocal track for the current song as a `FlxSound`.
 	**/
 	public var vocals:FlxSound;
@@ -4113,7 +4118,7 @@ class PlayState extends MusicBeatState {
 			{
 			storyMode: isStoryMode,
 			difficultyId: storyDifficultyStr.toLowerCase(),
-			title: /*isStoryMode ? ('${PlayStatePlaylist.campaignTitle}') :*/ ('${SONG.song}'),
+			title: isStoryMode ? ('${campaignTitle}') : ('${SONG.song}'),
 			prevScoreData: prevScoreData,
 			scoreData:
 				{
@@ -4138,7 +4143,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	public function returnStupidRatingText():String {
-		var ratingArray = [
+		var ratingArray:Array<Int> = [
 			ratings.get("marvelous"),
 			ratings.get("sick"),
 			ratings.get("good"),

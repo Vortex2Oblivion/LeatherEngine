@@ -104,6 +104,7 @@ class ClearPercentCounter extends FlxTypedSpriteGroup<FlxSprite>
         numb.scale.set(this.scale.x, this.scale.y);
         numb.shader = flashShader;
         numb.visible = true;
+        numb.antialiasing = Options.getData("antialiasing");
         add(numb);
       }
       else

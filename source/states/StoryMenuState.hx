@@ -319,6 +319,7 @@ class StoryMenuState extends MusicBeatState {
 			PlayState.campaignScore = 0;
 			PlayState.groupWeek = currentGroup.pathName;
 			PlayState.songMultiplier = 1;
+			PlayState.campaignTitle = currentGroup.weeks[curWeek].weekTitle;
 
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				PlayState.loadChartEvents = true;
