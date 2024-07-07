@@ -29,7 +29,9 @@ typedef CharacterConfig =
 	var healthIcon:String;
 	var antialiased:Null<Bool>;
 	var antialiasing:Null<Bool>;
-	//any extra spritesheets to load with the main sheet.
+	/**
+	 * Any extra spritesheets to be with the main sheet.
+	 */
 	var extraSheets:Array<String>;
 }
 

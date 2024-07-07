@@ -2,7 +2,6 @@ package states;
 
 import substates.ResultsSubstate;
 import substates.ResultsSubstate.SaveScoreData;
-import game.Tallies;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -11,17 +10,13 @@ import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxFramesCollection;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.FlxInput.FlxInputState;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.sound.FlxSound;
-import flixel.system.FlxAssets.FlxShader;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -42,17 +37,9 @@ import game.Section.SwagSection;
 import game.Song;
 import game.StageGroup;
 import game.StrumNote;
-import haxe.Json;
-import haxe.io.Path;
-import lime.app.Application;
-import lime.media.AudioSource;
 import lime.utils.Assets;
-import modding.ModList;
 import modding.ModchartUtilities;
 import modding.scripts.languages.HScript;
-import openfl.display.BitmapData;
-import openfl.utils.Assets as OpenFlAssets;
-import shaders.NoteColors;
 import substates.GameOverSubstate;
 import substates.PauseSubState;
 import toolbox.ChartingState;
@@ -64,7 +51,6 @@ import utilities.Ratings;
 using StringTools;
 
 #if sys
-import sys.FileSystem;
 #end
 #if DISCORD_ALLOWED
 import utilities.Discord.DiscordClient;
@@ -77,7 +63,6 @@ import hxvlc.flixel.FlxVideo;
 #end
 #if MODCHARTING_TOOLS
 import modcharting.ModchartEditorState;
-import modcharting.ModchartFuncs;
 import modcharting.NoteMovement;
 import modcharting.PlayfieldRenderer;
 #end
@@ -1363,7 +1348,7 @@ class PlayState extends MusicBeatState {
 			var col:Array<Int> = [142, 142, 142];
 			for (note in unspawnNotes) {
 				if (note.affectedbycolor) {
-					if(!note.isSustainNote){
+					if (!note.isSustainNote) {
 						var quantStrumTime = note.strumTime;
 						var currentStepCrochet = Conductor.stepCrochet;
 						var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
@@ -2033,7 +2018,8 @@ class PlayState extends MusicBeatState {
 		for (i in 0...usedKeyCount) {
 			var babyArrow = new StrumNote(0, strumLine.y, i, null, null, null, usedKeyCount, player);
 
-			babyArrow.frames = Assets.exists(Paths.image("ui skins/" + SONG.ui_Skin + "/arrows/strums")) ? Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/strums") : Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default");
+			babyArrow.frames = Assets.exists(Paths.image("ui skins/" + SONG.ui_Skin + "/arrows/strums")) ? Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin
+				+ "/arrows/strums") : Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default");
 
 			babyArrow.antialiasing = ui_settings[3] == "true";
 
@@ -2697,7 +2683,7 @@ class PlayState extends MusicBeatState {
 							if (Math.abs(daNote.noteData) == spr.ID) {
 								spr.playAnim('confirm', true);
 								spr.resetAnim = 0;
-								if(daNote.colorSwap != null){
+								if (daNote.colorSwap != null) {
 									spr.colorSwap.r = daNote.colorSwap.r;
 									spr.colorSwap.g = daNote.colorSwap.g;
 									spr.colorSwap.b = daNote.colorSwap.b;
@@ -2706,7 +2692,7 @@ class PlayState extends MusicBeatState {
 								if (!daNote.isSustainNote && opponentNoteSplashes) {
 									var splash = splash_group.recycle(NoteSplash);
 									splash.setup_splash(spr.ID, spr, false);
-									if(daNote.colorSwap != null){
+									if (daNote.colorSwap != null) {
 										splash.colorSwap.r = daNote.colorSwap.r;
 										splash.colorSwap.g = daNote.colorSwap.g;
 										splash.colorSwap.b = daNote.colorSwap.b;
@@ -3272,7 +3258,7 @@ class PlayState extends MusicBeatState {
 				if (spr.ID == Math.abs(noteData)) {
 					var splash = splash_group.recycle(NoteSplash);
 					splash.setup_splash(noteData, spr, true);
-					if(spr.colorSwap != null){
+					if (spr.colorSwap != null) {
 						splash.colorSwap.r = spr.colorSwap.r;
 						splash.colorSwap.g = spr.colorSwap.g;
 						splash.colorSwap.b = spr.colorSwap.b;
@@ -3844,7 +3830,6 @@ class PlayState extends MusicBeatState {
 			note.mustPress
 		]);
 		if (!note.wasGoodHit) {
-
 			if (note.shouldHit && note.isSustainNote)
 				health += 0.02;
 
@@ -3918,7 +3903,7 @@ class PlayState extends MusicBeatState {
 						if (Options.getData("hitboxType") != "Hidden")
 							@:privateAccess hitbox.hints[spr.ID].alpha = hitbox.guh;
 						spr.playAnim('confirm', true);
-						if(note.colorSwap != null){
+						if (note.colorSwap != null) {
 							spr.colorSwap.r = note.colorSwap.r;
 							spr.colorSwap.g = note.colorSwap.g;
 							spr.colorSwap.b = note.colorSwap.b;
@@ -3935,7 +3920,6 @@ class PlayState extends MusicBeatState {
 				if (hitSoundString != "none") {
 					hitsound.play(true);
 				}
-				
 			} else if (!note.shouldHit) {
 				health -= note.hitDamage;
 				misses++;
@@ -4025,10 +4009,8 @@ class PlayState extends MusicBeatState {
 			camHUD.zoom += 0.03;
 		}
 
-		iconP1.scale.set(iconP1.scale.x + (0.2 / (songMultiplier < 1 ? 1 : songMultiplier)),
-			iconP1.scale.y + (0.2 / (songMultiplier < 1 ? 1 : songMultiplier)));
-		iconP2.scale.set(iconP2.scale.x + (0.2 / (songMultiplier < 1 ? 1 : songMultiplier)),
-			iconP2.scale.y + (0.2 / (songMultiplier < 1 ? 1 : songMultiplier)));
+		iconP1.scale.set(iconP1.scale.x + 0.2, iconP1.scale.y + 0.2);
+		iconP2.scale.set(iconP2.scale.x + 0.2, iconP2.scale.y + 0.2);
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -4105,39 +4087,39 @@ class PlayState extends MusicBeatState {
 	}
 
 	/**
-   * Move to the results screen right goddamn now.
-   */
-   function moveToResultsScreen(?prevScoreData:SaveScoreData):Void
-	{
-		var isNewHighscore:Bool = (SONG.validScore) ? (isStoryMode ? campaignScore >= Highscore.getWeekScore(storyWeek, storyDifficultyStr, (groupWeek != "" ? groupWeek + "Week" : "week") + Std.string(storyWeek)) : songScore >= Highscore.getScore(SONG.song, storyDifficultyStr)) : false;
+	 * Move to the results screen right goddamn now.
+	 */
+	function moveToResultsScreen(?prevScoreData:SaveScoreData):Void {
+		var isNewHighscore:Bool = (SONG.validScore) ? (isStoryMode ? campaignScore >= Highscore.getWeekScore(storyWeek, storyDifficultyStr,
+			(groupWeek != "" ? groupWeek + "Week" : "week") + Std.string(storyWeek)) : songScore >= Highscore.getScore(SONG.song, storyDifficultyStr)) : false;
 		persistentUpdate = false;
 		vocals.stop();
 		camHUD.alpha = 1;
-		
-		var res:ResultsSubstate = new ResultsSubstate(
-			{
+
+		var res:ResultsSubstate = new ResultsSubstate({
 			storyMode: isStoryMode,
 			difficultyId: storyDifficultyStr.toLowerCase(),
 			title: isStoryMode ? ('${campaignTitle}') : ('${SONG.song}'),
 			prevScoreData: prevScoreData,
-			scoreData:
-				{
+			scoreData: {
 				score: isStoryMode ? campaignScore : songScore,
-				tallies:
-					{
-					sick: ratings.get("marvelous") + ratings.get("sick"),
+				tallies: {sick: ratings.get("marvelous") + ratings.get("sick"),
 					good: ratings.get("good"),
 					bad: ratings.get("bad"),
 					shit: ratings.get("shit"),
 					missed: misses,
 					combo: combo,
 					maxCombo: maxCombo,
-					totalNotesHit: ratings.get("marvelous") + ratings.get("sick") + ratings.get("good") + ratings.get("bad") + ratings.get("shit"),
+					totalNotesHit: ratings.get("marvelous")
+					+ ratings.get("sick")
+					+ ratings.get("good")
+					+ ratings.get("bad")
+					+ ratings.get("shit"),
 					totalNotes: totalNotes,
-					},
 				},
+			},
 			isNewHighscore: isNewHighscore
-			});
+		});
 		this.persistentDraw = false;
 		openSubState(res);
 	}

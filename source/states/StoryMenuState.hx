@@ -3,7 +3,6 @@ package states;
 #if DISCORD_ALLOWED
 import utilities.Discord.DiscordClient;
 #end
-
 import substates.ResetScoreSubstate;
 import lime.app.Application;
 import lime.utils.Assets;
@@ -86,7 +85,7 @@ class StoryMenuState extends MusicBeatState {
 			persistentUpdate = false;
 		}
 		#end
-		
+
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
 
 		weekScoreText.text = "WEEK SCORE:" + lerpScore;
@@ -203,6 +202,7 @@ class StoryMenuState extends MusicBeatState {
 		difficultySprite = new FlxSprite(leftArrow.x + leftArrow.width + 4, leftArrow.y);
 		difficultySprite.loadGraphic(Paths.image("campaign menu/difficulties/default/normal"));
 		difficultySprite.updateHitbox();
+		difficultySprite.antialiasing = Options.getData("antialiasing");
 		changeDifficulty();
 
 		rightArrow = new FlxSprite(difficultySprite.x + difficultySprite.width + 4, leftArrow.y);

@@ -116,7 +116,8 @@ class OptionsMenu extends MusicBeatState {
 				"_sans",
 				OpenFLAssets.getFont(Paths.font("vcr.ttf")).fontName,
 				OpenFLAssets.getFont(Paths.font("pixel.otf")).fontName
-			], "infoDisplayFont"),
+			],
+				"infoDisplayFont"),
 			new BoolOption("FPS Counter", "fpsCounter"),
 			new BoolOption("Memory Counter", "memoryCounter")
 		],
@@ -175,6 +176,7 @@ class OptionsMenu extends MusicBeatState {
 
 	public var page:FlxTypedGroup<Option> = new FlxTypedGroup<Option>();
 	public var pageName:String = "Categories";
+
 	public static var instance:OptionsMenu;
 
 	override function create():Void {
@@ -186,7 +188,7 @@ class OptionsMenu extends MusicBeatState {
 
 		var menuBG:FlxSprite;
 
-		if(Options.getData("menuBGs"))
+		if (Options.getData("menuBGs"))
 			if (!Assets.exists(Paths.image('ui skins/' + ui_Skin + '/backgrounds' + '/menuDesat')))
 				menuBG = new FlxSprite().loadGraphic(Paths.image('ui skins/default/backgrounds/menuDesat'));
 			else
@@ -264,12 +266,12 @@ class OptionsMenu extends MusicBeatState {
 			}
 
 			if (controls.UP_P) {
-				curSelected --;
+				curSelected--;
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 			}
 
 			if (controls.DOWN_P) {
-				curSelected ++;
+				curSelected++;
 				FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 			}
 

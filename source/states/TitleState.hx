@@ -4,15 +4,11 @@ import flixel.math.FlxMath;
 #if DISCORD_ALLOWED
 import utilities.Discord.DiscordClient;
 #end
-
 import utilities.PlayerSettings;
 import shaders.NoteColors;
 import modding.ModList;
 import game.Highscore;
 import utilities.PlayerSettings;
-#if discord_rpc
-import utilities.Discord.DiscordClient;
-#end
 import utilities.Options;
 import utilities.NoteVariables;
 import substates.OutdatedSubState;
@@ -42,7 +38,7 @@ import haxe.Http;
 
 using StringTools;
 
-class TitleState extends MusicBeatState{
+class TitleState extends MusicBeatState {
 	static var initialized:Bool = false;
 
 	var blackScreen:FlxSprite;
@@ -62,7 +58,8 @@ class TitleState extends MusicBeatState{
 	public static var instance:TitleState = null;
 
 	public inline function call(func:String, ?args:Array<Dynamic>) {
-		if(stateScript != null) stateScript.call(func, args);
+		if (stateScript != null)
+			stateScript.call(func, args);
 	}
 
 	override public function create():Void {
@@ -77,7 +74,7 @@ class TitleState extends MusicBeatState{
 			FlxG.fixedTimestep = false;
 
 			NoteVariables.init();
-		
+
 			Options.init();
 			Options.fixBinds();
 
@@ -91,7 +88,7 @@ class TitleState extends MusicBeatState{
 			PolymodHandler.loadMods();
 			#end
 			MusicBeatState.windowNamePrefix = Assets.getText(Paths.txt("windowTitleBase", "preload"));
-			CoolUtil.setWindowIcon("mods/"+Options.getData("curMod")+"/_polymod_icon.png");
+			CoolUtil.setWindowIcon("mods/" + Options.getData("curMod") + "/_polymod_icon.png");
 
 			#if FLX_NO_DEBUG
 			if (Options.getData("flixelStartupScreen") && !doneFlixelSplash) {
@@ -264,11 +261,11 @@ class TitleState extends MusicBeatState{
 			titleTextData = CoolUtil.coolTextFile(Paths.txt("watermarkTitleText", "preload"));
 		else
 			titleTextData = CoolUtil.coolTextFile(Paths.txt("titleText", "preload"));
-		
+
 		if (initialized) {
 			skipIntro();
 		}
-			
+
 		FlxG.mouse.visible = false;
 		initialized = true;
 	}
@@ -301,7 +298,7 @@ class TitleState extends MusicBeatState{
 			swagShader.hue += elapsed * 0.1;
 
 		#if MODDING_ALLOWED
-		if(FlxG.keys.justPressed.TAB){
+		if (FlxG.keys.justPressed.TAB) {
 			openSubState(new modding.SwitchModSubstate());
 			persistentUpdate = false;
 		}
@@ -394,7 +391,7 @@ class TitleState extends MusicBeatState{
 
 	function deleteCoolText() {
 		call("deleteCoolText");
-		if(textGroup?.members != null){
+		if (textGroup?.members != null) {
 			while (textGroup.members.length > 0) {
 				credGroup.remove(textGroup.members[0], true);
 				textGroup.remove(textGroup.members[0], true);
@@ -432,7 +429,7 @@ class TitleState extends MusicBeatState{
 			}
 			danceLeft = !danceLeft;
 
-			if(gfDance != null){
+			if (gfDance != null) {
 				if (danceLeft)
 					gfDance.animation.play('danceRight');
 				else
@@ -482,7 +479,7 @@ class TitleState extends MusicBeatState{
 			skippedIntro = true;
 			MusicBeatState.windowNameSuffix = "";
 		}
-		
+
 		call("beatHit");
 	}
 

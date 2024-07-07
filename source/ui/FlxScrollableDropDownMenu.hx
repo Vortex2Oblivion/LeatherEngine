@@ -5,6 +5,9 @@ import flixel.addons.ui.FlxUIButton;
 import flixel.FlxG;
 import flixel.addons.ui.FlxUIDropDownMenu;
 
+/**
+ * A FlxUIDropDownMenu that is extended to have scrolling capabilities.
+ */
 class FlxScrollableDropDownMenu extends FlxUIDropDownMenu  {
 
     private var currentScroll:Int = 0; //Handles the scrolling
