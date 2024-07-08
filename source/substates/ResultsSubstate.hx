@@ -52,14 +52,14 @@ class ResultsSubstate extends MusicBeatSubstate {
 	final highscoreNew:FlxSprite;
 	final score:ResultScore;
 
-	var bfPerfect:FlxAtlasSprite = null;
-	var heartsPerfect:FlxAtlasSprite = null;
-	var bfExcellent:FlxAtlasSprite = null;
-	var bfGreat:FlxAtlasSprite = null;
-	var gfGreat:FlxAtlasSprite = null;
-	var bfGood:FlxSprite = null;
-	var gfGood:FlxSprite = null;
-	var bfShit:FlxAtlasSprite = null;
+	var bfPerfect:FlxAtlasSprite;
+	var heartsPerfect:FlxAtlasSprite;
+	var bfExcellent:FlxAtlasSprite;
+	var bfGreat:FlxAtlasSprite;
+	var gfGreat:FlxAtlasSprite;
+	var bfGood:FlxSprite;
+	var gfGood:FlxSprite;
+	var bfShit:FlxAtlasSprite;
 
 	var rankBg:FlxSprite;
 	final cameraBG:FlxCamera;
@@ -173,9 +173,15 @@ class ResultsSubstate extends MusicBeatSubstate {
 		add(bgFlash);
 
 		new FlxTimer().start(37 / 24, _ -> {
-			score.visible = true;
-			score.animateNumbers();
-			startRankTallySequence();
+			try {
+				score.visible = true;
+				score.animateNumbers();
+				startRankTallySequence();
+			} catch (e) {
+				#if debug
+				trace(e, ERROR);
+				#end
+			}
 		});
 
 		switch (rank) {
@@ -345,12 +351,15 @@ class ResultsSubstate extends MusicBeatSubstate {
 		// ratingsPopin.zIndex = 1200;
 		add(ratingsPopin);
 		new FlxTimer().start(21 / 24, _ -> {
-			if (ratingsPopin == null || ratingsPopin.animation == null) {
-				return;
+			try{
+				ratingsPopin.visible = true;
+				ratingsPopin.animation.play("idle");
 			}
-			
-			ratingsPopin.visible = true;
-			ratingsPopin.animation.play("idle");
+			catch(e){
+				#if debug
+				trace(e, ERROR);
+				#end
+			}
 		});
 
 		scorePopin.animation.addByPrefix("score", "tally score", 24, false);
@@ -360,9 +369,15 @@ class ResultsSubstate extends MusicBeatSubstate {
 		add(scorePopin);
 
 		new FlxTimer().start(36 / 24, _ -> {
-			scorePopin.visible = true;
-			scorePopin.animation.play("score");
-			scorePopin.animation.finishCallback = anim -> {};
+			try {
+				scorePopin.visible = true;
+				scorePopin.animation.play("score");
+				scorePopin.animation.finishCallback = anim -> {};
+			} catch (e) {
+				#if debug
+				trace(e, ERROR);
+				#end
+			}
 		});
 
 		new FlxTimer().start(rank.getBFDelay(), _ -> {

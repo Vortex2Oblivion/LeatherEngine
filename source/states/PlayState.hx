@@ -2775,38 +2775,23 @@ class PlayState extends MusicBeatState {
 							daNote.modAngle = coolStrum.angle;
 
 						if (coolStrum != null && coolStrum.alpha != 1 && daNote != null) {
-							try {
-								daNote.alpha = coolStrum.alpha;
-							} catch (e)
-								trace(e, ERROR);
+							daNote.alpha = coolStrum.alpha;
 						}
 
 						if (!daNote.isSustainNote && coolStrum != null && daNote != null) {
-							try {
-								daNote.modAngle = coolStrum.angle;
-							} catch (e)
-								trace(e, ERROR);
+							daNote.modAngle = coolStrum.angle;
 						}
 
 						if (coolStrum != null && daNote != null) {
-							try {
-								daNote.flipX = coolStrum.flipX;
-							} catch (e)
-								trace(e, ERROR);
+							daNote.flipX = coolStrum.flipX;
 						}
 
 						if (!daNote.isSustainNote && coolStrum != null && daNote != null) {
-							try {
-								daNote.flipY = coolStrum.flipY;
-							} catch (e)
-								trace(e, ERROR);
+							daNote.flipY = coolStrum.flipY;
 						}
 
 						if (coolStrum != null && daNote != null) {
-							try {
-								daNote.color = coolStrum.color;
-							} catch (e)
-								trace(e, ERROR);
+							daNote.color = coolStrum.color;
 						}
 					} else if (!daNote?.wasGoodHit) {
 						var coolStrum = enemyStrums.members[Math.floor(Math.abs(daNote.noteData))];
