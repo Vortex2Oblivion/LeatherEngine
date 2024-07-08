@@ -2813,6 +2813,20 @@ class ModchartUtilities {
 
 		// shader bullshit
 
+setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?frequency:Float = 10, ?amplitude:Float = 0.25) {
+			var actor = getActorByName(id);
+
+			if (actor != null) {
+				var funnyShader:shaders.Shaders.ThreeDEffect = shaders.Shaders.newEffect("3d");
+				funnyShader.waveSpeed = speed;
+				funnyShader.waveFrequency = frequency;
+				funnyShader.waveAmplitude = amplitude;
+				lua_Shaders.set(id, funnyShader);
+
+				actor.shader = funnyShader.shader;
+			}
+		});
+
 		setLuaFunction("setActorNoShader", function(id:String) {
 			var actor = getActorByName(id);
 
