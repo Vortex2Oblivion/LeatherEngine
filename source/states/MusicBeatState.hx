@@ -187,6 +187,9 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 		};
 
 		// Run built-in garbage collector
+		#if cpp
+		cpp.vm.Gc.compact();
+		#end
 		#if sys
 		openfl.system.System.gc();
 		#end
