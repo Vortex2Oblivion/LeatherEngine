@@ -17,7 +17,6 @@
 --define polymod
 --define LUA_ALLOWED
 --define VIDEOS_ALLOWED
---define LEATHER
 --define MODDING_ALLOWED
 
 --macro lime._internal.macros.DefineMacro.run()
