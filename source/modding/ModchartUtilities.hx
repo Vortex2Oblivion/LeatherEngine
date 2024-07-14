@@ -3206,7 +3206,7 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		});
 
 		setLuaFunction("fastTan", function(n:Float) {
-			return FlxMath.fastSin(n) / FlxMath.fastCos(n0;
+			return FlxMath.fastSin(n) / FlxMath.fastCos(n);
 		});
 
 		setLuaFunction("fceil", function(n:Float) {
