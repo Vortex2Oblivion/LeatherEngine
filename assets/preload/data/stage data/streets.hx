@@ -46,10 +46,10 @@ function create():Void
 
 	rainShader.setFloat("uIntensity", 0.5);
 
-	rainShaderFilter = new ShaderFilter(rainShader);
-
-    if(Options.getData("shaders")) //dont apply if shaders are disabled
+    if(Options.getData("shaders")){ //dont apply if shaders are disabled
+        rainShaderFilter = new ShaderFilter(rainShader);
 	    FlxG.camera.filters = [rainShaderFilter];
+    }
 
 	resetCar(true, true);
 	resetStageValues();

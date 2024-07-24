@@ -1,0 +1,71 @@
+{
+  "character_Positions": [
+		[
+			812,
+			784
+		],
+		[
+			512,
+			784
+		],
+		[
+			600,
+			650
+		]
+	],
+  "camera_Zoom": 0.75,
+  "objects": [
+    {
+      "position": [-600, -175],
+      "scroll_Factor": [0.0, 0.0],
+      "scale": 1.75,
+      "antialiased": true,
+      "file_Name": "skyBlur",
+      "object_Name": "skyAdditive",
+      "is_Animated": false
+    },
+    {
+      "position": [-600, -175],
+      "scroll_Factor": [0.0, 0.0],
+      "scale": 1.75,
+      "antialiased": true,
+      "file_Name": "lightning",
+      "object_Name": "lightning",
+      "is_Animated": true,
+      "animations": [
+        {
+          "name": "strike",
+          "animation_name": "lightning0",
+          "fps": 24,
+          "looped": false
+        }
+      ]
+    },
+    {
+      "position": [-600, -175],
+      "scroll_Factor": [0.0, 0.0],
+      "scale": 1.75,
+      "antialiased": true,
+      "file_Name": "streetBlur",
+      "is_Animated": false
+    },
+    {
+      "position": [-600, -175],
+      "scroll_Factor": [0, 0],
+      "scale": 1.75,
+      "antialiased": true,
+      "file_Name": "streetBlur",
+      "is_Animated": false,
+      "object_Name": "foregroundMultiply"
+    },
+    {
+      "position": [-600, -175],
+      "scroll_Factor": [0.0, 0.0],
+      "scale": 2500,
+      "antialiased": true,
+      "file_Name": "#FFFFFF",
+      "is_Animated": false,
+      "object_Name": "additionalLighten"
+    }
+  ]
+}

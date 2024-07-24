@@ -3,110 +3,129 @@
   "dancesLeftAndRight": false,
   "imagePath": "darnellBlazin",
   "barColor": [115, 94, 176],
-  "positionOffset": [-150, -300],
+  "positionOffset": [200, 50],
+  "cameraPosition": [200, 50],
   "singDuration": 4.0,
+  "graphicSize": 1.75,
   "healthIcon": "darnell",
   "animations": [
     {
       "name": "idle",
-      "animation_name": "Idle",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
+      "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
       "looped": true
     },
     {
       "name": "pissed",
-      "animation_name": "Pissed",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [74, 75, 76, 77, 78],
+      "looped": false
     },
     {
       "name": "cringe",
-      "animation_name": "Cringe",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [67, 68, 69, 70],
+      "looped": false
     },
     {
       "name": "fakeout",
-      "animation_name": "Fake Hit",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [24, 25, 26, 27, 28],
+      "looped": false
     },
     {
       "name": "block",
-      "animation_name": "Block",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [29, 30, 31, 32],
+      "looped": false
     },
     {
       "name": "dodge",
-      "animation_name": "Dodge",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [53, 54, 55, 56, 57],
+      "looped": false
     },
     {
       "name": "uppercutPrep",
-      "animation_name": "Uppercut Prep",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [14, 15, 16, 17, 18],
+      "looped": false
     },
     {
       "name": "uppercut",
-      "animation_name": "Uppercut Punch",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [19, 20, 21, 22, 23],
+      "looped": false
     },
     {
       "name": "uppercutHit",
-      "animation_name": "Uppercut Hit",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [79, 80, 81, 82, 83, 84, 85, 86, 87, 88],
+      "looped": false
     },
     {
       "name": "uppercut-hold",
-      "animation_name": "Uppercut Punch Loop",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
+      "indices": [21, 22, 23],
       "looped": true
     },
     {
       "name": "punchHigh1",
-      "animation_name": "Punch High 1",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [33, 34, 35, 36, 37],
+      "looped": false
     },
     {
       "name": "punchHigh2",
-      "animation_name": "Punch High 2",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [38, 39, 40, 41, 42],
+      "looped": false
     },
     {
       "name": "punchLow1",
-      "animation_name": "Punch Low 1",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [48, 49, 50, 51, 52],
+      "looped": false
     },
     {
       "name": "punchLow2",
-      "animation_name": "Punch Low 2",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [43, 44, 45, 46, 47],
+      "looped": false
     },
     {
       "name": "hitHigh",
-      "animation_name": "Hit High",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [58, 59, 60, 61, 62],
+      "looped": false
     },
     {
       "name": "hitLow",
-      "animation_name": "Hit Low",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
-      "looped": true
+      "indices": [63, 64, 65, 66],
+      "looped": false
     },
     {
       "name": "hitSpin",
-      "animation_name": "Hit Spin",
+      "animation_name": "Darnell Fighting ALL ANIMS",
       "fps": 24,
+      "indices": [71, 72, 73],
       "looped": true
     }
   ]

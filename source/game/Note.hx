@@ -5,7 +5,7 @@ import flixel.util.FlxColor;
 import utilities.Options;
 import shaders.NoteColors;
 import shaders.ColorSwap;
-import game.Song.SwagSong;
+import game.SongLoader.SongData;
 import utilities.NoteVariables;
 import states.PlayState;
 import flixel.FlxG;
@@ -26,8 +26,8 @@ class Note extends FlxSkewedSprite {
 	public var prevNoteStrumtime:Float = 0;
 	public var prevNoteIsSustainNote:Bool = false;
 
-	public var singAnimPrefix:String = "sing"; //hopefully should make things easier
-	public var singAnimSuffix:String = ""; //for alt anims lol
+	public var singAnimPrefix:String = "sing"; // hopefully should make things easier
+	public var singAnimSuffix:String = ""; // for alt anims lol
 
 	public var sustains:Array<Note> = [];
 	public var missesSustains:Bool = false;
@@ -70,6 +70,7 @@ class Note extends FlxSkewedSprite {
 	 * Used only on modchart songs
 	 */
 	public var mesh:modcharting.SustainStrip = null;
+
 	/**
 	 * The Z value for the note.
 	 * Used only on modchart songs
@@ -82,19 +83,9 @@ class Note extends FlxSkewedSprite {
 	 * @see https://step-mania.fandom.com/wiki/Notes
 	 */
 	public var quantColors:Array<Array<Int>> = [
-		[255,35,15], 
-		[19,75,255],
-		[138,7,224],
-		[71,250,22],
-		[214,0,211],
-		[246,121,4],
-		[0,200,172],
-		[38,168,41],
-		[187,187,187],
-		[167,199,231],
-		[128,128,0],
+		[255, 35, 15], [19, 75, 255], [138, 7, 224], [71, 250, 22], [214, 0, 211], [246, 121, 4], [0, 200, 172], [38, 168, 41], [187, 187, 187],
+		[167, 199, 231], [128, 128, 0],
 	];
-
 
 	/**
 	 * @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
@@ -103,7 +94,7 @@ class Note extends FlxSkewedSprite {
 	public var beats:Array<Int> = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
 
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?character:Int = 0, ?arrowType:String = "default",
-			?song:SwagSong, ?characters:Array<Int>, ?mustPress:Bool = false, ?inEditor:Bool = false) {
+			?song:SongData, ?characters:Array<Int>, ?mustPress:Bool = false, ?inEditor:Bool = false) {
 		super();
 		if (prevNote == null)
 			prevNote = this;
@@ -230,7 +221,6 @@ class Note extends FlxSkewedSprite {
 			sustainScaleY = scale.y;
 		}
 
-
 		if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] != null) {
 			if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] == "true")
 				affectedbycolor = true;
@@ -241,7 +231,7 @@ class Note extends FlxSkewedSprite {
 
 		var noteColor = NoteColors.getNoteColor(NoteVariables.Other_Note_Anim_Stuff[song.keyCount - 1][noteData]);
 
-		if(noteColor!= null && colorSwap != null){
+		if (noteColor != null && colorSwap != null) {
 			colorSwap.r = noteColor[0];
 			colorSwap.g = noteColor[1];
 			colorSwap.b = noteColor[2];
@@ -262,7 +252,6 @@ class Note extends FlxSkewedSprite {
 			}
 		}
 	}
-
 
 	public function calculateCanBeHit() {
 		if (this != null) {
@@ -302,10 +291,11 @@ typedef NoteType = {
 	var hitDamage:Float;
 	var missDamage:Float;
 }
+
 typedef StrumJson = {
 	var affectedbycolor:Bool;
 }
+
 typedef JsonData = {
 	var values:Array<StrumJson>;
 }
-

@@ -100,7 +100,7 @@
     },
     {
       "imagePath": "weekend1",
-      "songs": ["Darnell", "Lit Up", "2Hot"],
+      "songs": ["Darnell", "Lit Up", "2Hot", "Blazin"],
       "characters": ["darnell", "pico-player", "nene"],
       "weekTitle": "Due Debts",
       "backgroundColor": [65, 60, 174],

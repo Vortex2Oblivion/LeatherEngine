@@ -21,4 +21,5 @@ pico-speaker:default
 bf-holding-gf:default
 darnell:default
 nene:default
+pico-blazin:default
 darnell-blazin:default

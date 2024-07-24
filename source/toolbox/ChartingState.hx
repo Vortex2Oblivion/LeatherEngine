@@ -6,7 +6,7 @@ import game.EventSprite;
 import utilities.NoteVariables;
 import modding.CharacterConfig;
 import ui.FlxScrollableDropDownMenu;
-import game.Song;
+import game.SongLoader;
 import states.LoadingState;
 import game.Conductor;
 import states.PlayState;
@@ -15,7 +15,7 @@ import ui.HealthIcon;
 import game.Note;
 import game.Conductor.BPMChangeEvent;
 import game.Section.SwagSection;
-import game.Song.SwagSong;
+import game.SongLoader.SongData;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -70,7 +70,7 @@ class ChartingState extends MusicBeatState {
 
 	var gridBG:FlxSprite;
 
-	var _song:SwagSong;
+	var _song:SongData;
 
 	var difficulty:String = 'normal';
 
@@ -232,7 +232,7 @@ class ChartingState extends MusicBeatState {
 		if (PlayState.SONG != null)
 			_song = PlayState.SONG;
 		else
-			_song = Song.loadFromJson("tutorial", "tutorial");
+			_song = SongLoader.loadFromJson("normal", "tutorial");
 
 		@:privateAccess
 		{
@@ -601,7 +601,6 @@ class ChartingState extends MusicBeatState {
 		tab_group_song.add(slider_playback_speed);
 		#end
 		tab_group_song.add(compatibilityLabel);
-
 
 		// tab_group_song.add(lilBuddiesBox);
 
@@ -1962,13 +1961,12 @@ class ChartingState extends MusicBeatState {
 		if (coolLength == 0)
 			col = Std.int(Conductor.timeScale[0] * Conductor.timeScale[1]);
 
-		var sec:SwagSection = {
+		var sec:Section = {
+			sectionNotes: [],
 			lengthInSteps: col,
 			bpm: _song.bpm,
 			changeBPM: false,
 			mustHitSection: true,
-			sectionNotes: [],
-			typeOfSection: 0,
 			altAnim: false,
 			changeTimeScale: false,
 			timeScale: Conductor.timeScale
@@ -2194,13 +2192,8 @@ class ChartingState extends MusicBeatState {
 	}
 
 	function loadJson(song:String, ?diff:String):Void {
-		var songT:String = song;
-
-		if (diff != 'normal')
-			songT = songT + '-' + diff.toLowerCase();
-
 		PlayState.storyDifficultyStr = diff;
-		PlayState.SONG = Song.loadFromJson(songT.toLowerCase(), song.toLowerCase());
+		PlayState.SONG = SongLoader.loadFromJson(diff, song);
 
 		#if NO_PRELOAD_ALL
 		LoadingState.instance.checkLoadSong(LoadingState.getSongPath());
@@ -2217,7 +2210,8 @@ class ChartingState extends MusicBeatState {
 
 	function loadAutosave():Void {
 		loadedAutosave = true;
-		PlayState.SONG = Song.parseJSONshit(Options.getData("save", "autosave"));
+		@:privateAccess
+		PlayState.SONG = SongLoader.parseLegacy(Options.getData("save", "autosave"), 'autosave');
 		FlxG.resetState();
 	}
 

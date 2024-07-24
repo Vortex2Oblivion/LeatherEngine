@@ -1,11 +1,10 @@
 package utilities;
 
-
+import game.SongLoader.FNFCMetadata;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
-
 import flixel.FlxG;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
@@ -19,7 +18,6 @@ import states.PlayState;
 import ui.logs.Logs;
 
 using StringTools;
-
 
 /**
  * Helper class with lots of utilitiy functions.
@@ -139,7 +137,7 @@ class CoolUtil {
 
 		return maxKey;
 	}
-	
+
 	public static function dominantColorFrame(sprite:flixel.FlxSprite):Int {
 		var countByColor:Map<Int, Int> = [];
 
@@ -177,7 +175,7 @@ class CoolUtil {
 	 * @author Vortex
 	 * @param path 
 	 */
-	public static inline function setWindowIcon(path:String){
+	public static inline function setWindowIcon(path:String) {
 		#if desktop
 		FlxG.stage.window.setIcon(Image.fromFile(path));
 		#end
@@ -191,7 +189,7 @@ class CoolUtil {
 	 * @return T
 	 */
 	public static function max<T:Float>(...nums:T):T {
-		var max:Null<T>=null;
+		var max:Null<T> = null;
 		for (n in nums) {
 			if (max == null || n > max)
 				max = n;
@@ -207,7 +205,7 @@ class CoolUtil {
 	 * @return T
 	 */
 	public static function min<T:Float>(...nums:T):T {
-		var min:Null<T>=null;
+		var min:Null<T> = null;
 		for (n in nums) {
 			if (min == null || n < min)
 				min = n;
@@ -230,33 +228,31 @@ class CoolUtil {
 		g = Std.int(g / 255);
 
 		var maxc = max(r, g, b);
-  		var minc = min(r, g, b);
+		var minc = min(r, g, b);
 
 		var h;
 
 		var v = maxc;
-		
-		if(minc == maxc)
-			return [Std.int(0),Std.int(0),Std.int(v)];
 
-		var s = (maxc-minc) / maxc;
-		var rc = (maxc-r) / (maxc-minc);
-		var gc = (maxc-g) / (maxc-minc);
-		var bc = (maxc-b) / (maxc-minc);
+		if (minc == maxc)
+			return [Std.int(0), Std.int(0), Std.int(v)];
 
-		if (r == maxc){
+		var s = (maxc - minc) / maxc;
+		var rc = (maxc - r) / (maxc - minc);
+		var gc = (maxc - g) / (maxc - minc);
+		var bc = (maxc - b) / (maxc - minc);
+
+		if (r == maxc) {
 			h = 0.0 + bc - gc;
-		}
-		else if  (g == maxc){
+		} else if (g == maxc) {
 			h = 2.0 + rc - bc;
-		}
-		else{
+		} else {
 			h = 4.0 + gc - rc;
 		}
 
 		h = (h / 6.0) % 1.0;
 
-		return[Std.int(h * 360),Std.int(s * 100),Std.int(v * 100)];
+		return [Std.int(h * 360), Std.int(s * 100), Std.int(v * 100)];
 	}
 
 	/**
@@ -422,9 +418,34 @@ class CoolUtil {
 		return 'v' + Application.current.meta.get('version');
 	}
 
+	public static function songExists(song:String, difficulty:String):Bool {
+		song = song.toLowerCase();
+		difficulty = difficulty.toLowerCase();
+		var exists:Bool = false;
+		var songPath:String = 'song data/$song';
+		var difficultyExtension:String = difficulty == 'normal' ? '' : '-$difficulty';
+		var difficultyExtensionMeta:String = (difficulty == 'nightmare' || difficulty == 'erect') ? '-erect' : '';
+
+		// legacy charts
+		if (Assets.exists(Paths.json('$songPath/$song$difficultyExtension'))) {
+			return true;
+		} else {
+			// no meta or no chart
+			if (!Assets.exists(Paths.json('$songPath/$song-metadata$difficultyExtensionMeta')) || !Assets.exists(Paths.json('$songPath/$song-chart$difficultyExtensionMeta'))) {
+				return exists;
+			}
+
+			var meta:FNFCMetadata = cast haxe.Json.parse(Assets.getText(Paths.json('$songPath/$song-metadata$difficultyExtensionMeta')));
+			if (meta.playData.difficulties.contains(difficulty)) {
+				exists = true;
+			}
+		}
+
+		return exists;
+	}
+
 	public static function last<T>(array:Array<T>):T {
 		return array[array.length - 1];
-	}
 }
 
 enum PrintType {

@@ -6,6 +6,7 @@ Change Keycount~Player 1 Keycount~Player 2 Keycount
 Change Ui Skin~Ui Skin~Nothing
 Change Camera Speed~Speed~Nothing
 Change Camera Zoom Speed~Speed~Nothing
+Change Camera Zoom Strength~intensity~Rate
 Play Character Animation~Character (Dad, BF, GF)~Animation to play
 Hey!~BF = Only BF, GF = Only GF, anything else = Both~Nothing
 Character Will Idle~Character (BF, Dad, GF)~"true" or "false"

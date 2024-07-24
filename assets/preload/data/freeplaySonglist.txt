@@ -3,7 +3,7 @@ Bopeebo:dad:1:Easy,Normal,Hard:#C96ED4
 Fresh:dad:1:Easy,Normal,Hard,Erect,Nightmare:#C96ED4
 Dad Battle:dad:1:Easy,Normal,Hard,Erect,Nightmare:#C96ED4
 Spookeez:spooky:2:Easy,Normal,Hard:#DD8B13
-South:spooky:2:Easy,Normal,Hard:#DD8B13
+South:spooky:2:Easy,Normal,Hard,Erect,Nightmare:#DD8B13
 Monster:monster:2:Easy,Normal,Hard:#F5FF6B
 Pico:pico:3:Easy,Normal,Hard:#CAE46C
 Philly Nice:pico:3:Easy,Normal,Hard,Erect,Nightmare:#CAE46C
@@ -23,3 +23,4 @@ Stress:tankman:7:Easy,Normal,Hard:#F6B604
 Darnell:darnell:END1:Easy,Normal,Hard:#735EB0
 Lit Up:darnell:END1:Easy,Normal,Hard:#735EB0
 2Hot:darnell:END1:Easy,Normal,Hard:#735EB0
+Blazin:darnell:END1:Easy,Normal,Hard:#735EB0

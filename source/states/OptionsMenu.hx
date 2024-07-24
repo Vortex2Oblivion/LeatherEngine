@@ -23,7 +23,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import ui.Alphabet;
-import game.Song;
+import game.SongLoader;
 import toolbox.StageMakingState;
 import game.Highscore;
 import openfl.utils.Assets as OpenFLAssets;

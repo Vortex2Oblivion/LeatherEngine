@@ -17,7 +17,7 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import game.Song;
+import game.SongLoader;
 import game.Highscore;
 
 using StringTools;
@@ -297,6 +297,7 @@ class StoryMenuState extends MusicBeatState {
 		var dif:String = curDifficulties[curDifficulty][0].toLowerCase();
 
 		var song_name:String = PlayState.storyPlaylist[0].toLowerCase();
+		// TODO: CHANGE THIS
 		var song_file:String = song_name + (dif == "normal" ? "" : "-" + dif);
 
 		if (!stopspamming && Assets.exists(Paths.json('song data/${song_name}/${song_file}'))) {
@@ -313,7 +314,7 @@ class StoryMenuState extends MusicBeatState {
 			PlayState.isStoryMode = true;
 			selectedWeek = true;
 
-			PlayState.SONG = Song.loadFromJson(song_file, song_name);
+			PlayState.SONG = SongLoader.loadFromJson(dif, song_name);
 			PlayState.storyWeek = curWeek;
 			PlayState.storyDifficultyStr = dif.toUpperCase();
 			PlayState.campaignScore = 0;

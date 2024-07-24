@@ -29,7 +29,7 @@ import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
 import ui.Alphabet;
-import game.Song;
+import game.SongLoader;
 import toolbox.StageMakingState;
 import game.Highscore;
 
@@ -53,11 +53,11 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		var menuBG:FlxSprite;
 
 		menuBG = new FlxSprite().makeGraphic(1280, 720, FlxColor.BLACK, false, "optimizedMenuDesat");
-        menuBG.alpha = 0.5;
+		menuBG.alpha = 0.5;
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = true;
-        menuBG.scrollFactor.set();
+		menuBG.scrollFactor.set();
 		add(menuBG);
 
 		super.create();
@@ -69,7 +69,7 @@ class SwitchModSubstate extends MusicBeatSubstate {
 
 		descBg = new FlxSprite(0, FlxG.height - 90).makeGraphic(FlxG.width, 90, 0xFF000000);
 		descBg.alpha = 0.6;
-        descBg.scrollFactor.set();
+		descBg.scrollFactor.set();
 		add(descBg);
 
 		descriptionText = new FlxText(descBg.x, descBg.y + 4, FlxG.width, "Template Description", 18);
@@ -105,7 +105,7 @@ class SwitchModSubstate extends MusicBeatSubstate {
 
 		var optionLoopNum:Int = 0;
 
-		for(modId in PolymodHandler.metadataArrays) {
+		for (modId in PolymodHandler.metadataArrays) {
 			if (ModList.modList.get(modId) && ModList.modMetadatas.get(modId).metadata.get('canBeSwitchedTo') != 'false') {
 				var modOption = new ChangeModOption(ModList.modMetadatas.get(modId).title, modId);
 				page.add(modOption);
@@ -123,12 +123,12 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		}
 
 		if (controls.UP_P) {
-			curSelected --;
+			curSelected--;
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		}
 
 		if (controls.DOWN_P) {
-			curSelected ++;
+			curSelected++;
 			FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		}
 
@@ -146,17 +146,14 @@ class SwitchModSubstate extends MusicBeatSubstate {
 
 		for (x in page.members) {
 			x.alphabetText.targetY = bruh - curSelected;
-			
-			if(x.alphabetText.targetY == 0) {
+
+			if (x.alphabetText.targetY == 0) {
 				descriptionText.screenCenter(X);
 
 				@:privateAccess
-				descriptionText.text = 
-					ModList.modMetadatas.get(x.optionValue).description 
-					+ "\nAuthor: " + ModList.modMetadatas.get(x.optionValue)._author 
-					+ "\nLeather Engine Version: " + ModList.modMetadatas.get(x.optionValue).apiVersion 
-					+ "\nMod Version: " + ModList.modMetadatas.get(x.optionValue).modVersion 
-					+ "\n";
+				descriptionText.text = ModList.modMetadatas.get(x.optionValue).description + "\nAuthor: " + ModList.modMetadatas.get(x.optionValue)._author
+					+ "\nLeather Engine Version: " + ModList.modMetadatas.get(x.optionValue).apiVersion + "\nMod Version: "
+					+ ModList.modMetadatas.get(x.optionValue).modVersion + "\n";
 			}
 
 			bruh++;

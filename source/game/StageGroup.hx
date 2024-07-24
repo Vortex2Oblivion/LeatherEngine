@@ -294,7 +294,10 @@ class StageGroup extends FlxGroup {
 
 									if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
 										Sprite.animation.play(Object.start_Animation);
-								} else
+								} else if(Object.file_Name.startsWith('#')){
+									Sprite.makeGraphic(Std.int(Object.scale), Std.int(Object.scale), FlxColor.fromString(Object.file_Name));
+								}
+								else
 									Sprite.loadGraphic(Paths.image(stage + "/" + Object.file_Name, "stages"));
 
 								if (Object.uses_Frame_Width)

@@ -45,6 +45,7 @@ import flixel.FlxG;
 import game.Conductor;
 import lime.app.Application;
 import modding.helpers.FlxTextFix;
+import haxe.io.Path;
 #if android
 import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
@@ -190,6 +191,8 @@ class ModchartUtilities {
 
 	public var perlin:Perlin;
 
+	public var scriptName:String;
+
 	/**
 	 * Easy wrapper for `Lua_helper.add_callback`.
 	 * @param name Function name
@@ -225,6 +228,7 @@ class ModchartUtilities {
 		lua_Sounds.set("Voices", PlayState.instance.vocals);
 
 		trace('Loading script at path \'${path}\'');
+		scriptName = new Path(path).file;
 		// trace("lua version: " + Lua.version());
 		// trace("LuaJIT version: " + Lua.versionJIT());
 
@@ -305,6 +309,8 @@ class ModchartUtilities {
 		setVar("curStage", PlayState.SONG.stage);
 
 		setVar("mobile", FlxG.onMobile);
+
+		setVar("scriptName", scriptName);
 
 		setVar("curMod", Options.getData("curMod"));
 		setVar("developer", Options.getData("developer"));
