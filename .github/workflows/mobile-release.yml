@@ -16,7 +16,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.3.5
 
       - name: Install Libraries
         run: |
@@ -40,7 +40,7 @@ jobs:
           path: export/release/android/bin/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
   iOS:
-    runs-on: macos-13
+    runs-on: macos-14
     steps:
       - name: Checkout
         uses: actions/checkout@main
@@ -48,7 +48,7 @@ jobs:
       - name: Setup Haxe
         uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.3.5
 
       - name: Install Libraries
         run: |
@@ -102,8 +102,8 @@ jobs:
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           prerelease: false
-          automatic_release_tag: "dev-6697182"
-          title: "DevBuild 6697182"
+          automatic_release_tag: "dev-1957db1"
+          title: "DevBuild 1957db1"
           files: |
             /home/runner/*.apk
             /home/runner/*.zip
