@@ -127,18 +127,10 @@
 	<haxedef name="HXCPP_STACK_LINE" if="release" />
 	<haxedef name="HXCPP_STACK_TRACE" if="release" />
 
-	<section if="android">
-			<!-- Do whatever you want I'm tired uninstall and install everytime -->
-			<certificate path="key.keystore" password="leatherengine" alias="leatherport" alias-password="leatherengine" unless="debug" />
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="key.keystore" password="leatherengine" alias="leatherport" alias-password="leatherengine" if="android" unless="debug" />
 
-			<config:android permission="android.permission.WAKE_LOCK" />
-			<config:android permission="android.permission.INTERNET" />
-			<config:android permission="android.permission.VIBRATE" />
-			<config:android permission="android.permission.ACCESS_NETWORK_STATE" />
-			<config:android permission="android.permission.MANAGE_EXTERNAL_STORAGE" />
-	</section>
-
-	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+	<!--<haxedef name="HXCPP_GC_BIG_BLOCKS" />-->
 
 	<icon path="art/icon.png" />
 </project>
