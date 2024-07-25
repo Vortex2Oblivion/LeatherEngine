@@ -444,7 +444,7 @@ class CoolUtil {
 		return exists;
 	}
 
-	public static function last<T>(array:Array<T>):T {
+	public static function last<T>(array:Array<T>):T
 		return array[array.length - 1];
 }
 
