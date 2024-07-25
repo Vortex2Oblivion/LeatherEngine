@@ -15,6 +15,7 @@
 -cp source
 
 --define polymod
+--define LEATHER
 --define LUA_ALLOWED
 --define VIDEOS_ALLOWED
 --define MODDING_ALLOWED
