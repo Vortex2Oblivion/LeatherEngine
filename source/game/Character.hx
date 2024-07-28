@@ -169,7 +169,6 @@ class Character extends FlxSprite {
 				script.interp.variables.set("character", this);
 				PlayState.instance.scripts.push(script);
 				script.call("createCharacter", [curCharacter]);
-				script.start();
 			}
 
 		if (Options.getData("optimizedChars") && Assets.exists(Paths.json("character data/optimized_" + characterName + "/config")))

@@ -68,10 +68,8 @@ class HScript
 		set_default_vars();
 
 		interp.execute(program);
-	}
-
-	public inline function start()
 		call("create");
+	}
 
 	public inline function update(elapsed:Float)
 		call("update", [elapsed]);
@@ -192,9 +190,7 @@ class HScript
 
 		interp.variables.set("load", function(script_path:String)
 		{
-			var new_script = new HScript(script_path);
-			new_script.start();
-
+			var new_script:HScript = new HScript(script_path);
 			if (create_post)
 				new_script.call("createPost");
 

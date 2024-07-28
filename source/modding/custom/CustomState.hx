@@ -16,7 +16,6 @@ class CustomState extends MusicBeatState{
         if(Assets.exists(Paths.hx("classes/states/" + script))){
             instance = this;
             this.script = new HScript(Paths.hx("classes/states/" + script));
-            this.script.start();
             this.script.interp.variables.set("add", function(obj:FlxObject)
             {
                 add(obj);

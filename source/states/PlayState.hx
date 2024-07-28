@@ -39,6 +39,8 @@ import game.SongLoader;
 import game.StageGroup;
 import game.StrumNote;
 import lime.utils.Assets;
+import modding.ModList;
+import modding.PolymodHandler;
 import modding.ModchartUtilities;
 import modding.scripts.languages.HScript;
 import substates.GameOverSubstate;
@@ -48,11 +50,10 @@ import ui.DialogueBox;
 import ui.HealthIcon;
 import utilities.NoteVariables;
 import utilities.Ratings;
+import sys.FileSystem;
 
 using StringTools;
 
-#if sys
-#end
 #if DISCORD_ALLOWED
 import utilities.Discord.DiscordClient;
 #end
@@ -409,13 +410,6 @@ class PlayState extends MusicBeatState {
 	**/
 	public var executeModchart:Bool = false;
 
-	#if LUA_ALLOWED
-	/**
-		The current lua modchart.
-	**/
-	public static var luaModchart:ModchartUtilities = null;
-	#end
-
 	/**
 		Length of the current song's instrumental track in milliseconds.
 	**/
@@ -570,7 +564,7 @@ class PlayState extends MusicBeatState {
 	public var event_luas:Map<String, ModchartUtilities> = [];
 
 	/**
-		Array of Lua scripts in the "scripts/global" folder
+		Array of Lua scripts.
 	**/
 	public var luaScriptArray:Array<ModchartUtilities> = [];
 	#end
@@ -607,6 +601,11 @@ class PlayState extends MusicBeatState {
 	public function clearLuaObjects() {
 		#if LUA_ALLOWED
 		// clear dumb lua stuffs
+		for (sound in ModchartUtilities.lua_Sounds) {
+			sound.stop();
+			sound.kill();
+			sound.destroy();
+		}
 		ModchartUtilities.killShaders();
 		ModchartUtilities.lua_Characters.clear();
 		ModchartUtilities.lua_Sounds.clear();
@@ -984,129 +983,40 @@ class PlayState extends MusicBeatState {
 			healthBarPosY = 60;
 
 		// global scripts yay.
-		#if sys
-		var modList = modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays);
+		var foldersToCheck:Array<String> = [
+			'assets/data/scripts/global/', 'assets/data/scripts/local/',
+			'mods/${Options.getData("curMod")}/data/scripts/local/',
+			'mods/${Options.getData("curMod")}/data/song data/${curSong.toLowerCase()}/'
+		];
 
-		if (modList.length > 0) {
-			for (mod in modList) {
-				if (sys.FileSystem.exists("mods/" + mod + "/data/scripts/global/")) {
-					var modGlobalScripts = sys.FileSystem.readDirectory("mods/" + mod + "/data/scripts/global/");
-
-					if (modGlobalScripts.length > 0) {
-						for (file in modGlobalScripts) {
-							if (file.endsWith('.hx')) {
-								var script = new HScript("mods/" + mod + "/data/scripts/global/" + file, true);
-								script.start();
-
-								scripts.push(script);
-							}
-							#if LUA_ALLOWED
-							if (file.endsWith('.lua')) {
-								var script = (new ModchartUtilities("mods/" + mod + "/data/scripts/global/" + file));
-
-								luaScriptArray.push(script);
-							}
-							#end
-						}
-					}
-				}
+		//Loop through all active mods and add them to the list of folders to check.
+		for(mod in ModList.getActiveMods(PolymodHandler.metadataArrays)){
+			var modPath:String = 'mods/$mod/data/scripts/global/';
+			if(FileSystem.exists(modPath)){
+				foldersToCheck.push(modPath);
 			}
 		}
-		if (sys.FileSystem.exists("assets/data/scripts/global/")) {
-			var assetsGlobalScripts = sys.FileSystem.readDirectory("assets/data/scripts/global/");
 
-			if (assetsGlobalScripts.length > 0) {
-				for (file in assetsGlobalScripts) {
-					if (file.endsWith('.hx')) {
-						var script = new HScript("assets/data/scripts/global/" + file, true);
-						script.start();
-
-						scripts.push(script);
+		for (folder in foldersToCheck){
+			if(FileSystem.exists(folder)){
+				for(file in FileSystem.readDirectory(folder)){
+					if(file.endsWith('.hx')){
+						scripts.push(new HScript(folder+file, true));
 					}
 					#if LUA_ALLOWED
-					if (file.endsWith('.lua')) {
-						var script = (new ModchartUtilities("assets/data/scripts/global/" + file));
-
-						luaScriptArray.push(script);
+					else if(file.endsWith('.lua')){
+						luaScriptArray.push(new ModchartUtilities(folder+file));
 					}
 					#end
 				}
 			}
 		}
-
-		// local scripts yay
-		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/data/scripts/local/")) {
-			var localScripts = sys.FileSystem.readDirectory("mods/" + Options.getData("curMod") + "/data/scripts/local/");
-			if (localScripts.length > 0) {
-				for (file in localScripts) {
-					if (file.endsWith('.hx')) {
-						var script = new HScript("mods/" + Options.getData("curMod") + "/data/scripts/local/" + file, true);
-						script.start();
-
-						scripts.push(script);
-					}
-					#if LUA_ALLOWED
-					if (file.endsWith('.lua')) {
-						var script = (new ModchartUtilities("mods/" + Options.getData("curMod") + "/data/scripts/local/" + file));
-						luaScriptArray.push(script);
-					}
-					#end
-				}
-			}
-		}
-
-		// so we don't run the function 4978349576438578439 times
-		var lowercaseCurSong:String = curSong.toLowerCase();
-		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/data/song data/" + lowercaseCurSong + "/")) {
-			var songScripts = sys.FileSystem.readDirectory("mods/" + Options.getData("curMod") + "/data/song data/" + lowercaseCurSong + "/");
-			if (songScripts.length > 0) {
-				for (file in songScripts) {
-					if (file.endsWith('.hx')) {
-						var script = new HScript("mods/" + Options.getData("curMod") + "/data/song data/" + lowercaseCurSong + "/" + file, true);
-						script.start();
-						scripts.push(script);
-					}
-
-					#if LUA_ALLOWED
-					if (file.endsWith('.lua')) {
-						var script = new ModchartUtilities("mods/" + Options.getData("curMod") + "/data/song data/" + lowercaseCurSong + "/" + file);
-						luaScriptArray.push(script);
-					}
-					#end
-				}
-			}
-		}
-
-		if (sys.FileSystem.exists("assets/data/song data/" + lowercaseCurSong + "/")) {
-			var songScripts = sys.FileSystem.readDirectory("assets/data/song data/" + lowercaseCurSong + "/");
-			if (sys.FileSystem.readDirectory("assets/data/song data/" + lowercaseCurSong + "/").length > 0) {
-				for (file in songScripts) {
-					if (file.endsWith('.hx')) {
-						var script = new HScript("assets/data/song data/" + lowercaseCurSong + "/" + file, true);
-						script.start();
-						scripts.push(script);
-					}
-
-					#if LUA_ALLOWED
-					if (file.endsWith('.lua')) {
-						var script = new ModchartUtilities("assets/data/song data/" + lowercaseCurSong + "/" + file);
-						luaScriptArray.push(script);
-					}
-					#end
-				}
-			}
-		}
-		#end
 
 		#if LUA_ALLOWED
-		executeModchart = !(PlayState.SONG.modchartPath == '' || PlayState.SONG.modchartPath == null);
-
-		if (executeModchart) {
-			if (Assets.exists(Paths.lua("modcharts/" + PlayState.SONG.modchartPath))) {
-				luaModchart = new ModchartUtilities(PolymodAssets.getPath(Paths.lua("modcharts/" + PlayState.SONG.modchartPath)));
-			} else if (Assets.exists(Paths.lua("scripts/" + PlayState.SONG.modchartPath))) {
-				luaModchart = new ModchartUtilities(PolymodAssets.getPath(Paths.lua("scripts/" + PlayState.SONG.modchartPath)));
-			}
+		if (Assets.exists(Paths.lua("modcharts/" + PlayState.SONG.modchartPath))) {
+			luaScriptArray.push(new ModchartUtilities(PolymodAssets.getPath(Paths.lua("modcharts/" + PlayState.SONG.modchartPath))));
+		} else if (Assets.exists(Paths.lua("scripts/" + PlayState.SONG.modchartPath))) {
+			luaScriptArray.push(new ModchartUtilities(PolymodAssets.getPath(Paths.lua("scripts/" + PlayState.SONG.modchartPath))));
 		}
 
 		call("create", [PlayState.SONG.song.toLowerCase()], MODCHART);
@@ -1118,7 +1028,7 @@ class PlayState extends MusicBeatState {
 		add(ratingsGroup);
 		add(strumLineNotes);
 
-		var cache_splash = new NoteSplash();
+		var cache_splash:NoteSplash = new NoteSplash();
 		cache_splash.kill();
 
 		splash_group.add(cache_splash);
@@ -1641,9 +1551,6 @@ class PlayState extends MusicBeatState {
 		}
 
 		#if LUA_ALLOWED
-		if (executeModchart && luaModchart != null)
-			luaModchart.setupTheShitCuzPullRequestsSuck();
-
 		if (stage.stageScript != null)
 			stage.stageScript.setupTheShitCuzPullRequestsSuck();
 
@@ -2402,8 +2309,6 @@ class PlayState extends MusicBeatState {
 			&& PlayState.SONG.notes[Std.int(curStep / Conductor.stepsPerSection)] != null
 			&& !switchedStates
 			&& startedCountdown) {
-			// offsetX = luaModchart.getVar("followXOffset", "float");
-			// offsetY = luaModchart.getVar("followYOffset", "float");
 
 			setLuaVar("mustHit", PlayState.SONG.notes[Std.int(curStep / Conductor.stepsPerSection)].mustHitSection);
 
@@ -2856,7 +2761,7 @@ class PlayState extends MusicBeatState {
 		});
 
 		#if LUA_ALLOWED
-		if (((stage.stageScript != null || (luaModchart != null && executeModchart))
+		if (((stage.stageScript != null)
 			|| generatedSomeDumbEventLuas
 			|| luaScriptArray.length != 0)
 			&& generatedMusic
@@ -3046,13 +2951,6 @@ class PlayState extends MusicBeatState {
 		// lol dude when a song ended in freeplay it legit reloaded the page and i was like:  o_o ok
 		if (FlxG.state == instance) {
 			#if LUA_ALLOWED
-			if (executeModchart && luaModchart != null) {
-				for (sound in ModchartUtilities.lua_Sounds) {
-					sound.stop();
-					sound.kill();
-					sound.destroy();
-				}
-			}
 			closeLua();
 			#end
 
@@ -3998,7 +3896,7 @@ class PlayState extends MusicBeatState {
 				}
 			}
 		}
-		if (camZooming && FlxG.camera.zoom < (1.35 * FlxCamera.defaultZoom) && cameraZoomRate > 0 && curBeat % ((Conductor.timeScale[0]) * cameraZoomRate) == 0) {
+		if (camZooming && FlxG.camera.zoom < (1.35 * FlxCamera.defaultZoom) && cameraZoomRate > 0 && curBeat % ((Conductor.timeScale[0]) / cameraZoomRate) == 0) {
 			FlxG.camera.zoom += 0.015 * cameraZoomStrength;
 			camHUD.zoom += 0.03 * cameraZoomStrength;
 		}
@@ -4323,9 +4221,6 @@ class PlayState extends MusicBeatState {
 					}
 
 					#if LUA_ALLOWED
-					if (executeModchart && luaModchart != null)
-						luaModchart.setupTheShitCuzPullRequestsSuck();
-
 					if (stage.stageScript != null)
 						stage.stageScript.setupTheShitCuzPullRequestsSuck();
 
@@ -4364,9 +4259,6 @@ class PlayState extends MusicBeatState {
 					}
 
 					#if LUA_ALLOWED
-					if (executeModchart && luaModchart != null)
-						luaModchart.setupTheShitCuzPullRequestsSuck();
-
 					if (stage.stageScript != null)
 						stage.stageScript.setupTheShitCuzPullRequestsSuck();
 
@@ -4417,9 +4309,6 @@ class PlayState extends MusicBeatState {
 						}
 
 						#if LUA_ALLOWED
-						if (executeModchart && luaModchart != null)
-							luaModchart.setupTheShitCuzPullRequestsSuck();
-
 						if (stage.stageScript != null)
 							stage.stageScript.setupTheShitCuzPullRequestsSuck();
 
@@ -4515,9 +4404,6 @@ class PlayState extends MusicBeatState {
 			stage_arguments = arguments;
 
 		#if LUA_ALLOWED
-		if (executeModchart && luaModchart != null && execute_on != STAGE)
-			luaModchart.executeState(name, arguments);
-
 		if (stage.stageScript != null && execute_on != MODCHART)
 			stage.stageScript.executeState(name, stage_arguments);
 
@@ -4541,10 +4427,6 @@ class PlayState extends MusicBeatState {
 			stage_data = data;
 
 		#if LUA_ALLOWED
-		if (executeModchart && luaModchart != null && execute_on != STAGE) {
-			luaModchart.setVar(name, data);
-		}
-
 		if (luaScriptArray.length != 0 && execute_on != STAGE) {
 			for (i in luaScriptArray) {
 				i.setVar(name, data);
@@ -4585,13 +4467,6 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (executeModchart && luaModchart != null) {
-			var newLuaVar = luaModchart.getVar(name, type);
-
-			if (newLuaVar != null)
-				luaVar = newLuaVar;
-		}
-
 		if (luaScriptArray.length != 0) {
 			for (i in luaScriptArray) {
 				var newLuaVar = i.getVar(name, type);
@@ -4611,10 +4486,6 @@ class PlayState extends MusicBeatState {
 		clearLuaObjects();
 
 		#if LUA_ALLOWED
-		if (executeModchart && luaModchart != null) {
-			luaModchart.die();
-			luaModchart = null;
-		}
 		if (stage.stageScript != null) {
 			stage.stageScript.die();
 			stage.stageScript = null;
@@ -5188,9 +5059,7 @@ class PlayState extends MusicBeatState {
 		}
 		#end
 		if (Assets.exists(Paths.hx("data/arrow types/" + noteType))) {
-			var script = new HScript(Paths.hx("data/arrow types/" + noteType));
-			script.start();
-			scripts.push(script);
+			scripts.push(new HScript(Paths.hx("data/arrow types/" + noteType)));
 		}
 	}
 

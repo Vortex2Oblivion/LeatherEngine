@@ -12,7 +12,6 @@ class CustomSubstate extends MusicBeatSubstate{
         if(Assets.exists(Paths.hx("classes/substates/" + script))){
             instance = this;
             this.script = new HScript(Paths.hx("classes/substates/" + script));
-            this.script.start();
             this.script.interp.variables.set("add", function(obj:FlxObject)
                 {
                     add(obj);

@@ -330,7 +330,6 @@ class StageGroup extends FlxGroup {
 							for (object in stage_Objects){
 								stage_script.interp.variables.set(object[0], object[1]);
 							}
-							stage_script.start();
 							PlayState.instance.scripts.push(stage_script);
 						}
 					}
