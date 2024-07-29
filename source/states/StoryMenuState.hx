@@ -5,6 +5,7 @@ import utilities.Discord.DiscordClient;
 #end
 import substates.ResetScoreSubstate;
 import lime.app.Application;
+import flixel.graphics.frames.FlxAtlasFrames;
 import lime.utils.Assets;
 import haxe.Json;
 import ui.MenuCharacter;
@@ -173,7 +174,6 @@ class StoryMenuState extends MusicBeatState {
 
 		addWeekCharacters();
 
-		var coverUp:FlxSprite = new FlxSprite(0, 456).makeGraphic(400, 1280, FlxColor.BLACK);
 		weekGraphics = new FlxTypedGroup<MenuItem>();
 
 		add(weekGraphics);
@@ -181,7 +181,7 @@ class StoryMenuState extends MusicBeatState {
 		add(bgSprite);
 
 		add(menuCharacters);
-		add(coverUp);
+		add(new FlxSprite(0, 456).makeGraphic(400, 1280, FlxColor.BLACK));
 
 		var blackBarThingie:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 56, FlxColor.BLACK);
 		add(blackBarThingie);
@@ -191,7 +191,7 @@ class StoryMenuState extends MusicBeatState {
 		difficultySelectorGroup = new FlxGroup();
 		add(difficultySelectorGroup);
 
-		var arrow_Tex = Paths.getSparrowAtlas('campaign menu/ui_arrow');
+		var arrow_Tex:FlxAtlasFrames = Paths.getSparrowAtlas('campaign menu/ui_arrow');
 
 		leftArrow = new FlxSprite(weekGraphics.members[0].x + weekGraphics.members[0].width + 10, weekGraphics.members[0].y + 10);
 		leftArrow.frames = arrow_Tex;
@@ -300,7 +300,7 @@ class StoryMenuState extends MusicBeatState {
 		// TODO: CHANGE THIS
 		var song_file:String = song_name + (dif == "normal" ? "" : "-" + dif);
 
-		if (!stopspamming && Assets.exists(Paths.json('song data/${song_name}/${song_file}'))) {
+		if (!stopspamming && CoolUtil.songExists(song_name, dif)) {
 			FlxG.sound.play(Paths.sound('confirmMenu'));
 
 			if (Options.getData("flashingLights"))
@@ -326,7 +326,7 @@ class StoryMenuState extends MusicBeatState {
 				PlayState.loadChartEvents = true;
 				LoadingState.loadAndSwitchState(new PlayState());
 			});
-		} else if (!Assets.exists(Paths.json('song data/${song_name}/${song_file}')))
+		} else if (!CoolUtil.songExists(song_name, dif))
 			CoolUtil.coolError('Error: ${Paths.json('song data/${song_name}/${song_file}')} not found!', "Leather Engine Crash Prevention");
 	}
 
