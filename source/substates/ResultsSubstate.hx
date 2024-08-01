@@ -716,6 +716,7 @@ class ResultsSubstate extends MusicBeatSubstate {
 	}
 
 	function showSmallClearPercent():Void {
+		try{
 		if (clearPercentSmall != null) {
 			add(clearPercentSmall);
 			clearPercentSmall.visible = true;
@@ -731,6 +732,10 @@ class ResultsSubstate extends MusicBeatSubstate {
 		new FlxTimer().start(2.5, _ -> {
 			movingSongStuff = true;
 		});
+		}
+		catch(e){
+			//trace(e, ERROR);
+		}
 	}
 
 	var movingSongStuff:Bool = false;

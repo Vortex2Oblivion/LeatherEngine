@@ -233,10 +233,11 @@ class ModchartUtilities {
 		if (path == null)
 			path = #if MODDING_ALLOWED PolymodAssets #else Assets #end.getPath(Paths.lua("modcharts/" + PlayState.SONG.modchartPath));
 
-		var result = LuaL.dofile(lua, path); // execute le file
+		var result:Int = LuaL.dofile(lua, path); // execute le file
 
 		if (result != 0) {
 			CoolUtil.coolError("Lua ERROR:\n" + Lua.tostring(lua, result), "Leather Engine Modcharts");
+			//return;
 			// FlxG.switchState(new MainMenuState());
 		}
 
@@ -786,6 +787,10 @@ class ModchartUtilities {
 				Sprite.flipX = actor.flipX;
 				Sprite.flipY = actor.flipY;
 				Sprite.animation.curAnim = actor.animation.curAnim;
+				Sprite.shader = actor.shader;
+				Sprite.color = actor.color;
+				Sprite.antialiasing = actor.antialiasing;
+				Sprite.cameras = actor.cameras;
 				// trace('made sprite copy');
 				lua_Sprites.set(id, Sprite);
 			}
@@ -871,6 +876,10 @@ class ModchartUtilities {
 				Sprite.flipX = actor.flipX;
 				Sprite.flipY = actor.flipY;
 				Sprite.animation.curAnim = actor.animation.curAnim;
+				Sprite.shader = actor.shader;
+				Sprite.color = actor.color;
+				Sprite.antialiasing = actor.antialiasing;
+				Sprite.cameras = actor.cameras;
 				// trace('made sprite copy');
 				lua_Sprites.set(id, Sprite);
 

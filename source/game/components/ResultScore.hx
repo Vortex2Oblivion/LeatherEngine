@@ -57,7 +57,7 @@ class ResultScore extends FlxTypedSpriteGroup<ScoreNum> {
 				});
 			}
 		} catch (e) {
-			trace(e, ERROR);
+			//trace(e, ERROR);
 		}
 	}
 

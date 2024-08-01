@@ -28,7 +28,7 @@ class UISkinSelect extends MusicBeatSubstate
     var current_UI_Skin:FlxText;
     var bg:FlxSprite;
 
-    var leaving = false;
+    var leaving:Bool = false;
 
     var curSelected:Int = 0;
 
