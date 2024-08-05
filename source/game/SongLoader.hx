@@ -132,19 +132,9 @@ class SongLoader {
 		if (song.keyCount == null)
 			song.keyCount = 4;
 
-		// shaggy support pog (only newer stuff)
+		// support the dumb psych exkey shit
 		if (song.mania != null) {
-			switch (song.mania) {
-				case 0:
-					song.keyCount = 4;
-				case 1:
-					song.keyCount = 6;
-				case 2:
-					song.keyCount = 7;
-				case 3:
-					song.keyCount = 9;
-			}
-
+			song.keyCount = song.mania + 1;
 			song.mania = null;
 		}
 
@@ -204,6 +194,9 @@ class SongLoader {
 				var noteIndex:Int = 0;
 				while (noteIndex < noteCount) {
 					var note:Array<Dynamic> = notes[noteIndex];
+					if(note[3] is String){
+						note[4] = note[3];
+					} 
 					if (note[1] < 0 && note[2] is String) {
 						if (note[3] == null)
 							note[3] = '';

@@ -91,7 +91,6 @@
 	<haxelib name="hxNoise"/>
 	<haxelib name="fnf-modcharting-tools" url="https://github.com/EdwhakKB/FNF-Modcharting-Tools" unless="hl" />
 	<haxelib name="funkin.vis" />
-	<haxelib name="grig.audio" />
 	<haxelib name="extension-androidtools" if="android" />
 
 	<!-- Haxedefines -->

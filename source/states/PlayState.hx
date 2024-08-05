@@ -1006,7 +1006,7 @@ class PlayState extends MusicBeatState {
 			if(FileSystem.exists(folder)){
 				for(file in FileSystem.readDirectory(folder)){
 					if(file.endsWith('.hx')){
-						scripts.push(new HScript(folder+file, true));
+						scripts.push(new HScript(folder+file));
 					}
 					#if LUA_ALLOWED
 					else if(file.endsWith('.lua')){
@@ -4888,6 +4888,12 @@ class PlayState extends MusicBeatState {
 						generateStaticArrows(1, false, false);
 						generateStaticArrows(0, true, false);
 					}
+				}
+				for(note in notes.members){
+					note.frames = note.getSpritesheet();
+				}
+				for(note in unspawnNotes){
+					note.frames = note.getSpritesheet();
 				}
 			// FNFC stuff
 			case 'focuscamera':

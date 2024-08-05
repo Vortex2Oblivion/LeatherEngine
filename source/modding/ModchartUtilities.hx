@@ -50,6 +50,7 @@ import android.widget.Toast as AndroidToast;
 import android.Tools as AndroidTools;
 import android.utilities.LeatherJNI;
 #end
+import haxe.Json;
 
 using StringTools;
 
@@ -78,6 +79,7 @@ class ModchartUtilities {
 	public static var lua_Shaders:Map<String, shaders.Shaders.ShaderEffect> = [];
 	public static var lua_Custom_Shaders:Map<String, CustomShader> = [];
 	public static var lua_Cameras:Map<String, LuaCamera> = [];
+	public static var lua_Jsons:Map<String, Dynamic> = [];
 
 	public var functions_called:Array<String> = [];
 
@@ -95,6 +97,8 @@ class ModchartUtilities {
 			return lua_Custom_Shaders.get(id);
 		else if (lua_Cameras.exists(id))
 			return lua_Cameras.get(id).cam;
+		else if(lua_Jsons.exists(id))
+			return lua_Jsons.get(id);
 
 		if (Reflect.getProperty(PlayState.instance, id) != null)
 			return Reflect.getProperty(PlayState.instance, id);
@@ -3135,6 +3139,10 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 			return sys.FileSystem.exists(path);
 		});
 
+		setLuaFunction("existsInMod", function(path:String, mod:String) {
+			return Paths.existsInMod(path, mod);
+		});
+
 		setLuaFunction("getText", function(path:String) {
 			return Assets.getText(path);
 		});
@@ -3142,6 +3150,11 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		setLuaFunction("getContent", function(path:String) {
 			return sys.io.File.getContent(path);
 		});
+
+		setLuaFunction("parseJson", function(tag:String, content:String) {
+			lua_Jsons.set(tag, Json.parse(Assets.getText(Paths.json(content))));
+		});
+
 
 		setLuaFunction("loadScript", function(script:String) {
 			var modchart:ModchartUtilities = null;
@@ -3475,7 +3488,6 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		lua_Characters.set("dad", PlayState.dad);
 
 		lua_Sounds.set("Inst", FlxG.sound.music);
-		@:privateAccess
 		lua_Sounds.set("Voices", PlayState.instance.vocals);
 
 		@:privateAccess

@@ -2,10 +2,12 @@ package modding.scripts.languages;
 
 import states.PlayState;
 import openfl.utils.Assets;
+import sys.io.File;
+import sys.FileSystem;
 import flixel.FlxG;
-import hscript.Parser;
-import hscript.Expr;
-import hscript.Interp;
+import flixel.FlxBasic;
+
+import hscript.*;
 
 /**
 	Handles HScript for you.
@@ -49,7 +51,7 @@ class HScript
 	**/
 	public var create_post:Bool = false;
 
-	public function new(hscript_path:String, ?global:Bool = false)
+	public function new(hscript_path:String)
 	{
 		trace('Loading script at path \'${hscript_path}\'');
 		// parser settings
@@ -58,12 +60,11 @@ class HScript
 		parser.allowMetadata = true;
 		
 		// load text
-		#if sys
-		if(global)
-			program = parser.parseString(sys.io.File.getContent(hscript_path));
-		else
-		#end
-			program = parser.parseString(Assets.getText(hscript_path));
+		program = parser.parseString(
+			FileSystem.exists(hscript_path) ?
+			File.getContent(hscript_path) :
+			Assets.getText(hscript_path)
+		);
 
 		set_default_vars();
 
@@ -116,9 +117,6 @@ class HScript
 		interp.variables.set("FlxText", modding.helpers.FlxTextFix);
 		interp.variables.set('FlxColor', modding.helpers.FlxColorHelper);
 		interp.variables.set('FlxEase', flixel.tweens.FlxEase);
-		#if MODDING_ALLOWED
-		interp.variables.set("Polymod", polymod.Polymod);
-		#end
 		interp.variables.set("Assets", openfl.utils.Assets);
 		interp.variables.set("LimeAssets", lime.utils.Assets);
 		interp.variables.set("Math", Math);
@@ -126,7 +124,6 @@ class HScript
 		interp.variables.set("StringTools", StringTools);
 		interp.variables.set("FlxRuntimeShader", flixel.addons.display.FlxRuntimeShader);
 		interp.variables.set("CustomShader", shaders.custom.CustomShader);
-		interp.variables.set("FlxShader", flixel.system.FlxAssets.FlxShader);
 		interp.variables.set('ShaderFilter', openfl.filters.ShaderFilter);
 		interp.variables.set('Json', haxe.Json);
 		interp.variables.set("FlxSpriteGroup", flixel.group.FlxSpriteGroup);
@@ -141,14 +138,19 @@ class HScript
 		interp.variables.set('Options', utilities.Options);
 		interp.variables.set('Character', game.Character);
 		interp.variables.set('Alphabet', ui.Alphabet);
-		#if MODDING_ALLOWED
-		interp.variables.set('ModList', modding.ModList);
-		#end
 		interp.variables.set('CustomState', modding.custom.CustomState);
 		interp.variables.set('CustomSubstate', modding.custom.CustomSubstate);
+
 		#if DISCORD_ALLOWED
 		interp.variables.set('DiscordClient', utilities.Discord.DiscordClient);
 		#end
+
+		#if MODDING_ALLOWED
+		interp.variables.set("Polymod", polymod.Polymod);
+		interp.variables.set("PolymodAssets", polymod.backends.PolymodAssets);
+		interp.variables.set('ModList', modding.ModList);
+		#end
+
 		//modchart tools stuff
 		#if MODCHARTING_TOOLS
 		if (FlxG.state == PlayState.instance){
@@ -220,6 +222,12 @@ class HScript
 			states.PlayState.instance.stage.foregroundSprites.clear();
 			states.PlayState.instance.stage.clear();
 		});
+
+		interp.variables.set("add", function(object:FlxBasic)
+			{
+				FlxG.state.add(object);
+			});
+	
 
 	}
 }

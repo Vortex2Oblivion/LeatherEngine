@@ -47,6 +47,9 @@ class CoolUtil {
 	#end
 
 	public static function coolTextFile(path:String):Array<String> {
+		if(!Assets.exists(path)){
+			return [];
+		}
 		var daList:Array<String> = Assets.getText(path).trim().split('\n');
 
 		for (i in 0...daList.length) {
@@ -57,7 +60,10 @@ class CoolUtil {
 	}
 
 	public static function coolTextFileOfArrays(path:String, ?delimeter:String = " "):Array<Array<String>> {
-		var daListOg = coolTextFile(path);
+		if(!Assets.exists(path)){
+			return [[]];
+		}
+		var daListOg:Array<String> = coolTextFile(path);
 
 		var daList:Array<Array<String>> = [];
 

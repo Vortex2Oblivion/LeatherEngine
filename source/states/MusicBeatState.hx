@@ -110,7 +110,7 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 		#if sys
 		var statePath:String = Type.getClassName(Type.getClass(FlxG.state)).replace(".", "/");
 		if (sys.FileSystem.exists('mods/${Options.getData("curMod")}/classes/${statePath}.hx')) {
-			stateScript = new HScript('mods/${Options.getData("curMod")}/classes/${statePath}.hx', true);
+			stateScript = new HScript('mods/${Options.getData("curMod")}/classes/${statePath}.hx');
 		}
 		#end
 	}

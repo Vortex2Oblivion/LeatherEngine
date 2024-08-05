@@ -1,5 +1,6 @@
 package;
 
+import sys.FileSystem;
 import flxanimate.frames.FlxAnimateFrames;
 import lime.utils.Assets;
 import flixel.FlxG;
@@ -166,5 +167,9 @@ class Paths {
 
 	inline static public function getEaselJSAtlas(key:String, ?library:String):FlxAtlasFrames {
 		return FlxAnimateFrames.fromEaselJS(getPath('images/$key.js', TEXT, library));
+	}
+
+	inline static public function existsInMod(path:String, mod:String):Bool{
+		return FileSystem.exists(path.replace('assets', 'mods/$mod'));
 	}
 }
