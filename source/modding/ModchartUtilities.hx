@@ -3434,8 +3434,8 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		setLuaFunction("menuJustPressed", FlxG.android.justPressed.MENU);
 		setLuaFunction("menuPressed", FlxG.android.pressed.MENU);
 		setLuaFunction("menuJustReleased", FlxG.android.justReleased.MENU);
-		setLuaFunction("getCurrentOrientation", () -> LeatherJNI.getCurrentOrientationAsString());
 
+		setLuaFunction("getCurrentOrientation", () -> LeatherJNI.getCurrentOrientationAsString());
 		setLuaFunction("setOrientation", function(hint:Null<String>):Void
 			{
 				switch (hint.toLowerCase())
@@ -3457,6 +3457,7 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 			});
 
 		setLuaFunction("minimizeWindow", () -> AndroidTools.minimizeWindow());
+
 		setLuaFunction("showToast", function(text:String, duration:Null<Int>, ?xOffset:Null<Int>, ?yOffset:Null<Int>) //, ?gravity:Null<Int>
 		{
 			if (text == null)
@@ -3470,6 +3471,24 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 				yOffset = 0;
 
 			AndroidToast.makeText(text, duration, -1, xOffset, yOffset);
+		});
+
+		setLuaFunction("isScreenKeyboardShown", () -> LeatherJNI.isScreenKeyboardShown());
+
+		setLuaFunction("clipboardHasText", () -> LeatherJNI.clipboardHasText());
+		setLuaFunction("clipboardGetText", () -> LeatherJNI.clipboardGetText());
+		setLuaFunction("clipboardSetText", function(text:Null<String>):Void
+		{
+			if (text != null) return trace('clipboardSetText: No text specified.');
+			LeatherJNI.clipboardSetText(text);
+		});
+
+		setLuaFunction("manualBackButton", () -> LeatherJNI.manualBackButton());
+
+		setLuaFunction("setActivityTitle", function(text:Null<String>):Void
+		{
+			if (text != null) return trace('setActivityTitle: No text specified.');
+			LeatherJNI.setActivityTitle(text);
 		});
 		#end
 
