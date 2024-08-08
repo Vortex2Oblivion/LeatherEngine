@@ -3633,13 +3633,18 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		return Lua.tostring(lua, callLua(name, args));
 	}
 
-	function cameraFromString(cam:String):FlxCamera {
-		switch (cam.toLowerCase()) {
-			case 'camhud' | 'hud':
-				return PlayState.instance.camHUD;
-		}
-
-		return PlayState.instance.camGame;
+	function cameraFromString(cam:String):FlxCamera
+    {
+        var camera:LuaCamera = getCameraByName(cam);
+        if (camera == null)
+        {
+            switch(cam.toLowerCase())
+            {
+                case 'camhud' | 'hud': return PlayState.instance.camHUD;
+            }
+            return PlayState.instance.camGame;
+        }
+        return camera.cam;
 	}
 
 	@:access(openfl.display.BlendMode)
