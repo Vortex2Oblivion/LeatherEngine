@@ -65,8 +65,6 @@ class Note extends FlxSkewedSprite {
 
 	public var inEditor:Bool = false;
 
-	private var _song:SongData;
-
 	#if MODCHARTING_TOOLS
 	/**
 	 * The mesh used for sustains to make them stretchy
@@ -113,9 +111,9 @@ class Note extends FlxSkewedSprite {
 		isSustainNote = sustainNote;
 
 		if (song == null)
-			_song = PlayState.SONG;
+			song = PlayState.SONG;
 
-		var localKeyCount = mustPress ? _song.playerKeyCount : _song.keyCount;
+		var localKeyCount:Int = mustPress ? song.playerKeyCount : song.keyCount;
 
 		this.noteData = noteData;
 
@@ -123,7 +121,19 @@ class Note extends FlxSkewedSprite {
 		// MAKE SURE ITS DEFINITELY OFF SCREEN?
 		y = -2000;
 
-		frames = getSpritesheet();
+		if (PlayState.instance.types.contains(arrow_Type)) {
+			if (Assets.exists(Paths.image('ui skins/' + song.ui_Skin + "/arrows/" + arrow_Type, 'shared'))) {
+				frames = Paths.getSparrowAtlas('ui skins/' + song.ui_Skin + "/arrows/" + arrow_Type, 'shared');
+			} else {
+				frames = Paths.getSparrowAtlas('ui skins/default/arrows/default', 'shared');
+			}
+		} else {
+			if (Assets.exists(Paths.image("ui skins/default/arrows/" + arrow_Type, 'shared'))) {
+				frames = Paths.getSparrowAtlas("ui skins/default/arrows/" + arrow_Type, 'shared');
+			} else {
+				frames = Paths.getSparrowAtlas("ui skins/default/arrows/default", 'shared');
+			}
+		}
 
 		animation.addByPrefix("default", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + "0", 24);
 		animation.addByPrefix("hold", NoteVariables.Other_Note_Anim_Stuff[localKeyCount - 1][noteData] + " hold0", 24);
@@ -148,11 +158,11 @@ class Note extends FlxSkewedSprite {
 
 		if (!PlayState.instance.arrow_Configs.exists(arrow_Type)) {
 			if (PlayState.instance.types.contains(arrow_Type)){
-				if(Assets.exists(Paths.txt("ui skins/" + _song.ui_Skin + "/" + arrow_Type))){
-					PlayState.instance.arrow_Configs.set(arrow_Type, CoolUtil.coolTextFile(Paths.txt("ui skins/" + _song.ui_Skin + "/" + arrow_Type)));
+				if(Assets.exists(Paths.txt("ui skins/" + song.ui_Skin + "/" + arrow_Type))){
+					PlayState.instance.arrow_Configs.set(arrow_Type, CoolUtil.coolTextFile(Paths.txt("ui skins/" + song.ui_Skin + "/" + arrow_Type)));
 				}
 				else{
-					PlayState.instance.arrow_Configs.set(arrow_Type, CoolUtil.coolTextFile(Paths.txt("ui skins/" + _song.ui_Skin + "/default")));
+					PlayState.instance.arrow_Configs.set(arrow_Type, CoolUtil.coolTextFile(Paths.txt("ui skins/" + song.ui_Skin + "/default")));
 				}
 			}
 			else{
@@ -197,23 +207,23 @@ class Note extends FlxSkewedSprite {
 			prevNoteStrumtime = prevNote.strumTime;
 			prevNoteIsSustainNote = prevNote.isSustainNote;
 
-			if (!_song.ui_Skin.contains("pixel"))
+			if (!song.ui_Skin.contains("pixel"))
 				x += width / 2;
 
 			animation.play("holdend");
 			updateHitbox();
 
-			if (!_song.ui_Skin.contains("pixel"))
+			if (!song.ui_Skin.contains("pixel"))
 				x -= width / 2;
 
-			if (_song.ui_Skin.contains("pixel"))
+			if (song.ui_Skin.contains("pixel"))
 				x += 30;
 
 			if (prevNote.isSustainNote) {
 				if (prevNote.animation != null)
 					prevNote.animation.play("hold");
 
-				var speed:Float = _song.speed;
+				var speed:Float = song.speed;
 
 				if (Options.getData("useCustomScrollSpeed"))
 					speed = Options.getData("customScrollSpeed") / PlayState.songMultiplier;
@@ -237,7 +247,7 @@ class Note extends FlxSkewedSprite {
 		colorSwap = new ColorSwap();
 		shader = affectedbycolor ? colorSwap.shader : null;
 
-		var noteColor = NoteColors.getNoteColor(NoteVariables.Other_Note_Anim_Stuff[_song.keyCount - 1][noteData]);
+		var noteColor = NoteColors.getNoteColor(NoteVariables.Other_Note_Anim_Stuff[song.keyCount - 1][noteData]);
 
 		if (noteColor != null && colorSwap != null) {
 			colorSwap.r = noteColor[0];
@@ -292,21 +302,6 @@ class Note extends FlxSkewedSprite {
 		}
 	}
 
-	public function getSpritesheet():FlxAtlasFrames {
-		if (PlayState.instance.types.contains(arrow_Type)) {
-			if (Assets.exists(Paths.image('ui skins/' + _song.ui_Skin + "/arrows/" + arrow_Type, 'shared'))) {
-				return Paths.getSparrowAtlas('ui skins/' + _song.ui_Skin + "/arrows/" + arrow_Type, 'shared');
-			} else {
-				return Paths.getSparrowAtlas('ui skins/default/arrows/default', 'shared');
-			}
-		} else {
-			if (Assets.exists(Paths.image("ui skins/default/arrows/" + arrow_Type, 'shared'))) {
-				return Paths.getSparrowAtlas("ui skins/default/arrows/" + arrow_Type, 'shared');
-			} else {
-				return Paths.getSparrowAtlas("ui skins/default/arrows/default", 'shared');
-			}
-		}
-	}
 }
 
 typedef NoteType = {
