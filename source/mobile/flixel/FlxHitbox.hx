@@ -164,8 +164,10 @@ class FlxHitbox extends FlxSpriteGroup {
 		hint.scrollFactor.set();
 		hint.alpha = 0.00001;
 		hint.active = !Options.getData("botplay");
-		if (Options.getData("hitboxType") != "Hidden") {
-			hint.onDown.callback = function() {
+		if (Options.getData("hitboxType") != "Hidden")
+		{
+			hint.onDown.callback = function()
+			{
 				if (hint.alpha != guh)
 					hint.alpha = guh;
 			}
