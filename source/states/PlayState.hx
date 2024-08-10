@@ -124,7 +124,7 @@ class PlayState extends MusicBeatState {
 	/**
 		Vocal track for the current song as a `FlxSound`.
 	**/
-	public var vocals:FlxSound;
+	public var vocals:FlxSound = new FlxSound();
 
 	/**
 		Your current opponent.
@@ -403,17 +403,12 @@ class PlayState extends MusicBeatState {
 	/**
 		Details to use in RPC.
 	**/
-	public var detailsText:String = "";
+	public var detailsText:String = "Freeplay";
 
 	/**
 		Paused Details to use in RPC.
 	**/
 	public var detailsPausedText:String = "";
-
-	/**
-		Whether or not there is currently a lua modchart active.
-	**/
-	public var executeModchart:Bool = false;
 
 	/**
 		Length of the current song's instrumental track in milliseconds.
@@ -838,11 +833,8 @@ class PlayState extends MusicBeatState {
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
 		if (isStoryMode)
 			detailsText = "Story Mode";
-		else
-			detailsText = "Freeplay";
 
-		// String for when the game is paused
-		detailsPausedText = "Paused - " + detailsText;
+		detailsPausedText = 'Paused - $detailsText';
 
 		// Updating Discord Rich Presence.
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
@@ -907,7 +899,7 @@ class PlayState extends MusicBeatState {
 			add(stage.infrontOfGFSprites);
 
 		/* we do a little trolling */
-		var midPos = dad.getMidpoint();
+		var midPos:FlxPoint = dad.getMidpoint();
 
 		camPos.set(midPos.x + 150 + dad.cameraOffset[0], midPos.y - 100 + dad.cameraOffset[1]);
 
@@ -982,7 +974,7 @@ class PlayState extends MusicBeatState {
 
 		FlxG.fixedTimestep = false;
 
-		var healthBarPosY = FlxG.height * 0.9;
+		var healthBarPosY:Float = FlxG.height * 0.9;
 
 		if (Options.getData("downscroll"))
 			healthBarPosY = 60;
@@ -1521,7 +1513,7 @@ class PlayState extends MusicBeatState {
 	public static var startOnTime:Float = 0;
 
 	function startCountdown():Void {
-		call("generateStaticArrows", []);
+		call("startCountdown", []);
 
 		inCutscene = false;
 		paused = false;
@@ -1604,9 +1596,15 @@ class PlayState extends MusicBeatState {
 		#end
 
 		startTimer.start(Conductor.crochet / 1000, function(tmr:FlxTimer) {
-			call("startCountdown", [swagCounter]);
+			call("countdownTick", [swagCounter]);
 			dad.dance(altAnim);
-			gf.dance();
+			if (gf.otherCharacters == null) {
+				gf.dance();
+			} else {
+				for (character in gf.otherCharacters) {
+					character.dance();
+				}
+			}
 			boyfriend.dance();
 
 			var introAssets:Array<String> = [
@@ -1615,7 +1613,7 @@ class PlayState extends MusicBeatState {
 				"ui skins/" + SONG.ui_Skin + "/countdown/go"
 			];
 
-			var altSuffix = SONG.ui_Skin == 'pixel' ? "-pixel" : "";
+			var altSuffix:String = SONG.ui_Skin == 'pixel' ? "-pixel" : "";
 
 			switch (swagCounter) {
 				case 0:
@@ -1778,18 +1776,15 @@ class PlayState extends MusicBeatState {
 	private var maniaChanges:Array<Dynamic> = [];
 
 	// https://github.com/TheZoroForce240/LeatherEngine/blob/main/source/states/PlayState.hx#L1432
-	var currentParsingKeyCount = SONG.keyCount;
-	var currentParsingPlayerKeyCount = SONG.playerKeyCount;
+	var currentParsingKeyCount:Int = SONG.keyCount;
+	var currentParsingPlayerKeyCount:Int = SONG.playerKeyCount;
 
 	public function generateSong(dataPath:String):Void {
-		var songData = SONG;
-		Conductor.changeBPM(songData.bpm, songMultiplier);
+		Conductor.changeBPM(SONG.bpm, songMultiplier);
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song,
 				(SONG.specialAudioName == null ? storyDifficultyStr.toLowerCase() : SONG.specialAudioName)));
-		else
-			vocals = new FlxSound();
 
 		// LOADING MUSIC FOR CUSTOM SONGS
 		if (FlxG.sound.music != null)
@@ -1808,7 +1803,7 @@ class PlayState extends MusicBeatState {
 		if (Options.getData("invisibleNotes")) // this was really simple lmfao
 			notes.visible = false;
 
-		var noteData:Array<SwagSection> = songData.notes;
+		var noteData:Array<SwagSection> = SONG.notes;
 
 		for (section in noteData) {
 			Conductor.recalculateStuff(songMultiplier);
@@ -1932,14 +1927,15 @@ class PlayState extends MusicBeatState {
 
 	var babyArrow:StrumNote;
 
-	public function generateStaticArrows(player:Float, ?isPlayer:Bool = false, ?showReminders:Bool = true):Void {
-		var usedKeyCount = SONG.keyCount;
+	public function generateStaticArrows(pos:Float, ?isPlayer:Bool = false, ?showReminders:Bool = true):Void {
+		call("generateStaticArrows", [pos, isPlayer, showReminders]);
+		var usedKeyCount:Int = SONG.keyCount;
 
 		if (isPlayer)
 			usedKeyCount = SONG.playerKeyCount;
 
 		for (i in 0...usedKeyCount) {
-			var babyArrow = new StrumNote(0, strumLine.y, i, null, null, null, usedKeyCount, player);
+			var babyArrow:StrumNote = new StrumNote(0, strumLine.y, i, null, null, null, usedKeyCount, pos);
 
 			babyArrow.frames = Assets.exists(Paths.image("ui skins/" + SONG.ui_Skin + "/arrows/strums")) ? Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin
 				+ "/arrows/strums") : Paths.getSparrowAtlas('ui skins/' + SONG.ui_Skin + "/arrows/default");
@@ -1950,7 +1946,7 @@ class PlayState extends MusicBeatState {
 				- (Std.parseFloat(mania_size[usedKeyCount - 1])))));
 			babyArrow.updateHitbox();
 
-			var animation_Base_Name = NoteVariables.Note_Count_Directions[usedKeyCount - 1][Std.int(Math.abs(i))].toLowerCase();
+			var animation_Base_Name:String = NoteVariables.Note_Count_Directions[usedKeyCount - 1][Std.int(Math.abs(i))].toLowerCase();
 
 			babyArrow.animation.addByPrefix('static', animation_Base_Name + " static");
 			babyArrow.animation.addByPrefix('pressed', NoteVariables.Other_Note_Anim_Stuff[usedKeyCount - 1][i] + ' press', 24, false);
@@ -1979,37 +1975,25 @@ class PlayState extends MusicBeatState {
 				enemyStrums.add(babyArrow);
 
 			babyArrow.x += 100 - ((usedKeyCount - 4) * 16) + (usedKeyCount >= 10 ? 30 : 0);
-			babyArrow.x += ((FlxG.width / 2) * player);
+			babyArrow.x += ((FlxG.width / 2) * pos);
 
 			strumLineNotes.add(babyArrow);
 
 			if (!controls.mobileC && usedKeyCount != 4 && isPlayer && Options.getData("extraKeyReminders") && showReminders) {
 				// var coolWidth = Std.int(40 - ((key_Count - 5) * 2) + (key_Count == 10 ? 30 : 0));
 				// funny 4 key math i guess, full num is 2.836842105263158 (width / previous key width thingy which was 38)
-				var coolWidth = Math.ceil(babyArrow.width / 2.83684);
+				var coolWidth:Int = Math.ceil(babyArrow.width / 2.83684);
 
-				var keyThingLolShadow = new FlxText((babyArrow.x + (babyArrow.width / 2)) - (coolWidth / 2), babyArrow.y - (coolWidth / 2), coolWidth,
-					binds[i], coolWidth);
-				keyThingLolShadow.cameras = [camHUD];
-				keyThingLolShadow.color = FlxColor.BLACK;
-				keyThingLolShadow.scrollFactor.set();
-				add(keyThingLolShadow);
-
-				var keyThingLol = new FlxText(keyThingLolShadow.x - 6, keyThingLolShadow.y - 6, coolWidth, binds[i], coolWidth);
+				//had to modify some backend shit to make this not clip off
+				//https://github.com/HaxeFlixel/flixel/pull/3226
+				//if this pr is merged there should be no issues.
+				var keyThingLol:FlxText = new FlxText((babyArrow.x + (babyArrow.width / 2)) - (coolWidth / 2), babyArrow.y - (coolWidth / 2), coolWidth,
+				binds[i], coolWidth);
 				keyThingLol.cameras = [camHUD];
 				keyThingLol.scrollFactor.set();
+				keyThingLol.borderStyle = SHADOW;
+				keyThingLol.shadowOffset.set(6, 6);
 				add(keyThingLol);
-
-				FlxTween.tween(keyThingLolShadow, {y: keyThingLolShadow.y + 10, alpha: 0}, 3, {
-					ease: FlxEase.circOut,
-					startDelay: 0.5 + (0.2 * i),
-					onComplete: function(_) {
-						remove(keyThingLolShadow);
-						keyThingLolShadow.kill();
-						keyThingLolShadow.destroy();
-					}
-				});
-
 				FlxTween.tween(keyThingLol, {y: keyThingLol.y + 10, alpha: 0}, 3, {
 					ease: FlxEase.circOut,
 					startDelay: 0.5 + (0.2 * i),
@@ -3993,7 +3977,8 @@ class PlayState extends MusicBeatState {
 			prevScoreData: prevScoreData,
 			scoreData: {
 				score: isStoryMode ? campaignScore : songScore,
-				tallies: {sick: ratings.get("marvelous") + ratings.get("sick"),
+				tallies: {
+					sick: ratings.get("marvelous") + ratings.get("sick"),
 					good: ratings.get("good"),
 					bad: ratings.get("bad"),
 					shit: ratings.get("shit"),
@@ -4374,7 +4359,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	public inline function call(func:String, ?args:Array<Dynamic>, ?execute_on:Execute_On = BOTH, ?stage_arguments:Array<Dynamic>) {
-		hscriptCall(func, (args == []) ? null : args, execute_on);
+		hscriptCall(func, args, execute_on);
 		#if LUA_ALLOWED
 		executeALuaState(func, args, execute_on, stage_arguments);
 		#end
