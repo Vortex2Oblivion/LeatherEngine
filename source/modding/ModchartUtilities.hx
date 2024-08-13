@@ -3509,14 +3509,13 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		lua_Sounds.set("Inst", FlxG.sound.music);
 		lua_Sounds.set("Voices", PlayState.instance.vocals);
 
-		@:privateAccess
 		for (object in PlayState.instance.stage.stage_Objects) {
 			lua_Sprites.set(object[0], object[1]);
 		}
 
 		if (PlayState.dad.otherCharacters != null) {
-			lua_Sprites.set('dad', PlayState.dad.otherCharacters[0]);
-			lua_Characters.set('dad', PlayState.dad.otherCharacters[0]);
+			lua_Sprites.set('dad', PlayState.dad.otherCharacters[PlayState.dad.mainCharacterID]);
+			lua_Characters.set('dad', PlayState.dad.otherCharacters[PlayState.dad.mainCharacterID]);
 			for (char in 0...PlayState.dad.otherCharacters.length) {
 				lua_Sprites.set("dadCharacter" + char, PlayState.dad.otherCharacters[char]);
 				lua_Characters.set("dadCharacter" + char, PlayState.dad.otherCharacters[char]);
@@ -3524,8 +3523,8 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		}
 
 		if (PlayState.boyfriend.otherCharacters != null) {
-			lua_Sprites.set('boyfriend', PlayState.boyfriend.otherCharacters[0]);
-			lua_Characters.set('boyfriend', PlayState.boyfriend.otherCharacters[0]);
+			lua_Sprites.set('boyfriend', PlayState.boyfriend.otherCharacters[PlayState.boyfriend.mainCharacterID]);
+			lua_Characters.set('boyfriend', PlayState.boyfriend.otherCharacters[PlayState.boyfriend.mainCharacterID]);
 			for (char in 0...PlayState.boyfriend.otherCharacters.length) {
 				lua_Sprites.set("bfCharacter" + char, PlayState.boyfriend.otherCharacters[char]);
 				lua_Characters.set("bfCharacter" + char, PlayState.boyfriend.otherCharacters[char]);
@@ -3533,8 +3532,8 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 		}
 
 		if (PlayState.gf.otherCharacters != null) {
-			lua_Sprites.set('girlfriend', PlayState.gf.otherCharacters[0]);
-			lua_Characters.set('girlfriend', PlayState.gf.otherCharacters[0]);
+			lua_Sprites.set('girlfriend', PlayState.gf.otherCharacters[PlayState.gf.mainCharacterID]);
+			lua_Characters.set('girlfriend', PlayState.gf.otherCharacters[PlayState.gf.mainCharacterID]);
 			for (char in 0...PlayState.gf.otherCharacters.length) {
 				lua_Sprites.set("gfCharacter" + char, PlayState.gf.otherCharacters[char]);
 				lua_Characters.set("gfCharacter" + char, PlayState.gf.otherCharacters[char]);

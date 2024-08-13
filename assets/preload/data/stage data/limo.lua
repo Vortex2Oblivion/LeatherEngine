@@ -32,21 +32,35 @@ function update(elapsed)
 	end
 end
 
+function countdownTick(tick)
+	if animatedBackgrounds then
+		danceValue = not danceValue
+
+		if danceValue then
+			for i = 1,4 do
+				playAnimation("dancer"..i, "danceRight", true)
+			end
+		else
+			for i = 1,4 do
+				playAnimation("dancer"..i, "danceLeft", true)
+			end
+		end
+	end
+end
+
 -- everytime a beat hit is called on the song this happens
 function beatHit(beat)
 	if animatedBackgrounds then
 		danceValue = not danceValue
 
 		if danceValue then
-			playAnimation("dancer1", "danceRight", true)
-			playAnimation("dancer2", "danceRight", true)
-			playAnimation("dancer3", "danceRight", true)
-			playAnimation("dancer4", "danceRight", true)
+			for i = 1,4 do
+				playAnimation("dancer"..i, "danceRight", true)
+			end
 		else
-			playAnimation("dancer1", "danceLeft", true)
-			playAnimation("dancer2", "danceLeft", true)
-			playAnimation("dancer3", "danceLeft", true)
-			playAnimation("dancer4", "danceLeft", true)
+			for i = 1,4 do
+				playAnimation("dancer"..i, "danceLeft", true)
+			end
 		end
 
 		if randomBool(10) and carCanGoVroom then

@@ -20,10 +20,10 @@
       "t": 4200,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 4800,
@@ -39,10 +39,10 @@
       "t": 9000,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 9600,
@@ -58,10 +58,10 @@
       "t": 13800,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 14400,
@@ -77,10 +77,10 @@
       "t": 18600,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 19200,
@@ -96,10 +96,10 @@
       "t": 23400,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 24000,
@@ -115,10 +115,10 @@
       "t": 28200,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 28800,
@@ -134,10 +134,10 @@
       "t": 33000,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 33600,
@@ -153,10 +153,10 @@
       "t": 37800,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 38400,
@@ -172,10 +172,10 @@
       "t": 42600,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 43200,
@@ -191,10 +191,10 @@
       "t": 47400,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 48000,
@@ -210,10 +210,10 @@
       "t": 52200,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 52800,
@@ -229,10 +229,10 @@
       "t": 57000,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 57600,
@@ -248,10 +248,10 @@
       "t": 61800,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 62400,
@@ -267,10 +267,10 @@
       "t": 66600,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 67200,
@@ -286,10 +286,10 @@
       "t": 71400,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     },
     {
       "t": 72000,
@@ -305,10 +305,10 @@
       "t": 76200,
       "e": "PlayAnimation",
       "v": {
-	"force": true,
-	"anim": "hey",
-	"target": "bf"
-}
+        "force": true,
+        "anim": "hey",
+        "target": "bf"
+      }
     }
   ],
   "notes": {

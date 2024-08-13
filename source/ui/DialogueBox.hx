@@ -44,6 +44,10 @@ class DialogueBox extends FlxSpriteGroup
 
 		super();
 
+		if(cutscene_Data.introSound != null){
+			FlxG.sound.play(Paths.sound(cutscene_Data.introSound, "shared"));
+		}
+
 		if(cutscene_Data.bgFade != false)
 		{
 			var color:FlxColor = FlxColor.WHITE;

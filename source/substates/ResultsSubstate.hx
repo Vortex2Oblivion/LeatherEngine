@@ -399,9 +399,14 @@ class ResultsSubstate extends MusicBeatSubstate {
 
 		new FlxTimer().start(rank.getHighscoreDelay(), _ -> {
 			if (params.isNewHighscore ?? false) {
-				highscoreNew.visible = true;
-				highscoreNew.animation.play("new");
-				highscoreNew.animation.finishCallback = _ -> highscoreNew.animation.play("new", true, false, 16);
+				try{
+					highscoreNew.visible = true;
+					highscoreNew.animation.play("new");
+					highscoreNew.animation.finishCallback = _ -> highscoreNew.animation.play("new", true, false, 16);
+				}
+				catch(e){
+					//trace(e, ERROR);
+				}
 			} else {
 				highscoreNew.visible = false;
 			}

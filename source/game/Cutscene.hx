@@ -8,7 +8,6 @@ using StringTools;
 typedef Cutscene = {
 	var type:String;
 	var cutsceneAfter:Null<String>;
-
 	/*SCRIPTED*/
 	var scriptPath:String;
 	/* VIDEO */
@@ -22,6 +21,8 @@ typedef Cutscene = {
 	var dialogueBox:String;
 	var dialogueBoxSize:Null<Float>;
 	var dialogueBoxFlips:Null<Bool>;
+
+	var introSound:String;
 }
 
 typedef DialogueSection = {

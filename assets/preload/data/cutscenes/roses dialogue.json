@@ -1,6 +1,7 @@
 {
   "type": "dialogue",
   "dialogueBox": "week6/defaultBox",
+  "introSound": "ANGRY_TEXT_BOX",
   "dialogueBoxSize": 6,
   "dialogueBoxFlips": false,
   "dialogueSections": [

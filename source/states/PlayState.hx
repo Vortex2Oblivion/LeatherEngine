@@ -728,33 +728,13 @@ class PlayState extends MusicBeatState {
 		noteBG.makeGraphic(1, 1000, FlxColor.BLACK);
 		add(noteBG);
 
-		// set stage lol (yes im too lazy to put the stage in the jsons for base game)
 		if (SONG.stage == null) {
 			SONG.stage = 'stage';
-
-			switch (curSong.toLowerCase()) {
-				case 'spookeez' | 'south' | 'monster':
-					SONG.stage = 'spooky';
-				case 'pico' | 'philly nice' | 'blammed':
-					SONG.stage = 'philly';
-				case 'satin panties' | 'high' | 'm.i.l.f':
-					SONG.stage = 'limo';
-				case 'cocoa' | 'eggnog':
-					SONG.stage = 'mall';
-				case 'winter horrorland':
-					SONG.stage = 'evil-mall';
-				case 'senpai':
-					SONG.stage = 'school';
-				case 'roses':
-					SONG.stage = 'school-mad';
-				case 'thorns':
-					SONG.stage = 'evil-school';
-			}
 		}
 
 		// null ui skin
 		if (SONG.ui_Skin == null)
-			SONG.ui_Skin = SONG.stage == "school" || SONG.stage == "school-mad" || SONG.stage == "evil-school" ? "pixel" : "default";
+			SONG.ui_Skin = "default";
 
 		// yo poggars
 		if (SONG.ui_Skin == "default")
@@ -791,16 +771,7 @@ class PlayState extends MusicBeatState {
 
 		// set gf lol
 		if (SONG.gf == null) {
-			switch (curStage) {
-				case 'limo':
-					SONG.gf = 'gf-car';
-				case 'mall' | 'evil-mall':
-					SONG.gf = 'gf-christmas';
-				case 'school' | 'school-mad' | 'evil-school':
-					SONG.gf = 'gf-pixel';
-				default:
-					SONG.gf = 'gf';
-			}
+			SONG.gf = 'gf';
 		}
 
 		/* character time :) */
@@ -1261,15 +1232,16 @@ class PlayState extends MusicBeatState {
 			call("onEventLoaded", [event[0], event[1], event[2], event[3]]);
 		}
 
-		// @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
+		// see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
+		// based on a lua script by TheZoroForce240
 		if (Options.getData('colorQuantization')) {
 			var col:Array<Int> = [142, 142, 142];
 			for (note in unspawnNotes) {
 				if (note.affectedbycolor) {
 					if (!note.isSustainNote) {
-						var quantStrumTime = note.strumTime;
-						var currentStepCrochet = Conductor.stepCrochet;
-						var noteBeat = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
+						var quantStrumTime:Float = note.strumTime;
+						var currentStepCrochet:Float = Conductor.stepCrochet;
+						var noteBeat:Int = Math.floor(((quantStrumTime / (currentStepCrochet * 4)) * 48) + 0.5);
 						for (beat in 0...note.beats.length - 1) {
 							if ((noteBeat % (192 / note.beats[beat]) == 0)) {
 								noteBeat = note.beats[beat];
@@ -1316,71 +1288,6 @@ class PlayState extends MusicBeatState {
 
 	public static var playCutsceneLmao:Bool = false;
 	public static var playCutsceneOnPauseLmao:Bool = false;
-
-	// this will become hscript one day
-	function schoolIntro(?dialogueBox:DialogueBox):Void {
-		var black:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
-		black.scrollFactor.set();
-		add(black);
-
-		var red:FlxSprite = new FlxSprite(-100, -100).makeGraphic(FlxG.width * 2, FlxG.height * 2, 0xFF000001);
-		red.scrollFactor.set();
-
-		var senpaiEvil:FlxSprite = new FlxSprite();
-		senpaiEvil.frames = Paths.getSparrowAtlas('weeb/senpaiCrazy');
-		senpaiEvil.animation.addByPrefix('idle', 'Senpai Pre Explosion', 24, false);
-		senpaiEvil.setGraphicSize(Std.int(senpaiEvil.width * 6));
-		senpaiEvil.scrollFactor.set();
-		senpaiEvil.updateHitbox();
-		senpaiEvil.screenCenter();
-
-		if (SONG.song.toLowerCase() == 'roses' || SONG.song.toLowerCase() == 'thorns') {
-			remove(black);
-
-			if (SONG.song.toLowerCase() == 'thorns')
-				add(red);
-		}
-
-		new FlxTimer().start(0.3, function(tmr:FlxTimer) {
-			black.alpha -= 0.15;
-
-			if (black.alpha > 0) {
-				tmr.reset(0.3);
-			} else {
-				if (dialogueBox != null) {
-					inCutscene = true;
-
-					if (SONG.song.toLowerCase() == 'thorns') {
-						add(senpaiEvil);
-						senpaiEvil.alpha = 0;
-						new FlxTimer().start(0.3, function(swagTimer:FlxTimer) {
-							senpaiEvil.alpha += 0.15;
-							if (senpaiEvil.alpha < 1) {
-								swagTimer.reset();
-							} else {
-								senpaiEvil.animation.play('idle');
-								FlxG.sound.play(Paths.sound('Senpai_Dies'), 1, false, null, true, function() {
-									remove(senpaiEvil);
-									remove(red);
-									FlxG.camera.fade(FlxColor.WHITE, 0.01, true, function() {
-										add(dialogueBox);
-									}, true);
-								});
-								new FlxTimer().start(3.2, function(deadTime:FlxTimer) {
-									FlxG.camera.fade(FlxColor.WHITE, 1.6, false);
-								});
-							}
-						});
-					} else {
-						add(dialogueBox);
-					}
-				} else
-					startCountdown();
-
-				remove(black);
-			}
-		});
-	}
 
 	function startDialogue(?dialogueBox:DialogueBox, ?endSongVar:Bool = false):Void {
 		if (endSongVar) {
@@ -2852,7 +2759,7 @@ class PlayState extends MusicBeatState {
 	function turnChange(char:String) {
 		switch (char) {
 			case 'dad':
-				var midPos = dad.getMainCharacter().getMidpoint();
+				var midPos:FlxPoint = dad.getMainCharacter().getMidpoint();
 
 				if (Options.getData("cameraTracksDirections") && dad.getMainCharacter().hasAnims()) {
 					switch (dad.curAnimName().toLowerCase()) {
@@ -2886,7 +2793,7 @@ class PlayState extends MusicBeatState {
 
 				call("playerTwoTurn", []);
 			case 'bf':
-				var midPos = boyfriend.getMainCharacter().getMidpoint();
+				var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
 
 				if (Options.getData("cameraTracksDirections") && boyfriend.getMainCharacter().hasAnims()) {
 					switch (boyfriend.curAnimName().toLowerCase()) {
@@ -3933,20 +3840,6 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		if (curBeat % 8 == 7 && SONG.song.toLowerCase() == 'bopeebo' && boyfriend.otherCharacters == null)
-			boyfriend.playAnim('hey', true);
-
-		if (curBeat % 16 == 15 && SONG.song.toLowerCase() == 'tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48) {
-			boyfriend.playAnim('hey', true);
-			dad.playAnim('cheer', true);
-		} else if (curBeat % 16 == 15
-			&& SONG.song.toLowerCase() == 'tutorial'
-			&& dad.curCharacter != 'gf'
-			&& curBeat > 16
-			&& curBeat < 48) {
-			boyfriend.playAnim('hey', true);
-			gf.playAnim('cheer', true);
-		}
 
 		stage.beatHit();
 
@@ -4038,14 +3931,14 @@ class PlayState extends MusicBeatState {
 	public static function getCharFromEvent(eventVal:String):Character {
 		switch (eventVal.toLowerCase()) {
 			case "girlfriend" | "gf" | "player3" | "2":
-				return PlayState.gf;
+				return PlayState.gf.getMainCharacter();
 			case "dad" | "opponent" | "player2" | "1":
-				return PlayState.dad;
+				return PlayState.dad.getMainCharacter();
 			case "bf" | "boyfriend" | "player" | "player1" | "0":
-				return PlayState.boyfriend;
+				return PlayState.boyfriend.getMainCharacter();
 		}
 
-		return PlayState.boyfriend;
+		return PlayState.boyfriend.getMainCharacter();
 	}
 
 	function removeBgStuff() {
@@ -4872,8 +4765,10 @@ class PlayState extends MusicBeatState {
 				switch (Std.string(event[2])) {
 					case '0':
 						turnChange('bf');
+						FlxTween.color(timeBar, Conductor.crochet * 0.002, timeBar.color, boyfriend.barColor);
 					case '1':
 						turnChange('dad');
+						FlxTween.color(timeBar, Conductor.crochet * 0.002, timeBar.color, dad.barColor);
 				}
 			case 'zoomcamera':
 				defaultCamZoom = Std.parseFloat(event[2]);

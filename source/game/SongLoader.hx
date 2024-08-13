@@ -84,8 +84,8 @@ class SongLoader {
 			mania: null,
 			gfVersion: null,
 			events: [],
-			endCutscene: null,
-			cutscene: null,
+			endCutscene: metadata.playData.endCutscene,
+			cutscene: metadata.playData.cutscene,
 			moveCamera: false,
 		};
 
@@ -105,14 +105,14 @@ class SongLoader {
 
 		// TODO: implement all events
 		for (event in song.events) {
-			switch (event.e) {
-				case 'FocusCamera':
-					output.events.push([event.e, event.t, event.v.char, '${event.v.x},${event.v.y}']);
-				case 'ZoomCamera':
+			switch (event.e.toLowerCase()) {
+				case 'focuscamera':
+					output.events.push([event.e, event.t, event.v.char ?? event.v, '${event.v.x},${event.v.y}']);
+				case 'zoomcamera':
 					output.events.push([event.e, event.t, event.v.zoom, '${event.v.ease},${event.v.duration}']);
-				case 'SetCameraBop':
+				case 'setcamerabop':
 					output.events.push(['change camera zoom strength', event.t, event.v.intensity, event.v.rate]);
-				case 'PlayAnimation':
+				case 'playanimation':
 					output.events.push(['play character animation', event.t, event.v.target, event.v.anim]);
 				default:
 					output.events.push([event.e, event.t, Std.string(event.v), '']);
@@ -290,6 +290,8 @@ typedef FNFCPlayData = {
 	var characters:FNFCCharacters;
 	var stage:String;
 	var noteStyle:String;
+	var cutscene:String;
+	var endCutscene:String;
 }
 
 // this doesn't have everything,

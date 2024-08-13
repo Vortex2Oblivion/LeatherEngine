@@ -1,20 +1,20 @@
 Tutorial:gf:0:Easy,Normal,Hard:#B72863
-Bopeebo:dad:1:Easy,Normal,Hard:#C96ED4
+Bopeebo:dad:1:Easy,Normal,Hard,Erect,Nightmare:#C96ED4
 Fresh:dad:1:Easy,Normal,Hard,Erect,Nightmare:#C96ED4
 Dad Battle:dad:1:Easy,Normal,Hard,Erect,Nightmare:#C96ED4
-Spookeez:spooky:2:Easy,Normal,Hard:#DD8B13
+Spookeez:spooky:2:Easy,Normal,Hard,Erect,Nightmare:#DD8B13
 South:spooky:2:Easy,Normal,Hard,Erect,Nightmare:#DD8B13
 Monster:monster:2:Easy,Normal,Hard:#F5FF6B
-Pico:pico:3:Easy,Normal,Hard:#CAE46C
+Pico:pico:3:Easy,Normal,Hard,Erect,Nightmare:#CAE46C
 Philly Nice:pico:3:Easy,Normal,Hard,Erect,Nightmare:#CAE46C
 Blammed:pico:3:Easy,Normal,Hard,Erect,Nightmare:#CAE46C
-Satin Panties:mom:4:Easy,Normal,Hard:#E46AA1
-High:mom:4:Easy,Normal,Hard:#E46AA1
+Satin Panties:mom:4:Easy,Normal,Hard,Erect,Nightmare:#E46AA1
+High:mom:4:Easy,Normal,Hard,Erect,Nightmare:#E46AA1
 M.I.L.F:mom:4:Easy,Normal,Hard:#E46AA1
 Cocoa:parents-christmas:5:Easy,Normal,Hard:#E46AA1
 Eggnog:parents-christmas:5:Easy,Normal,Hard:#E46AA1
 Winter Horrorland:monster:5:Easy,Normal,Hard:#F5FF6B
-Senpai:senpai:6:Easy,Normal,Hard:#FFAA6F
+Senpai:senpai:6:Easy,Normal,Hard,Erect,Nightmare:#FFAA6F
 Roses:senpai-angry:6:Easy,Normal,Hard,Erect,Nightmare:#FFAA6F
 Thorns:spirit:6:Easy,Normal,Hard,Erect,Nightmare:#FF3C6E
 Ugh:tankman:7:Easy,Normal,Hard:#F6B604

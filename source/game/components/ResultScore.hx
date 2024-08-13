@@ -51,9 +51,13 @@ class ResultScore extends FlxTypedSpriteGroup<ScoreNum> {
 				// if(i.finalDigit == 10) continue;
 
 				new FlxTimer().start((i - 1) / 24, _ -> {
-					group.members[i].finalDelay = scoreStart - (i - 1);
-					group.members[i].playAnim();
-					group.members[i].shuffle();
+					try{
+						group.members[i].finalDelay = scoreStart - (i - 1);
+						group.members[i].playAnim();
+						group.members[i].shuffle();
+					} catch (e) {
+						// trace(e, ERROR);
+					}
 				});
 			}
 		} catch (e) {
@@ -128,7 +132,12 @@ class ScoreNum extends FlxSprite {
 				ease: FlxEase.quadOut,
 				onComplete: function(input) {
 					new FlxTimer().start((finalDelay) / 24, _ -> {
-						animation.play(animation.curAnim.name, true, false, 0);
+						try{
+							animation.play(animation.curAnim.name, true, false, 0);
+						}
+						catch (e) {
+							// trace(e, ERROR);
+						}
 					});
 					// fuck
 				}

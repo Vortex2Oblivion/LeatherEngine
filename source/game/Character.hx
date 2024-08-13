@@ -37,6 +37,7 @@ class Character extends FlxSprite {
 	public var cameraOffset:Array<Float> = [0, 0];
 
 	public var otherCharacters:Array<Character>;
+	public var mainCharacterID:Int = 0;
 
 	public var offsetsFlipWhenPlayer:Bool = true;
 	public var offsetsFlipWhenEnemy:Bool = false;
@@ -339,6 +340,7 @@ class Character extends FlxSprite {
 				singDuration = config.singDuration;
 		} else {
 			otherCharacters = [];
+			mainCharacterID = config.mainCharacterID;
 
 			for (characterData in config.characters) {
 				var character:Character;
@@ -570,7 +572,7 @@ class Character extends FlxSprite {
 		if (otherCharacters != null && otherCharacters.length > 0)
 		{
 			if (followMainCharacter)
-				return otherCharacters[0];
+				return otherCharacters[mainCharacterID];
 		}
 		return this;
 	}

@@ -11,7 +11,7 @@ function createPost()
     setActorShader('evilSchoolFG', 'wiggle')
 end
 
-function updatePost(elapsed)
+function update(elapsed)
     shaderTime = shaderTime + elapsed
     setShaderProperty('wiggle', 'uTime', shaderTime)
 end

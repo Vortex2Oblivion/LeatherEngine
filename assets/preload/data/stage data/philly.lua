@@ -75,6 +75,7 @@ function updateTrainPos()
 
 	if startedMoving then
 		set("train.x", get("train.x") - 400)
+		set("train.visible", true)
 
 		if get("train.x") < -2000 and not trainFinishing then
 			set("train.x", -1150)
@@ -95,6 +96,7 @@ function trainReset()
 	playCharAnim("girlfriend", "hairFall", true)
     
 	set("train.x", windowWidth + 200)
+	set("train.visible", false)
 	trainMoving = false
 	trainCars = 8
 	trainFinishing = false
