@@ -1,11 +1,11 @@
 {
   "scriptName": "philly",
   "character_Positions": [
-    [950, 800],
-    [425, 800],
-    [700, 700]
+    [989.5, 885],
+    [468, 885],
+    [751.5, 787]
   ],
-  "camera_Zoom": 1.05,
+  "camera_Zoom": 1.1,
   "objects": [
     {
       "position": [-100, 0],

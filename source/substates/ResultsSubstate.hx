@@ -433,20 +433,15 @@ class ResultsSubstate extends MusicBeatSubstate {
 
 		hStuf += 2;
 
-		var tallySick:TallyCounter = new TallyCounter(230, (hStuf * 5) + extraYOffset, params.scoreData.tallies.sick, 0xFF89E59E);
-		ratingGrp.add(tallySick);
+		ratingGrp.add(new TallyCounter(230, (hStuf * 5) + extraYOffset, params.scoreData.tallies.sick, 0xFF89E59E));
 
-		var tallyGood:TallyCounter = new TallyCounter(210, (hStuf * 6) + extraYOffset, params.scoreData.tallies.good, 0xFF89C9E5);
-		ratingGrp.add(tallyGood);
+		ratingGrp.add(new TallyCounter(210, (hStuf * 6) + extraYOffset, params.scoreData.tallies.good, 0xFF89C9E5));
 
-		var tallyBad:TallyCounter = new TallyCounter(190, (hStuf * 7) + extraYOffset, params.scoreData.tallies.bad, 0xFFE6CF8A);
-		ratingGrp.add(tallyBad);
+		ratingGrp.add(new TallyCounter(190, (hStuf * 7) + extraYOffset, params.scoreData.tallies.bad, 0xFFE6CF8A));
 
-		var tallyShit:TallyCounter = new TallyCounter(220, (hStuf * 8) + extraYOffset, params.scoreData.tallies.shit, 0xFFE68C8A);
-		ratingGrp.add(tallyShit);
+		ratingGrp.add(new TallyCounter(220, (hStuf * 8) + extraYOffset, params.scoreData.tallies.shit, 0xFFE68C8A));
 
-		var tallyMissed:TallyCounter = new TallyCounter(260, (hStuf * 9) + extraYOffset, params.scoreData.tallies.missed, 0xFFC68AE6);
-		ratingGrp.add(tallyMissed);
+		ratingGrp.add(new TallyCounter(260, (hStuf * 9) + extraYOffset, params.scoreData.tallies.missed, 0xFFC68AE6));
 
 		score.visible = false;
 		// score.zIndex = 1200;
@@ -598,8 +593,13 @@ class ResultsSubstate extends MusicBeatSubstate {
 
 		// Scrolling.
 		new FlxTimer().start(30 / 24, _ -> {
-			if (rankTextVert != null && rankTextVert.velocity != null) {
-				rankTextVert.velocity.y = -80;
+			try{
+				if (rankTextVert != null && rankTextVert.velocity != null) {
+					rankTextVert.velocity.y = -80;
+				}
+			}
+			catch(e){
+				//trace(e, ERROR);
 			}
 		});
 

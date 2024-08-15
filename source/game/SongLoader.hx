@@ -26,7 +26,7 @@ class SongLoader {
 		return parseRaw(raw, folder, difficulty);
 	}
 
-	private static function parseRaw(raw:String, songName:String, difficulty:String, force:Bool = false):SongData {
+	public static function parseRaw(raw:String, songName:String, difficulty:String, force:Bool = false):SongData {
 		var parsedJSON:Dynamic = Json.parse(raw);
 
 		if (parsedJSON.song == null) { // invalid chart OR (more likely) new format!
@@ -36,7 +36,7 @@ class SongLoader {
 		}
 	}
 
-	private static function parseFNFC(parsedJSON:Dynamic, songName:String, difficulty:String):SongData {
+	public static function parseFNFC(parsedJSON:Dynamic, songName:String, difficulty:String):SongData {
 		var chartSuffix:String = '';
 		if(difficulty.toLowerCase() == 'erect' || difficulty.toLowerCase() == 'nightmare'){
 			chartSuffix = '-erect';
@@ -122,7 +122,7 @@ class SongLoader {
 		return output;
 	}
 
-	private static function parseLegacy(parsedJSON:Dynamic, songName:String, force:Bool = false):SongData {
+	public static function parseLegacy(parsedJSON:Dynamic, songName:String, force:Bool = false):SongData {
 		var song:SongData = cast parsedJSON.song;
 		song.validScore = true;
 
