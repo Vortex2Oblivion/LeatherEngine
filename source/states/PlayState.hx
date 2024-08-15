@@ -4597,10 +4597,12 @@ class PlayState extends MusicBeatState {
 				switch (Std.string(event[2])) {
 					case '0':
 						turnChange('bf');
-						FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, boyfriend.barColor);
+						if(Options.getData("timeBarStyle").toLowerCase() == "leather engine")
+							FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, boyfriend.barColor);
 					case '1':
 						turnChange('dad');
-						FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, dad.barColor);
+						if(Options.getData("timeBarStyle").toLowerCase() == "leather engine")
+							FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, dad.barColor);
 				}
 			case 'zoomcamera':
 				defaultCamZoom = Std.parseFloat(event[2]);

@@ -62,9 +62,6 @@ class TimeBar extends FlxSpriteGroup{
     override public function new(song:SongData, difficulty:String = "NORMAL"){
         super();
 
-        bg.screenCenter(X);
-        bg.scrollFactor.set();
-
         text = new FlxText(0, 0, 0, '${song.song} - $difficulty${Options.getData('botplay') ? ' (BOT)' : ''}');
 		text.setFormat(Paths.font("vcr.ttf"), Options.getData("biggerInfoText") ? 20 : 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		text.screenCenter(X);
@@ -93,15 +90,15 @@ class TimeBar extends FlxSpriteGroup{
                 text.y = bg.y = Options.getData("downscroll") ? FlxG.height * 0.9 + 45 : 10;
         }
 
+        bg.screenCenter(X);
+        bg.scrollFactor.set();
+
         bar = new FlxBar(0, bg.y + 4, LEFT_TO_RIGHT, Std.int(bg.width - 8), Std.int(bg.height - 8), this,'time', 0, FlxG.sound.music.length);
         bar.numDivisions = divisions;
-        bar.createFilledBar(FlxColor.BLACK, FlxColor.WHITE);
-
         bar.screenCenter(X);
         bar.scrollFactor.set();
-
         bar.createFilledBar(barColorLeft, barColorRight);
-
+        
         add(bg);
         add(bar);
         add(text);

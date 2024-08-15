@@ -104,6 +104,6 @@ function trainReset()
 end
 
 function updatePost(elapsed)
-	set("timeBar.color", get("light.color"))
+	set("timeBar.bar.color", get("light.color"))
 	set('light.alpha', lerp(1, 0, ((Conductor.songPosition / Conductor.crochet / 4) % 1)))
 end
