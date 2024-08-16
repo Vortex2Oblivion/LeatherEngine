@@ -597,6 +597,7 @@ class PlayState extends MusicBeatState {
 		ModchartUtilities.lua_Shaders.clear();
 		ModchartUtilities.lua_Custom_Shaders.clear();
 		ModchartUtilities.lua_Cameras.clear();
+		ModchartUtilities.lua_Jsons.clear();
 		#end
 	}
 
@@ -1471,7 +1472,7 @@ class PlayState extends MusicBeatState {
 	var lastReportedPlayheadPosition:Int = 0;
 	var songTime:Float = 0;
 
-	var invincible:Bool = false;
+	public var invincible:Bool = false;
 
 	public function clearNotesBefore(time:Float) {
 		var i:Int = unspawnNotes.length - 1;
@@ -1887,7 +1888,7 @@ class PlayState extends MusicBeatState {
 		super.onFocusLost();
 	}
 
-	function resyncVocals():Void {
+	public function resyncVocals():Void {
 		FlxG.sound.music.pitch = songMultiplier;
 
 		if (vocals.active && vocals.playing)
@@ -2501,13 +2502,42 @@ class PlayState extends MusicBeatState {
 		}
 
 		if (!Options.getData("disableDebugMenus")) {
-			if (FlxG.keys.justPressed.SEVEN && !switchedStates && !inCutscene) openChartEditor();
+			if (FlxG.keys.justPressed.SEVEN && !switchedStates && !inCutscene) {
+				PlayState.chartingMode = true;
+				switchedStates = true;
+				vocals.stop();
+				SONG.keyCount = ogKeyCount;
+				SONG.playerKeyCount = ogPlayerKeyCount;
+				FlxG.switchState(new ChartingState());
+				#if DISCORD_ALLOWED
+				DiscordClient.changePresence("Chart Editor", null, null, true);
+				#end
+			}
 
 			// #if debug
-			if (FlxG.keys.justPressed.EIGHT && !switchedStates && !inCutscene) openCharacterEditor();
+			if (FlxG.keys.justPressed.EIGHT && !switchedStates && !inCutscene) {
+				switchedStates = true;
+				vocals.stop();
+				SONG.keyCount = ogKeyCount;
+				SONG.playerKeyCount = ogPlayerKeyCount;
+				FlxG.switchState(new toolbox.CharacterCreator(SONG.player2, curStage));
+				toolbox.CharacterCreator.lastState = "PlayState";
+				#if DISCORD_ALLOWED
+				DiscordClient.changePresence("Creating A Character", null, null, true);
+				#end
+			}
 
 			#if MODCHARTING_TOOLS
-			if (FlxG.keys.justPressed.NINE && !switchedStates && !inCutscene) openModchartEditor();
+			if (FlxG.keys.justPressed.NINE && !switchedStates && !inCutscene) {
+				switchedStates = true;
+				vocals.stop();
+				SONG.keyCount = ogKeyCount;
+				SONG.playerKeyCount = ogPlayerKeyCount;
+				FlxG.switchState(new modcharting.ModchartEditorState());
+				#if DISCORD_ALLOWED
+				DiscordClient.changePresence("In The Modchart Editor", null, null, true);
+				#end
+			}
 			#end
 		}
 
@@ -2608,7 +2638,6 @@ class PlayState extends MusicBeatState {
 		call("onDestroy", []);
 		closeLua();
 		super.destroy();
-		// instance = null;
 	}
 
 	function turnChange(char:String) {
@@ -2695,10 +2724,6 @@ class PlayState extends MusicBeatState {
 
 		// lol dude when a song ended in freeplay it legit reloaded the page and i was like:  o_o ok
 		if (FlxG.state == instance) {
-			#if LUA_ALLOWED
-			closeLua();
-			#end
-
 			if (SONG.validScore) {
 				Highscore.saveScore(SONG.song, songScore, storyDifficultyStr);
 				Highscore.saveRank(SONG.song, Ratings.getRank(accuracy, misses), storyDifficultyStr, accuracy);
@@ -4205,7 +4230,7 @@ class PlayState extends MusicBeatState {
 			stage.stageScript = null;
 		}
 
-		/*if (generatedSomeDumbEventLuas) {
+		if (generatedSomeDumbEventLuas) {
 				for (key in event_luas.keys()) {
 					var event_lua:ModchartUtilities = event_luas.get(key);
 					if(event_lua != null){
@@ -4213,7 +4238,7 @@ class PlayState extends MusicBeatState {
 						event_lua = null;
 					}
 				}
-			}*/
+			}
 
 		if (luaScriptArray.length != 0) {
 			for (i in luaScriptArray) {

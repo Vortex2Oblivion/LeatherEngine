@@ -174,9 +174,6 @@ class PauseSubState extends MusicBeatSubstate {
 				case "no cutscenes":
 					PlayState.SONG.speed = PlayState.previousScrollSpeedLmao;
 					PlayState.playCutscenes = true;
-
-					PlayState.instance.closeLua();
-
 					PlayState.SONG.keyCount = PlayState.instance.ogKeyCount;
 					PlayState.SONG.playerKeyCount = PlayState.instance.ogPlayerKeyCount;
 
@@ -188,8 +185,6 @@ class PauseSubState extends MusicBeatSubstate {
 					FlxG.resetState();
 				case "with cutscenes":
 					PlayState.SONG.speed = PlayState.previousScrollSpeedLmao;
-
-					PlayState.instance.closeLua();
 
 					PlayState.SONG.keyCount = PlayState.instance.ogKeyCount;
 					PlayState.SONG.playerKeyCount = PlayState.instance.ogPlayerKeyCount;
@@ -206,9 +201,6 @@ class PauseSubState extends MusicBeatSubstate {
 							PlayState.startOnTime = curTime;
 							PlayState.SONG.speed = PlayState.previousScrollSpeedLmao;
 							PlayState.playCutscenes = true;
-
-							PlayState.instance.closeLua();
-
 
 							PlayState.SONG.keyCount = PlayState.instance.ogKeyCount;
 							PlayState.SONG.playerKeyCount = PlayState.instance.ogPlayerKeyCount;
@@ -244,8 +236,6 @@ class PauseSubState extends MusicBeatSubstate {
 					menu = "default";
 					updateAlphabets();
 				case "exit to menu":
-					PlayState.instance.closeLua();
-
 					pauseMusic.stop();
 					pauseMusic.destroy();
 					FlxG.sound.list.remove(pauseMusic);

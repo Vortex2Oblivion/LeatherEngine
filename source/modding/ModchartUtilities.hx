@@ -105,7 +105,7 @@ class ModchartUtilities {
 		else if (Reflect.getProperty(PlayState, id) != null)
 			return Reflect.getProperty(PlayState, id);
 
-		if (PlayState.strumLineNotes.length - 1 >= Std.parseInt(id)) @:privateAccess
+		if (PlayState.strumLineNotes.length - 1 >= Std.parseInt(id)) 
 			return PlayState.strumLineNotes.members[Std.parseInt(id)];
 
 		return null;
@@ -225,7 +225,7 @@ class ModchartUtilities {
 		lua_Cameras.set("hud", {cam: PlayState.instance.camHUD, shaders: [], shaderNames: []});
 
 		lua_Sounds.set("Inst", FlxG.sound.music);
-		@:privateAccess
+		
 		lua_Sounds.set("Voices", PlayState.instance.vocals);
 
 		trace('Loading script at path \'${path}\'');
@@ -468,13 +468,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("justPressedDodgeKey", function() {
-			var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
-			if (gamepad != null) {
-				if (gamepad.checkStatus(FlxGamepadInputID.fromString("SPACE"), FlxInputState.JUST_PRESSED)) {
-					return true;
-				}
-			}
-			return FlxG.keys.checkStatus(FlxKey.fromString("SPACE"), FlxInputState.JUST_PRESSED);
+			return FlxG.keys.justPressed.SPACE;
 		});
 
 		setLuaFunction("justPressed", function(key:String = "SPACE") {
@@ -523,7 +517,7 @@ class ModchartUtilities {
 		setLuaFunction("makeStageSprite", function(id:String, filename:String, x:Float, y:Float, size:Float = 1, ?sizeY:Float = null) {
 			if (!lua_Sprites.exists(id)) {
 				var Sprite:FlxSprite = new FlxSprite(x, y);
-				@:privateAccess
+				
 				if (filename != null && filename.length > 0)
 					Sprite.loadGraphic(Paths.image(PlayState.instance.stage.stage + "/" + filename, "stages"));
 
@@ -532,8 +526,7 @@ class ModchartUtilities {
 				Sprite.updateHitbox();
 
 				lua_Sprites.set(id, Sprite);
-
-				@:privateAccess
+				
 				PlayState.instance.stage.add(Sprite);
 			} else
 				CoolUtil.coolError("Sprite " + id + " already exists! Choose a different name!", "Leather Engine Modcharts");
@@ -542,7 +535,7 @@ class ModchartUtilities {
 		setLuaFunction("makeStageAnimatedSprite", function(id:String, filename:String, x:Float, y:Float, size:Float = 1, ?sizeY:Float = null) {
 			if (!lua_Sprites.exists(id)) {
 				var Sprite:FlxSprite = new FlxSprite(x, y);
-				@:privateAccess
+				
 				if (filename != null && filename.length > 0)
 					Sprite.frames = Paths.getSparrowAtlas(PlayState.instance.stage.stage + "/" + filename, "stages");
 
@@ -552,7 +545,6 @@ class ModchartUtilities {
 
 				lua_Sprites.set(id, Sprite);
 
-				@:privateAccess
 				PlayState.instance.stage.add(Sprite);
 			} else
 				CoolUtil.coolError("Sprite " + id + " already exists! Choose a different name!", "Leather Engine Modcharts");
@@ -562,7 +554,7 @@ class ModchartUtilities {
 			function(id:String, filename:String, x:Float, y:Float, size:Float = 1, ?oneDanceAnimation:Bool, ?antialiasing:Bool, ?sizeY:Float = null) {
 				if (!lua_Sprites.exists(id)) {
 					var Sprite:DancingSprite = new DancingSprite(x, y, oneDanceAnimation, antialiasing);
-					@:privateAccess
+					
 					if (filename != null && filename.length > 0)
 						Sprite.frames = Paths.getSparrowAtlas(PlayState.instance.stage.stage + "/" + filename, "stages");
 
@@ -572,7 +564,7 @@ class ModchartUtilities {
 
 					lua_Sprites.set(id, Sprite);
 
-					@:privateAccess
+					
 					PlayState.instance.stage.add(Sprite);
 				} else
 					CoolUtil.coolError("Sprite " + id + " already exists! Choose a different name!", "Leather Engine Modcharts");
@@ -1033,7 +1025,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction('changeHealthRange', function(minHealth:Float, maxHealth:Float) {
-			@:privateAccess
+			
 			{
 				var bar = PlayState.instance.healthBar;
 				PlayState.instance.minHealth = minHealth;
@@ -1115,7 +1107,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("setCamPosition", function(x:Int, y:Int) {
-			@:privateAccess
+			
 			{
 				PlayState.instance.camFollow.x = x;
 				PlayState.instance.camFollow.y = y;
@@ -1123,12 +1115,12 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("getCameraX", function() {
-			@:privateAccess
+			
 			return PlayState.instance.camFollow.x;
 		});
 
 		setLuaFunction("getCameraY", function() {
-			@:privateAccess
+			
 			return PlayState.instance.camFollow.y;
 		});
 
@@ -1455,12 +1447,12 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("getOriginalCharX", function(character:Int) {
-			@:privateAccess
+			
 			return PlayState.instance.stage.getCharacterPos(character)[0];
 		});
 
 		setLuaFunction("getOriginalCharY", function(character:Int) {
-			@:privateAccess
+			
 			return PlayState.instance.stage.getCharacterPos(character)[1];
 		});
 
@@ -2000,7 +1992,7 @@ class ModchartUtilities {
 
 			lua_Sprites.set("dad", dad);
 
-			@:privateAccess
+			
 			{
 				var oldIcon = PlayState.instance.iconP2;
 				var bar = PlayState.instance.healthBar;
@@ -2049,7 +2041,7 @@ class ModchartUtilities {
 
 			lua_Sprites.set("boyfriend", boyfriend);
 
-			@:privateAccess
+			
 			{
 				var oldIcon = PlayState.instance.iconP1;
 				var bar = PlayState.instance.healthBar;
@@ -2697,13 +2689,13 @@ class ModchartUtilities {
 
 		setLuaFunction("setProperty", function(object:String, property:String, value:Dynamic) {
 			if (object != "") {
-				@:privateAccess
+				
 				if (Reflect.getProperty(PlayState.instance, object) != null)
 					Reflect.setProperty(Reflect.getProperty(PlayState.instance, object), property, value);
 				else
 					Reflect.setProperty(Reflect.getProperty(PlayState, object), property, value);
 			} else {
-				@:privateAccess
+				
 				if (Reflect.getProperty(PlayState.instance, property) != null)
 					Reflect.setProperty(PlayState.instance, property, value);
 				else
@@ -2713,13 +2705,13 @@ class ModchartUtilities {
 
 		setLuaFunction("getProperty", function(object:String, property:String) {
 			if (object != "") {
-				@:privateAccess
+				
 				if (Reflect.getProperty(PlayState.instance, object) != null)
 					return Reflect.getProperty(Reflect.getProperty(PlayState.instance, object), property);
 				else
 					return Reflect.getProperty(Reflect.getProperty(PlayState, object), property);
 			} else {
-				@:privateAccess
+				
 				if (Reflect.getProperty(PlayState.instance, property) != null)
 					return Reflect.getProperty(PlayState.instance, property);
 				else
@@ -2728,7 +2720,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("getPropertyFromClass", function(className:String, variable:String) {
-			@:privateAccess
+			
 			{
 				var variablePaths = variable.split(".");
 
@@ -2747,7 +2739,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("setPropertyFromClass", function(className:String, variable:String, value:Dynamic) {
-			@:privateAccess
+			
 			{
 				var variablePaths:Array<String> = variable.split('.');
 
@@ -2777,7 +2769,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("stopSong", function() {
-			@:privateAccess
+			
 			{
 				PlayState.instance.paused = true;
 
@@ -2807,20 +2799,14 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("endSong", function() {
-			@:privateAccess
-			{
-				FlxG.sound.music.time = FlxG.sound.music.length;
-				PlayState.instance.vocals.time = FlxG.sound.music.length;
+			FlxG.sound.music.time = FlxG.sound.music.length;
+			PlayState.instance.vocals.time = FlxG.sound.music.length;
 
-				PlayState.instance.health = 500000;
-				PlayState.instance.invincible = true;
+			PlayState.instance.health = 500000;
+			PlayState.instance.invincible = true;
 
-				PlayState.instance.stopSong = false;
-
-				PlayState.instance.resyncVocals();
-			}
-
-			return true;
+			PlayState.instance.stopSong = false;
+			PlayState.instance.resyncVocals();
 		});
 
 		setLuaFunction("getCharFromEvent", function(eventId:String) {
@@ -2850,7 +2836,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("tweenStageColorSwap", function(prop:String, value:Dynamic, time:Float, easeStr:String = "linear") {
-			@:privateAccess
+			
 			var actor = PlayState.instance.stage.colorSwap;
 			var ease = easeFromString(easeStr);
 
@@ -2871,7 +2857,7 @@ class ModchartUtilities {
 		});
 
 		setLuaFunction("setStageColorSwap", function(prop:String, value:Dynamic) {
-			@:privateAccess
+			
 			var actor = PlayState.instance.stage.colorSwap;
 
 			if (actor != null) {
@@ -2903,7 +2889,7 @@ class ModchartUtilities {
 
 		// shader bullshit
 
-setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?frequency:Float = 10, ?amplitude:Float = 0.25) {
+		setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?frequency:Float = 10, ?amplitude:Float = 0.25) {
 			var actor = getActorByName(id);
 
 			if (actor != null) {
@@ -3173,10 +3159,10 @@ setLuaFunction("setActor3DShader", function(id:String, ?speed:Float = 3, ?freque
 
 			if (functions_called.contains("create"))
 				modchart.executeState("create", [PlayState.SONG.song.toLowerCase()]);
-			if (functions_called.contains("createPost"))
-				modchart.executeState("createPost", [PlayState.SONG.song.toLowerCase()]);
 			if (functions_called.contains("start"))
 				modchart.executeState("start", [PlayState.SONG.song.toLowerCase()]);
+			if (functions_called.contains("createPost"))
+				modchart.executeState("createPost", [PlayState.SONG.song.toLowerCase()]);
 
 			extra_scripts.push(modchart);
 		});

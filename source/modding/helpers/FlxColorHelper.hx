@@ -5,7 +5,7 @@ import flixel.util.FlxColor;
 /**
  * Helper class for FlxColor as it can not be accessed in HScript because it is an abstract. 
  */
-class FlxColorHelper {
+class FlxColorHelper  {
     public static var BLACK:FlxColor = FlxColor.BLACK;
     public static var BLUE:FlxColor = FlxColor.BLUE;
     public static var BROWN:FlxColor = FlxColor.BROWN;
