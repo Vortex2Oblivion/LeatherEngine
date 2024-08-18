@@ -12,13 +12,7 @@ import openfl.utils.Assets as OpenFlAssets;
  * Assets paths helper class
  */
 class Paths {
-	public static inline final SOUND_EXT:String = "ogg";
-
-	private static var currentLevel:String = "preload";
-
-	public static inline function setCurrentLevel(name:String):Void {
-		currentLevel = name.toLowerCase();
-	}
+	public static var currentLevel:String = "preload";
 
 	static function getPath(file:String, type:AssetType, library:Null<String>):String {
 		if (library != null)
@@ -79,13 +73,13 @@ class Paths {
 		return 'assets/videos/$key.$ext';
 
 	inline static public function sound(key:String, ?library:String):String
-		return getPath('sounds/$key.$SOUND_EXT', SOUND, library);
+		return getPath('sounds/$key.ogg', SOUND, library);
 
 	inline static public function soundRandom(key:String, min:Int, max:Int, ?library:String):String
 		return sound(key + FlxG.random.int(min, max), library);
 
 	inline static public function music(key:String, ?library:String):String
-		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
+		return getPath('music/$key.ogg', MUSIC, library);
 
 	inline static public function image(key:String, ?library:String):String
 		return getPath('images/$key.png', IMAGE, library);
@@ -99,27 +93,27 @@ class Paths {
 	static public function voices(song:String, ?difficulty:String):String {
 		if (difficulty != null) {
 			if(difficulty.toLowerCase() == 'nightmare'){
-				if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Voices-erect.$SOUND_EXT'))
-					return 'songs:assets/songs/${song.toLowerCase()}/Voices-erect.$SOUND_EXT';
+				if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Voices-erect.ogg'))
+					return 'songs:assets/songs/${song.toLowerCase()}/Voices-erect.ogg';
 			}
-			if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Voices-$difficulty.$SOUND_EXT'))
-				return 'songs:assets/songs/${song.toLowerCase()}/Voices-$difficulty.$SOUND_EXT';
+			if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Voices-$difficulty.ogg'))
+				return 'songs:assets/songs/${song.toLowerCase()}/Voices-$difficulty.ogg';
 		}
 
-		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		return 'songs:assets/songs/${song.toLowerCase()}/Voices.ogg';
 	}
 
 	static public function inst(song:String, ?difficulty:String):String {
 		if (difficulty != null) {
 			if(difficulty.toLowerCase() == 'nightmare'){
-				if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Inst-erect.$SOUND_EXT'))
-					return 'songs:assets/songs/${song.toLowerCase()}/Inst-erect.$SOUND_EXT';
+				if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Inst-erect.ogg'))
+					return 'songs:assets/songs/${song.toLowerCase()}/Inst-erect.ogg';
 			}
-			if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Inst-$difficulty.$SOUND_EXT'))
-				return 'songs:assets/songs/${song.toLowerCase()}/Inst-$difficulty.$SOUND_EXT';
+			if (Assets.exists('songs:assets/songs/${song.toLowerCase()}/Inst-$difficulty.ogg'))
+				return 'songs:assets/songs/${song.toLowerCase()}/Inst-$difficulty.ogg';
 		}
 
-		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		return 'songs:assets/songs/${song.toLowerCase()}/Inst.ogg';
 	}
 
 	static public function songEvents(song:String, ?difficulty:String):String {
