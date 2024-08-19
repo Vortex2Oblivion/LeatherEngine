@@ -13,6 +13,10 @@
       "value": true
     },
     {
+      "option": "versionDisplay",
+      "value": true
+    },
+    {
       "option": "uiSkin",
       "value": "default"
     },

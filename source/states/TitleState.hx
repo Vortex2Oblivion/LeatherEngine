@@ -168,7 +168,7 @@ class TitleState extends MusicBeatState {
 
 			Main.toggleFPS(Options.getData("fpsCounter"));
 			Main.toggleMem(Options.getData("memoryCounter"));
-			Main.toggleVers(true);
+			Main.toggleVers(Options.getData("versionDisplay"));
 			Main.toggleLogs(Options.getData("developer"));
 			Main.changeFont(Options.getData("infoDisplayFont"));
 

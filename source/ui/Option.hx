@@ -96,6 +96,8 @@ class BoolOption extends Option {
 				else if (!optionChecked && DiscordClient.active)
 					DiscordClient.shutdown();
 			#end
+			case "versionDisplay":
+				Main.toggleVers(optionChecked);
 			case "developer":
 				Main.toggleLogs(optionChecked);
 		}

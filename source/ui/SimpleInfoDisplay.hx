@@ -10,15 +10,6 @@ import lime.system.System as LimeSystem;
 /**
  * Shows basic info about the game.
  */
-#if cpp
-#if windows
-@:cppFileCode('#include <windows.h>')
-#elseif (ios || mac)
-@:cppFileCode('#include <mach-o/arch.h>')
-#else
-@:headerInclude('sys/utsname.h')
-#end
-#end
 class SimpleInfoDisplay extends TextField {
 	//                                      fps    mem   version console info
 	public var infoDisplayed:Array<Bool> = [false, false, false, false];
@@ -28,12 +19,9 @@ class SimpleInfoDisplay extends TextField {
     private var framesCounted:Int = 0;
 	
 	public var version:String = CoolUtil.getCurrentVersion();
-	public final os:String = '${LimeSystem.platformName} ${getArch() != 'Unknown' ? getArch() : ''} ${(LimeSystem.platformName == LimeSystem.platformVersion || LimeSystem.platformVersion == null) ? '' : '- ' + LimeSystem.platformVersion}';
 
 	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String) {
 		super();
-
-		os = os.toLowerCase();
 
 		positionFPS(x, y);
 		selectable = false;
@@ -80,52 +68,12 @@ class SimpleInfoDisplay extends TextField {
 				case 1: // Memory
 					text += '${CoolUtil.formatBytes(Memory.getCurrentUsage())} / ${CoolUtil.formatBytes(Memory.getPeakUsage())}';
 				case 2: // Version
-					text += os;
+					text += version;
 				case 3: // Console
 					text += '${Main.logsOverlay.logs.length} traced lines. F3 to view.';
 			}
 
 			text += '\n';
 		}
-	}
-
-	#if windows
-	@:functionCode('
-		SYSTEM_INFO osInfo;
-
-		GetSystemInfo(&osInfo);
-
-		switch(osInfo.wProcessorArchitecture)
-		{
-			case 9:
-				return ::String("x86_64");
-			case 5:
-				return ::String("ARM");
-			case 12:
-				return ::String("ARM64");
-			case 6:
-				return ::String("IA-64");
-			case 0:
-				return ::String("x86");
-			default:
-				return ::String("Unknown");
-		}
-	')
-	#elseif (ios || mac)
-	@:functionCode('
-		const NXArchInfo *archInfo = NXGetLocalArchInfo();
-    	return ::String(archInfo == NULL ? "Unknown" : archInfo->name);
-	')
-	#elseif cpp
-	@:functionCode('
-		struct utsname osInfo{};
-		uname(&osInfo);
-		return ::String(osInfo.machine);
-	')
-	#end
-	@:noCompletion
-	private static function getArch():String
-	{
-		return "Unknown";
 	}
 }

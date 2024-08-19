@@ -119,7 +119,8 @@ class OptionsMenu extends MusicBeatState {
 			],
 				"infoDisplayFont"),
 			new BoolOption("FPS Counter", "fpsCounter"),
-			new BoolOption("Memory Counter", "memoryCounter")
+			new BoolOption("Memory Counter", "memoryCounter"),
+			new BoolOption("Version Display", "versionDisplay")
 		],
 		"Judgements" => [
 			new PageOption("Back", "Gameplay"),
