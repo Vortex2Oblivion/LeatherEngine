@@ -75,7 +75,13 @@
 
 	<section unless="mobile">
 		<assets path="CHANGELOG.md" rename='changelog.txt' />
+		<assets path="console.bat" if="windows" />
 		<assets path="version.txt" />
+
+		<assets path="crash/bin/Crash-windows.exe" if="windows" rename="Crash.exe" />
+		<assets path="crash/bin/Crash-linux.x86_64" if="linux" rename="Crash.x86_64" />
+
+		<assets path="build/linux_dependencies.txt" rename='linux_dependencies.txt' if="linux" />
 	</section>
 
 	<!-- Libraries -->
