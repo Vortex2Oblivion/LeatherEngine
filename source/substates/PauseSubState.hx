@@ -27,6 +27,7 @@ class PauseSubState extends MusicBeatSubstate {
 	var menus:Map<String, Array<String>> = [
 		"default" => ['Resume', 'Restart Song', 'Options', 'Exit To Menu'],
 		"restart" => ['Back', 'No Cutscenes', 'With Cutscenes'],
+		"editors" => ['Back', 'Chart Editor', 'Character Editor', 'Modchart Editor']
 	];
 
 	var menu:String = "default";
@@ -48,6 +49,12 @@ class PauseSubState extends MusicBeatSubstate {
 
 		if(PlayState.chartingMode){
 			optionsArray.insert(optionsArray.length - 1, "Skip Time");
+			menus.set("default", optionsArray);
+		}
+
+		if (controls.mobileC) {
+			final num:Int = !PlayState.chartingMode ? 2 : 3;
+			optionsArray.insert(optionsArray.length - num, "Editors");
 			menus.set("default", optionsArray);
 		}
 
@@ -90,6 +97,9 @@ class PauseSubState extends MusicBeatSubstate {
 		cameras = [pauseCamera];
 		if (PlayState.instance.usedLuaCameras)
 			cameras = [FlxG.cameras.list[FlxG.cameras.list.length-1]];
+
+		addVirtualPad(PlayState.chartingMode ? LEFT_FULL : UP_DOWN, A_B);
+		addVirtualPadCamera();
 	}
 
 	var justPressedAcceptLol:Bool = true;
@@ -237,6 +247,17 @@ class PauseSubState extends MusicBeatSubstate {
 					} else {
 						FlxG.switchState(new FreeplayState());
 					}
+				case "editors":
+					menu = "editors";
+					updateAlphabets();
+				case "chart editor":
+					PlayState.instance.openChartEditor();
+				case "character editor":
+					PlayState.instance.openCharacterEditor();
+				#if MODCHARTING_TOOLS
+				case "modchart editor":
+					PlayState.instance.openModchartEditor();
+				#end
 			}
 		}
 	}
@@ -262,8 +283,6 @@ class PauseSubState extends MusicBeatSubstate {
 				grpMenuShit.add(songText);
 			}
 		}
-
-	
 
 		if(jump) curSelected = 0;
 		else FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);

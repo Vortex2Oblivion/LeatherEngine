@@ -73,7 +73,7 @@ class BoolOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0)
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0)
 			changeValue();
 	}
 
@@ -96,8 +96,6 @@ class BoolOption extends Option {
 				else if (!optionChecked && DiscordClient.active)
 					DiscordClient.shutdown();
 			#end
-			case "versionDisplay":
-				Main.toggleVers(optionChecked);
 			case "developer":
 				Main.toggleLogs(optionChecked);
 		}
@@ -121,7 +119,7 @@ class PageOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && Std.int(alphabetText.targetY) == 0 && !OptionsMenu.instance.inMenu) {
+		if (utilities.Controls.instance.ACCEPT && Std.int(alphabetText.targetY) == 0 && !OptionsMenu.instance.inMenu) {
 			OptionsMenu.instance.loadPage(pageName);
 		}
 	}
@@ -140,8 +138,8 @@ class GameSubStateOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0)
-			FlxG.state.openSubState(Type.createInstance(this.gameSubState, []));
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0)
+			OptionsMenu.instance.openSubState(Type.createInstance(this.gameSubState, []));
 	}
 }
 
@@ -162,7 +160,7 @@ class GameStateOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0) {
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0) {
 			FlxG.switchState(gameState);
 		}
 	}
@@ -187,7 +185,7 @@ class GameStateOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0)
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0)
 			FlxG.switchState(gameState);
 	}
 }
@@ -229,7 +227,7 @@ class ModOption extends FlxTypedGroup<FlxSprite> {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0) {
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0) {
 			modEnabled = !modEnabled;
 			ModList.setModEnabled(optionValue, modEnabled);
 		}
@@ -282,7 +280,7 @@ class ChangeModOption extends FlxTypedGroup<FlxSprite> {
 		if(alphabetText.targetY == 0){
 			alphabetText.alpha = 1;
 			modIcon.alpha = 1;
-			if (FlxG.keys.justPressed.ENTER) {
+			if (utilities.Controls.instance.ACCEPT) {
 				Options.setData(optionValue, "curMod");
 				modEnabled = !modEnabled;
 				if (FlxG.state is TitleState) TitleState.initialized = false;
@@ -339,7 +337,7 @@ class StringSaveOption extends Option {
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ENTER && Std.int(alphabetText.targetY) == 0 && !OptionsMenu.instance.inMenu) {
+		if (utilities.Controls.instance.ACCEPT && Std.int(alphabetText.targetY) == 0 && !OptionsMenu.instance.inMenu) {
 			var prevIndex = Modes.indexOf(Current_Mode);
 
 			if (prevIndex != -1) {
@@ -396,7 +394,7 @@ class DisplayFontOption extends StringSaveOption {
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
-		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0) {
+		if (utilities.Controls.instance.ACCEPT && alphabetText.targetY == 0) {
 			CoolUtil.openURL(Url);
 		}
 	}

@@ -905,6 +905,16 @@ class PlayState extends MusicBeatState {
 		generateSong(SONG.song);
 		generateEvents();
 
+		addHitbox();
+		addHitboxCamera();
+		hitbox.visible = false;
+		hitbox.screenCenter();
+		#if !android
+		addVirtualPad(NONE, P);
+		addVirtualPadCamera();
+		virtualPad.visible = true;
+		#end
+
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollow.setPosition(camPos.x, camPos.y);
 
@@ -1318,7 +1328,7 @@ class PlayState extends MusicBeatState {
 		NoteMovement.getDefaultStrumPos(this);
 		#end
 
-		startedCountdown = true;
+		startedCountdown = hitbox.visible = true;
 		Conductor.songPosition = 0;
 		Conductor.songPosition -= Conductor.crochet * 5;
 
@@ -1472,7 +1482,7 @@ class PlayState extends MusicBeatState {
 				daNote.active = false;
 				daNote.visible = false;
 
-				daNote.kill();
+				//daNote.kill();
 				unspawnNotes.remove(daNote);
 				daNote.destroy();
 			}
@@ -1492,7 +1502,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	inline function invalidateNote(note:Note):Void {
-		note.kill();
+		//note.kill();
 		notes.remove(note, true);
 		note.destroy();
 	}
@@ -1761,7 +1771,7 @@ class PlayState extends MusicBeatState {
 
 			strumLineNotes.add(babyArrow);
 
-			if (usedKeyCount != 4 && isPlayer && Options.getData("extraKeyReminders") && showReminders) {
+			if (!controls.mobileC && usedKeyCount != 4 && isPlayer && Options.getData("extraKeyReminders") && showReminders) {
 				// var coolWidth = Std.int(40 - ((key_Count - 5) * 2) + (key_Count == 10 ? 30 : 0));
 				// funny 4 key math i guess, full num is 2.836842105263158 (width / previous key width thingy which was 38)
 				var coolWidth:Int = Math.ceil(babyArrow.width / 2.83684);
@@ -2475,7 +2485,7 @@ class PlayState extends MusicBeatState {
 		if (!inCutscene && !switchedStates)
 			keyShit();
 
-		if (FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("pauseBind", "binds")), FlxInputState.JUST_PRESSED)
+		if (#if android FlxG.android.justReleased.BACK #else virtualPad.buttonP.justPressed #end || FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("pauseBind", "binds")), FlxInputState.JUST_PRESSED)
 			&& startedCountdown
 			&& canPause
 			&& !switchedStates) {
@@ -2708,7 +2718,7 @@ class PlayState extends MusicBeatState {
 
 	function endSong():Void {
 		call("endSong", []);
-		canPause = false;
+		canPause = hitbox.visible = #if !android virtualPad.visible = #end false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 
@@ -3069,6 +3079,13 @@ class PlayState extends MusicBeatState {
 						releasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.RELEASED);
 						justReleasedArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.JUST_RELEASED);
 						heldArray[i] = FlxG.keys.checkStatus(FlxKey.fromString(bruhBinds[i]), FlxInputState.PRESSED);
+					}
+
+					if (controls.mobileC) {
+						justPressedArray[i] = hitbox.hints[i].justPressed;
+						releasedArray[i] = hitbox.hints[i].released;
+						justReleasedArray[i] = hitbox.hints[i].justReleased;
+						heldArray[i] = hitbox.hints[i].pressed;
 					}
 				}
 
@@ -4456,6 +4473,66 @@ class PlayState extends MusicBeatState {
 	public function addBehindBF(behind:FlxBasic) {
 		insert(members.indexOf(boyfriend), behind);
 	}
+
+	public function openChartEditor():Void
+	{
+		closeLua();
+
+		PlayState.chartingMode = true;
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new ChartingState());
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("Chart Editor", null, null, true);
+		#end
+	}
+
+	public function openCharacterEditor():Void
+	{
+		closeLua();
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new toolbox.CharacterCreator(SONG.player2, curStage));
+
+		toolbox.CharacterCreator.lastState = "PlayState";
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("Creating A Character", null, null, true);
+		#end
+	}
+
+	#if MODCHARTING_TOOLS
+	public function openModchartEditor():Void
+	{
+		closeLua();
+
+		switchedStates = true;
+
+		vocals.stop();
+
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+
+		FlxG.switchState(new modcharting.ModchartEditorState());
+
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("In The Modchart Editor", null, null, true);
+		#end
+	}
+	#end
 }
 
 enum Execute_On {

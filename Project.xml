@@ -21,6 +21,9 @@
 	<!--Desktop-specific-->
 	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" vsync="false" />
 
+	<!--Mobile-specific-->
+	<window if="mobile" orientation="landscape" fullscreen="true" resizable="false" allow-shaders="true" require-shaders="true" />
+
 	<!-- Path Settings -->
 
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
@@ -36,7 +39,7 @@
 	<section if="cpp">
 		<define name="VIDEOS_ALLOWED" />
 		<define name="LUA_ALLOWED" />
-		<define name="DISCORD_ALLOWED" />
+		<define name="DISCORD_ALLOWED" if="cpp" unless="mobile"/>
 	</section>
 
 	<define name="MODDING_ALLOWED" />
@@ -70,16 +73,10 @@
 	<assets path="assets/shared" library="shared" />
 	<assets path="assets/preload/fonts" rename="assets/fonts" library="fonts" />
 
-	<assets path="CHANGELOG.md" rename='changelog.txt' />
-
-	<assets path="console.bat" if="windows" />
-
-	<assets path="version.txt" />
-
-	<assets path="crash/bin/Crash-windows.exe" if="windows" rename="Crash.exe" />
-	<assets path="crash/bin/Crash-linux.x86_64" if="linux" rename="Crash.x86_64" />
-
-	<assets path="build/linux_dependencies.txt" rename='linux_dependencies.txt' if="linux" />
+	<section unless="mobile">
+		<assets path="CHANGELOG.md" rename='changelog.txt' />
+		<assets path="version.txt" />
+	</section>
 
 	<!-- Libraries -->
 	<haxelib name="flixel" />
@@ -89,11 +86,12 @@
 	<haxelib name="scriptless-polymod" if="MODDING_ALLOWED" />
 	<haxelib name="flxanimate" />
 	<haxelib name="discord_rpc" if="DISCORD_ALLOWED" />
-	<haxelib name="linc_luajit" if="LUA_ALLOWED" version="git" url="https://github.com/Leather128/linc_luajit.git" />
+	<haxelib name="linc_luajit" if="LUA_ALLOWED" />
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" />
 	<haxelib name="hxNoise"/>
 	<haxelib name="fnf-modcharting-tools" url="https://github.com/EdwhakKB/FNF-Modcharting-Tools" unless="hl" />
 	<haxelib name="funkin.vis" />
+	<haxelib name="extension-androidtools" if="android" />
 
 	<!-- Haxedefines -->
 
@@ -128,7 +126,10 @@
 	<haxedef name="HXCPP_STACK_LINE" if="release" />
 	<haxedef name="HXCPP_STACK_TRACE" if="release" />
 
-	<haxedef name="HXCPP_GC_BIG_BLOCKS" />
+	<!-- Do whatever you want I'm tired uninstall and install everytime -->
+	<certificate path="key.keystore" password="leatherengine" alias="leatherport" alias-password="leatherengine" if="android" unless="debug" />
+
+	<!--<haxedef name="HXCPP_GC_BIG_BLOCKS" />-->
 
 	<icon path="art/icon.png" />
 </project>

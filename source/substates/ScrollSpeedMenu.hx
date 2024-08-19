@@ -29,6 +29,8 @@ class ScrollSpeedMenu extends MusicBeatSubstate
         offsetText.text = "Scrollspeed: " + alpha_Value;
         offsetText.screenCenter();
         add(offsetText);
+        
+        addVirtualPad(LEFT_RIGHT, B);
     }
 
     override function update(elapsed:Float) {
@@ -42,7 +44,8 @@ class ScrollSpeedMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(alpha_Value, "customScrollSpeed");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(leftP)

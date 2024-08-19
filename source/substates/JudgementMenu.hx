@@ -40,6 +40,8 @@ class JudgementMenu extends MusicBeatSubstate
 
         update_Text();
         add(judgementText);
+
+        addVirtualPad(LEFT_FULL, B);
     }
 
     override function update(elapsed:Float) {
@@ -57,7 +59,8 @@ class JudgementMenu extends MusicBeatSubstate
         if(back)
         {
             Options.setData(judgements, "judgementTimings");
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(downP || upP)

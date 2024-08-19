@@ -11,7 +11,8 @@ import flixel.FlxSprite;
 class SongOffsetMenu extends MusicBeatSubstate
 {
     var offset:Float = 0.0;
-    var offsetText:FlxText = new FlxText(0,0,0,"Offset: 0\nPress ENTER to round number\n",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+    final buttonEnter:String = controls.mobileC ? 'A' : 'ENTER';
+    var offsetText:FlxText = new FlxText(0,0,0,'Offset: 0\nPress ENTER to round number\n',64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     public function new()
     {
@@ -26,9 +27,11 @@ class SongOffsetMenu extends MusicBeatSubstate
 
         FlxTween.tween(bg, {alpha: 0.5}, 1, {ease: FlxEase.circOut, startDelay: 0});
 
-        offsetText.text = "Offset: " + offset + "\nPress ENTER to round number\n";
+        offsetText.text = "Offset: " + offset + '\nPress $buttonEnter to round number\n';
         offsetText.screenCenter();
         add(offsetText);
+
+        addVirtualPad(LEFT_RIGHT, A_B);
     }
 
     override function update(elapsed:Float) {
@@ -47,7 +50,8 @@ class SongOffsetMenu extends MusicBeatSubstate
         {
             Options.setData(offset, "songOffset");
             Conductor.offset = offset;
-            FlxG.state.closeSubState();
+            states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
         }
 
         if(left && !FlxG.keys.pressed.SHIFT)
@@ -66,7 +70,7 @@ class SongOffsetMenu extends MusicBeatSubstate
         if(accept)
             offset = Math.round(offset);
 
-        offsetText.text = "Offset: " + offset + "\nPress ENTER to round number\n";
+        offsetText.text = "Offset: " + offset + '\nPress $buttonEnter to round number\n';
         offsetText.screenCenter();
     }
 }

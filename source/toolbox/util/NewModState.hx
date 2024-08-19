@@ -254,11 +254,12 @@ class NewModState extends MusicBeatState{
         close.screenCenter();
         close.cameras = [camHUD];
         add(close);
-        
+
+        addVirtualPad(NONE, B);
     }
     override function update(elapsed:Float){
         super.update(elapsed);
-        if(FlxG.keys.anyJustPressed([ESCAPE])){
+        if(virtualPad.buttonB.justPressed || FlxG.keys.anyJustPressed([ESCAPE])){
             FlxG.switchState(() -> new ToolboxPlaceholder());
         }
     }

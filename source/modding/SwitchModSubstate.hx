@@ -81,7 +81,9 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		descriptionText.screenCenter(X);
 		add(descriptionText);
 
-		var leText:String = "Press ENTER to switch to the currently selected mod.";
+		final buttonEnter:String = controls.mobileC ? 'A' : 'ENTER';
+
+		var leText:String = 'Press $buttonEnter to switch to the currently selected mod.';
 
 		var text:FlxText = new FlxText(0, FlxG.height - 22, FlxG.width, leText, 18);
 		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
@@ -90,6 +92,8 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		text.borderSize = 1;
 		text.borderStyle = OUTLINE;
 		add(text);
+
+		addVirtualPad(UP_DOWN, A_B);
 	}
 
 	function loadMods() {

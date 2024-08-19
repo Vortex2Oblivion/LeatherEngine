@@ -16,6 +16,9 @@ import openfl.text.TextFormat;
 import states.TitleState;
 import ui.SimpleInfoDisplay;
 import ui.logs.Logs;
+#if mobile
+import mobile.states.CopyState;
+#end
 
 class Main extends Sprite {
 	public static var game:FlxGame;
@@ -23,6 +26,13 @@ class Main extends Sprite {
 	public static var logsOverlay:Logs;
 	
 	public function new() {
+		#if mobile
+		#if android
+		SUtil.doPermissionsShit();
+		#end
+		Sys.setCwd(SUtil.getStorageDirectory());
+		#end
+
 		super();
 
 		#if sys
@@ -36,7 +46,7 @@ class Main extends Sprite {
 		hxvlc.util.Handle.init();
 		#end
 
-		game = new FlxGame(0, 0, TitleState, 60, 60, true);
+		game = new FlxGame(1280, 720, #if (mobile && MODDING_ALLOWED) !CopyState.checkExistingFiles() ? CopyState : #end TitleState, 60, 60, true);
 
 		// FlxG.game._customSoundTray wants just the class, it calls new from
 		// create() in there, which gets called when it's added to stage
@@ -45,6 +55,9 @@ class Main extends Sprite {
 		game._customSoundTray = ui.FunkinSoundTray;
 
 		addChild(game);
+		#if mobile
+		FlxG.scaleMode = new mobile.MobileScaleMode();
+		#end
 		logsOverlay = new Logs();
 		logsOverlay.visible = false;
 		addChild(logsOverlay);
@@ -55,6 +68,8 @@ class Main extends Sprite {
 		// shader coords fix
 		// stolen from psych engine lol
 		FlxG.signals.gameResized.add(function (w, h) {
+			if(display != null)
+				display.positionFPS(10, 3, Math.min(w / FlxG.width, h / FlxG.height));
 		    if (FlxG.cameras != null) {
 				for (cam in FlxG.cameras.list) {
 					if (cam != null && cam.filters != null) {
@@ -67,6 +82,11 @@ class Main extends Sprite {
 				resetSpriteCache(FlxG.game);
 			}
 		});
+
+		#if mobile
+		lime.system.System.allowScreenTimeout = Options.getData("screenSaver");
+		#if android FlxG.android.preventDefaultKeys = [BACK]; #end
+		#end
 	}
 
 	public static inline function resetSpriteCache(sprite:Sprite):Void {
@@ -134,10 +154,10 @@ class Main extends Sprite {
 		}
 		
 		error += "\nUncaught Error: " + errorData;
-		path = Sys.getCwd() + "crash/" + "crash-" + errorData + '-on-' + date + ".txt";
+		path = Sys.getCwd() + "logs/" + "crash-" + errorData + '-on-' + date + ".txt";
 
-		if (!sys.FileSystem.exists("./crash/")) {
-			sys.FileSystem.createDirectory("./crash/");
+		if (!sys.FileSystem.exists("./logs/")) {
+			sys.FileSystem.createDirectory("./logs/");
 		}
 
 		sys.io.File.saveContent(path, error + "\n");
@@ -145,6 +165,7 @@ class Main extends Sprite {
 		Sys.println(error);
 		Sys.println("Crash dump saved in " + Path.normalize(path));
 
+		#if desktop
 		var crashPath:String = "Crash" #if linux + '.x86_64' #end #if windows + ".exe" #end;
 
 		if (sys.FileSystem.exists("./" + crashPath)){
@@ -159,8 +180,11 @@ class Main extends Sprite {
 				//trace(process.exitCode());
 		} else {
 			Sys.println("No crash dialog found! Making a simple alert instead...");
-			Application.current.window.alert(error, "Error!");
+			SUtil.showPopUp(error, "Error!");
 		}
+		#else
+		SUtil.showPopUp(error, "Error!");
+		#end
 
 		Sys.exit(1);
 	}

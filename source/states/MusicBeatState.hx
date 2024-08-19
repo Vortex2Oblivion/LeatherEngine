@@ -13,6 +13,11 @@ import game.Conductor.BPMChangeEvent;
 import utilities.Controls;
 import flixel.FlxG;
 import flixel.sound.FlxSound;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxVirtualPad;
+import flixel.FlxCamera;
+import flixel.input.actions.FlxActionInput;
+import flixel.util.FlxDestroyUtil;
 
 /**
  * The backend state all states will extend from.
@@ -36,6 +41,70 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 	inline function get_controls():Controls
 		return PlayerSettings.player1.controls;
 
+	var hitbox:FlxHitbox;
+	var virtualPad:FlxVirtualPad;
+	var trackedInputsVirtualPad:Array<FlxActionInput> = [];
+
+	public function addVirtualPad(DPad:FlxDPadMode, Action:FlxActionMode, visible:Bool = true):Void
+	{
+		if (virtualPad != null)
+			removeVirtualPad();
+
+		virtualPad = new FlxVirtualPad(DPad, Action);
+		virtualPad.visible = visible;
+		add(virtualPad);
+
+		controls.setVirtualPad(virtualPad, DPad, Action);
+		trackedInputsVirtualPad = controls.trackedInputs;
+		controls.trackedInputs = [];
+	}
+
+	public function addVirtualPadCamera(DefaultDrawTarget:Bool = false):Void
+	{
+		if (virtualPad != null)
+		{
+			var camControls:FlxCamera = new FlxCamera();
+			camControls.bgColor.alpha = 0;
+			FlxG.cameras.add(camControls, DefaultDrawTarget);
+			virtualPad.cameras = [camControls];
+		}
+	}
+
+	public function removeVirtualPad():Void
+	{
+		if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+
+		if (virtualPad != null)
+			remove(virtualPad);
+	}
+
+	public function addHitbox(visible:Bool = true):Void
+	{
+		final ammo:Int = /*Options.getData("playAs") == "bf" ?*/ states.PlayState.SONG.playerKeyCount /*: states.PlayState.SONG.keyCount*/;
+		if (hitbox != null)
+			removeHitbox();
+
+		hitbox = new FlxHitbox(ammo, Std.int(FlxG.width / ammo), FlxG.height);
+		hitbox.visible = visible;
+		add(hitbox);
+	}
+
+	public function addHitboxCamera(DefaultDrawTarget:Bool = false):Void
+	{
+		if (hitbox != null)
+		{
+			var camControls:FlxCamera = new FlxCamera();
+			camControls.bgColor.alpha = 0;
+			FlxG.cameras.add(camControls, DefaultDrawTarget);
+			hitbox.cameras = [camControls];
+		}
+	}
+
+	public function removeHitbox():Void
+		if (hitbox != null)
+			remove(hitbox);
+
 	override public function create() {
 		super.create();
 		#if sys
@@ -54,7 +123,17 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 	}
 
 	override function destroy():Void {
+		if (trackedInputsVirtualPad.length > 0)
+			controls.removeVirtualControlsInput(trackedInputsVirtualPad);
+
 		super.destroy();
+
+		if (virtualPad != null)
+			virtualPad = FlxDestroyUtil.destroy(virtualPad);
+
+		if (hitbox != null)
+			hitbox = FlxDestroyUtil.destroy(hitbox);
+
 		if (!Options.getData('memoryLeaks')) {
 			clear_memory();
 		}
@@ -127,7 +206,7 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 		super.update(elapsed);
 
 		if (FlxG.stage != null)
-			FlxG.stage.frameRate = FlxMath.bound(Options.getData("maxFPS"), 0.1, 1000);
+			FlxG.stage.frameRate = #if mobile (FlxG.state is mobile.states.CopyState) ? Application.current.window.displayMode.refreshRate : #end FlxMath.bound(Options.getData("maxFPS"), 0.1, 1000);
 
 		if (!Options.getData("antialiasing")) {
 			forEachAlive(function(basic:FlxBasic) {
@@ -138,7 +217,7 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 			}, true);
 		}
 
-		if (FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("fullscreenBind", "binds")), FlxInputState.JUST_PRESSED))
+		if (#if mobile !(FlxG.state is mobile.states.CopyState) && #end FlxG.keys.checkStatus(FlxKey.fromString(Options.getData("fullscreenBind", "binds")), FlxInputState.JUST_PRESSED))
 			FlxG.fullscreen = !FlxG.fullscreen;
 
 		if (FlxG.keys.justPressed.F5 && Options.getData("developer"))

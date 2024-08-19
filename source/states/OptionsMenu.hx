@@ -31,14 +31,18 @@ import openfl.utils.Assets as OpenFLAssets;
 class OptionsMenu extends MusicBeatState {
 	var curSelected:Int = 0;
 	var ui_Skin:Null<String>;
+	var removeVpad:Bool = true;
 
 	public var inMenu = false;
+
+	#if android final lastStorageType = Options.getData("storageType"); #end
 
 	public var pages:Map<String, Array<Dynamic>> = [
 		"Categories" => [
 			new PageOption("Gameplay", "Gameplay", "Test Description"),
 			new PageOption("Graphics", "Graphics"),
 			new PageOption("Misc", "Misc"),
+			new PageOption("Mobile Options", "Mobile Options"),
 			new PageOption("Developer Options", "Developer Options")
 		],
 		"Gameplay" => [
@@ -115,8 +119,7 @@ class OptionsMenu extends MusicBeatState {
 			],
 				"infoDisplayFont"),
 			new BoolOption("FPS Counter", "fpsCounter"),
-			new BoolOption("Memory Counter", "memoryCounter"),
-			new BoolOption("Version Display", "versionDisplay")
+			new BoolOption("Memory Counter", "memoryCounter")
 		],
 		"Judgements" => [
 			new PageOption("Back", "Gameplay"),
@@ -153,6 +156,17 @@ class OptionsMenu extends MusicBeatState {
 			new BoolOption("Flashing Lights", "flashingLights"),
 			new BoolOption("Screen Shake", "screenShakes"),
 			new BoolOption("Shaders", "shaders")
+		],
+		"Mobile Options" => [
+			new PageOption("Back", "Categories"),
+			#if android
+			new StringSaveOption("Storage Type", ["DATA", "OBB", "MEDIA", "EXTERNAL"], "storageType"),
+			#end
+			new GameSubStateOption("Mobile Controls Opacity", mobile.substates.MobileControlsAlphaMenu),
+			new StringSaveOption("Hitbox Design", ["No Gradient", "No Gradient (Old)", "Gradient", "Hidden"], "hitboxType")#if mobile ,
+			new BoolOption("Wide Screen Mode", "wideScreen"),
+			new BoolOption("Allow Phone Screensaver", "screenSaver")
+			#end
 		],
 		"Developer Options" => [
 			new PageOption("Back", "Categories"),
@@ -197,6 +211,9 @@ class OptionsMenu extends MusicBeatState {
 
 		if (FlxG.sound.music == null)
 			FlxG.sound.playMusic(MusicUtilities.GetOptionsMenuMusic(), 0.7, true);
+
+		addVirtualPad(UP_DOWN, A_B);
+		addVirtualPadCamera();
 	}
 
 	public function loadPage(loadedPageName:String):Void {
@@ -222,11 +239,20 @@ class OptionsMenu extends MusicBeatState {
 	}
 
 	function goBack() {
+		#if android
+		if (lastStorageType != Options.getData("storageType"))
+		{
+			onStorageChange();
+			SUtil.showPopUp('Storage Type has been changed and you needed restart the game!!\nPress OK to close the game.', 'Notice!');
+			lime.system.System.exit(0);
+		}
+		#end
 		if (pageName != "Categories") {
 			loadPage(cast(page.members[0], PageOption).pageName);
 			return;
 		}
 
+		removeVpad = false;
 		FlxG.switchState(new MainMenuState());
 	}
 
@@ -281,4 +307,34 @@ class OptionsMenu extends MusicBeatState {
 			}
 		}
 	}
+
+	override function closeSubState() {
+		persistentUpdate = true;
+		super.closeSubState();
+		if (removeVpad) {removeVirtualPad();
+		addVirtualPad(UP_DOWN, A_B);}
+		addVirtualPadCamera();
+	}
+
+	override function openSubState(substate:flixel.FlxSubState) {
+		persistentUpdate = false;
+		if (removeVpad) removeVirtualPad();
+		super.openSubState(substate);
+	}
+
+	#if android
+	function onStorageChange():Void
+	{
+		sys.io.File.saveContent(lime.system.System.applicationStorageDirectory + 'storagetype.txt', Options.getData("storageType"));
+	
+		var lastStoragePath:String = SUtil.getStorageDirectory(lastStorageType);
+	
+		try
+		{
+			Sys.command('rm', ['-rf', lastStoragePath]);
+		}
+		catch (e:haxe.Exception)
+			CoolUtil.coolError('Failed to remove last directory. (${e.message})');
+	}
+	#end
 }

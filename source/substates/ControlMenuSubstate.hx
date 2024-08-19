@@ -29,7 +29,9 @@ class ControlMenuSubstate extends MusicBeatSubstate
     var selectedControl:Int = 0;
     var selectingStuff:Bool = false;
 
-    var coolText:FlxText = new FlxText(0,25,0,"Use LEFT and RIGHT to change number of keys\nESCAPE to save binds and exit menu\nRESET+SHIFT to Reset Binds to default\n", 32);
+    final buttonESC:String = controls.mobileC ? 'B' : 'ESCAPE';
+
+    var coolText:FlxText = new FlxText(0,25,0,'Use LEFT and RIGHT to change number of keys\nESCAPE to save binds and exit menu\nRESET+SHIFT to Reset Binds to default\n', 32);
 
     var killKey:FlxSprite = new FlxSprite();
     var killBind:String = Options.getData("kill", "binds");
@@ -62,6 +64,7 @@ class ControlMenuSubstate extends MusicBeatSubstate
 
         super();
 
+        coolText.text = 'Use LEFT and RIGHT to change number of keys\n$buttonESC to save binds and exit menu\nRESET+SHIFT to Reset Binds to default\n';
         coolText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         coolText.screenCenter(X);
         
@@ -166,6 +169,8 @@ class ControlMenuSubstate extends MusicBeatSubstate
         add(pauseKey);
         add(pauseIcon);
         add(pauseText);
+
+        addVirtualPad(NONE, B);
     }
 
     override function update(elapsed:Float) {
@@ -199,7 +204,8 @@ class ControlMenuSubstate extends MusicBeatSubstate
                 PlayerSettings.player1.controls.loadKeyBinds();
     
                 FlxG.mouse.visible = false;
-                FlxG.state.closeSubState();
+                states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
             }
     
             if(FlxG.mouse.overlaps(fullscreenKey) && FlxG.mouse.justPressed && !selectingStuff)

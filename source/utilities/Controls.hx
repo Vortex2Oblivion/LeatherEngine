@@ -10,6 +10,9 @@ import flixel.input.actions.FlxActionSet;
 import flixel.input.gamepad.FlxGamepadButton;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.keyboard.FlxKey;
+import mobile.flixel.FlxButton;
+import mobile.flixel.FlxHitbox;
+import mobile.flixel.FlxVirtualPad;
 
 enum abstract Action(String) to String from String {
 	var UP = "up";
@@ -85,6 +88,7 @@ class Controls extends FlxActionSet {
 
 	var byName:Map<String, FlxActionDigital> = [];
 
+	public static var instance:Controls = null;
 	public var gamepadsAdded:Array<Int> = [];
 	public var keyboardScheme = KeyboardScheme.None;
 
@@ -174,6 +178,7 @@ class Controls extends FlxActionSet {
 		return _cheat.check();
 
 	public function new(name, scheme = None) {
+		instance = this;
 		super(name);
 
 		add(_up);
@@ -198,6 +203,79 @@ class Controls extends FlxActionSet {
 			byName[action.name] = action;
 
 		setKeyboardScheme(scheme, false);
+	}
+
+	public var trackedInputs:Array<FlxActionInput> = [];
+	public var mobileC(get, never):Bool;
+
+	public function addButton(action:FlxActionDigital, button:FlxButton, state:FlxInputState):Void
+	{
+		if (button == null)
+			return;
+
+		var input:FlxActionInputDigitalIFlxInput = new FlxActionInputDigitalIFlxInput(button, state);
+		trackedInputs.push(input);
+		action.add(input);
+	}
+
+	public function setVirtualPad(VirtualPad:FlxVirtualPad, DPad:FlxDPadMode, Action:FlxActionMode):Void
+	{
+		if (VirtualPad == null)
+			return;
+
+		switch (DPad)
+		{
+			case UP_DOWN:
+				inline forEachBound(Control.UP, (action, state) -> addButton(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.DOWN, (action, state) -> addButton(action, VirtualPad.buttonDown, state));
+			case LEFT_RIGHT:
+				inline forEachBound(Control.LEFT, (action, state) -> addButton(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.RIGHT, (action, state) -> addButton(action, VirtualPad.buttonRight, state));
+			case NONE: // do nothing
+			default:
+				inline forEachBound(Control.UP, (action, state) -> addButton(action, VirtualPad.buttonUp, state));
+				inline forEachBound(Control.DOWN, (action, state) -> addButton(action, VirtualPad.buttonDown, state));
+				inline forEachBound(Control.LEFT, (action, state) -> addButton(action, VirtualPad.buttonLeft, state));
+				inline forEachBound(Control.RIGHT, (action, state) -> addButton(action, VirtualPad.buttonRight, state));
+		}
+
+		switch (Action)
+		{
+			case A:
+				inline forEachBound(Control.ACCEPT, (action, state) -> addButton(action, VirtualPad.buttonA, state));
+			case B:
+				inline forEachBound(Control.BACK, (action, state) -> addButton(action, VirtualPad.buttonB, state));
+			case NONE | P: // do nothing
+			default:
+				inline forEachBound(Control.ACCEPT, (action, state) -> addButton(action, VirtualPad.buttonA, state));
+				inline forEachBound(Control.BACK, (action, state) -> addButton(action, VirtualPad.buttonB, state));
+		}
+	}
+
+	public function removeVirtualControlsInput(Tinputs:Array<FlxActionInput>):Void
+	{
+		for (action in this.digitalActions)
+		{
+			var i = action.inputs.length;
+			while (i-- > 0)
+			{
+				var x = Tinputs.length;
+				while (x-- > 0)
+				{
+					if (Tinputs[x] == action.inputs[i])
+						action.remove(action.inputs[i]);
+				}
+			}
+		}
+	}
+
+	@:noCompletion
+	private function get_mobileC():Bool
+	{
+		if (Options.getData("mobileCAlpha") >= 0.1)
+			return true;
+		else
+			return false;
 	}
 
 	override function update() {

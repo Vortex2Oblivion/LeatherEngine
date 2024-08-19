@@ -333,6 +333,9 @@ class StageMakingState extends MusicBeatState {
 		add(bf_Pos);
 		add(gf_Pos);
 		add(dad_Pos);
+
+		addVirtualPad(LEFT_FULL, A_B_X_Y);
+		addVirtualPadCamera();
 	}
 
 	override function getEvent(id:String, sender:Dynamic, data:Dynamic, ?params:Array<Dynamic>) {
@@ -667,20 +670,20 @@ class StageMakingState extends MusicBeatState {
 		if (dad != null)
 			dad_Pos.scrollFactor.set(dad.scrollFactor.x, dad.scrollFactor.y);
 
-		var shiftThing:Int = FlxG.keys.pressed.SHIFT ? 5 : 1;
+		var shiftThing:Int = (virtualPad.buttonA.pressed || FlxG.keys.pressed.SHIFT) ? 5 : 1;
 
 		if (!fileInput.hasFocus) {
-			if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L) {
-				if (FlxG.keys.pressed.I)
+			if ((virtualPad.buttonUp.pressed || FlxG.keys.pressed.I) || (virtualPad.buttonLeft.pressed || FlxG.keys.pressed.J) || (virtualPad.buttonDown.pressed || FlxG.keys.pressed.K) || (virtualPad.buttonRight.pressed || FlxG.keys.pressed.L)) {
+				if (virtualPad.buttonUp.pressed || FlxG.keys.pressed.I)
 					camFollow.velocity.y = -90 * shiftThing;
-				else if (FlxG.keys.pressed.K)
+				else if (virtualPad.buttonDown.pressed || FlxG.keys.pressed.K)
 					camFollow.velocity.y = 90 * shiftThing;
 				else
 					camFollow.velocity.y = 0;
 
-				if (FlxG.keys.pressed.J)
+				if (virtualPad.buttonLeft.pressed || FlxG.keys.pressed.J)
 					camFollow.velocity.x = -90 * shiftThing;
-				else if (FlxG.keys.pressed.L)
+				else if (virtualPad.buttonRight.pressed || FlxG.keys.pressed.L)
 					camFollow.velocity.x = 90 * shiftThing;
 				else
 					camFollow.velocity.x = 0;
@@ -694,13 +697,13 @@ class StageMakingState extends MusicBeatState {
 
 		// camera movement zoom
 		if (!fileInput.hasFocus) {
-			if (FlxG.keys.justPressed.E)
+			if (virtualPad.buttonX.justPressed || FlxG.keys.justPressed.E)
 				stageCam.zoom += 0.1;
 
-			if (FlxG.keys.justPressed.Q)
+			if (virtualPad.buttonY.justPressed || FlxG.keys.justPressed.Q)
 				stageCam.zoom -= 0.1;
 
-			if (FlxG.keys.justPressed.ESCAPE)
+			if (virtualPad.buttonB.justPressed || FlxG.keys.justPressed.ESCAPE)
 				FlxG.switchState(new OptionsMenu());
 		}
 
@@ -711,7 +714,11 @@ class StageMakingState extends MusicBeatState {
 		// da math
 		zoom = FlxMath.roundDecimal(stageCam.zoom, 1);
 
-		cam_Zoom.text = 'Camera Zoom: $zoom\nIJKL to move camera\nE and Q to zoom\nSHIFT for faster camera\n';
+		final buttonIJKL:String = controls.mobileC ? 'Arrow Keys' : 'IJKL';
+		final buttonEQ:String = controls.mobileC ? 'X and Y' : 'E and Q';
+		final buttonShift:String = controls.mobileC ? 'A' : 'Shift';
+
+		cam_Zoom.text = 'Camera Zoom: $zoom\n$buttonIJKL to move camera\n$buttonEQ to zoom\n$buttonShift for faster camera\n';
 		cam_Zoom.x = FlxG.width - cam_Zoom.width - 2;
 	}
 
@@ -881,12 +888,16 @@ class StageMakingState extends MusicBeatState {
 		var data:String = Json.stringify(stageData, null, "\t");
 
 		if ((data != null) && (data.length > 0)) {
+			#if mobile
+			SUtil.saveContent(stage_Name, '.json', data.trim());
+			#else
 			_file = new FileReference();
 			_file.addEventListener(Event.COMPLETE, onSaveComplete);
 			_file.addEventListener(Event.CANCEL, onSaveCancel);
 			_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
 
 			_file.save(data.trim(), stage_Name + ".json");
+			#end
 		}
 	}
 

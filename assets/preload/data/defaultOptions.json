@@ -13,10 +13,6 @@
       "value": true
     },
     {
-      "option": "versionDisplay",
-      "value": true
-    },
-    {
       "option": "uiSkin",
       "value": "default"
     },
@@ -312,6 +308,26 @@
     {
       "option": "msSettings",
       "value": [517, 310, 1, 1]
+    },
+    {
+      "option": "mobileCAlpha",
+      "value": 0.6
+    },
+    {
+      "option": "hitboxType",
+      "value": "No Gradient"
+    },
+    {
+      "option": "screenSaver",
+      "value": true
+    },
+    {
+      "option": "wideScreen",
+      "value": false
+    },
+    {
+      "option": "storageType",
+      "value": "DATA"
     }
   ]
 }

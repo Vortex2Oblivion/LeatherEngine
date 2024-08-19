@@ -108,6 +108,8 @@ class HUDAdjustment extends MusicBeatState {
 		reset.y -= reset.height;
 		add(reset);
 
+		addVirtualPad(NONE, B);
+
 		super.create();
     }
 
@@ -132,7 +134,7 @@ class HUDAdjustment extends MusicBeatState {
 			popUpScore();
         }
 
-        if (FlxG.keys.anyJustPressed([ESCAPE, BACKSPACE])) {
+        if (virtualPad.buttonB.justPressed || FlxG.keys.anyJustPressed([ESCAPE, BACKSPACE])) {
             FlxG.switchState(new MainMenuState());
 		}
 

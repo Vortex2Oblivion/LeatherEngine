@@ -73,6 +73,8 @@ class UISkinSelect extends MusicBeatSubstate
             curSelected = ui_Skins.indexOf(ui_Skin);
         });
         #end
+
+        addVirtualPad(LEFT_RIGHT, B);
     }
 
     override function update(elapsed:Float) {
@@ -99,7 +101,8 @@ class UISkinSelect extends MusicBeatSubstate
                     current_UI_Skin.alpha = bg.alpha;
                 },
                 onComplete: function(tween:FlxTween) {
-                    FlxG.state.closeSubState();
+                    states.OptionsMenu.instance.closeSubState();
+                removeVirtualPad();
                 }
             });
         }
