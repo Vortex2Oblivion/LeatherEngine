@@ -1,5 +1,7 @@
 package ui;
 
+import flixel.FlxG;
+import toolbox.CharacterCreator;
 import flixel.FlxSprite;
 import haxe.Json;
 import lime.utils.Assets;
@@ -51,18 +53,18 @@ class HealthIcon extends TrackerSprite {
 
 		animatedIcon = Assets.exists('assets/images/icons/$iconPath.xml');
 		if (animatedIcon) {
-			frames = Paths.getSparrowAtlas('icons/$iconPath');
+			frames = Paths.getSparrowAtlas('icons/$iconPath', null, FlxG.state is CharacterCreator);
 			animation.addByPrefix('neutral', '${char}0', iconConfig.fps, true, isPlayer);
 			animation.addByPrefix('lose', '${char}-lose0', iconConfig.fps, true, isPlayer);
 			animation.addByPrefix('win', '${char}-win0', iconConfig.fps, true, isPlayer);
 		} else {
 			var dummy:FlxSprite = new FlxSprite().loadGraphic(Paths.gpuBitmap('icons/$iconPath'));			
 			if (dummy.height == 32) // damn pixel icons >:(
-				loadGraphic(Paths.gpuBitmap('icons/$iconPath'), true, 32, 32);
+				loadGraphic(Paths.gpuBitmap('icons/$iconPath', null, FlxG.state is CharacterCreator), true, 32, 32);
 			else if (dummy.height != 150) // damn psych engine edge cases >:(
-				loadGraphic(Paths.gpuBitmap('icons/$iconPath'), true, Std.int(dummy.width / 2), Std.int(dummy.height));
+				loadGraphic(Paths.gpuBitmap('icons/$iconPath', null, FlxG.state is CharacterCreator), true, Std.int(dummy.width / 2), Std.int(dummy.height));
 			else
-				loadGraphic(Paths.gpuBitmap('icons/$iconPath'), true, 150, 150);
+				loadGraphic(Paths.gpuBitmap('icons/$iconPath', null, FlxG.state is CharacterCreator), true, 150, 150);
 			
 			var winFrame:Int = (dummy.width >= dummy.height * 3 ? 2 : 0);
 			var loseFrame:Int = (dummy.width >= dummy.height * 2 ? 1 : 0);

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - unreleased
 
 ### Added
+ - Revamped Character Editor
  - Input text has more features (highlighting, etc).
  - Split vocal files per character
  - A revamped HUD config menu.

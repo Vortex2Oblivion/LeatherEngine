@@ -1,5 +1,14 @@
 package toolbox;
 
+import flixel.input.FlxInput;
+import ui.HealthIcon;
+import flixel.ui.FlxBar;
+import openfl.utils.Assets;
+import flixel.text.FlxInputText;
+import flixel.addons.ui.FlxUI;
+import flixel.addons.ui.FlxUICheckBox;
+import modding.CharacterConfig;
+import haxe.Json;
 #if DISCORD_ALLOWED
 import utilities.DiscordClient;
 #end
@@ -22,6 +31,7 @@ import flixel.FlxState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import flixel.addons.ui.FlxUITabMenu;
 
 using StringTools;
 
@@ -40,21 +50,24 @@ class CharacterCreator extends MusicBeatState {
 	var camFollow:FlxObject;
 	var _file:FileReference;
 
-	public function new(daAnim:String = 'spooky', selectedStage:String) {
+	var tabs:FlxUITabMenu;
+
+	function new(daAnim:String = 'spooky', selectedStage:String) {
 		super();
 		this.daAnim = daAnim;
 		stages = CoolUtil.coolTextFile(Paths.txt('stageList'));
 
 		if (selectedStage != null)
-			stage_Name = selectedStage;
+			stageName = selectedStage;
 	}
 
 	var characters:Map<String, Array<String>> = ["default" => ["bf", "gf"]];
 
-	var modListLmao:Array<String> = ["default"];
+	var modList:Array<String> = ["default"];
 	var curCharList:Array<String>;
 
-	var offset_Button:FlxButton;
+	var offsetButton:FlxButton;
+	var configButton:FlxButton;
 	var charDropDown:FlxScrollableDropDownMenu;
 	var modDropDown:FlxScrollableDropDownMenu;
 	var ghostAnimDropDown:FlxScrollableDropDownMenu;
@@ -68,16 +81,15 @@ class CharacterCreator extends MusicBeatState {
 
 	/*STAGE*/
 	var stage:StageGroup;
-	var stagePosition:FlxSprite;
 
-	public var stages:Array<String>;
-	public var stage_Name:String = 'stage';
-	public var stageData:StageData;
+	var stages:Array<String>;
+	var stageName:String = 'stage';
+	var stageData:StageData;
 
-	var stage_Dropdown:FlxScrollableDropDownMenu;
+	var stageDropdown:FlxScrollableDropDownMenu;
 	var objects:Array<Array<Dynamic>> = [];
 
-	public static var lastState:String = "OptionsMenu";
+	static var lastState:String = "OptionsMenu";
 
 	override function create() {
 		#if DISCORD_ALLOWED
@@ -108,8 +120,6 @@ class CharacterCreator extends MusicBeatState {
 		gridBG.cameras = [gridCam];
 		add(gridBG);
 
-		stagePosition = new FlxSprite().makeGraphic(32, 32, 0xFFFF0000);
-		add(stagePosition);
 
 		ghost = new Character(0, 0, daAnim);
 		ghost.debugMode = true;
@@ -159,11 +169,6 @@ class CharacterCreator extends MusicBeatState {
 		char.setPosition(position[0], position[1]);
 		ghost.setPosition(position[0], position[1]);
 
-		if (char.isPlayer)
-			stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-		else
-			stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
-
 		for (item in characterData) {
 			var characterDataVal:Array<String> = item.split(":");
 
@@ -175,7 +180,7 @@ class CharacterCreator extends MusicBeatState {
 			if (characters.exists(charMod))
 				charsLmao = characters.get(charMod);
 			else
-				modListLmao.push(charMod);
+				modList.push(charMod);
 
 			charsLmao.push(charName);
 			characters.set(charMod, charsLmao);
@@ -208,27 +213,17 @@ class CharacterCreator extends MusicBeatState {
 			char.setPosition(position[0], position[1]);
 			ghost.setPosition(position[0], position[1]);
 
-			if (char.isPlayer)
-				stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-			else
-				stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
-
 			animList = [];
 			genBoyOffsets(true);
 			remove(ghostAnimDropDown);
 			ghostAnimDropDown.kill();
 			ghostAnimDropDown.destroy();
-			ghostAnimDropDown = new FlxScrollableDropDownMenu(stage_Dropdown.x + stage_Dropdown.width + 1, stage_Dropdown.y,
+			ghostAnimDropDown = new FlxScrollableDropDownMenu(stageDropdown.x + stageDropdown.width + 1, stageDropdown.y,
 				FlxUIDropDownMenu.makeStrIdLabelArray(animList, true), function(animName:String) {
 					ghost.playAnim(animList[Std.parseInt(animName)], true);
 
 					var position = stage.getCharacterPos(ghost.isPlayer ? 0 : 1, ghost);
 					ghost.setPosition(position[0], position[1]);
-
-					if (ghost.isPlayer)
-						stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-					else
-						stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
 
 					genBoyOffsets(false);
 			});
@@ -244,8 +239,8 @@ class CharacterCreator extends MusicBeatState {
 		add(charDropDown);
 
 		modDropDown = new FlxScrollableDropDownMenu(charDropDown.x + charDropDown.width + 1, charDropDown.y,
-			FlxUIDropDownMenu.makeStrIdLabelArray(modListLmao, true), function(modID:String) {
-				var mod:String = modListLmao[Std.parseInt(modID)];
+			FlxUIDropDownMenu.makeStrIdLabelArray(modList, true), function(modID:String) {
+				var mod:String = modList[Std.parseInt(modID)];
 
 				if (characters.exists(mod)) {
 					curCharList = characters.get(mod);
@@ -274,11 +269,6 @@ class CharacterCreator extends MusicBeatState {
 					var position = stage.getCharacterPos(char.isPlayer ? 0 : 1, char);
 					char.setPosition(position[0], position[1]);
 
-					if (char.isPlayer)
-						stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-					else
-						stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
-
 					animList = [];
 					genBoyOffsets(true);
 				}
@@ -289,9 +279,9 @@ class CharacterCreator extends MusicBeatState {
 		modDropDown.cameras = [camHUD];
 		add(modDropDown);
 
-		stage_Dropdown = new FlxScrollableDropDownMenu(modDropDown.x + modDropDown.width + 1, modDropDown.y,
+		stageDropdown = new FlxScrollableDropDownMenu(modDropDown.x + modDropDown.width + 1, modDropDown.y,
 			FlxUIDropDownMenu.makeStrIdLabelArray(stages, true), function(stageName:String) {
-				stage_Name = stages[Std.parseInt(stageName)];
+				stageName = stages[Std.parseInt(stageName)];
 				reloadStage();
 				remove(ghost);
 				ghost.kill();
@@ -314,31 +304,21 @@ class CharacterCreator extends MusicBeatState {
 				var position = stage.getCharacterPos(char.isPlayer ? 0 : 1, char);
 				char.setPosition(position[0], position[1]);
 
-				if (char.isPlayer)
-					stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-				else
-					stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
-
 				animList = [];
 				genBoyOffsets(true);
 		});
 
-		stage_Dropdown.selectedLabel = stage_Name;
-		stage_Dropdown.scrollFactor.set();
-		stage_Dropdown.cameras = [camHUD];
-		add(stage_Dropdown);
+		stageDropdown.selectedLabel = stageName;
+		stageDropdown.scrollFactor.set();
+		stageDropdown.cameras = [camHUD];
+		add(stageDropdown);
 
-		ghostAnimDropDown = new FlxScrollableDropDownMenu(stage_Dropdown.x + stage_Dropdown.width + 1, stage_Dropdown.y,
+		ghostAnimDropDown = new FlxScrollableDropDownMenu(stageDropdown.x + stageDropdown.width + 1, stageDropdown.y,
 			FlxUIDropDownMenu.makeStrIdLabelArray(animList, true), function(animName:String) {
 				ghost.playAnim(animList[Std.parseInt(animName)], true);
 
 				var position = stage.getCharacterPos(ghost.isPlayer ? 0 : 1, ghost);
 				ghost.setPosition(position[0], position[1]);
-
-				if (ghost.isPlayer)
-					stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-				else
-					stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
 
 				genBoyOffsets(false);
 		});
@@ -347,12 +327,84 @@ class CharacterCreator extends MusicBeatState {
 		ghostAnimDropDown.cameras = [camHUD];
 		add(ghostAnimDropDown);
 
-		offset_Button = new FlxButton(charDropDown.x, charDropDown.y - 30, "Save Offsets", function() {
+		offsetButton = new FlxButton(charDropDown.x, charDropDown.y - 30, "Save Offsets", function() {
 			saveOffsets();
 		});
-		offset_Button.scrollFactor.set();
-		offset_Button.cameras = [camHUD];
-		add(offset_Button);
+		offsetButton.scrollFactor.set();
+		offsetButton.cameras = [camHUD];
+		add(offsetButton);
+
+		configButton = new FlxButton(offsetButton.x, offsetButton.y - 30, "Save Character", function() {
+			saveConfig();
+		});
+		configButton.scrollFactor.set();
+		configButton.cameras = [camHUD];
+		add(configButton);
+		
+
+		tabs = new FlxUITabMenu(null, [
+			{name: 'Character', label: 'Character'}
+		], true);
+		tabs.resize(300, 400);
+		tabs.x = 900;
+		tabs.screenCenter(Y);
+		tabs.scrollFactor.set();
+		tabs.cameras = [camHUD];
+		add(tabs);
+
+		var tabCharacter:FlxUI = new FlxUI(null, tabs);
+		tabCharacter.name = "Character";
+
+
+		var checkAntialiasing:FlxUICheckBox = new FlxUICheckBox(10, 250, null, null, "Antialasing");
+		checkAntialiasing.checked = char.antialiasing;
+		checkAntialiasing.callback = () -> {
+			char.config.antialiasing = ghost.config.antialiasing = char.antialiasing = ghost.antialiasing = checkAntialiasing.checked;
+		}
+
+		tabCharacter.add(checkAntialiasing);
+
+		var checkFlipX:FlxUICheckBox = new FlxUICheckBox(checkAntialiasing.x, checkAntialiasing.y + 25, null, null, "Flip X");
+		checkFlipX.checked = char.config.defaultFlipX;
+		checkFlipX.callback = () -> {
+			char.config.defaultFlipX = checkFlipX.checked;
+			ghost.config.defaultFlipX = checkFlipX.checked;
+			char.flipX = !char.flipX;
+			ghost.flipX = !ghost.flipX;
+		}
+
+		tabCharacter.add(checkFlipX);
+
+		var spriteSheetTextInput:FlxInputText = new FlxInputText(10, 10, 100, char.config.imagePath);
+		spriteSheetTextInput.onTextChange.add((text, change) -> {
+			char.config.imagePath = text;
+			char.config.defaultFlipX = checkFlipX.checked;
+			char.loadCharacterConfiguration(char.config);
+			char.playAnim("idle", true);
+		});
+		tabCharacter.add(spriteSheetTextInput);
+
+		var healthBar:FlxSprite = new FlxSprite(10, 350).makeGraphic(280, 9, char.barColor);
+		healthBar.antialiasing = false;
+		tabCharacter.add(healthBar);
+
+		var icon:HealthIcon = new HealthIcon(char.curCharacter);
+		icon.scale.set(icon.scale.x * 0.47, icon.scale.y * 0.47);
+		icon.updateHitbox();	
+		icon.x = 10 - icon.width / 2;
+		icon.y = 350 - (icon.height / 2);
+		tabCharacter.add(icon);
+
+		var r:FlxInputText = new FlxInputText(healthBar.x, healthBar.y - 50, 30, Std.string(char.config.barColor[0]));
+		r.onTextChange.add((text, change) -> {
+			var num:Int = Math.floor(Math.max(0, Math.min(Std.parseInt(text), 255)));
+			char.config.barColor[0] = num;
+			healthBar.color.red = num;
+			trace(num, DEBUG);
+		});
+		tabCharacter.add(r);
+		
+		tabs.addGroup(tabCharacter);
 
 		super.create();
 	}
@@ -395,11 +447,6 @@ class CharacterCreator extends MusicBeatState {
 			var position = stage.getCharacterPos(char.isPlayer ? 0 : 1, char);
 			char.setPosition(position[0], position[1]);
 			ghost.setPosition(position[0], position[1]);
-
-			if (char.isPlayer)
-				stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-			else
-				stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
 
 			char.loadOffsetFile(char.curCharacter);
 			char.playAnim(animList[curAnim], true);
@@ -454,11 +501,6 @@ class CharacterCreator extends MusicBeatState {
 
 			var position = stage.getCharacterPos(char.isPlayer ? 0 : 1, char);
 			char.setPosition(position[0], position[1]);
-
-			if (char.isPlayer)
-				stagePosition.setPosition(stage.player_1_Point.x, stage.player_1_Point.y);
-			else
-				stagePosition.setPosition(stage.player_2_Point.x, stage.player_2_Point.y);
 
 			genBoyOffsets(false);
 		}
@@ -523,6 +565,25 @@ class CharacterCreator extends MusicBeatState {
 		}
 	}
 
+	function saveConfig(){
+		var config:CharacterConfig = cast {
+			imagePath: "",
+			animations: [],
+			defaultFlipX: char.config.defaultFlipX,
+			dancesLeftAndRight: false,
+			barColor: [0, 0, 0],
+			positionOffset: [0, 0],
+			cameraOffset: [0, 0],
+			singDuration: 4
+		}
+		_file = new FileReference();
+		_file.addEventListener(Event.COMPLETE, onSaveComplete);
+		_file.addEventListener(Event.CANCEL, onSaveCancel);
+		_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+
+		_file.save(Json.stringify(config, "\t"), "config.json");
+	}
+
 	function onSaveComplete(_):Void {
 		_file.removeEventListener(Event.COMPLETE, onSaveComplete);
 		_file.removeEventListener(Event.CANCEL, onSaveCancel);
@@ -557,7 +618,7 @@ class CharacterCreator extends MusicBeatState {
 		}
 		add(camFollow);
 
-		stage = new StageGroup(stage_Name);
+		stage = new StageGroup(stageName);
 		add(stage);
 
 		stageData = stage.stageData;

@@ -1,10 +1,8 @@
 package hscript;
 
-@:dox(hide)
 class Config {
 	// Runs support for custom classes in these
 	public static final ALLOWED_CUSTOM_CLASSES = [
-		#if !dox
 		"flixel",
         "game",
 		"modding",
@@ -12,15 +10,14 @@ class Config {
 		//"shaders",
 		"substates",
 		"ui"
-		#end
 	];
 
 	// Runs support for abstract support in these
 	public static final ALLOWED_ABSTRACT_AND_ENUM = [
-		#if !dox
 		"flixel",
+		"modding",
+		"game",
 		"openfl.display.BlendMode",
-		#end
 	];
 
 	// Incase any of your files fail

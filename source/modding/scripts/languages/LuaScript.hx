@@ -1,10 +1,10 @@
 package modding.scripts.languages;
 
-import modding.helpers.FlxTweenUtil;
 #if LUA_ALLOWED
 #if MODCHARTING_TOOLS
 import modcharting.ModchartFuncs;
 #end
+import modding.helpers.FlxTweenUtil;
 import flixel.addons.effects.FlxTrail;
 import openfl.display.BlendMode;
 import flixel.FlxCamera;
