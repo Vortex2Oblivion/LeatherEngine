@@ -10,6 +10,7 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
+@:publicFields
 class MaxFPSMenu extends MusicBeatSubstate {
 	var fps:Int = 0;
 	var offsetText:FlxText = new FlxText(0, 0, 0, "Max FPS: 120", 64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);

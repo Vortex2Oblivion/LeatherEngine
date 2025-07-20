@@ -22,6 +22,7 @@ import modding.helpers.FlxTweenUtil;
 
 using StringTools;
 
+@:publicFields
 class PauseSubState extends MusicBeatSubstate {
 	var grpMenuShit:FlxTypedGroup<Alphabet> = new FlxTypedGroup<Alphabet>();
 

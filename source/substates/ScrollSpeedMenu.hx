@@ -9,13 +9,13 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 
 class ScrollSpeedMenu extends MusicBeatSubstate {
-	var alpha_Value:Float = 0.0;
-	var offsetText:FlxText = new FlxText(0, 0, 0, "Scrollspeed: 0", 64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+	public var alphaValue:Float = 0.0;
+	public var offsetText:FlxText = new FlxText(0, 0, 0, "Scrollspeed: 0", 64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
 	public function new() {
 		super();
 
-		alpha_Value = Options.getData("customScrollSpeed");
+		alphaValue = Options.getData("customScrollSpeed");
 
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		bg.alpha = 0;
@@ -24,12 +24,12 @@ class ScrollSpeedMenu extends MusicBeatSubstate {
 
 		FlxTween.tween(bg, {alpha: 0.5}, 1, {ease: FlxEase.circOut, startDelay: 0});
 
-		offsetText.text = "Scrollspeed: " + alpha_Value;
+		offsetText.text = "Scrollspeed: " + alphaValue;
 		offsetText.screenCenter();
 		add(offsetText);
 	}
 
-	override function update(elapsed:Float) {
+	override public function update(elapsed:Float) {
 		super.update(elapsed);
 
 		var leftP = controls.LEFT_P;
@@ -38,24 +38,24 @@ class ScrollSpeedMenu extends MusicBeatSubstate {
 		var back = controls.BACK;
 
 		if (back) {
-			Options.setData(alpha_Value, "customScrollSpeed");
+			Options.setData(alphaValue, "customScrollSpeed");
 			FlxG.state.closeSubState();
 		}
 
 		if (leftP)
-			alpha_Value -= 0.1;
+			alphaValue -= 0.1;
 		if (rightP)
-			alpha_Value += 0.1;
+			alphaValue += 0.1;
 
-		alpha_Value = FlxMath.roundDecimal(alpha_Value, 1);
+		alphaValue = FlxMath.roundDecimal(alphaValue, 1);
 
-		if (alpha_Value > 10)
-			alpha_Value = 10;
+		if (alphaValue > 10)
+			alphaValue = 10;
 
-		if (alpha_Value < 0.1)
-			alpha_Value = 0.1;
+		if (alphaValue < 0.1)
+			alphaValue = 0.1;
 
-		offsetText.text = "Scrollspeed: " + alpha_Value;
+		offsetText.text = "Scrollspeed: " + alphaValue;
 		offsetText.screenCenter();
 	}
 }

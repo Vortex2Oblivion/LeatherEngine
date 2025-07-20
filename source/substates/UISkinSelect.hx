@@ -76,7 +76,7 @@ class UISkinSelect extends MusicBeatSubstate
         #end
     }
 
-    override function update(elapsed:Float) {
+    override public function update(elapsed:Float) {
         super.update(elapsed);
 
         var left = controls.LEFT_P;
@@ -129,7 +129,7 @@ class UISkinSelect extends MusicBeatSubstate
             Options.setData(ui_Skin, "uiSkin");
     }
 
-    function create_Arrows(?new_keyCount = 4)
+    public function create_Arrows(?new_keyCount = 4)
     {
         ui_settings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/config"));
         mania_size = CoolUtil.coolTextFile(Paths.txt("ui skins/" + ui_Skin + "/maniasize"));

@@ -9,16 +9,17 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
+@:publicFields
 class NoteBGAlphaMenu extends MusicBeatSubstate
 {
-    var alpha_Value:Float = 0.0;
+    var alphaValue:Float = 0.0;
     var offsetText:FlxText = new FlxText(0,0,0,"Alpha: 0",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     public function new()
     {
         super();
 
-        alpha_Value = Options.getData("noteBGAlpha");
+        alphaValue = Options.getData("noteBGAlpha");
         
         var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
         bg.alpha = 0;
@@ -27,7 +28,7 @@ class NoteBGAlphaMenu extends MusicBeatSubstate
 
         FlxTween.tween(bg, {alpha: 0.5}, 1, {ease: FlxEase.circOut, startDelay: 0});
 
-        offsetText.text = "Alpha: " + alpha_Value;
+        offsetText.text = "Alpha: " + alphaValue;
         offsetText.screenCenter();
         add(offsetText);
     }
@@ -42,24 +43,24 @@ class NoteBGAlphaMenu extends MusicBeatSubstate
 
         if(back)
         {
-            Options.setData(alpha_Value, "noteBGAlpha");
+            Options.setData(alphaValue, "noteBGAlpha");
             FlxG.state.closeSubState();
         }
 
         if(leftP)
-            alpha_Value -= 0.1;
+            alphaValue -= 0.1;
         if(rightP)
-            alpha_Value += 0.1;
+            alphaValue += 0.1;
 
-        alpha_Value = FlxMath.roundDecimal(alpha_Value, 1);
+        alphaValue = FlxMath.roundDecimal(alphaValue, 1);
 
-        if(alpha_Value > 1)
-            alpha_Value = 1;
+        if(alphaValue > 1)
+            alphaValue = 1;
 
-        if(alpha_Value < 0)
-            alpha_Value = 0;
+        if(alphaValue < 0)
+            alphaValue = 0;
 
-        offsetText.text = "Alpha: " + alpha_Value;
+        offsetText.text = "Alpha: " + alphaValue;
         offsetText.screenCenter();
     }
 }

@@ -13,16 +13,17 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import lime.utils.Assets;
 
+@:publicFields
 class NoteColorSubstate extends MusicBeatSubstate
 {
     var key_Count:Int = 4;
     var arrow_Group:FlxTypedGroup<StrumNote> = new FlxTypedGroup<StrumNote>();
 
-    public var ui_settings:Array<String>;
-    public var mania_size:Array<String>;
-    public var mania_offset:Array<String>;
+    var ui_settings:Array<String>;
+    var mania_size:Array<String>;
+    var mania_offset:Array<String>;
 
-    public var arrow_Configs:Map<String, Array<String>> = new Map<String, Array<String>>();
+    var arrow_Configs:Map<String, Array<String>> = new Map<String, Array<String>>();
 
     var selectedControl:Int = 0;
     var selectingStuff:Bool = false;

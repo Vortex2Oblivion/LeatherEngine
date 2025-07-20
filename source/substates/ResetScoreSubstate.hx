@@ -13,8 +13,8 @@ class ResetScoreSubstate extends MusicBeatSubstate
     public var songName:String = "tutorial";
     public var difficulty:String = "normal";
 
-    var yes:Alphabet;
-    var no:Alphabet;
+    public var yes:Alphabet;
+    public var no:Alphabet;
 
     public var story:Bool = false;
     public var weekPath:String = "original_weeksWeek";

@@ -10,8 +10,8 @@ import flixel.FlxSprite;
 
 class SongOffsetMenu extends MusicBeatSubstate
 {
-    var offset:Float = 0.0;
-    var offsetText:FlxText = new FlxText(0,0,0,"Offset: 0\nPress ENTER to round number\n",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+    public var offset:Float = 0.0;
+    public var offsetText:FlxText = new FlxText(0,0,0,"Offset: 0\nPress ENTER to round number\n",64).setFormat(Paths.font("vcr.ttf"), 64, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
 
     public function new()
     {
@@ -31,7 +31,7 @@ class SongOffsetMenu extends MusicBeatSubstate
         add(offsetText);
     }
 
-    override function update(elapsed:Float) {
+    override public function update(elapsed:Float) {
         super.update(elapsed);
 
         var leftP = controls.LEFT_P;

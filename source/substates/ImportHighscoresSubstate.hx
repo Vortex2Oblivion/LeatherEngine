@@ -8,6 +8,7 @@ import game.Highscore;
 import ui.Alphabet;
 import flixel.FlxG;
 
+@:publicFields
 class ImportHighscoresSubstate extends MusicBeatSubstate
 {
     var yes:Alphabet;

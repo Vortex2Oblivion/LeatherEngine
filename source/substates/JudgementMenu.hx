@@ -10,6 +10,7 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
+@:publicFields
 class JudgementMenu extends MusicBeatSubstate
 {
     var judgements:Array<Int> = Options.getData("judgementTimings");
