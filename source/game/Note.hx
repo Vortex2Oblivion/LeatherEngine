@@ -118,7 +118,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 		var col:Array<Int> = [255, 0, 0];
 		for (note in notes) {
 			if (!note.isSustainNote && note.affectedbycolor) {
-				var noteBeat:Int = Math.floor(((note.strumTime / (Conductor.stepCrochet * 4)) * 48) + 0.5);
+				var noteBeat:Int = Math.floor(((note.strumTime / (Conductor.getBPMFromSeconds(note.strumTime).stepCrochet * 4)) * 48) + 0.5);
 				for (beat in 0...beats.length - 1) {
 					if ((noteBeat % (192 / beats[beat]) == 0)) {
 						col = quantColors[beat];

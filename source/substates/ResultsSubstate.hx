@@ -32,6 +32,7 @@ import game.ClearPercentCounter;
 /**
  * The substate for the results screen after a song or week is finished.
  */
+@:publicFields
 class ResultsSubstate extends MusicBeatSubstate {
 	final params:ResultsStateParams;
 
@@ -88,7 +89,7 @@ class ResultsSubstate extends MusicBeatSubstate {
 		var successHits:Int = PlayState.instance.ratings.get("marvelous") + PlayState.instance.ratings.get("sick") + PlayState.instance.ratings.get("good");
 		var comboBreaks:Int = PlayState.instance.ratings.get("bad") + PlayState.instance.ratings.get("shit") + PlayState.instance.misses;
 
-		rank = getRank(Math.floor(successHits / Math.max(successHits + comboBreaks, 1) * 100));
+		rank = getRank(clearPercentTarget);
 
 		cameraBG = new FlxCamera(0, 0, FlxG.width, FlxG.height);
 		cameraScroll = new FlxCamera(0, 0, FlxG.width, FlxG.height);
@@ -846,7 +847,7 @@ class ResultsSubstate extends MusicBeatSubstate {
 			speedOfTween.x -= 0.1;
 		}
 
-		if (controls.PAUSE) {
+		if (controls.PAUSE || controls.BACK) {
 			if (FlxG.sound.music != null) {
 				// FlxTween.tween(FlxG.sound.music, {volume: 0}, 0.8);
 				FlxTween.tween(FlxG.sound.music, {pitch: 3}, 0.1, {

@@ -8,6 +8,9 @@ typedef BPMChangeEvent = {
 	var stepTime:Int;
 	var songTime:Float;
 	var bpm:Float;
+
+	@:optional
+	var stepCrochet:Float;
 }
 
 typedef TimeScaleChangeEvent = {
@@ -21,18 +24,22 @@ class Conductor {
 	 * The BPM (Beats Per Minute) of the current song.
 	 */
 	public static var bpm:Float = 100;
+
 	/**
 	 * Beats in milliseconds
 	 */
 	public static var crochet:Float = ((60 / bpm) * 1000);
+
 	/**
 	 * Steps in milliseconds
 	 */
 	public static var stepCrochet:Float = crochet / 4;
+
 	/**
 	 * The position of the song in milliseconds.
 	 */
 	public static var songPosition:Float;
+
 	public static var offset:Float = 0;
 
 	public static var safeFrames:Int = 10;
@@ -105,5 +112,25 @@ class Conductor {
 	public static function changeBPM(newBpm:Float, ?multi:Float = 1) {
 		bpm = newBpm;
 		recalculateStuff(multi);
+	}
+
+	inline public static function calculateCrochet(bpm:Float) {
+		return (60 / bpm) * 1000;
+	}
+
+	public static function getBPMFromSeconds(time:Float):BPMChangeEvent {
+		var lastChange:BPMChangeEvent = {
+			stepTime: 0,
+			songTime: 0,
+			bpm: bpm
+		}
+
+		for (i in 0...Conductor.bpmChangeMap.length) {
+			if (time >= Conductor.bpmChangeMap[i].songTime)
+				lastChange = Conductor.bpmChangeMap[i];
+		}
+		lastChange.stepCrochet = ((60 / bpm) * 1000) / 4;
+
+		return lastChange;
 	}
 }

@@ -82,16 +82,7 @@ class MusicBeatState extends #if MODCHARTING_TOOLS modcharting.ModchartMusicBeat
 	}
 
 	public function updateCurStep():Void {
-		var lastChange:BPMChangeEvent = {
-			stepTime: 0,
-			songTime: 0,
-			bpm: 0
-		}
-
-		for (i in 0...Conductor.bpmChangeMap.length) {
-			if (Conductor.songPosition >= Conductor.bpmChangeMap[i].songTime)
-				lastChange = Conductor.bpmChangeMap[i];
-		}
+		var lastChange:BPMChangeEvent = Conductor.getBPMFromSeconds(Conductor.songPosition);
 
 		var dumb:TimeScaleChangeEvent = {
 			stepTime: 0,

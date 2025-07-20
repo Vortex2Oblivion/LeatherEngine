@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
  - Freeplay music option only working on the first song.
  - Optimized menu bgs option sometimes making a black menu background.
+ - VSlice charts are properly split among sections.
+ - Some results screen anims.
 
 ### Removed
  - Prototype title screen option from the menu.

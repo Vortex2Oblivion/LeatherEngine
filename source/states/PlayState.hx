@@ -708,7 +708,7 @@ class PlayState extends MusicBeatState {
 			SONG.ui_Skin = Options.getData("uiSkin");
 
 		// bull shit
-		
+
 		var uiSkinConfigPath:String = Assets.exists('assets/data/ui skins/${SONG.ui_Skin}') ? 'ui skins/${SONG.ui_Skin}' : 'ui skins/default';
 
 		// who in the fuck thought this system was a good idea?
@@ -726,7 +726,7 @@ class PlayState extends MusicBeatState {
 		var uiSkinImagePath:String = Assets.exists('assets/shared/images/ui skins/${SONG.ui_Skin}') ? 'ui skins/${SONG.ui_Skin}' : 'ui skins/default';
 
 		// preload ratings
-		for(rating in ['marvelous', 'sick', 'good', 'bad', 'shit']){
+		for (rating in ['marvelous', 'sick', 'good', 'bad', 'shit']) {
 			uiMap.set(rating, Paths.gpuBitmap('$uiSkinImagePath/ratings/$rating'));
 		}
 		// preload numbers
@@ -3401,13 +3401,13 @@ class PlayState extends MusicBeatState {
 	var hitsound:FlxSound;
 
 	function goodNoteHit(note:Note, ?setNoteDiff:Float):Void {
-		call("goodNoteHit", [
-			note.noteData,
-			Conductor.songPosition,
-			note.arrow_Type,
-			note.strumTime,
-			note.character
-		]);
+		#if HSCRIPT_ALLOWED
+		for(script in scripts){
+			if(script is HScript){
+				script.call("goodNoteHit", [note, setNoteDiff]);
+			}
+		}
+		#end
 		if (!note.wasGoodHit) {
 			if (note.shouldHit && note.isSustainNote)
 				health += 0.02;
@@ -3542,15 +3542,15 @@ class PlayState extends MusicBeatState {
 
 		if (SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)] != null) {
 			if (timeBarStyle == 'leather engine'
-				&& Math.floor(curStep / Conductor.stepsPerSection) != Math.floor((curStep - 1) / Conductor.stepsPerSection)) {
+				&& Math.floor(curStep / Conductor.stepsPerSection) != Math.floor((curStep - 1) / Conductor.stepsPerSection) && SONG.chartType != VSLICE) {
 				var target:FlxColor = SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)].mustHitSection ? boyfriend.barColor : dad.barColor;
 				FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, target);
 			}
 
 			if (SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)].changeBPM) {
 				Conductor.changeBPM(SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)].bpm, songMultiplier);
-				Note.applyColorQuants(notes.members);
-				Note.applyColorQuants(unspawnNotes);
+				/*Note.applyColorQuants(notes.members);
+						Note.applyColorQuants(unspawnNotes); */
 			}
 		}
 

@@ -129,23 +129,24 @@ class SongLoader {
 			trace("Couldn't find the difficulty '" + difficulty + "' for the chart being loaded, sorry! (FNFC)");
 			return output;
 		}
+		var bpm:Float = metadata.timeChanges[0].bpm;
 		var curSection:Int = 0;
-		var crochet:Float = ((60 / metadata.timeChanges[0].bpm) * 1000);
+		var crochet:Float = Conductor.calculateCrochet(bpm);
 		for (note in notes) {
-			output.notes[curSection].sectionNotes.push([note.t, note.d, note.l, 0, note.k ?? 'default']);
-			if (note.t >= (curSection + 1) * (crochet * 4)) {
+			if (Math.ceil(note.t) >= Math.floor((curSection + 1) * (crochet * 4))) {
 				curSection++;
 				output.notes.push({
 					sectionNotes: [],
 					lengthInSteps: 16,
 					mustHitSection: true,
-					bpm: metadata.timeChanges[0].bpm,
+					bpm: bpm,
 					changeBPM: false,
 					altAnim: false,
 					timeScale: [0, 0],
 					changeTimeScale: false
 				});
 			}
+			output.notes[curSection].sectionNotes.push([note.t, note.d, note.l, 0, note.k ?? 'default']);
 		}
 
 		// engine specific shit
