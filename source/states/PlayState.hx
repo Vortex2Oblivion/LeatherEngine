@@ -2057,7 +2057,7 @@ class PlayState extends MusicBeatState {
 				}
 			}
 
-			if (!lockedCamera) {
+			if (!lockedCamera && !paused) {
 				if (centerCamera) {
 					var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
 					midPos.x += stage.p1_Cam_Offset.x;
