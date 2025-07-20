@@ -126,11 +126,31 @@ class Conductor {
 		}
 
 		for (i in 0...Conductor.bpmChangeMap.length) {
-			if (time >= Conductor.bpmChangeMap[i].songTime)
+			if (time >= Conductor.bpmChangeMap[i].songTime) {
 				lastChange = Conductor.bpmChangeMap[i];
+			}
 		}
-		lastChange.stepCrochet = ((60 / bpm) * 1000) / 4;
+		lastChange.stepCrochet = calculateCrochet(lastChange.bpm) / 4;
 
 		return lastChange;
+	}
+
+	//i stole this from psych engine lol :p
+
+	/**
+	 * Returns the current step at the given position of the song.
+	 * @param time the position of the song (in millseconds)
+	 */
+	public static inline function getStep(time:Float) {
+		var lastChange:BPMChangeEvent = getBPMFromSeconds(time);
+		return lastChange.stepTime + (time - lastChange.songTime) / lastChange.stepCrochet;
+	}
+
+	/**
+	 * Returns the current beat at the given position of the song.
+	 * @param time the position of the song (in millseconds)
+	 */
+	public static inline function getBeat(time:Float) {
+		return getStep(time) / 4;
 	}
 }

@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Optimized menu bgs option sometimes making a black menu background.
  - VSlice charts are properly split among sections.
  - Some results screen anims.
+ - Color quantization on notes breaking on BPM changes.
 
 ### Removed
  - Prototype title screen option from the menu.

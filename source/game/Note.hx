@@ -16,6 +16,10 @@ import flixel.math.FlxRect;
 using StringTools;
 
 class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewedSprite #end {
+
+	/**
+	 * The position of the note (in milliseconds)
+	 */
 	public var strumTime:Float = 0;
 
 	public var mustPress:Bool = false;
@@ -106,10 +110,9 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 	];
 
 	/**
-	 * @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
 	 * @see https://step-mania.fandom.com/wiki/Notes
 	 */
-	public static var beats:Array<Int> = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
+	public static final beats:Array<Int> = [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192];
 
 	public static function applyColorQuants(notes:Array<Note>) {
 		if (!Options.getData('colorQuantization')) {
@@ -118,7 +121,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 		var col:Array<Int> = [255, 0, 0];
 		for (note in notes) {
 			if (!note.isSustainNote && note.affectedbycolor) {
-				var noteBeat:Int = Math.floor(((note.strumTime / (Conductor.getBPMFromSeconds(note.strumTime).stepCrochet * 4)) * 48) + 0.5);
+				var noteBeat:Int = Math.round(Conductor.getBeat(note.strumTime) * 48);
 				for (beat in 0...beats.length - 1) {
 					if ((noteBeat % (192 / beats[beat]) == 0)) {
 						col = quantColors[beat];
