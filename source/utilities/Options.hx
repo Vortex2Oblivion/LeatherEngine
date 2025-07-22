@@ -69,6 +69,14 @@ class Options {
 			setData(new Map<String, Array<Int>>(), "arrowColors", "arrowColors");
 	}
 
+	#if MODDING_ALLOWED
+	public static function initModOptions() {
+		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
+			createSave(mod, mod);
+		}
+	}
+	#end
+
 	/**
 	 * Creates a new ``FlxSave`` instance.
 	 * @param key The identifier for the newly created save.
@@ -109,7 +117,7 @@ class Options {
 		}
 	}
 
-	@:noCompletion public static function fixBinds() {
+	public static function fixBinds() {
 		if (getData("binds", "binds") == null)
 			setData(NoteVariables.defaultBinds, "binds", "binds");
 		else {
