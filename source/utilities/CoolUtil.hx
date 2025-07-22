@@ -268,7 +268,7 @@ class CoolUtil {
 		@author Leather128
 	**/
 	public static function coolError(message:String, title:String, ?pos:PosInfos):Void {
-		if (errors.exists(title + "\n\n" + message) || Lambda.count(errors) >= 10) {
+		if (errors.exists(title + "\n\n" + message) || #if haxe5 errors.size() #else Lambda.count(errors) #end >= 10) {
 			return;
 		}
 
