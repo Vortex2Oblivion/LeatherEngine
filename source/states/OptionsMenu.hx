@@ -1,5 +1,6 @@
 package states;
 
+import haxe.Json;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import utilities.MusicUtilities;
@@ -21,6 +22,9 @@ class OptionsMenu extends MusicBeatState {
 			new PageOption("Gameplay", "Gameplay", "Change gameplay-related options,\nsuch as downscroll and ghost tapping."),
 			new PageOption("Graphics", "Graphics", "Change graphical-related options,\nsuch as max FPS."),
 			new PageOption("Misc", "Misc", "Change miscellaneous options that\ndon't fit in the other categories."),
+			#if MODDING_ALLOWED
+			new PageOption("Mod Options", "Mod Options", "Change options for specific mods."),
+			#end
 			new PageOption("Developer Options", "Developer Options", "Change options for developing mods.")
 		],
 		"Gameplay" => [
@@ -40,7 +44,7 @@ class OptionsMenu extends MusicBeatState {
 			new StringSaveOption("Hitsound", CoolUtil.coolTextFile(Paths.txt("hitsoundList")), "hitsound", "Change the hitsound used when hitting a note.")
 		],
 		"Graphics" => [
-			new PageOption("Back", "Categories",  "Go back to the main menu."),
+			new PageOption("Back", "Categories", "Go back to the main menu."),
 			new PageOption("Note Options", "Note Options", "Change note-related options."),
 			new PageOption("Info Display", "Info Display", "Change optiosn related to the info display.\n(FPS counter, memory display, etc)."),
 			new PageOption("Optimizations", "Optimizations", "Change optimization options, such as anitaliasing."),
@@ -155,12 +159,16 @@ class OptionsMenu extends MusicBeatState {
 		"Developer Options" => [
 			new PageOption("Back", "Categories", "Go back to the main menu."),
 			new BoolOption("Developer Mode", "developer", "When toggled, enables developer tools.\n(traced lines display, toolbox, etc)"),
-			new DeveloperOption("Throw Exception On Error", "throwExceptionOnError", "When toggled, the game will throw an\nexception when an error is thrown."),
+			new DeveloperOption("Throw Exception On Error", "throwExceptionOnError",
+				"When toggled, the game will throw an\nexception when an error is thrown."),
 			new DeveloperOption("Auto Open Charter", "autoOpenCharter",
 				"When toggled, the game will automatically\nopen the chart editor when no chart is found."),
 			new StepperSaveDeveloperOption("Chart Backup Interval", 1, 10, "backupDuration", 1,
 				"Change how long the game will wait\nbefore creating a chart backup.\n(in minutes.)"),
-		]
+		],
+		#if MODDING_ALLOWED
+		"Mod Options" => [new PageOption("Back", "Categories", "Go back to the main menu."),]
+		#end
 	];
 
 	public var page:FlxTypedGroup<Option> = new FlxTypedGroup<Option>();
@@ -185,6 +193,31 @@ class OptionsMenu extends MusicBeatState {
 	}
 
 	public override function create():Void {
+		#if MODDING_ALLOWED
+		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
+			pages.get("Mod Options").push(new PageOption(mod, mod, modding.ModList.modMetadatas.get(mod).description));
+			pages.set(mod, [new PageOption("Back", "Mod Options", "Go back to mod options.")]);
+			if (sys.FileSystem.exists('mods/$mod/data/options.json')) {
+				var modOptions:modding.ModOptions = cast Json.parse(sys.io.File.getContent('mods/$mod/data/options.json'));
+				for (option in modOptions.options) {
+					switch (StringTools.trim(option.type).toLowerCase()) { // thank you haxe for not wanting to cast it to a string.
+						case "bool":
+							pages.get(mod).push(new BoolOption(option.name, option.save, option.description, mod));
+						case "string":
+							pages.get(mod).push(new StringSaveOption(option.name, option.values, option.save, option.description, mod));
+						#if HSCRIPT_ALLOWED
+						case "state":
+							pages.get(mod).push(new GameStateOption(option.name, new modding.custom.CustomState(option.script), option.description));
+						case "substate":
+							pages.get(mod).push(new GameSubStateOption(option.name, new modding.custom.CustomSubstate(option.script), option.description));
+						#end
+						default:
+							throw 'Option type \'${option.type}\' is not a valid option type!';
+					}
+				}
+			}
+		}
+		#end
 		MusicBeatState.windowNameSuffix = "";
 		instance = this;
 

@@ -3255,8 +3255,8 @@ class LuaScript extends Script {
 			return '${FlxG.random.int(100, 999)}.${FlxG.random.int(1, 99)}.${FlxG.random.int(1, 99)}.${FlxG.random.int(1, 99)}';
 		});
 
-		setFunction("getOption", function(saveStr:String) {
-			return Options.getData(saveStr);
+		setFunction("getOption", function(saveStr:String, saveKey:String = "main") {
+			return Options.getData(saveStr, saveKey);
 		});
 
 		setFunction("getCurrentMod", function(saveStr:String) {

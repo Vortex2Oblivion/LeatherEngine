@@ -34,14 +34,16 @@ class Option extends FlxSpriteContainer {
 	public var optionName(default, null):String;
 	public var optionValue(default, null):String;
 	public var optionDescription(default, null):String;
+	public var optionSaveKey(default, null):String;
 
-	public function new(optionName:String, optionValue:String, optionDescription:String = "") {
+	public function new(optionName:String, optionValue:String, optionDescription:String = "", optionSaveKey:String = "main") {
 		super();
 
 		// SETTING VALUES //
 		this.optionName = optionName;
 		this.optionValue = optionValue;
 		this.optionDescription = optionDescription;
+		this.optionSaveKey = optionSaveKey;
 
 		// CREATING OTHER OBJECTS //
 		alphabetText = new Alphabet(20, 20, optionName, true);
@@ -60,20 +62,16 @@ class BoolOption extends Option {
 	// options //
 	public var optionChecked(default, null):Bool = false;
 
-	override public function new(optionName:String, optionValue:String, optionDescription:String = "") {
-		super(optionName, optionValue, optionDescription);
+	override public function new(optionName:String, optionValue:String, optionDescription:String = "", optionSaveKey:String = "main") {
+		super(optionName, optionValue, optionDescription, optionSaveKey);
 
-		// SETTING VALUES //
-		this.optionChecked = getObjectValue();
-
-		// CREATING OTHER OBJECTS //
 		checkbox = new Checkbox(alphabetText);
-		checkbox.checked = getObjectValue();
+		optionChecked = checkbox.checked = getObjectValue();
 		add(checkbox);
 	}
 
 	public inline function getObjectValue():Bool {
-		return Options.getData(optionValue);
+		return Options.getData(optionValue, optionSaveKey);
 	}
 
 	override function update(elapsed:Float) {
@@ -84,7 +82,7 @@ class BoolOption extends Option {
 	}
 
 	public function changeValue() {
-		Options.setData(!optionChecked, optionValue);
+		Options.setData(!optionChecked, optionValue, optionSaveKey);
 
 		optionChecked = !optionChecked;
 		checkbox.checked = optionChecked;
@@ -341,13 +339,13 @@ class StringSaveOption extends Option {
 	public var displayName(default, null):String;
 	public var saveDataName(default, null):String;
 
-	override public function new(optionName:String, modes:Array<String>, saveDataName:String, optionDescription:String = "") {
-		super(optionName, null, optionDescription);
+	override public function new(optionName:String, modes:Array<String>, saveDataName:String, optionDescription:String = "", optionSaveKey:String = "main") {
+		super(optionName, null, optionDescription, optionSaveKey);
 
 		// SETTING VALUES //
 		this.modes = modes;
 		this.saveDataName = saveDataName;
-		this.currentMode = Options.getData(saveDataName);
+		this.currentMode = Options.getData(saveDataName, optionSaveKey);
 		this.displayName = optionName;
 		this.optionName = displayName + " " + currentMode;
 
@@ -392,7 +390,7 @@ class StringSaveOption extends Option {
 	}
 
 	function setData() {
-		Options.setData(currentMode, saveDataName);
+		Options.setData(currentMode, saveDataName, optionSaveKey);
 	}
 }
 

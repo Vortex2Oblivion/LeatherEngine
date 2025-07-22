@@ -71,7 +71,6 @@ class TitleState extends MusicBeatState {
 			NoteVariables.init();
 
 			Options.init();
-			Options.fixBinds();
 
 			LogStyle.ERROR.throwException = Options.getData("throwExceptionOnError");
 
@@ -89,6 +88,7 @@ class TitleState extends MusicBeatState {
 			PolymodHandler.loadMods();
 			MusicBeatState.windowNamePrefix = Options.getData("curMod");
 			CoolUtil.setWindowIcon("mods/" + Options.getData("curMod") + "/_polymod_icon.png");
+			Options.initModOptions();
 			#end
 			NoteVariables.init();
 			Options.fixBinds();
