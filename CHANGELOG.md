@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  
 ### Fixed
  - Note type textures not loading sometimes
+ - Switch Mod Menu not having a scrollfactor of 0, making mod options scroll with the camera.
 
 ## [1.0.2] - 7/20/25
 

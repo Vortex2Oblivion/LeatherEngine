@@ -1,5 +1,6 @@
 package modding;
 
+import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 #if MODDING_ALLOWED
 import substates.MusicBeatSubstate;
 import utilities.Options;
@@ -16,7 +17,7 @@ class SwitchModSubstate extends MusicBeatSubstate {
 	var curSelected:Int = 0;
 	var ui_Skin:Null<String>;
 
-	public var page:FlxTypedGroup<ChangeModOption> = new FlxTypedGroup<ChangeModOption>();
+	public var page:FlxTypedSpriteContainer<ChangeModOption> = new FlxTypedSpriteContainer<ChangeModOption>();
 
 	public static var instance:SwitchModSubstate;
 
@@ -39,6 +40,7 @@ class SwitchModSubstate extends MusicBeatSubstate {
 		add(menuBG);
 
 		super.create();
+		page.scrollFactor.set();
 		add(page);
 
 		PolymodHandler.loadModMetadata();

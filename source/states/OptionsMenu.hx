@@ -208,6 +208,8 @@ class OptionsMenu extends MusicBeatState {
 						#if HSCRIPT_ALLOWED
 						case "state":
 							pages.get(mod).push(new GameStateOption(option.name, new modding.custom.CustomState(option.script), option.description));
+						case "substate":
+							pages.get(mod).push(new GameSubStateOption(option.name, new modding.custom.CustomSubstate(option.script), option.description));
 						#end
 						default:
 							throw 'Option type \'${option.type}\' is not a valid option type!';

@@ -1,5 +1,6 @@
 package modding.custom;
 
+#if HSCRIPT_ALLOWED
 import modding.scripts.ExecuteOn;
 import openfl.utils.Assets;
 import flixel.FlxG;
@@ -55,3 +56,4 @@ class CustomState extends MusicBeatState {
 		script?.call(func, args);
 	}
 }
+#end
