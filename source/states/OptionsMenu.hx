@@ -12,7 +12,6 @@ import openfl.utils.Assets;
 
 using utilities.BackgroundUtil;
 
-
 class OptionsMenu extends MusicBeatState {
 	public var curSelected:Int = 0;
 
@@ -198,14 +197,20 @@ class OptionsMenu extends MusicBeatState {
 		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
 			pages.get("Mod Options").push(new PageOption(mod, mod, modding.ModList.modMetadatas.get(mod).description));
 			pages.set(mod, [new PageOption("Back", "Mod Options", "Go back to mod options.")]);
-			if(sys.FileSystem.exists('mods/$mod/data/options.json')){
+			if (sys.FileSystem.exists('mods/$mod/data/options.json')) {
 				var modOptions:modding.ModOptions = cast Json.parse(sys.io.File.getContent('mods/$mod/data/options.json'));
-				for(option in modOptions.options){
-					switch(StringTools.trim(option.type).toLowerCase()){ // thank you haxe for not wanting to cast it to a string.
+				for (option in modOptions.options) {
+					switch (StringTools.trim(option.type).toLowerCase()) { // thank you haxe for not wanting to cast it to a string.
 						case "bool":
-							pages.get(mod).push(new BoolOption(option.name, option.save, option.description));
+							pages.get(mod).push(new BoolOption(option.name, option.save, option.description, mod));
+						case "string":
+							pages.get(mod).push(new StringSaveOption(option.name, option.values, option.save, option.description, mod));
+						#if HSCRIPT_ALLOWED
+						case "state":
+							pages.get(mod).push(new GameStateOption(option.name, new modding.custom.CustomState(option.script), option.description));
+						#end
 						default:
-							throw 'Option type \'$option.type\' is not a valid option type!';
+							throw 'Option type \'${option.type}\' is not a valid option type!';
 					}
 				}
 			}

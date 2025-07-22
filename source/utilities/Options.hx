@@ -73,6 +73,15 @@ class Options {
 	public static function initModOptions() {
 		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
 			createSave(mod, mod);
+			if (sys.FileSystem.exists('mods/$mod/data/options.json')) {
+				var modOptions:modding.ModOptions = cast Json.parse(sys.io.File.getContent('mods/$mod/data/options.json'));
+				for (option in modOptions.options) {
+					var trimmedType:String = option.type.trim().toLowerCase();
+					if(trimmedType == "bool" || trimmedType == "string"){
+						setData(option.defaultValue, option.save, mod);
+					}
+				}
+			}
 		}
 	}
 	#end
