@@ -195,7 +195,7 @@ class OptionsMenu extends MusicBeatState {
 	#if MODDING_ALLOWED
 	private function addModOptions() {
 		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
-			pages.get("Mod Options").push(new PageOption(mod, mod, modding.ModList.modMetadatas.get(mod).description));
+			pages.get("Mod Options").push(new PageOption(mod, mod, modding.ModList.modMetadatas.get(mod)?.description ?? "no description"));
 			pages.set(mod, [new PageOption("Back", "Mod Options", "Go back to mod options.")]);
 			if (sys.FileSystem.exists('mods/$mod/data/options.json')) {
 				var modOptions:modding.ModOptions = cast Json.parse(sys.io.File.getContent('mods/$mod/data/options.json'));
