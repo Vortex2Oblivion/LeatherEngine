@@ -192,8 +192,8 @@ class OptionsMenu extends MusicBeatState {
 		super();
 	}
 
-	public override function create():Void {
-		#if MODDING_ALLOWED
+	#if MODDING_ALLOWED
+	private function addModOptions() {
 		for (mod in modding.ModList.getActiveMods(modding.PolymodHandler.metadataArrays)) {
 			pages.get("Mod Options").push(new PageOption(mod, mod, modding.ModList.modMetadatas.get(mod).description));
 			pages.set(mod, [new PageOption("Back", "Mod Options", "Go back to mod options.")]);
@@ -217,7 +217,11 @@ class OptionsMenu extends MusicBeatState {
 				}
 			}
 		}
-		#end
+	}
+	#end
+
+	public override function create():Void {
+		addModOptions();
 		MusicBeatState.windowNameSuffix = "";
 		instance = this;
 

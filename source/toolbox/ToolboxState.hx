@@ -6,6 +6,7 @@ import states.PlayState;
 import states.OptionsMenu;
 
 class ToolboxState extends OptionsMenu {
+	#if MODDING_ALLOWED override inline function addModOptions() {}#end
 	override function create() {
 		pages = [
 			"Categories" => [
