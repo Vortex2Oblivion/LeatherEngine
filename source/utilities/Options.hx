@@ -77,8 +77,10 @@ class Options {
 				var modOptions:modding.ModOptions = cast Json.parse(sys.io.File.getContent('mods/$mod/data/options.json'));
 				for (option in modOptions.options) {
 					var trimmedType:String = option.type.trim().toLowerCase();
-					if(trimmedType == "bool" || trimmedType == "string"){
-						setData(option.defaultValue, option.save, mod);
+					if (trimmedType == "bool" || trimmedType == "string") {
+						if (getData(option.save, mod) == null) {
+							setData(option.defaultValue, option.save, mod);
+						}
 					}
 				}
 			}

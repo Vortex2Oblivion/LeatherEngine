@@ -38,6 +38,20 @@ class MainMenuState extends MusicBeatState {
 	public var camFollow:FlxObject;
 	public var bg:FlxSprite;
 
+	public function addButton(buttonName:String, i:Int) {
+		var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
+		if (!Assets.exists(Paths.image('ui skins/' + Options.getData("uiSkin") + '/' + 'buttons/' + buttonName, 'preload')))
+			menuItem.frames = Paths.getSparrowAtlas('ui skins/' + 'default' + '/' + 'buttons/' + buttonName, 'preload');
+		else
+			menuItem.frames = Paths.getSparrowAtlas('ui skins/' + Options.getData("uiSkin") + '/' + 'buttons/' + buttonName, 'preload');
+		menuItem.animation.addByPrefix('idle', buttonName + " basic", 24);
+		menuItem.animation.addByPrefix('selected', buttonName + " white", 24);
+		menuItem.animation.play('idle');
+		menuItem.ID = i;
+		menuItem.screenCenter(X);
+		menuItems.add(menuItem);
+		menuItem.scrollFactor.set(0.5, 0.5);
+	}
 
 	public override function create() {
 		instance = this;
@@ -93,18 +107,7 @@ class MainMenuState extends MusicBeatState {
 		add(menuItems);
 
 		for (i in 0...optionShit.length) {
-			var menuItem:FlxSprite = new FlxSprite(0, 60 + (i * 160));
-			if (!Assets.exists(Paths.image('ui skins/' + Options.getData("uiSkin") + '/' + 'buttons/' + optionShit[i], 'preload')))
-				menuItem.frames = Paths.getSparrowAtlas('ui skins/' + 'default' + '/' + 'buttons/' + optionShit[i], 'preload');
-			else
-				menuItem.frames = Paths.getSparrowAtlas('ui skins/' + Options.getData("uiSkin") + '/' + 'buttons/' + optionShit[i], 'preload');
-			menuItem.animation.addByPrefix('idle', optionShit[i] + " basic", 24);
-			menuItem.animation.addByPrefix('selected', optionShit[i] + " white", 24);
-			menuItem.animation.play('idle');
-			menuItem.ID = i;
-			menuItem.screenCenter(X);
-			menuItems.add(menuItem);
-			menuItem.scrollFactor.set(0.5, 0.5);
+			addButton(optionShit[i], i);
 		}
 
 		FlxG.camera.follow(camFollow, null, 0.06);
@@ -212,6 +215,7 @@ class MainMenuState extends MusicBeatState {
 	function selectCurrent() {
 		var selectedButton:String = optionShit[curSelected];
 
+		call("buttonSelected", [selectedButton]);
 		switch (selectedButton) {
 			case 'story mode':
 				FlxG.switchState(() -> new StoryMenuState());
@@ -232,7 +236,7 @@ class MainMenuState extends MusicBeatState {
 			case 'toolbox':
 				FlxG.switchState(() -> new toolbox.ToolboxState("Categories", 0xFF00FF6A));
 		}
-		call("changeState");
+		call("buttonSelectedPost", [selectedButton]);
 	}
 
 	function changeItem(itemChange:Int = 0) {

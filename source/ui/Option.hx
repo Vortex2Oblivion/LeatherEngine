@@ -311,6 +311,7 @@ class ChangeModOption extends FlxSpriteContainer {
 				PolymodHandler.loadMods();
 				NoteVariables.init();
 				Options.fixBinds();
+				Options.initModOptions();
 				#if DISCORD_ALLOWED
 				DiscordClient.loadModPresence();
 				#end

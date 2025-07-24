@@ -112,6 +112,7 @@ class ModsMenu extends MusicBeatState {
 
 		if (controls.BACK) {
 			PolymodHandler.loadMods();
+			Options.initModOptions();
 			FlxG.switchState(() -> new MainMenuState());
 		}
 
