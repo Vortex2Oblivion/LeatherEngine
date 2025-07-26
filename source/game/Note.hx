@@ -277,7 +277,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			sustainScaleY = scale.y;
 		}
 
-		if (Options.getData("downscroll") && animation.curAnim.name.endsWith("end") && !inEditor) {
+		if (!inEditor && Options.getData("downscroll") && animation?.curAnim?.name?.endsWith("end")) {
 			offset.y -= height * 1.7;
 		}
 
