@@ -278,12 +278,6 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			sustainScaleY = scale.y;
 		}
 
-<<<<<<< HEAD
-=======
-		if (!inEditor && Options.getData("downscroll") && animation?.curAnim?.name?.endsWith("end")) {
-			offset.y -= height * 1.7;
-		}
->>>>>>> 31271f60fe3a0360c2c47f790ed9484d2ba2d3d2
 
 		if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] != null) {
 			if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] == "true")
