@@ -3,7 +3,7 @@
 echo Installing all required libraries.
 
 haxelib --global update haxelib
-haxelib git hxcpp https://github.com/funkinCrew/hxcpp
+haxelib git hxcpp https://github.com/FunkinCrew/hxcpp
 haxelib install format
 haxelib install hxp
 haxelib --skip-dependencies git lime https://github.com/swordcubes-grave-of-shite/lime
