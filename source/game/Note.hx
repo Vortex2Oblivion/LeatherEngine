@@ -236,7 +236,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			PlayState.instance.setupNoteTypeScript(arrow_Type);
 		}
 
-		offset.y += Std.parseFloat(PlayState.instance.arrow_Configs.get(arrow_Type)[0]) * lmaoStuff;
+		offset.y += Std.parseFloat(PlayState.instance.arrow_Configs.get(arrow_Type)[0]) * lmaoStuff * (Options.getData("downscroll") ? -1 : 1);
 
 		shouldHit = PlayState.instance.type_Configs.get(arrow_Type)[0] == "true";
 		hitDamage = Std.parseFloat(PlayState.instance.type_Configs.get(arrow_Type)[1]);
@@ -261,7 +261,6 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			prevNoteIsSustainNote = prevNote.isSustainNote;
 
 			animation.play("holdend");
-			updateHitbox();
 
 			if (prevNote.isSustainNote) {
 				if (prevNote.animation != null)
@@ -269,17 +268,16 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 
 				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * speed;
 				prevNote.updateHitbox();
+				prevNote.centerOffsets();
 				prevNote.sustainScaleY = prevNote.scale.y;
 			}
 
+			updateHitbox();
 			centerOffsets();
 
 			sustainScaleY = scale.y;
 		}
 
-		if (Options.getData("downscroll") && animation.curAnim.name.endsWith("end")) {
-			offset.y -= height * 1.7;
-		}
 
 		if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] != null) {
 			if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] == "true")

@@ -2153,7 +2153,7 @@ class PlayState extends MusicBeatState {
 					// TODO: make this not... this
 					if (Options.getData("downscroll")) {
 						swagRect.height = (coolStrum.y + (coolStrum.width / 2) - note.y) / note.scale.y;
-						swagRect.y = note.frameHeight - swagRect.height + (note.animation.curAnim.name.endsWith("end") ? note.height * 1.7 : 0);
+						swagRect.y = note.frameHeight - swagRect.height;
 					} else {
 						// swagRect.width = note.width / note.scale.x;
 						// swagRect.height = note.height / note.scale.y;
