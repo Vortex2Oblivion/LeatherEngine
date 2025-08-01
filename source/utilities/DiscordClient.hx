@@ -36,25 +36,25 @@ class DiscordClient {
 	/**
 	 * The current Discord RPC
 	 */
-	public static var presence(default, null):DiscordRichPresence = new DiscordRichPresence();
+	public static var presence(default, never):DiscordRichPresence = new DiscordRichPresence();
 
 	/**
 	 * Signal for when the Discord RPC gives an error.
 	 */
-	public static var onError(default, null):FlxTypedSignal<(Int, String) -> Void> = new FlxTypedSignal<(Int, String) -> Void>();
+	public static var onError(default, never):FlxTypedSignal<(Int, String) -> Void> = new FlxTypedSignal<(Int, String) -> Void>();
 
 	/**
 	 * Signal for when the Discord RPC disconnects.
 	 */
-	public static var onDisconnect(default, null):FlxTypedSignal<(Int, ConstCharStar) -> Void> = new FlxTypedSignal<(Int, ConstCharStar) -> Void>();
+	public static var onDisconnect(default, never):FlxTypedSignal<(Int, ConstCharStar) -> Void> = new FlxTypedSignal<(Int, ConstCharStar) -> Void>();
 
 	/**
 	 * Signal for when the Discord RPC is ready.
 	 */
-	public static var onReady(default, null):FlxTypedSignal<RawConstPointer<DiscordUser>->Void> = new FlxTypedSignal<RawConstPointer<DiscordUser>->Void>();
+	public static var onReady(default, never):FlxTypedSignal<RawConstPointer<DiscordUser>->Void> = new FlxTypedSignal<RawConstPointer<DiscordUser>->Void>();
 
 	
-	private static var discordThread:Thread = null;
+	private static var discordThread(default, null):Thread = null;
 
 	/**
 	 * Starts the Discord RPC

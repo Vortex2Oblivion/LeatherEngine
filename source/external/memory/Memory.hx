@@ -35,12 +35,12 @@ class Memory {
 	 * (Non cpp platform)
 	 * Returns 0.
 	 */
-	public static function getPeakUsage():UInt return 0;
+	public static inline function getPeakUsage():UInt return 0;
 
 	/**
 	 * (Non cpp platform)
 	 * Returns 0.
 	 */
-	public static function getCurrentUsage():UInt return 0;
+	public static inline function getCurrentUsage():UInt return 0;
 }
 #end
