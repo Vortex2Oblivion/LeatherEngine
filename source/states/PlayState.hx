@@ -53,7 +53,7 @@ import ui.DialogueBox;
 import ui.HealthIcon;
 import utilities.NoteVariables;
 import utilities.Ratings;
-import game.EventHandeler;
+import game.EventHandler;
 import sys.FileSystem;
 
 using StringTools;
@@ -709,29 +709,7 @@ class PlayState extends MusicBeatState {
 
 		// bull shit
 
-		var uiSkinConfigPath:String = Assets.exists('assets/data/ui skins/${SONG.ui_Skin}') ? 'ui skins/${SONG.ui_Skin}' : 'ui skins/default';
-
-		// who in the fuck thought this system was a good idea?
-		ui_settings = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/config'));
-		mania_size = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniasize'));
-		mania_offset = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniaoffset'));
-
-		mania_gap = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniagap'));
-
-		types = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/types'));
-
-		arrow_Configs.set("default", CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/default')));
-		type_Configs.set("default", CoolUtil.coolTextFile(Paths.txt("arrow types/default")));
-
-		var uiSkinImagePath:String = Assets.exists('assets/shared/images/ui skins/${SONG.ui_Skin}') ? 'ui skins/${SONG.ui_Skin}' : 'ui skins/default';
-
-		// preload ratings
-		for (rating in ['marvelous', 'sick', 'good', 'bad', 'shit']) {
-			uiMap.set(rating, Paths.gpuBitmap('$uiSkinImagePath/ratings/$rating'));
-		}
-		// preload numbers
-		for (i in 0...10)
-			uiMap.set('$i', Paths.gpuBitmap('$uiSkinImagePath/numbers/num$i'));
+		setupUISkinConfigs(SONG.ui_Skin);
 
 		curStage = SONG.stage;
 
@@ -4085,7 +4063,7 @@ class PlayState extends MusicBeatState {
 		}
 		#end
 
-		EventHandeler.processEvent(this, event);
+		EventHandler.processEvent(this, event);
 
 		//                name       pos      param 1   param 2
 		call("onEvent", [event[0], event[1], event[2], event[3]]);
@@ -4267,8 +4245,36 @@ class PlayState extends MusicBeatState {
 		insert(members.indexOf(boyfriend), behind);
 	}
 
+	@:allow(game.EventHandler)
+	private function setupUISkinConfigs(skin:String){
+		var uiSkinConfigPath:String = Assets.exists('assets/data/ui skins/${skin}') ? 'ui skins/${skin}' : 'ui skins/default';
+
+		// who in the fuck thought this system was a good idea?
+		ui_settings = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/config'));
+		mania_size = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniasize'));
+		mania_offset = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniaoffset'));
+
+		mania_gap = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/maniagap'));
+
+		types = CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/types'));
+
+		arrow_Configs.set("default", CoolUtil.coolTextFile(Paths.txt('$uiSkinConfigPath/default')));
+		type_Configs.set("default", CoolUtil.coolTextFile(Paths.txt("arrow types/default")));
+
+		var uiSkinImagePath:String = Assets.exists('assets/shared/images/ui skins/${skin}') ? 'ui skins/${skin}' : 'ui skins/default';
+
+		// preload ratings
+		for (rating in ['marvelous', 'sick', 'good', 'bad', 'shit']) {
+			uiMap.set(rating, Paths.gpuBitmap('$uiSkinImagePath/ratings/$rating'));
+		}
+		// preload numbers
+		for (i in 0...10)
+			uiMap.set('$i', Paths.gpuBitmap('$uiSkinImagePath/numbers/num$i'));
+	}
+
 	@:noCompletion
-	function set_speed(speed:Float):Float {
+	@:allow(game.EventHandler)
+	private function set_speed(speed:Float):Float {
 		if (Options.getData("useCustomScrollSpeed")) {
 			speed = Options.getData("customScrollSpeed") / songMultiplier;
 		}

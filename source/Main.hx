@@ -1,5 +1,7 @@
 package;
 
+import lime.utils.LogLevel;
+import haxe.PosInfos;
 import flixel.util.FlxSignal.FlxTypedSignal;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -59,9 +61,40 @@ class Main extends Sprite {
 		logsOverlay.visible = false;
 		addChild(logsOverlay);
 
-		LogStyle.WARNING.onLog.add((data, ?pos) -> trace(data, WARNING, pos));
-		LogStyle.ERROR.onLog.add((data, ?pos) -> trace(data, ERROR, pos));
-		LogStyle.NOTICE.onLog.add((data, ?pos) -> trace(data, LOG, pos));
+		LogStyle.WARNING.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, WARNING, pos));
+		LogStyle.ERROR.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, ERROR, pos));
+		LogStyle.NOTICE.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, LOG, pos));
+
+		OpenFLLog.debug = (message:Dynamic, ?info:PosInfos) -> {
+			if (OpenFLLog.level >= LogLevel.DEBUG){
+				trace(message, DEBUG, info);
+			}
+		};
+
+		OpenFLLog.error = (message:Dynamic, ?info:PosInfos) -> {
+			if (OpenFLLog.level >= LogLevel.ERROR){
+				trace(message, ERROR, info);
+			}
+		};
+
+		OpenFLLog.info = (message:Dynamic, ?info:PosInfos) -> {
+			if (OpenFLLog.level >= LogLevel.INFO){
+				trace(message, LOG, info);
+			}
+		};
+
+		OpenFLLog.warn = (message:Dynamic, ?info:PosInfos) -> {
+			if (OpenFLLog.level >= LogLevel.WARN){
+				trace(message, WARNING, info);
+			}
+		};
+
+		OpenFLLog.verbose = (message:Dynamic, ?info:PosInfos) -> {
+			if (OpenFLLog.level >= LogLevel.VERBOSE){
+				trace(message, LOG, info);
+			}
+		};
+
 
 		display = new SimpleInfoDisplay(8, 3, 0xFFFFFF, "_sans");
 		addChild(display);

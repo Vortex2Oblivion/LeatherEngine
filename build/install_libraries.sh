@@ -12,7 +12,7 @@ haxelib --skip-dependencies git flixel https://github.com/swordcubes-grave-of-sh
 haxelib --skip-dependencies git flixel-addons https://github.com/swordcubes-grave-of-shite/flixel-addons dev
 haxelib git flixel-ui https://github.com/HaxeFlixel/flixel-ui
 haxelib git linc_luajit https://github.com/Leather128/linc_luajit.git
-haxelib git hscript-improved https://github.com/CodenameCrew/hscript-improved codename-dev
+haxelib git hscript-improved https://github.com/CodenameCrew/hscript-improved fe673c21b278819805aaa730216ec527c2507443
 haxelib git scriptless-polymod https://github.com/Vortex2Oblivion/scriptless-polymod
 haxelib git hxNoise https://github.com/whuop/hxNoise
 haxelib git hxvlc https://github.com/Vortex2Oblivion/hxvlc

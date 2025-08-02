@@ -14,7 +14,7 @@ import game.StageGroup;
 import game.Character;
 import flixel.util.FlxColor;
 
-class EventHandeler {
+class EventHandler {
 	public static function processEvent(game:PlayState, event:Array<Dynamic>) {
 		switch (event[0].toLowerCase()) {
 			#if !linc_luajit
@@ -304,31 +304,7 @@ class EventHandeler {
 			case "change ui skin":
 				var noteskin:String = Std.string(event[2]);
 				PlayState.SONG.ui_Skin = noteskin;
-				game.ui_settings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/config"));
-				game.mania_size = CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/maniasize"));
-				game.mania_offset = CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/maniaoffset"));
-
-				// if the file exists, use it dammit
-				if (Assets.exists(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/maniagap")))
-					game.mania_gap = CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/maniagap"));
-				else
-					game.mania_gap = CoolUtil.coolTextFile(Paths.txt("ui skins/default/maniagap"));
-
-				game.types = CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/types"));
-
-				game.arrow_Configs.set("default", CoolUtil.coolTextFile(Paths.txt("ui skins/" + PlayState.SONG.ui_Skin + "/default")));
-				game.type_Configs.set("default", CoolUtil.coolTextFile(Paths.txt("arrow types/default")));
-
-				// reload ratings
-				game.uiMap.set("marvelous", Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/ratings/marvelous"));
-				game.uiMap.set("sick", Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/ratings/sick"));
-				game.uiMap.set("good", Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/ratings/good"));
-				game.uiMap.set("bad", Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/ratings/bad"));
-				game.uiMap.set("shit", Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/ratings/shit"));
-
-				// preload numbers
-				for (i in 0...10)
-					game.uiMap.set(Std.string(i), Paths.gpuBitmap("ui skins/" + PlayState.SONG.ui_Skin + "/numbers/num" + Std.string(i)));
+				game.setupUISkinConfigs(noteskin);
 				game.timeBar = new TimeBar(PlayState.SONG, PlayState.storyDifficultyStr);
 
 				PlayState.playerStrums.clear();
@@ -403,6 +379,7 @@ class EventHandeler {
 
 					note.animation.play(oldAnim);
 				}
+				game.set_speed(game.speed);
 			// FNFC stuff
 			case 'focuscamera':
 				switch (Std.string(event[2])) {
