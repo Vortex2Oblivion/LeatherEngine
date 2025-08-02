@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
  - Fixed some backwards-compatability issues with certian shaders.
+ - Rotated notes now properly rotate around the origin.
 
 ## [1.0.5] - 7/24/25
 

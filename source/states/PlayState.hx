@@ -2301,14 +2301,11 @@ class PlayState extends MusicBeatState {
 								note.x = coolStrum.x + prevPlayerXVals.get(arrayVal) - note.xOffset;
 						}
 
-						if (coolStrum != null && !note.isSustainNote && note != null)
-							note.modAngle = coolStrum.angle;
-
-						if (coolStrum != null && coolStrum.alpha != 1 && note != null) {
+						if (note != null && coolStrum != null && coolStrum.alpha != 1) {
 							note.alpha = coolStrum.alpha;
 						}
 
-						if (!note.isSustainNote && coolStrum != null && note != null) {
+						if (note != null && coolStrum != null && !note.isSustainNote) {
 							note.modAngle = coolStrum.angle;
 						}
 
@@ -2346,14 +2343,12 @@ class PlayState extends MusicBeatState {
 								note.x = coolStrum.x + prevEnemyXVals.get(arrayVal) - note.xOffset;
 						}
 
-						if (coolStrum != null && !note.isSustainNote && note != null)
-							note.modAngle = coolStrum.angle;
-
 						if (coolStrum != null && coolStrum.alpha != 1 && note != null)
 							note.alpha = coolStrum.alpha;
 
-						if (coolStrum != null && !note.isSustainNote && note != null)
+						if (note != null && coolStrum != null && !note.isSustainNote) {
 							note.modAngle = coolStrum.angle;
+						}
 
 						if (coolStrum != null && !note.isSustainNote && note != null)
 							note.flipX = coolStrum.flipX;
@@ -3380,8 +3375,8 @@ class PlayState extends MusicBeatState {
 
 	function goodNoteHit(note:Note, ?setNoteDiff:Float):Void {
 		#if HSCRIPT_ALLOWED
-		for(script in scripts){
-			if(script is HScript){
+		for (script in scripts) {
+			if (script is HScript) {
 				script.call("goodNoteHit", [note, setNoteDiff]);
 			}
 		}
@@ -3520,7 +3515,8 @@ class PlayState extends MusicBeatState {
 
 		if (SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)] != null) {
 			if (timeBarStyle == 'leather engine'
-				&& Math.floor(curStep / Conductor.stepsPerSection) != Math.floor((curStep - 1) / Conductor.stepsPerSection) && SONG.chartType != VSLICE) {
+				&& Math.floor(curStep / Conductor.stepsPerSection) != Math.floor((curStep - 1) / Conductor.stepsPerSection)
+				&& SONG.chartType != VSLICE) {
 				var target:FlxColor = SONG.notes[Math.floor(curStep / Conductor.stepsPerSection)].mustHitSection ? boyfriend.barColor : dad.barColor;
 				FlxTween.color(timeBar.bar, Conductor.crochet * 0.002, timeBar.bar.color, target);
 			}
@@ -4246,7 +4242,7 @@ class PlayState extends MusicBeatState {
 	}
 
 	@:allow(game.EventHandler)
-	private function setupUISkinConfigs(skin:String){
+	private function setupUISkinConfigs(skin:String) {
 		var uiSkinConfigPath:String = Assets.exists('assets/data/ui skins/${skin}') ? 'ui skins/${skin}' : 'ui skins/default';
 
 		// who in the fuck thought this system was a good idea?

@@ -147,7 +147,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			var basePath:String = 'ui skins/${note.song.ui_Skin}/arrows/';
 			if (Assets.exists(Paths.image('$basePath${note.arrow_Type}', 'shared'))) {
 				return Paths.getSparrowAtlas('$basePath${note.arrow_Type}', 'shared', disallowGPU);
-			} else if(Assets.exists(Paths.image('${basePath}default', 'shared'))) {
+			} else if (Assets.exists(Paths.image('${basePath}default', 'shared'))) {
 				return Paths.getSparrowAtlas('${basePath}default', 'shared', disallowGPU);
 			}
 		} else {
@@ -278,7 +278,6 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 			sustainScaleY = scale.y;
 		}
 
-
 		if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] != null) {
 			if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] == "true")
 				affectedbycolor = true;
@@ -310,7 +309,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewed
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		#if MODCHARTING_TOOLS angle3D.z #else angle #end = modAngle + localAngle;
+		angle = modAngle + localAngle;
 
 		calculateCanBeHit();
 
