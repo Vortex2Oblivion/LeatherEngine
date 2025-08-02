@@ -4110,6 +4110,8 @@ class PlayState extends MusicBeatState {
 	}
 
 	function generateEvents():Void {
+		baseEvents = [];
+		events = [];
 		if (SONG.events.length > 0) {
 			for (event in SONG.events) {
 				baseEvents.push(event);
