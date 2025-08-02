@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.6] - Unreleased
 
+### Changed
+ - Logs from Lime and OpenFL are now properly displayed in the ingame logger
+
+### Fixed
+ - Fixed some backwards-compatability issues with certian shaders.
+
 ## [1.0.5] - 7/24/25
 
 ### Changed

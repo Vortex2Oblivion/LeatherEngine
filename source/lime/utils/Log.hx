@@ -1,7 +1,5 @@
 package lime.utils;
 
-package lime.utils;
-
 import haxe.PosInfos;
 
 #if !lime_debug
