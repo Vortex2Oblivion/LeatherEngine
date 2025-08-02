@@ -6,11 +6,11 @@ haxelib --global update haxelib
 haxelib git hxcpp https://github.com/FunkinCrew/hxcpp
 haxelib install format
 haxelib install hxp
-haxelib --skip-dependencies git lime https://github.com/vortex2oblivion/lime
-haxelib --skip-dependencies git openfl https://github.com/Vortex2Oblivion/openfl
-haxelib --skip-dependencies git flixel https://github.com/Vortex2Oblivion/flixel dev
-haxelib --skip-dependencies git flixel-addons https://github.com/vortex2oblivion/flixel-addons dev
-haxelib git flixel-ui https://github.com/Vortex2Oblivion/flixel-ui
+haxelib --skip-dependencies git lime https://github.com/swordcubes-grave-of-shite/lime
+haxelib --skip-dependencies git openfl https://github.com/swordcubes-grave-of-shite/openfl
+haxelib --skip-dependencies git flixel https://github.com/swordcubes-grave-of-shite/flixel dev
+haxelib --skip-dependencies git flixel-addons https://github.com/swordcubes-grave-of-shite/flixel-addons dev
+haxelib --skip-dependencies git flixel-ui https://github.com/swordcubes-grave-of-shite/flixel-ui dev
 haxelib git linc_luajit https://github.com/Leather128/linc_luajit.git
 haxelib git hscript-improved https://github.com/CodenameCrew/hscript-improved fe673c21b278819805aaa730216ec527c2507443
 haxelib git scriptless-polymod https://github.com/Vortex2Oblivion/scriptless-polymod
