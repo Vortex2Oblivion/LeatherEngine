@@ -183,6 +183,8 @@ class ChartingState extends MusicBeatState {
 		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridEventBlackLine);
 
+		tooltips = new FlxUITooltipManager(this);
+
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedEvents = new FlxTypedGroup<EventSprite>();
 		curRenderedIds = new FlxTypedGroup<FlxSprite>();
@@ -886,6 +888,8 @@ class ChartingState extends MusicBeatState {
 					curRenderedNotes.remove(curRenderedNotes.members[0], true);
 				}
 
+				tooltips.hideCurrent();
+				tooltips.clear();
 				while (curRenderedEvents.members.length > 0) {
 					tooltips.remove(curRenderedEvents.members[0]);
 					curRenderedEvents.remove(curRenderedEvents.members[0], true);
@@ -1300,7 +1304,8 @@ class ChartingState extends MusicBeatState {
 						if (FlxG.keys.pressed.CONTROL)
 							selectEvent(event);
 						else {
-							tooltips?.remove(event);
+							tooltips.hideCurrent();
+							tooltips.remove(event);
 							deleteEvent(event);
 						}
 					}
@@ -1441,10 +1446,16 @@ class ChartingState extends MusicBeatState {
 
 			if (FlxG.keys.pressed.SHIFT)
 				shiftThing = 4;
-			if ((controls.RIGHT_P) && !control)
+			if ((controls.RIGHT_P) && !control){
+				tooltips.hideCurrent();
+				tooltips.clear();
 				changeSection(curSection + shiftThing);
-			if ((controls.LEFT_P) && !control)
+			}
+			if ((controls.LEFT_P) && !control){
+				tooltips.hideCurrent();
+				tooltips.clear();
 				changeSection(curSection - shiftThing);
+			}
 
 			if (controls.RIGHT_P && control) {
 				if (NoteVariables.beats.indexOf(beatSnap) + 1 <= NoteVariables.beats.length - 1)
@@ -1544,7 +1555,6 @@ class ChartingState extends MusicBeatState {
 	}
 
 	function resetSection(songBeginning:Bool = false):Void {
-		updateGrid();
 
 		FlxG.sound.music.pause();
 		vocals.pause();
@@ -1568,8 +1578,8 @@ class ChartingState extends MusicBeatState {
 		if (_song.notes[sec] != null) {
 			curSection = sec;
 
-			updateGrid();
-
+			tooltips.hideCurrent();
+			tooltips.clear();
 			if (updateMusic) {
 				FlxG.sound.music.pause();
 				vocals.pause();
@@ -1721,23 +1731,23 @@ class ChartingState extends MusicBeatState {
 		if (strumLine != null)
 			strumLine.makeGraphic(Std.int(gridBG.width), 4);
 
+		tooltips.hideCurrent();
 		curRenderedNotes.clear();
 
 		curRenderedNotes.forEach(function(sprite:Note) {
 			sprite.kill();
 			sprite.destroy();
 		}, true);
-
+		
+		tooltips.clear();
+		
 		curRenderedEvents.clear();
-
-		tooltips?.hideCurrent();
+		
 		curRenderedEvents.forEach(function(sprite:EventSprite) {
-			tooltips?.remove(sprite);
 			sprite.kill();
 			sprite.destroy();
 		}, true);
 
-		tooltips?.clear();
 
 		curRenderedIds.clear();
 

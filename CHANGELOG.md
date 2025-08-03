@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.6] - Unreleased
 
+### Added
+ - Tooltips to events showing information when hovered.
+
 ### Changed
  - Logs from Lime and OpenFL are now properly displayed in the ingame logger
 
