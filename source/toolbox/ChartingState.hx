@@ -1,5 +1,7 @@
 package toolbox;
 
+import flixel.addons.ui.FlxUITooltip;
+import flixel.addons.ui.FlxUITooltipManager;
 import sys.io.File;
 import lime.ui.FileDialog;
 import game.SoundGroup;
@@ -102,7 +104,6 @@ class ChartingState extends MusicBeatState {
 	var stepperCharLength:FlxUINumericStepper;
 
 	var current_Note_Character:Int = 0;
-
 
 	static var playerHitsounds:Bool = false;
 	static var enemyHitsounds:Bool = false;
@@ -356,21 +357,23 @@ class ChartingState extends MusicBeatState {
 			_song.needsVoices = check_voices.checked;
 		};
 
-		var playerHitsoundsBox:FlxUICheckBox = new FlxUICheckBox(check_voices.x + check_voices.width , check_voices.y, null, null, "Player\nHitsounds", 100);
+		var playerHitsoundsBox:FlxUICheckBox = new FlxUICheckBox(check_voices.x + check_voices.width, check_voices.y, null, null, "Player\nHitsounds", 100);
 		playerHitsoundsBox.checked = playerHitsounds;
 
 		playerHitsoundsBox.callback = function() {
 			playerHitsounds = playerHitsoundsBox.checked;
 		};
 
-		var enemyHitsoundsBox:FlxUICheckBox = new FlxUICheckBox(playerHitsoundsBox.x , playerHitsoundsBox.y + playerHitsoundsBox.height +2, null, null, "Enemy\nHitsounds", 100);
+		var enemyHitsoundsBox:FlxUICheckBox = new FlxUICheckBox(playerHitsoundsBox.x, playerHitsoundsBox.y + playerHitsoundsBox.height + 2, null, null,
+			"Enemy\nHitsounds", 100);
 		enemyHitsoundsBox.checked = enemyHitsounds;
 
 		enemyHitsoundsBox.callback = function() {
 			enemyHitsounds = enemyHitsoundsBox.checked;
 		};
 
-		var quantBox:FlxUICheckBox = new FlxUICheckBox(enemyHitsoundsBox.x + 25, enemyHitsoundsBox.y + enemyHitsoundsBox.height + 2, null, null, "Color Quants", 100);
+		var quantBox:FlxUICheckBox = new FlxUICheckBox(enemyHitsoundsBox.x + 25, enemyHitsoundsBox.y + enemyHitsoundsBox.height + 2, null, null,
+			"Color Quants", 100);
 		colorQuantization = quantBox.checked = Options.getData("colorQuantization");
 
 		quantBox.callback = function() {
@@ -884,6 +887,7 @@ class ChartingState extends MusicBeatState {
 				}
 
 				while (curRenderedEvents.members.length > 0) {
+					tooltips.remove(curRenderedEvents.members[0]);
 					curRenderedEvents.remove(curRenderedEvents.members[0], true);
 				}
 
@@ -1247,11 +1251,11 @@ class ChartingState extends MusicBeatState {
 							if (note.rawNoteData % (_song.keyCount + _song.playerKeyCount) < _song.keyCount
 								&& _song.notes[curSection].mustHitSection
 								|| note.rawNoteData % (_song.keyCount + _song.playerKeyCount) >= _song.keyCount && !_song.notes[curSection].mustHitSection) {
-									if(playerHitsounds){
-										FlxG.sound.play(Paths.sound('CLAP'));
-									}
+								if (playerHitsounds) {
+									FlxG.sound.play(Paths.sound('CLAP'));
+								}
 							} else {
-								if(enemyHitsounds){
+								if (enemyHitsounds) {
 									FlxG.sound.play(Paths.sound('SNAP'));
 								}
 							}
@@ -1295,8 +1299,10 @@ class ChartingState extends MusicBeatState {
 
 						if (FlxG.keys.pressed.CONTROL)
 							selectEvent(event);
-						else
+						else {
+							tooltips?.remove(event);
 							deleteEvent(event);
+						}
 					}
 				});
 			}
@@ -1335,7 +1341,7 @@ class ChartingState extends MusicBeatState {
 				PlayState.loadChartEvents = false;
 				LoadingState.loadAndSwitchState(() -> new PlayState());
 				PlayState.chartingMode = true;
-				if(FlxG.keys.pressed.SHIFT){
+				if (FlxG.keys.pressed.SHIFT) {
 					PlayState.startOnTime = Conductor.songPosition;
 				}
 			}
@@ -1416,7 +1422,7 @@ class ChartingState extends MusicBeatState {
 
 				if (FlxG.keys.pressed.W) {
 					FlxG.sound.music.time -= daTime;
-				} else{
+				} else {
 					FlxG.sound.music.time += daTime;
 				}
 
@@ -1481,7 +1487,7 @@ class ChartingState extends MusicBeatState {
 			+ "\nCurDecStep: "
 			+ FlxMath.roundDecimal(curDecStep, 2)
 			+ "\nCurDecBeat: "
-			+  FlxMath.roundDecimal(curDecBeat, 2)
+			+ FlxMath.roundDecimal(curDecBeat, 2)
 			+ "\nNote Snap: "
 			+ beatSnap
 			+ (FlxG.keys.pressed.SHIFT ? "\n(DISABLED)" : "\n(CONTROL + ARROWS)")
@@ -1493,7 +1499,7 @@ class ChartingState extends MusicBeatState {
 		rightIcon.x = gridBlackLine.x;
 
 		for (n in curRenderedNotes.members) {
-			if(n?.animation?.curAnim != null){
+			if (n?.animation?.curAnim != null) {
 				if (n.isSustainNote && !StringTools.endsWith(n.animation.curAnim.name, "end")) {
 					n.setGraphicSize(n.frameWidth * n.scale.x, zoomLevel * GRID_SIZE);
 					n.updateHitbox();
@@ -1600,18 +1606,18 @@ class ChartingState extends MusicBeatState {
 
 	function copyEvents(sectionNum:Int = 1) {
 		copiedEvents = [];
-		for(event in events){
-			if(event[1] >= sectionStartTime() && event[1] < sectionStartTime(sectionNum + 1)){
+		for (event in events) {
+			if (event[1] >= sectionStartTime() && event[1] < sectionStartTime(sectionNum + 1)) {
 				copiedEvents.push(event);
 			}
 		}
 	}
 
 	function pasteEvents() {
-		for(event in copiedEvents){
+		for (event in copiedEvents) {
 			var strumTime:Float = sectionStartTime() + (event[1] - sectionStartTime(copiedEventsSection));
 			var pastedEvent:Array<Dynamic> = [event[0], strumTime, event[2], event[3]];
-			if(!events.contains(pastedEvent)){
+			if (!events.contains(pastedEvent)) {
 				events.push(pastedEvent);
 			}
 		}
@@ -1725,9 +1731,12 @@ class ChartingState extends MusicBeatState {
 		curRenderedEvents.clear();
 
 		curRenderedEvents.forEach(function(sprite:EventSprite) {
+			tooltips?.remove(sprite);
 			sprite.kill();
 			sprite.destroy();
 		}, true);
+
+		tooltips?.clear();
 
 		curRenderedIds.clear();
 
@@ -1832,7 +1841,7 @@ class ChartingState extends MusicBeatState {
 			var col:Array<Int> = [255, 0, 0];
 			for (note in curRenderedNotes.members) {
 				if (!note.isSustainNote && note.affectedbycolor) {
-					var noteBeat:Int = Math.floor(((note.strumTime / ( Conductor.stepCrochet * 4)) * 48) + 0.5);
+					var noteBeat:Int = Math.floor(((note.strumTime / (Conductor.stepCrochet * 4)) * 48) + 0.5);
 					for (beat in 0...Note.beats.length - 1) {
 						if ((noteBeat % (192 / Note.beats[beat]) == 0)) {
 							col = Note.quantColors[beat];
@@ -1864,9 +1873,17 @@ class ChartingState extends MusicBeatState {
 					eventSprite.y = Math.floor(getYfromStrum((event[1] - sectionStartTime()) % (Conductor.stepCrochet * Conductor.stepsPerSection)));
 
 					curRenderedEvents.add(eventSprite);
+					tooltips.add(eventSprite, {
+						title: 'Name: ${event[0]}',
+						body: 'Value 1: ${event[2]}\nValue 2: ${event[3]}\nPosition: ${event[1]}',
+					});
 				}
 			}
 		}
+	}
+
+	override function onShowTooltip(t:FlxUITooltip) {
+		t.offset.x = -320;
 	}
 
 	var events:Array<Array<Dynamic>> = [];
@@ -2125,22 +2142,19 @@ class ChartingState extends MusicBeatState {
 		var fileOpen:FileDialog = new FileDialog();
 		fileOpen.browse(OPEN, "json", Sys.getCwd(), "Select A Chart File");
 		fileOpen.onSelect.add((data) -> {
-			try{
+			try {
 				var parsedJson:Dynamic = SongLoader.parseLegacy(Json.parse(File.getContent(data)));
-				if(!Reflect.hasField(parsedJson, "song")){
+				if (!Reflect.hasField(parsedJson, "song")) {
 					CoolUtil.coolError('Leather Engine Chart Editor', 'Invalid chart at path $data');
-				}
-				else{
-					if(Reflect.hasField(parsedJson.song, "events") && !Reflect.hasField(parsedJson.song, "notes")){
+				} else {
+					if (Reflect.hasField(parsedJson.song, "events") && !Reflect.hasField(parsedJson.song, "notes")) {
 						CoolUtil.coolError('Leather Engine Chart Editor', 'Invalid chart at path $data\nDid you try and load an events file?');
-					}
-					else{
+					} else {
 						PlayState.SONG = parsedJson;
 						FlxG.resetState();
 					}
 				}
-			}
-			catch(e){
+			} catch (e) {
 				CoolUtil.coolError('Leather Engine Chart Editor', 'Invalid chart at path $data');
 			}
 		});
