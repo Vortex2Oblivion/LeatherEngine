@@ -5,13 +5,14 @@ All notable changes will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.0.6] - Unreleased
+## [1.0.6] - 8/3/25
 
 ### Added
  - Tooltips to events showing information when hovered.
 
 ### Changed
  - Logs from Lime and OpenFL are now properly displayed in the ingame logger
+ - Mod loading errors are now properly displayed.
 
 ### Fixed
  - Fixed some backwards-compatability issues with certian shaders.
