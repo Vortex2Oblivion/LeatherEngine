@@ -1730,6 +1730,7 @@ class ChartingState extends MusicBeatState {
 
 		curRenderedEvents.clear();
 
+		tooltips?.hideCurrent();
 		curRenderedEvents.forEach(function(sprite:EventSprite) {
 			tooltips?.remove(sprite);
 			sprite.kill();
@@ -1883,7 +1884,7 @@ class ChartingState extends MusicBeatState {
 	}
 
 	override function onShowTooltip(t:FlxUITooltip) {
-		t.offset.x = -320;
+		t.scrollFactor.set(1, 1);
 	}
 
 	var events:Array<Array<Dynamic>> = [];
