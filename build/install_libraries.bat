@@ -26,7 +26,9 @@ haxelib git funkin.vis https://github.com/FunkinCrew/funkVis
 haxelib git jsonpath https://github.com/EliteMasterEric/jsonpath
 haxelib --skip-dependencies git jsonpatch https://github.com/EliteMasterEric/jsonpatch
 haxelib install hxcpp-debug-server
+haxelib --always set lime 8.2.2
 haxelib run lime rebuild hxcpp
+haxelib --always set lime git
 haxelib --always run lime rebuild windows
 haxelib --always run lime setup
 
