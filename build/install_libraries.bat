@@ -3,7 +3,7 @@ echo Installing all required libraries.
 
 REM haxelib --global update haxelib
 REM haxelib fixrepo
-haxelib git hxcpp https://github.com/Vortex2Oblivion/hxcpp-compiled
+haxelib git hxcpp https://github.com/FunkinCrew/hxcpp
 haxelib install format
 haxelib install hxp
 haxelib --skip-dependencies git lime https://github.com/swordcubes-grave-of-shite/lime
@@ -26,6 +26,7 @@ haxelib git funkin.vis https://github.com/FunkinCrew/funkVis
 haxelib git jsonpath https://github.com/EliteMasterEric/jsonpath
 haxelib --skip-dependencies git jsonpatch https://github.com/EliteMasterEric/jsonpatch
 haxelib install hxcpp-debug-server
+haxelib run lime rebuild hxcpp
 haxelib --always run lime rebuild windows
 haxelib --always run lime setup
 
