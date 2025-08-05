@@ -1,5 +1,6 @@
 package;
 
+import lime.system.System;
 import lime.utils.LogLevel;
 import haxe.PosInfos;
 import flixel.util.FlxSignal.FlxTypedSignal;
@@ -42,13 +43,16 @@ class Main extends Sprite {
 		// Request we start game mode
 		if (GamemodeClient.request_start() != 0) {
 			Sys.println('Failed to request gamemode start: ${GamemodeClient.error_string()}...');
-			Sys.exit(1);
-		} else
+			System.exit(1);
+		} else{
 			Sys.println('Succesfully requested gamemode to start...');
+		}
 		#end
 	}
 
 	public function new() {
+		// just gonna do this so dce doesnt kill it and so someone doesnt remove it with a remove unused imports or something idk
+		untyped __cpp__('', utilities.ALSoft);
 		super();
 
 		#if sys
