@@ -17,6 +17,7 @@
 -L jsonpatch
 -L thx.core
 -L thx.semver
+-L hxgamemode
 
 -cp source
 

@@ -1,5 +1,9 @@
 package states;
 
+#if linux
+import hxgamemode.GamemodeClient;
+#end
+import lime.system.System;
 import flixel.system.debug.log.LogStyle;
 import flixel.math.FlxMath;
 #if DISCORD_ALLOWED
@@ -117,6 +121,15 @@ class TitleState extends MusicBeatState {
 
 			Application.current.onExit.add(function(exitCode) {
 				DiscordClient.shutdown();
+
+				
+				#if linux
+				if (GamemodeClient.request_end() != 0) {
+					Sys.println('Failed to request gamemode end: ${GamemodeClient.error_string()}...');
+					System.exit(1);
+				} else
+					Sys.println('Succesfully requested gamemode to end...');
+				#end
 
 				for (key in Options.saves.keys()) {
 					if (key != null)

@@ -23,6 +23,9 @@ import ui.logs.Logs;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
+#if linux
+import hxgamemode.GamemodeClient;
+#end
 
 class Main extends Sprite {
 	public static var display:SimpleInfoDisplay;
@@ -32,6 +35,18 @@ class Main extends Sprite {
 
 	public static var onUncaughtError(default, null):FlxTypedSignal<UncaughtErrorEvent->Void> = new FlxTypedSignal<UncaughtErrorEvent->Void>();
 	public static var onCriticalError(default, null):FlxTypedSignal<String->Void> = new FlxTypedSignal<String->Void>();
+
+	@:noCompletion
+	private static function __init__():Void {
+		#if linux
+		// Request we start game mode
+		if (GamemodeClient.request_start() != 0) {
+			Sys.println('Failed to request gamemode start: ${GamemodeClient.error_string()}...');
+			Sys.exit(1);
+		} else
+			Sys.println('Succesfully requested gamemode to start...');
+		#end
+	}
 
 	public function new() {
 		super();
@@ -66,35 +81,34 @@ class Main extends Sprite {
 		LogStyle.NOTICE.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, LOG, pos));
 
 		OpenFLLog.debug = (message:Dynamic, ?info:PosInfos) -> {
-			if (OpenFLLog.level >= LogLevel.DEBUG){
+			if (OpenFLLog.level >= LogLevel.DEBUG) {
 				trace(message, DEBUG, info);
 			}
 		};
 
 		OpenFLLog.error = (message:Dynamic, ?info:PosInfos) -> {
-			if (OpenFLLog.level >= LogLevel.ERROR){
+			if (OpenFLLog.level >= LogLevel.ERROR) {
 				trace(message, ERROR, info);
 			}
 		};
 
 		OpenFLLog.info = (message:Dynamic, ?info:PosInfos) -> {
-			if (OpenFLLog.level >= LogLevel.INFO){
+			if (OpenFLLog.level >= LogLevel.INFO) {
 				trace(message, LOG, info);
 			}
 		};
 
 		OpenFLLog.warn = (message:Dynamic, ?info:PosInfos) -> {
-			if (OpenFLLog.level >= LogLevel.WARN){
+			if (OpenFLLog.level >= LogLevel.WARN) {
 				trace(message, WARNING, info);
 			}
 		};
 
 		OpenFLLog.verbose = (message:Dynamic, ?info:PosInfos) -> {
-			if (OpenFLLog.level >= LogLevel.VERBOSE){
+			if (OpenFLLog.level >= LogLevel.VERBOSE) {
 				trace(message, LOG, info);
 			}
 		};
-
 
 		display = new SimpleInfoDisplay(8, 3, 0xFFFFFF, "_sans");
 		addChild(display);

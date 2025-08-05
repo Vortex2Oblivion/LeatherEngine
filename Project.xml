@@ -26,8 +26,9 @@
 
 	<define name="LUA_ALLOWED" /> <!--  Allows support for Lua scripting -->
 	<define name="HSCRIPT_ALLOWED" /> <!--  Allows support for Haxe scripting (HScript) -->
-	
-	<define name="CHECK_FOR_UPDATES" /> <!-- Allows the game to connect to GitHub to check for an update -->
+
+	<define name="CHECK_FOR_UPDATES" /> <!-- Allows the game to connect to GitHub to check for an
+	update -->
 
 	<!-- 
 	Allows for all flixel classes to be used in scripts.
@@ -36,7 +37,8 @@
 	-->
 	<define name="COMPILE_ALL_CLASSES" if="HSCRIPT_ALLOWED" />
 
-	<define name="CUSTOM_CLASSES" if="HSCRIPT_ALLOWED" /> <!-- Allows for custom classe to be used in HScript -->
+	<define name="CUSTOM_CLASSES" if="HSCRIPT_ALLOWED" /> <!-- Allows for custom classe to be used in
+	HScript -->
 
 
 	<!-- REMOVE this line to enable a 32 bit export. -->
@@ -101,9 +103,11 @@
 
 	<assets path="CHANGELOG.md" rename='changelog.txt' />
 
-	<!--https://github.com/FunkinCrew/Funkin/pull/3318-->
+	<!-- https://github.com/FunkinCrew/Funkin/pull/3318 -->
 	<assets path="alsoft.ini" if="windows" />
 	<assets path="alsoft.ini" rename="alsoft.conf" unless="windows" />
+
+	<assets path="gamemode.ini" if="linux" />
 
 	<assets path="crash/bin/Crash-windows.exe" if="windows" rename="Crash.exe" />
 
@@ -139,6 +143,8 @@
 	<haxelib name="fnf-modcharting-tools" if="MODCHARTING_TOOLS" unless="hl" />
 	<haxelib name="funkin.vis" />
 	<haxelib name="grig.audio" />
+
+	<haxelib name="hxgamemode" if="linux" />
 
 	<!-- Compiler Arguments -->
 	<define name="no-deprecation-warnings" />
