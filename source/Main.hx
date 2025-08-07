@@ -80,37 +80,37 @@ class Main extends Sprite {
 		logsOverlay.visible = false;
 		addChild(logsOverlay);
 
-		LogStyle.WARNING.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, WARNING, pos));
-		LogStyle.ERROR.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, ERROR, pos));
-		LogStyle.NOTICE.onLog.add((data:Any, ?pos:PosInfos) -> trace(data, LOG, pos));
+		LogStyle.WARNING.onLog.add((data:Any, ?infos:PosInfos) -> CoolUtil.print(data, WARNING, infos));
+		LogStyle.ERROR.onLog.add((data:Any, ?infos:PosInfos) -> CoolUtil.print(data, ERROR, infos));
+		LogStyle.NOTICE.onLog.add((data:Any, ?infos:PosInfos) -> CoolUtil.print(data, LOG, infos));
 
-		OpenFLLog.debug = (message:Dynamic, ?info:PosInfos) -> {
+		OpenFLLog.debug = (message:Dynamic, ?infos:PosInfos) -> {
 			if (OpenFLLog.level >= LogLevel.DEBUG) {
-				trace(message, DEBUG, info);
+				CoolUtil.print(message, DEBUG, infos);
 			}
 		};
 
-		OpenFLLog.error = (message:Dynamic, ?info:PosInfos) -> {
+		OpenFLLog.error = (message:Dynamic, ?infos:PosInfos) -> {
 			if (OpenFLLog.level >= LogLevel.ERROR) {
-				trace(message, ERROR, info);
+				CoolUtil.print(message, ERROR, infos);
 			}
 		};
 
-		OpenFLLog.info = (message:Dynamic, ?info:PosInfos) -> {
+		OpenFLLog.info = (message:Dynamic, ?infos:PosInfos) -> {
 			if (OpenFLLog.level >= LogLevel.INFO) {
-				trace(message, LOG, info);
+				CoolUtil.print(message, LOG, infos);
 			}
 		};
 
-		OpenFLLog.warn = (message:Dynamic, ?info:PosInfos) -> {
+		OpenFLLog.warn = (message:Dynamic, ?infos:PosInfos) -> {
 			if (OpenFLLog.level >= LogLevel.WARN) {
-				trace(message, WARNING, info);
+				CoolUtil.print(message, WARNING, infos);
 			}
 		};
 
-		OpenFLLog.verbose = (message:Dynamic, ?info:PosInfos) -> {
+		OpenFLLog.verbose = (message:Dynamic, ?infos:PosInfos) -> {
 			if (OpenFLLog.level >= LogLevel.VERBOSE) {
-				trace(message, LOG, info);
+				CoolUtil.print(message, LOG, infos);
 			}
 		};
 

@@ -12,9 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
  - Chart editor event performance
+ - Traces from external logging functions now properly show the trace location
 
 ### Changed
  - Chart editor tooltips for performance reasons.
+ - Changed color of popup error message.
 
 ## [1.0.6] - 8/3/25
 

@@ -243,7 +243,7 @@ class ModOption extends FlxSpriteContainer {
 			if (optionValue == Options.getData("curMod")) {
 				CoolUtil.coolError("Leather Engine Mods", "The mod " + optionValue + " is your current mod\nPlease switch to a different mod to disable it!");
 				for (member in members) {
-					FlxTween.color(member, 1, 0xFF0000, 0xFFFFFF, {ease: FlxEase.quartOut});
+					FlxTween.color(member, 1, 0xFFFF0000, 0xFFFFFFFF, {ease: FlxEase.quartOut});
 				}
 			} else {
 				modEnabled = !modEnabled;

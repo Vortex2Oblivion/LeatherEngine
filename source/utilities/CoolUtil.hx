@@ -257,7 +257,7 @@ class CoolUtil {
 		return [Std.int(h * 360), Std.int(s * 100), Std.int(v * 100)];
 	}
 
-	public static var errors:Map<String, FlxText> = new Map<String, FlxText>();
+	public static var errors(default, never):Map<String, FlxText> = new Map<String, FlxText>();
 
 	/**
 		Funny handler for `Application.current.window.alert` that *doesn't* crash on Linux and shit.
@@ -272,17 +272,16 @@ class CoolUtil {
 			return;
 		}
 
-		trace(title + "-" + message, ERROR, pos);
+		print(title + "-" + message, ERROR, pos);
 
 		var text:FlxText = new FlxText(0, 0, 1280, title + "\n\n" + message, 32);
 		text.font = Paths.font("vcr.ttf");
-		text.color = 0xFF6183;
+		text.color = 0xFF0000;
 		text.alignment = CENTER;
 		text.borderSize = 1.5;
 		text.borderStyle = OUTLINE_FAST;
 		text.borderColor = FlxColor.BLACK;
 		text.scrollFactor.set();
-		text.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		errors.set(title + "\n\n" + message, text);
 
 		FlxTween.tween(text, {alpha: 0, y: 64}, 4, {
@@ -345,9 +344,9 @@ class CoolUtil {
 
 		@author Leather128
 	**/
-	public static function print(message:String, ?type:PrintType = LOG, ?pos_infos:PosInfos):Void {
-		untyped __cpp__("std::cout << {0}", '${Log.formatOutput('${messageFromPrintType(type)} $message', pos_infos)}\n');
-		final formattedMessage:String = Log.formatOutput(message, pos_infos);
+	public static function print(message:String, ?type:PrintType = LOG, ?infos:PosInfos):Void {
+		untyped __cpp__("std::cout << {0}", '${Log.formatOutput('${messageFromPrintType(type)} $message', infos)}\n');
+		final formattedMessage:String = Log.formatOutput(message, infos);
 		EntryPoint.runInMainThread(() -> {
 			switch (type) {
 				case DEBUG:
