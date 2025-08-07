@@ -12,8 +12,7 @@ class EventSprite extends FlxSprite {
 	public var value1(default, null):String;
 	public var value2(default, null):String;
 
-	static var tooltipText:FlxText;
-
+	static var tooltipText:TooltipText;
 
 	public function new(event:Array<Dynamic>, x:Float = 0.0, y:Float = 0.0) {
 		super(x, y);
@@ -23,31 +22,29 @@ class EventSprite extends FlxSprite {
 		this.value1 = event[2];
 		this.value2 = event[3];
 
-		tooltipText ??= new FlxText();
-
-		tooltipText.color = FlxColor.WHITE;
-		tooltipText.borderColor = FlxColor.BLACK;
-		tooltipText.borderSize = 1;
-		tooltipText.borderStyle = OUTLINE;
-		tooltipText.size = 12;
-		tooltipText.font = Paths.font("vcr.ttf");
-	}
-
-	override function destroy() {
-		super.destroy();
-	}
-
-	override function update(elapsed:Float) {
-		super.update(elapsed);
-		tooltipText.setPosition(FlxG.mouse.x + FlxG.mouse.cursor.width, FlxG.mouse.y);
+		if (tooltipText == null) {
+			tooltipText = new TooltipText();
+			tooltipText.color = FlxColor.WHITE;
+			tooltipText.borderColor = FlxColor.BLACK;
+			tooltipText.borderSize = 1;
+			tooltipText.borderStyle = OUTLINE;
+			tooltipText.size = 12;
+			tooltipText.font = Paths.font("vcr.ttf");
+			tooltipText.graphic.destroyOnNoUse = false;
+		}
 	}
 
 	override function draw() {
 		super.draw();
-		if(!FlxG.mouse.overlaps(this)){
+		if (!alive || !FlxG.mouse.overlaps(this)) {
 			return;
 		}
 		tooltipText.text = 'Name: $name\nPosition: $strumTime\nValue 1: $value1\nValue 2: $value2';
+		tooltipText.setPosition(FlxG.mouse.x + FlxG.mouse.cursor.width, FlxG.mouse.y);
 		tooltipText.draw();
 	}
+}
+
+private class TooltipText extends FlxText {
+	override inline function destroy() {}
 }

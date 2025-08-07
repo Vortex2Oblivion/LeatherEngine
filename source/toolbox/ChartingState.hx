@@ -1717,24 +1717,10 @@ class ChartingState extends MusicBeatState {
 
 		curRenderedNotes.clear();
 
-		curRenderedNotes.forEach(function(sprite:Note) {
-			sprite.kill();
-			sprite.destroy();
-		}, true);
-
 		curRenderedEvents.clear();
-
-		curRenderedEvents.forEach(function(sprite:EventSprite) {
-			sprite.kill();
-			sprite.destroy();
-		}, true);
 
 		curRenderedIds.clear();
 
-		curRenderedIds.forEach(function(sprite:FlxSprite) {
-			sprite.kill();
-			sprite.destroy();
-		}, true);
 
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
