@@ -10,6 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
  - Gamemode Client support for Linux
 
+### Fixed
+ - Chart editor event performance
+
+### Changed
+ - Chart editor tooltips for performance reasons.
+
 ## [1.0.6] - 8/3/25
 
 ### Added

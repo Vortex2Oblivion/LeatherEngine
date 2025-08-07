@@ -1,7 +1,5 @@
 package toolbox;
 
-import flixel.addons.ui.FlxUITooltip;
-import flixel.addons.ui.FlxUITooltipManager;
 import sys.io.File;
 import lime.ui.FileDialog;
 import game.SoundGroup;
@@ -140,11 +138,11 @@ class ChartingState extends MusicBeatState {
 
 		var characterList = CoolUtil.coolTextFile(Paths.txt('characterList'));
 
-		for (Text in characterList) {
-			var Properties = Text.split(":");
+		for (text in characterList) {
+			var properties = text.split(":");
 
-			var name = Properties[0];
-			var mod = Properties[1];
+			var name = properties[0];
+			var mod = properties[1];
 
 			var base_array;
 
@@ -182,8 +180,6 @@ class ChartingState extends MusicBeatState {
 
 		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
 		add(gridEventBlackLine);
-
-		tooltips = new FlxUITooltipManager(this);
 
 		curRenderedNotes = new FlxTypedGroup<Note>();
 		curRenderedEvents = new FlxTypedGroup<EventSprite>();
@@ -888,10 +884,7 @@ class ChartingState extends MusicBeatState {
 					curRenderedNotes.remove(curRenderedNotes.members[0], true);
 				}
 
-				tooltips.hideCurrent();
-				tooltips.clear();
 				while (curRenderedEvents.members.length > 0) {
-					tooltips.remove(curRenderedEvents.members[0]);
 					curRenderedEvents.remove(curRenderedEvents.members[0], true);
 				}
 
@@ -1304,8 +1297,6 @@ class ChartingState extends MusicBeatState {
 						if (FlxG.keys.pressed.CONTROL)
 							selectEvent(event);
 						else {
-							tooltips.hideCurrent();
-							tooltips.remove(event);
 							deleteEvent(event);
 						}
 					}
@@ -1446,14 +1437,10 @@ class ChartingState extends MusicBeatState {
 
 			if (FlxG.keys.pressed.SHIFT)
 				shiftThing = 4;
-			if ((controls.RIGHT_P) && !control){
-				tooltips.hideCurrent();
-				tooltips.clear();
+			if ((controls.RIGHT_P) && !control) {
 				changeSection(curSection + shiftThing);
 			}
-			if ((controls.LEFT_P) && !control){
-				tooltips.hideCurrent();
-				tooltips.clear();
+			if ((controls.LEFT_P) && !control) {
 				changeSection(curSection - shiftThing);
 			}
 
@@ -1555,7 +1542,6 @@ class ChartingState extends MusicBeatState {
 	}
 
 	function resetSection(songBeginning:Bool = false):Void {
-
 		FlxG.sound.music.pause();
 		vocals.pause();
 
@@ -1578,8 +1564,6 @@ class ChartingState extends MusicBeatState {
 		if (_song.notes[sec] != null) {
 			curSection = sec;
 
-			tooltips.hideCurrent();
-			tooltips.clear();
 			if (updateMusic) {
 				FlxG.sound.music.pause();
 				vocals.pause();
@@ -1731,23 +1715,19 @@ class ChartingState extends MusicBeatState {
 		if (strumLine != null)
 			strumLine.makeGraphic(Std.int(gridBG.width), 4);
 
-		tooltips.hideCurrent();
 		curRenderedNotes.clear();
 
 		curRenderedNotes.forEach(function(sprite:Note) {
 			sprite.kill();
 			sprite.destroy();
 		}, true);
-		
-		tooltips.clear();
-		
+
 		curRenderedEvents.clear();
-		
+
 		curRenderedEvents.forEach(function(sprite:EventSprite) {
 			sprite.kill();
 			sprite.destroy();
 		}, true);
-
 
 		curRenderedIds.clear();
 
@@ -1874,9 +1854,7 @@ class ChartingState extends MusicBeatState {
 		if (events.length >= 1) {
 			for (event in events) {
 				if (Std.int(event[1]) >= Std.int(sectionStartTime()) && Std.int(event[1]) < Std.int(sectionStartTime(curSection + 1))) {
-					var eventSprite:EventSprite = new EventSprite(event[1]);
-
-					eventSprite.loadGraphic(Paths.gpuBitmap("charter/eventSprite", "shared"));
+					var eventSprite:EventSprite = new EventSprite(event);
 
 					eventSprite.setGraphicSize(GRID_SIZE, GRID_SIZE);
 					eventSprite.updateHitbox();
@@ -1884,17 +1862,9 @@ class ChartingState extends MusicBeatState {
 					eventSprite.y = Math.floor(getYfromStrum((event[1] - sectionStartTime()) % (Conductor.stepCrochet * Conductor.stepsPerSection)));
 
 					curRenderedEvents.add(eventSprite);
-					tooltips.add(eventSprite, {
-						title: 'Name: ${event[0]}',
-						body: 'Value 1: ${event[2]}\nValue 2: ${event[3]}\nPosition: ${event[1]}',
-					});
 				}
 			}
 		}
-	}
-
-	override function onShowTooltip(t:FlxUITooltip) {
-		t.scrollFactor.set(1, 1);
 	}
 
 	var events:Array<Array<Dynamic>> = [];

@@ -131,9 +131,8 @@ class TitleState extends MusicBeatState {
 				}
 				#end
 
-				for (key in Options.saves.keys()) {
-					if (key != null)
-						Options.saves.get(key).close();
+				for (key in Options.saves) {
+					key?.close();
 				}
 			}, false, 100);
 			#end
