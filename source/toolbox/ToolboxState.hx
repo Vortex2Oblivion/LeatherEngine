@@ -30,7 +30,7 @@ class ToolboxState extends OptionsMenu {
 				new OpenUrlOption("Wiki", "Wiki", "https://github.com/Leather128/LeatherEngine/wiki", "View the Wiki."),
 				new OpenUrlOption("HScript Api", "HScript Api", "https://github.com/Vortex2Oblivion/LeatherEngine/wiki/HScript-api-documentation-(WIP)",
 					"View the HScript API."),
-				new OpenUrlOption("Lua Api", "Lua Api", "https://github.com/Vortex2Oblivion/LeatherEngine-Extended-Support/wiki/Lua-api-documentation-(WIP)",
+				new OpenUrlOption("Lua Api", "Lua Api", "https://github.com/Vortex2Oblivion/LeatherEngine/wiki/Lua-api-documentation-(WIP)",
 					"View the Lua API."),
 				new OpenUrlOption("Classes List", "Classes List", "https://vortex2oblivion.github.io/LeatherEngine/", "View the classes list."),
 				new OpenUrlOption("Polymod Docs", "Polymod Docs", "https://polymod.io/docs/", "View the Polymod docs.")
