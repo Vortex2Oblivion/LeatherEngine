@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
  - Option to toggle traced lines counter off.
+ - Lots of new crash dialogue toast messages.
 
 ### Changed
  - Info display now shows traced errors seperately. 

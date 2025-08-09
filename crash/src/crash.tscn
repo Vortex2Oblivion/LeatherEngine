@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://3fy0wk0ek2wl"]
 
-[ext_resource type="Script" path="res://src/crash.gd" id="1_gray3"]
-[ext_resource type="FontFile" uid="uid://slm2bct06tfv" path="res://assets/vcr.ttf" id="1_xsyi8"]
-[ext_resource type="Texture2D" uid="uid://dallg2eqtofye" path="res://icon.png" id="2_sbk0v"]
+[ext_resource type="Script" uid="uid://b5aowf00irb0t" path="res://src/crash.gd" id="1_gray3"]
+[ext_resource type="FontFile" uid="uid://lkxbifgf2nd8" path="res://assets/vcr.ttf" id="1_xsyi8"]
+[ext_resource type="Texture2D" uid="uid://vu44s63ge0xt" path="res://icon.png" id="2_sbk0v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qr3nq"]
 bg_color = Color(0, 0, 0, 0)

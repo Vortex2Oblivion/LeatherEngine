@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Leather Engine Crash"
 config/description="Crash Handler for Leather Engines"
-config/version="1.0.2"
+config/version="1.0.3"
 run/main_scene="res://src/crash.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
