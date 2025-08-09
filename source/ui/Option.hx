@@ -90,9 +90,9 @@ class BoolOption extends Option {
 		switch (optionValue) // extra special cases
 		{
 			case "fpsCounter":
-				Main.toggleFPS(optionChecked);
+				Main.display.showFPS = optionChecked;
 			case "memoryCounter":
-				Main.toggleMem(optionChecked);
+				Main.display.showMemory = optionChecked;
 			#if DISCORD_ALLOWED
 			case "discordRPC":
 				if (optionChecked && !DiscordClient.active) {
@@ -101,12 +101,13 @@ class BoolOption extends Option {
 				} else if (!optionChecked && DiscordClient.active)
 					DiscordClient.shutdown();
 			#end
+
 			case "versionDisplay":
-				Main.toggleVers(optionChecked);
-			case "developer":
-				Main.toggleLogs(optionChecked);
+				Main.display.showVersion = optionChecked;
+			case "showTracedLines":
+				Main.display.showTracedLines = optionChecked;
 			case "showCommitHash":
-				Main.toggleCommitHash(optionChecked);
+				Main.display.showCommitHash = optionChecked;
 			case "antialiasing":
 				for (member in FlxG.state.members) {
 					if (member is FlxSprite) {
@@ -195,7 +196,6 @@ class GameStateOption extends Option {
 }
 
 class CharacterCreatorOption extends GameStateOption {
-
 	public function new(optionName:String = "", gameState:EitherType<NextState, Class<FlxState>>, optionDescription:String = "") {
 		super(optionName, gameState, optionDescription);
 		toolbox.CharacterCreator.lastState = "OptionsMenu";
@@ -242,7 +242,7 @@ class ModOption extends FlxSpriteContainer {
 		if (FlxG.keys.justPressed.ENTER && alphabetText.targetY == 0) {
 			if (optionValue == Options.getData("curMod")) {
 				CoolUtil.coolError("Leather Engine Mods", optionValue + " is your current mod\nPlease switch to a different mod to disable it!");
-				FlxTween.color(this, 1, 0xFFFF0000, 0xFFFFFFFF, {ease: FlxEase.quartOut});	
+				FlxTween.color(this, 1, 0xFFFF0000, 0xFFFFFFFF, {ease: FlxEase.quartOut});
 			} else {
 				modEnabled = !modEnabled;
 				ModList.setModEnabled(optionValue, modEnabled);

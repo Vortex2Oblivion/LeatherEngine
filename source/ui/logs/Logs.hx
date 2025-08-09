@@ -17,6 +17,8 @@ class Logs extends Sprite {
 
 	public static var instance:Logs = null;
 
+	public static var errors(default, null) = 0;
+
 	public var texts:Map<PrintType, LogPrint> = [
 		PrintType.LOG => new LogPrint("LOG", FlxColor.CYAN),
 		PrintType.WARNING => new LogPrint("WARNING", FlxColor.YELLOW),
@@ -49,6 +51,7 @@ class Logs extends Sprite {
 		else if (FlxG.keys.justPressed.F4) {
 			logs = [];
 			logText.text = '';
+			errors = 0;
 		}
 	}
 
@@ -76,6 +79,7 @@ class Logs extends Sprite {
 	public static inline function error(message:Dynamic) {
 		if (Logs.instance != null)
 			Logs.instance.addLog(message, PrintType.ERROR);
+		errors ++;
 		if (LogStyle.ERROR.throwException) {
 			throw message;
 		}

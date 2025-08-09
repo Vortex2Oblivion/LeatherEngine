@@ -1,5 +1,6 @@
 package ui;
 
+import ui.logs.Logs;
 import openfl.events.Event;
 import flixel.math.FlxMath;
 import lime.system.System;
@@ -17,15 +18,18 @@ import haxe.macro.Compiler;
  * Shows basic info about the game.
  */
 class SimpleInfoDisplay extends TextField {
-	//                                      fps    mem   version console info
-	public var infoDisplayed:Array<Bool> = [false, false, false, false];
+	public var framerate(default, null):Int = 0;
 
-	public var framerate:Int = 0;
-
-	private var framerateTimer:Float = 0.0;
-	private var framesCounted:Int = 0;
+	private var framerateTimer(default, null):Float = 0.0;
+	private var framesCounted(default, null):Int = 0;
 
 	public var version:String = CoolUtil.getCurrentVersion();
+
+	public var showFPS:Bool = false;
+	public var showMemory:Bool = false;
+	public var showVersion:Bool = false;
+	public var showTracedLines:Bool = false;
+	public var showCommitHash:Bool = false;
 
 	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String) {
 		super();
@@ -67,23 +71,31 @@ class SimpleInfoDisplay extends TextField {
 		}
 
 		text = '';
-		for (i in 0...infoDisplayed.length) {
-			if (!infoDisplayed[i]) {
-				continue;
+		if (showFPS) {
+			text += '${framerate}fps\n';
+		}
+		if (showMemory) {
+			text += '${FlxStringUtil.formatBytes(Memory.getCurrentUsage())} / ${FlxStringUtil.formatBytes(Memory.getPeakUsage())}\n';
+		}
+		if (showVersion) {
+			text += '$version\n';
+		}
+		if (showTracedLines && Options.getData("developer")) {
+			var textToAppend:String = '';
+			var showLogs:Bool = Main.logsOverlay.logs.length > 0;
+			if (showLogs) {
+				textToAppend += '${Main.logsOverlay.logs.length} traced lines';
 			}
-
-			switch (i) {
-				case 0: // FPS
-					text += '${framerate}fps\n';
-				case 1: // Memory
-					text += '${FlxStringUtil.formatBytes(Memory.getCurrentUsage())} / ${FlxStringUtil.formatBytes(Memory.getPeakUsage())}\n';
-				case 2: // Version
-					text += '$version\n';
-				case 3: // Console
-					text += Main.logsOverlay.logs.length > 0 ? '${Main.logsOverlay.logs.length} traced lines. F3 to view.\n' : '';
-				case 4:
-					text += 'Commit ${GithubCommitHash.getGitCommitHash().substring(0, 7)}';
+			if (Logs.errors > 0) {
+				textToAppend += ' | ${Logs.errors} errors';
 			}
+			if (showLogs) {
+				textToAppend += '. Press F3 to view.\n';
+			}
+			text += textToAppend;
+		}
+		if (showCommitHash) {
+			text += 'Commit ${GithubCommitHash.getGitCommitHash().substring(0, 7)}';
 		}
 	}
 }

@@ -1,353 +1,357 @@
 {
-  "options": [
-    {
-      "option": "enemyStrumsGlow",
-      "value": true
-    },
-    {
-      "option": "fpsCounter",
-      "value": true
-    },
-    {
-      "option": "memoryCounter",
-      "value": true
-    },
-    {
-      "option": "versionDisplay",
-      "value": true
-    },
-    {
-      "option": "showCommitHash",
-      "value": false
-    },
-    {
-      "option": "uiSkin",
-      "value": "default"
-    },
-    {
-      "option": "displayMs",
-      "value": true
-    },
-    {
-      "option": "downscroll",
-      "value": false
-    },
-    {
-      "option": "middlescroll",
-      "value": false
-    },
-    {
-      "option": "nightMusic",
-      "value": false
-    },
-    {
-      "option": "songOffset",
-      "value": 0
-    },
-    {
-      "option": "discordRPC",
-      "value": true
-    },
-    {
-      "option": "quickRestart",
-      "value": false
-    },
-    {
-      "option": "maxFPS",
-      "value": 120
-    },
-    {
-      "option": "vSync",
-      "value": false
-    },
-    {
-      "option": "cutscenePlaysOn",
-      "value": "story"
-    },
-    {
-      "option": "antialiasing",
-      "value": true
-    },
-    {
-      "option": "lowQuality",
-      "value": false
-    },
-    {
-      "option": "healthIcons",
-      "value": true
-    },
-    {
-      "option": "charsAndBGs",
-      "value": true
-    },
-    {
-      "option": "menuBGs",
-      "value": true
-    },
-    {
-      "option": "noHit",
-      "value": false
-    },
-    {
-      "option": "infoDisplayFont",
-      "value": "_sans"
-    },
-    {
-      "option": "ghostTapping",
-      "value": true
-    },
-    {
-      "option": "inputSystem",
-      "value": "standard"
-    },
-    {
-      "option": "judgementTimings",
-      "value": [
-        25,
-        50,
-        70,
-        100
-      ]
-    },
-    {
-      "option": "antiMash",
-      "value": true
-    },
-    {
-      "option": "marvelousRatings",
-      "value": true
-    },
-    {
-      "option": "ratingType",
-      "value": "complex"
-    },
-    {
-      "option": "sideRatings",
-      "value": true
-    },
-    {
-      "option": "noteBGAlpha",
-      "value": 0
-    },
-    {
-      "option": "noDeath",
-      "value": false
-    },
-    {
-      "option": "missOnHeldNotes",
-      "value": true
-    },
-    {
-      "option": "extraKeyReminders",
-      "value": true
-    },
-    {
-      "option": "playAs",
-      "value": "bf"
-    },
-    {
-      "option": "useCustomScrollSpeed",
-      "value": false
-    },
-    {
-      "option": "customScrollSpeed",
-      "value": 1
-    },
-    {
-      "option": "hitsound",
-      "value": "none"
-    },
-    {
-      "option": "cameraTracksDirections",
-      "value": false
-    },
-    {
-      "option": "cameraZooms",
-      "value": true
-    },
-    {
-      "option": "missOnShit",
-      "value": true
-    },
-    {
-      "option": "playerNoteSplashes",
-      "value": true
-    },
-    {
-      "option": "opponentNoteSplashes",
-      "value": false
-    },
-    {
-      "option": "biggerScoreInfo",
-      "value": false
-    },
-    {
-      "option": "biggerInfoText",
-      "value": false
-    },
-    {
-      "option": "botplay",
-      "value": false
-    },
-    {
-      "option": "resetButton",
-      "value": false
-    },
-    {
-      "option": "freeplayMusic",
-      "value": false
-    },
-    {
-      "option": "disableDebugMenus",
-      "value": false
-    },
-    {
-      "option": "invisibleNotes",
-      "value": false
-    },
-    {
-      "option": "optimizedChars",
-      "value": false
-    },
-    {
-      "option": "animatedBGs",
-      "value": true
-    },
-    {
-      "option": "preloadChangeBGs",
-      "value": true
-    },
-    {
-      "option": "screenShakes",
-      "value": true
-    },
-    {
-      "option": "autoPause",
-      "value": true
-    },
-    {
-      "option": "timeBarStyle",
-      "value": "leather engine"
-    },
-    {
-      "option": "loadAsynchronously",
-      "value": false
-    },
-    {
-      "option": "memoryLeaks",
-      "value": false
-    },
-    {
-      "option": "vramSprites",
-      "value": true
-    },
-    {
-      "option": "flixelStartupScreen",
-      "value": false
-    },
-    {
-      "option": "skipResultsScreen",
-      "value": false
-    },
-    {
-      "option": "healthBar",
-      "value": true
-    },
-    {
-      "option": "ratingsAndCombo",
-      "value": true
-    },
-    {
-      "option": "showScore",
-      "value": true
-    },
-    {
-      "option": "fullscreenBind",
-      "value": "F11",
-      "save": "binds"
-    },
-    {
-      "option": "kill",
-      "value": "R",
-      "save": "binds"
-    },
-    {
-      "option": "pauseBind",
-      "value": "ENTER",
-      "save": "binds"
-    },
-    {
-      "option": "save",
-      "value": "{}",
-      "save": "autosave"
-    },
-    {
-      "option": "backupDuration",
-      "value": 5
-    },
-    {
-      "option": "shaders",
-      "value": true
-    },
-    {
-      "option": "dinnerbone",
-      "value": false
-    },
-    {
-      "option": "colorQuantization",
-      "value": false
-    },
-    {
-      "option": "developer",
-      "value": false
-    },
-    {
-      "option": "curMod",
-      "value": "Friday Night Funkin'"
-    },
-    {
-      "option": "optimizedModcharts",
-      "value": false
-    },
-    {
-      "option": "ratingsOffset",
-      "value": [
-        0,
-        0
-      ]
-    },
-    {
-      "option": "accuracyTextOffset",
-      "value": [
-        0,
-        0
-      ]
-    },
-    {
-      "option": "comboOffset",
-      "value": [
-        0,
-        0
-      ]
-    },
-    {
-      "option": "ratingTextOffset",
-      "value": [
-        0,
-        0
-      ]
-    },
-    {
-      "option": "ratingTextAlign",
-      "value": "left"
-    },
-    {
-      "option": "checkForUpdates",
-      "value": true
-    },
-    {
-      "option": "autoOpenCharter",
-      "value": false
-    }
-  ]
+	"options": [
+		{
+			"option": "enemyStrumsGlow",
+			"value": true
+		},
+		{
+			"option": "fpsCounter",
+			"value": true
+		},
+		{
+			"option": "memoryCounter",
+			"value": true
+		},
+		{
+			"option": "versionDisplay",
+			"value": true
+		},
+		{
+			"option": "showCommitHash",
+			"value": false
+		},
+		{
+			"option": "uiSkin",
+			"value": "default"
+		},
+		{
+			"option": "displayMs",
+			"value": true
+		},
+		{
+			"option": "downscroll",
+			"value": false
+		},
+		{
+			"option": "middlescroll",
+			"value": false
+		},
+		{
+			"option": "nightMusic",
+			"value": false
+		},
+		{
+			"option": "songOffset",
+			"value": 0
+		},
+		{
+			"option": "discordRPC",
+			"value": true
+		},
+		{
+			"option": "quickRestart",
+			"value": false
+		},
+		{
+			"option": "maxFPS",
+			"value": 120
+		},
+		{
+			"option": "vSync",
+			"value": false
+		},
+		{
+			"option": "cutscenePlaysOn",
+			"value": "story"
+		},
+		{
+			"option": "antialiasing",
+			"value": true
+		},
+		{
+			"option": "lowQuality",
+			"value": false
+		},
+		{
+			"option": "healthIcons",
+			"value": true
+		},
+		{
+			"option": "charsAndBGs",
+			"value": true
+		},
+		{
+			"option": "menuBGs",
+			"value": true
+		},
+		{
+			"option": "noHit",
+			"value": false
+		},
+		{
+			"option": "infoDisplayFont",
+			"value": "_sans"
+		},
+		{
+			"option": "ghostTapping",
+			"value": true
+		},
+		{
+			"option": "inputSystem",
+			"value": "standard"
+		},
+		{
+			"option": "judgementTimings",
+			"value": [
+				25,
+				50,
+				70,
+				100
+			]
+		},
+		{
+			"option": "antiMash",
+			"value": true
+		},
+		{
+			"option": "marvelousRatings",
+			"value": true
+		},
+		{
+			"option": "ratingType",
+			"value": "complex"
+		},
+		{
+			"option": "sideRatings",
+			"value": true
+		},
+		{
+			"option": "noteBGAlpha",
+			"value": 0
+		},
+		{
+			"option": "noDeath",
+			"value": false
+		},
+		{
+			"option": "missOnHeldNotes",
+			"value": true
+		},
+		{
+			"option": "extraKeyReminders",
+			"value": true
+		},
+		{
+			"option": "playAs",
+			"value": "bf"
+		},
+		{
+			"option": "useCustomScrollSpeed",
+			"value": false
+		},
+		{
+			"option": "customScrollSpeed",
+			"value": 1
+		},
+		{
+			"option": "hitsound",
+			"value": "none"
+		},
+		{
+			"option": "cameraTracksDirections",
+			"value": false
+		},
+		{
+			"option": "cameraZooms",
+			"value": true
+		},
+		{
+			"option": "missOnShit",
+			"value": true
+		},
+		{
+			"option": "playerNoteSplashes",
+			"value": true
+		},
+		{
+			"option": "opponentNoteSplashes",
+			"value": false
+		},
+		{
+			"option": "biggerScoreInfo",
+			"value": false
+		},
+		{
+			"option": "biggerInfoText",
+			"value": false
+		},
+		{
+			"option": "botplay",
+			"value": false
+		},
+		{
+			"option": "resetButton",
+			"value": false
+		},
+		{
+			"option": "freeplayMusic",
+			"value": false
+		},
+		{
+			"option": "disableDebugMenus",
+			"value": false
+		},
+		{
+			"option": "invisibleNotes",
+			"value": false
+		},
+		{
+			"option": "optimizedChars",
+			"value": false
+		},
+		{
+			"option": "animatedBGs",
+			"value": true
+		},
+		{
+			"option": "preloadChangeBGs",
+			"value": true
+		},
+		{
+			"option": "screenShakes",
+			"value": true
+		},
+		{
+			"option": "autoPause",
+			"value": true
+		},
+		{
+			"option": "timeBarStyle",
+			"value": "leather engine"
+		},
+		{
+			"option": "loadAsynchronously",
+			"value": false
+		},
+		{
+			"option": "memoryLeaks",
+			"value": false
+		},
+		{
+			"option": "vramSprites",
+			"value": true
+		},
+		{
+			"option": "flixelStartupScreen",
+			"value": false
+		},
+		{
+			"option": "skipResultsScreen",
+			"value": false
+		},
+		{
+			"option": "healthBar",
+			"value": true
+		},
+		{
+			"option": "ratingsAndCombo",
+			"value": true
+		},
+		{
+			"option": "showScore",
+			"value": true
+		},
+		{
+			"option": "fullscreenBind",
+			"value": "F11",
+			"save": "binds"
+		},
+		{
+			"option": "kill",
+			"value": "R",
+			"save": "binds"
+		},
+		{
+			"option": "pauseBind",
+			"value": "ENTER",
+			"save": "binds"
+		},
+		{
+			"option": "save",
+			"value": "{}",
+			"save": "autosave"
+		},
+		{
+			"option": "backupDuration",
+			"value": 5
+		},
+		{
+			"option": "shaders",
+			"value": true
+		},
+		{
+			"option": "dinnerbone",
+			"value": false
+		},
+		{
+			"option": "colorQuantization",
+			"value": false
+		},
+		{
+			"option": "developer",
+			"value": false
+		},
+		{
+			"option": "showTracedLines",
+			"value": true
+		},
+		{
+			"option": "curMod",
+			"value": "Friday Night Funkin'"
+		},
+		{
+			"option": "optimizedModcharts",
+			"value": false
+		},
+		{
+			"option": "ratingsOffset",
+			"value": [
+				0,
+				0
+			]
+		},
+		{
+			"option": "accuracyTextOffset",
+			"value": [
+				0,
+				0
+			]
+		},
+		{
+			"option": "comboOffset",
+			"value": [
+				0,
+				0
+			]
+		},
+		{
+			"option": "ratingTextOffset",
+			"value": [
+				0,
+				0
+			]
+		},
+		{
+			"option": "ratingTextAlign",
+			"value": "left"
+		},
+		{
+			"option": "checkForUpdates",
+			"value": true
+		},
+		{
+			"option": "autoOpenCharter",
+			"value": false
+		}
+	]
 }

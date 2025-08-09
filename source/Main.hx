@@ -44,7 +44,7 @@ class Main extends Sprite {
 		if (GamemodeClient.request_start() != 0) {
 			Sys.println('Failed to request gamemode start: ${GamemodeClient.error_string()}...');
 			System.exit(1);
-		} else{
+		} else {
 			Sys.println('Succesfully requested gamemode to start...');
 		}
 		#end
@@ -139,26 +139,6 @@ class Main extends Sprite {
 			sprite.__cacheBitmap = null;
 			sprite.__cacheBitmapData = null;
 		}
-	}
-
-	public static inline function toggleFPS(fpsEnabled:Bool):Void {
-		display.infoDisplayed[0] = fpsEnabled;
-	}
-
-	public static inline function toggleMem(memEnabled:Bool):Void {
-		display.infoDisplayed[1] = memEnabled;
-	}
-
-	public static inline function toggleVers(versEnabled:Bool):Void {
-		display.infoDisplayed[2] = versEnabled;
-	}
-
-	public static inline function toggleLogs(logsEnabled:Bool):Void {
-		display.infoDisplayed[3] = logsEnabled;
-	}
-
-	public static inline function toggleCommitHash(commitHashEnabled:Bool):Void {
-		display.infoDisplayed[4] = commitHashEnabled;
 	}
 
 	public static inline function changeFont(font:String):Void {

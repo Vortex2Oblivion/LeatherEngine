@@ -159,6 +159,8 @@ class OptionsMenu extends MusicBeatState {
 		"Developer Options" => [
 			new PageOption("Back", "Categories", "Go back to the main menu."),
 			new BoolOption("Developer Mode", "developer", "When toggled, enables developer tools.\n(traced lines display, toolbox, etc)"),
+			new DeveloperOption("Show Traced Lines", "showTracedLines",
+				"When toggled, the info display will show the\nnumber of traced lines and errors by the game"),
 			new DeveloperOption("Throw Exception On Error", "throwExceptionOnError",
 				"When toggled, the game will throw an\nexception when an error is thrown."),
 			new DeveloperOption("Auto Open Charter", "autoOpenCharter",

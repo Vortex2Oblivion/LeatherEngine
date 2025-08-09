@@ -182,12 +182,13 @@ class TitleState extends MusicBeatState {
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 
-			Main.toggleFPS(Options.getData("fpsCounter"));
-			Main.toggleMem(Options.getData("memoryCounter"));
-			Main.toggleVers(Options.getData("versionDisplay"));
-			Main.toggleLogs(Options.getData("developer"));
+			Main.display.showFPS = Options.getData("fpsCounter");
+			Main.display.showMemory = Options.getData("memoryCounter");
+			Main.display.showVersion = Options.getData("versionDisplay");
+			Main.display.showTracedLines = Options.getData("showTracedLines");
+			Main.display.showCommitHash = Options.getData("showCommitHash");
+
 			Main.changeFont(Options.getData("infoDisplayFont"));
-			Main.toggleCommitHash(Options.getData("showCommitHash"));
 
 			call("startIntroPost");
 		}
