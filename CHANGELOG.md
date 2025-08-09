@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
  - Info display now shows traced errors seperately. 
+ - VSlice results screen back into the old results screen.
 
 ## [1.0.7] - 8/7/25
 

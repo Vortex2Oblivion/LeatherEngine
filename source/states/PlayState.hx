@@ -1,10 +1,10 @@
 package states;
 
+import game.Replay;
 import game.CharacterPlayingAs;
 import modding.helpers.FlxTweenUtil;
 import haxe.Json;
 import substates.ResultsSubstate;
-import substates.ResultsSubstate.SaveScoreData;
 import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -587,10 +587,13 @@ class PlayState extends MusicBeatState {
 	 */
 	var tweenManager:FlxTweenManager;
 
+	var replay:Replay;
+
 	override function create() {
 		// set instance because duh
 		instance = this;
 		tweenManager = new FlxTweenManager();
+		replay = new Replay();
 
 		FlxG.mouse.visible = false;
 
@@ -2658,16 +2661,10 @@ class PlayState extends MusicBeatState {
 						box.zIndex = FlxMath.MAX_VALUE_INT;
 						startDialogue(box, true);
 					default:
-						persistentUpdate = false;
-						persistentDraw = true;
-						paused = true;
-						moveToResultsScreen();
+						moveToResultsScreen(true);
 				}
 			} else {
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-				moveToResultsScreen();
+				moveToResultsScreen(true);
 			}
 		}
 	}
@@ -2757,13 +2754,14 @@ class PlayState extends MusicBeatState {
 	var uiMap:Map<String, FlxGraphicAsset> = [];
 
 	function popUpScore(strumtime:Float, noteData:Int, ?setNoteDiff:Float):Void {
-		var noteDiff:Float = (strumtime - Conductor.songPosition);
+		var noteDiff:Null<Float> = (strumtime - Conductor.songPosition);
 
 		if (Options.getData("botplay"))
 			noteDiff = 0;
 
-		if (setNoteDiff != null)
-			noteDiff = setNoteDiff;
+		noteDiff ??= setNoteDiff;
+
+		replay.recordKeyHit(strumtime, noteDiff);
 
 		if (vocals != null)
 			vocals.volume = 1;
@@ -3638,40 +3636,19 @@ class PlayState extends MusicBeatState {
 	}
 
 	/**
-		 * Move to the results screen right goddamn now.
-		 */
-	function moveToResultsScreen(?prevScoreData:SaveScoreData):Void {
-		var isNewHighscore:Bool = (SONG.validScore) ? (isStoryMode ? campaignScore >= Highscore.getWeekScore(storyWeek, storyDifficultyStr,
-			(groupWeek != "" ? groupWeek + "Week" : "week") + Std.string(storyWeek)) : songScore >= Highscore.getScore(SONG.song, storyDifficultyStr)) : false;
-		persistentUpdate = false;
-		vocals.stop();
-		camHUD.alpha = 1;
+	 * Move to the results screen right goddamn now.
+	 * @param pause Should the game pause?
+	 */
+	function moveToResultsScreen(pause:Bool = false):Void {
+		call("onResults", [pause]);
+		if (pause) {
+			persistentUpdate = false;
+			persistentDraw = true;
+			paused = true;
+		}
+		vocals?.stop();
 
-		var res:ResultsSubstate = new ResultsSubstate({
-			storyMode: isStoryMode,
-			difficultyId: storyDifficultyStr.toLowerCase(),
-			title: isStoryMode ? ('${campaignTitle}') : ('${SONG.song}'),
-			prevScoreData: prevScoreData,
-			scoreData: {
-				score: isStoryMode ? campaignScore : songScore,
-				tallies: {sick: ratings.get("marvelous") + ratings.get("sick"),
-					good: ratings.get("good"),
-					bad: ratings.get("bad"),
-					shit: ratings.get("shit"),
-					missed: misses,
-					combo: combo,
-					maxCombo: maxCombo,
-					totalNotesHit: ratings.get("marvelous")
-					+ ratings.get("sick")
-					+ ratings.get("good")
-					+ ratings.get("bad")
-					+ ratings.get("shit"),
-					totalNotes: totalNotes,
-				},
-			},
-			isNewHighscore: isNewHighscore
-		});
-		this.persistentDraw = false;
+		var res:ResultsSubstate = new ResultsSubstate(replay);
 		PlayState.chartingMode = false;
 		openSubState(res);
 	}

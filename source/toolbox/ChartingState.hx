@@ -111,8 +111,8 @@ class ChartingState extends MusicBeatState {
 
 	var zoomLevel:Float = 1;
 
-	var min_zoom:Float = 0.5;
-	var max_zoom:Float = 16;
+	var MIN_ZOOM:Float = 0.5;
+	var MAX_ZOOM:Float = 16;
 
 	var menuBG:FlxSprite;
 
@@ -1353,10 +1353,10 @@ class ChartingState extends MusicBeatState {
 				zoomLevel /= 2;
 
 			if (FlxG.keys.justPressed.X || FlxG.keys.justPressed.Z) {
-				if (zoomLevel < min_zoom)
-					zoomLevel = min_zoom;
-				if (zoomLevel > max_zoom)
-					zoomLevel = max_zoom;
+				if (zoomLevel < MIN_ZOOM)
+					zoomLevel = MIN_ZOOM;
+				if (zoomLevel > MAX_ZOOM)
+					zoomLevel = MAX_ZOOM;
 
 				updateGrid();
 			}
@@ -1720,7 +1720,6 @@ class ChartingState extends MusicBeatState {
 		curRenderedEvents.clear();
 
 		curRenderedIds.clear();
-
 
 		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
 
