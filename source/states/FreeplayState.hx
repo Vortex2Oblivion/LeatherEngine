@@ -525,6 +525,7 @@ class FreeplayState extends MusicBeatState {
 		colorTween?.cancel();
 
 		PlayState.loadChartEvents = true;
+		PlayState.chartingMode = false;
 		destroyFreeplayVocals();
 		FlxG.switchState(() -> new PlayState());
 	}

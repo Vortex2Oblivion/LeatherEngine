@@ -84,8 +84,7 @@ class StoryMenuState extends MusicBeatState {
 		}
 		#end
 
-		if(currentGroup != null){
-
+		if (currentGroup != null) {
 			lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, 0.5));
 
 			weekScoreText.text = "WEEK SCORE:" + lerpScore;
@@ -123,8 +122,8 @@ class StoryMenuState extends MusicBeatState {
 						changeGroup(-1);
 
 					if (controls.RESET) {
-						openSubState(new ResetScoreSubstate("nonelolthisisweekslmao", curDifficulties[curDifficulty][0], curWeek, currentGroup.pathName + "Week",
-							true));
+						openSubState(new ResetScoreSubstate("nonelolthisisweekslmao", curDifficulties[curDifficulty][0], curWeek,
+							currentGroup.pathName + "Week", true));
 						changeWeek();
 					}
 				}
@@ -163,7 +162,7 @@ class StoryMenuState extends MusicBeatState {
 		weekTitleText.alpha = 0.7;
 
 		yellowBG = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, FlxColor.WHITE);
-		if(currentGroup == null){
+		if (currentGroup == null) {
 			var text:FlxText = new FlxText();
 			text.text = "This mod has no weeks!";
 			text.font = Paths.font("vcr.ttf");
@@ -178,7 +177,6 @@ class StoryMenuState extends MusicBeatState {
 		bgSprite.visible = false;
 
 		menuCharacters = new FlxTypedGroup<MenuCharacter>();
-
 
 		addWeekCharacters();
 
@@ -323,6 +321,8 @@ class StoryMenuState extends MusicBeatState {
 
 			new FlxTimer().start(1, function(tmr:FlxTimer) {
 				PlayState.loadChartEvents = true;
+				PlayState.chartingMode = false;
+
 				LoadingState.loadAndSwitchState(() -> new PlayState());
 			});
 		} else if (!CoolUtil.songExists(song_name, dif))
@@ -367,7 +367,7 @@ class StoryMenuState extends MusicBeatState {
 	var intendedScore:Int = 0;
 
 	function changeWeek(change:Int = 0):Void {
-		if(currentGroup == null){
+		if (currentGroup == null) {
 			return;
 		}
 		curWeek = FlxMath.wrap(curWeek + change, 0, currentGroup.weeks.length - 1);
@@ -476,19 +476,20 @@ class StoryMenuState extends MusicBeatState {
 		} else
 			trace('Tried to load json ${Paths.json("week data/" + name)} that doesn\'t exist!', ERROR);
 	}
+
 	public var initWeekList:Array<String>;
+
 	function loadGroups():Void {
-		#if MODDING_ALLOWED 
-		if(sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/data/storyWeekList.txt")){
+		#if MODDING_ALLOWED
+		if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/data/storyWeekList.txt")) {
 			initWeekList = CoolUtil.coolTextFileSys("mods/" + Options.getData("curMod") + "/data/storyWeekList.txt");
-		}
-		else if(sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/_append/data/storyWeekList.txt")){
+		} else if (sys.FileSystem.exists("mods/" + Options.getData("curMod") + "/_append/data/storyWeekList.txt")) {
 			initWeekList = CoolUtil.coolTextFileSys("mods/" + Options.getData("curMod") + "/_append/data/storyWeekList.txt");
 		}
 		#else
 		initWeekList = CoolUtil.coolTextFile(Paths.txt('storyWeekList'));
 		#end
-		if(initWeekList != null){
+		if (initWeekList != null) {
 			for (week in initWeekList)
 				loadJSON(week);
 		}

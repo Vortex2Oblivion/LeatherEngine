@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Option to toggle traced lines counter off.
 - Lots of new crash dialogue toast messages.
+- Chart editor now remembers the last section you were in.
 
 ### Changed
 
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Change Camera Zoom Strength 2nd argument being linked to the first.
+- Chart editor not loading the proper section when playing song times.
 
 ### Removed
 

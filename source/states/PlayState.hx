@@ -597,6 +597,10 @@ class PlayState extends MusicBeatState {
 
 		FlxG.mouse.visible = false;
 
+		if (!chartingMode) {
+			ChartingState.globalSecton = 0;
+		}
+
 		// preload pause music
 		new FlxSound().loadEmbedded(Paths.music('breakfast'));
 
@@ -2304,8 +2308,12 @@ class PlayState extends MusicBeatState {
 								note.x = coolStrum.x + prevPlayerXVals.get(arrayVal) - note.xOffset;
 						}
 
-						if (note != null && coolStrum != null && coolStrum.alpha != 1) {
-							note.alpha = coolStrum.alpha;
+						if (coolStrum != null && coolStrum.alpha != 1 && note != null) {
+							if (note.isSustainNote) {
+								note.alpha = 0.6 * coolStrum.alpha;
+							} else {
+								note.alpha = coolStrum.alpha;
+							}
 						}
 
 						if (note != null && coolStrum != null && !note.isSustainNote) {
@@ -2346,8 +2354,13 @@ class PlayState extends MusicBeatState {
 								note.x = coolStrum.x + prevEnemyXVals.get(arrayVal) - note.xOffset;
 						}
 
-						if (coolStrum != null && coolStrum.alpha != 1 && note != null)
-							note.alpha = coolStrum.alpha;
+						if (coolStrum != null && coolStrum.alpha != 1 && note != null) {
+							if (note.isSustainNote) {
+								note.alpha = 0.6 * coolStrum.alpha;
+							} else {
+								note.alpha = coolStrum.alpha;
+							}
+						}
 
 						if (note != null && coolStrum != null && !note.isSustainNote) {
 							note.modAngle = coolStrum.angle;
@@ -2417,15 +2430,7 @@ class PlayState extends MusicBeatState {
 
 		if (!Options.getData("disableDebugMenus")) {
 			if (FlxG.keys.justPressed.SEVEN && !switchedStates && !inCutscene) {
-				PlayState.chartingMode = true;
-				switchedStates = true;
-				vocals.stop();
-				SONG.keyCount = ogKeyCount;
-				SONG.playerKeyCount = ogPlayerKeyCount;
-				FlxG.switchState(() -> new ChartingState());
-				#if DISCORD_ALLOWED
-				DiscordClient.changePresence("Chart Editor", null, null, true);
-				#end
+				openChartEditor();
 			}
 
 			// #if debug
@@ -2543,6 +2548,9 @@ class PlayState extends MusicBeatState {
 	override function destroy() {
 		call("onDestroy", []);
 		closeScripts();
+		if (!chartingMode) {
+			ChartingState.globalSecton = 0;
+		}
 		FlxG.camera.bgColor = FlxColor.BLACK;
 		super.destroy();
 	}
@@ -2669,7 +2677,23 @@ class PlayState extends MusicBeatState {
 		}
 	}
 
+	function openChartEditor():Void {
+		PlayState.chartingMode = true;
+		switchedStates = true;
+		vocals.stop();
+		SONG.keyCount = ogKeyCount;
+		SONG.playerKeyCount = ogPlayerKeyCount;
+		FlxG.switchState(() -> new ChartingState());
+		#if DISCORD_ALLOWED
+		DiscordClient.changePresence("Chart Editor", null, null, true);
+		#end
+	}
+
 	function finishSongStuffs() {
+		if (chartingMode) {
+			openChartEditor();
+			return;
+		}
 		if (isStoryMode) {
 			campaignScore += songScore;
 
@@ -3636,9 +3660,9 @@ class PlayState extends MusicBeatState {
 	}
 
 	/**
-	 * Move to the results screen right goddamn now.
-	 * @param pause Should the game pause?
-	 */
+		 * Move to the results screen right goddamn now.
+		 * @param pause Should the game pause?
+		 */
 	function moveToResultsScreen(pause:Bool = false):Void {
 		call("onResults", [pause]);
 		if (pause) {
@@ -3649,7 +3673,6 @@ class PlayState extends MusicBeatState {
 		vocals?.stop();
 
 		var res:ResultsSubstate = new ResultsSubstate(replay);
-		PlayState.chartingMode = false;
 		openSubState(res);
 	}
 

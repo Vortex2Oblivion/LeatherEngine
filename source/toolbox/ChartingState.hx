@@ -118,6 +118,8 @@ class ChartingState extends MusicBeatState {
 
 	var colorQuantization:Bool;
 
+	static var globalSecton:Int = 0;
+
 	override function create() {
 		#if NO_PRELOAD_ALL
 		// FOR WHEN COMING IN FROM THE TOOLS PAGE LOL
@@ -263,6 +265,8 @@ class ChartingState extends MusicBeatState {
 		addEventUI();
 		updateHeads();
 		updateGrid();
+
+		changeSection(globalSecton);
 
 		new FlxTimer().start(Options.getData("backupDuration") * 60, _backup, 0);
 
@@ -1330,6 +1334,7 @@ class ChartingState extends MusicBeatState {
 		if (!blockInput) {
 			if (FlxG.keys.justPressed.ENTER) {
 				_song.events = events;
+				globalSecton = curSection;
 				PlayState.SONG = _song;
 				FlxG.sound.music.stop();
 				vocals.stop();
@@ -1380,8 +1385,10 @@ class ChartingState extends MusicBeatState {
 					FlxG.sound.music.pause();
 					vocals.pause();
 				} else {
+					var oldtime:Float = FlxG.sound.music.time;
 					vocals.play();
 					FlxG.sound.music.play();
+					Conductor.songPosition = vocals.time = FlxG.sound.music.time = oldtime;
 				}
 			}
 
@@ -1568,8 +1575,7 @@ class ChartingState extends MusicBeatState {
 				FlxG.sound.music.pause();
 				vocals.pause();
 
-				FlxG.sound.music.time = sectionStartTime();
-				vocals.time = FlxG.sound.music.time;
+				Conductor.songPosition = FlxG.sound.music.time = vocals.time = sectionStartTime(sec);
 				updateCurStep();
 			}
 
