@@ -3,8 +3,6 @@ package game;
 import modding.scripts.languages.LuaScript;
 import utilities.NoteVariables;
 import game.TimeBar;
-import flixel.graphics.FlxGraphic;
-import openfl.utils.Assets;
 import flixel.tweens.FlxTween;
 import flixel.FlxCamera;
 import states.PlayState;
@@ -158,13 +156,12 @@ class EventHandler {
 			case "change camera zoom strength":
 				var strength:Float = Std.parseFloat(event[2]);
 				if (Math.isNaN(strength))
-					game.speed = 1;
+					strength = 1;
 				game.cameraZoomStrength = strength;
-
-				var speed:Float = Std.parseFloat(event[2]);
-				if (Math.isNaN(speed))
-					speed = 1;
-				game.cameraZoomRate = speed;
+				var rate:Float = Std.parseFloat(event[3]);
+				if (Math.isNaN(rate))
+					rate = 1;
+				game.cameraZoomRate = rate;
 			case "character will idle?":
 				var char = PlayState.getCharFromEvent(event[2]);
 

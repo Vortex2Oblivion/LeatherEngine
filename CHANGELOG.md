@@ -8,204 +8,238 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.8] - Unreleased
 
 ### Added
- - Option to toggle traced lines counter off.
- - Lots of new crash dialogue toast messages.
+
+- Option to toggle traced lines counter off.
+- Lots of new crash dialogue toast messages.
 
 ### Changed
- - Info display now shows traced errors seperately. 
- - VSlice results screen back into the old results screen.
+
+- Info display now shows traced errors seperately.
+- VSlice results screen back into the old results screen.
+
+### Fixed
+
+- Change Camera Zoom Strength 2nd argument being linked to the first.
+
+### Removed
+
+- Init Shader and 3D shader events from event list (events are still in game for backwards compat reasosn)
 
 ## [1.0.7] - 8/7/25
 
 ### Added
- - Gamemode Client support for Linux
+
+- Gamemode Client support for Linux
 
 ### Fixed
- - Chart editor event performance
- - Traces from external logging functions now properly show the trace location
+
+- Chart editor event performance
+- Traces from external logging functions now properly show the trace location
 
 ### Changed
- - Chart editor tooltips for performance reasons.
- - Changed color of popup error message.
+
+- Chart editor tooltips for performance reasons.
+- Changed color of popup error message.
 
 ## [1.0.6] - 8/3/25
 
 ### Added
- - Tooltips to events showing information when hovered.
+
+- Tooltips to events showing information when hovered.
 
 ### Changed
- - Logs from Lime and OpenFL are now properly displayed in the ingame logger
- - Mod loading errors are now properly displayed.
+
+- Logs from Lime and OpenFL are now properly displayed in the ingame logger
+- Mod loading errors are now properly displayed.
 
 ### Fixed
- - Fixed some backwards-compatability issues with certian shaders.
- - Rotated notes now properly rotate around the origin.
- - Events getting duplicated upon reloading the chart editor.
+
+- Fixed some backwards-compatability issues with certian shaders.
+- Rotated notes now properly rotate around the origin.
+- Events getting duplicated upon reloading the chart editor.
 
 ## [1.0.5] - 7/24/25
 
 ### Changed
- - Slightly improved support for mods to add custom main menu buttons.
+
+- Slightly improved support for mods to add custom main menu buttons.
 
 ### Fixed
- - Mod options getting reset when restarting the engine.
+
+- Mod options getting reset when restarting the engine.
 
 ## [1.0.4] - 7/22/25
- 
+
 ### Fixed
- - Toolbox crashing on open
+
+- Toolbox crashing on open
 
 ## [1.0.3] - 7/22/25
 
 ### Added
- - Added the ability for mods to create their own options through an `options.json` file
- 
+
+- Added the ability for mods to create their own options through an `options.json` file
+
 ### Fixed
- - Note type textures not loading sometimes
- - Switch Mod Menu not having a scrollfactor of 0, making mod options scroll with the camera.
+
+- Note type textures not loading sometimes
+- Switch Mod Menu not having a scrollfactor of 0, making mod options scroll with the camera.
 
 ## [1.0.2] - 7/20/25
 
 ### Added
- - Descriptions to all options in the options menu.
+
+- Descriptions to all options in the options menu.
 
 ### Fixed
- - Freeplay music option only working on the first song.
- - Optimized menu bgs option sometimes making a black menu background.
- - VSlice charts are properly split among sections.
- - Some results screen anims.
- - Color quantization on notes breaking on BPM changes.
+
+- Freeplay music option only working on the first song.
+- Optimized menu bgs option sometimes making a black menu background.
+- VSlice charts are properly split among sections.
+- Some results screen anims.
+- Color quantization on notes breaking on BPM changes.
 
 ### Removed
- - Prototype title screen option from the menu.
+
+- Prototype title screen option from the menu.
 
 ## [1.0.1] - 7/16/25
 
 ### Added
- - Hitting SHIFT while ENTER to leave the chart editor now skips to that time.
- - Support for Scroll Speed events for VSlice charts.
- - Throw Exception On Error option.
+
+- Hitting SHIFT while ENTER to leave the chart editor now skips to that time.
+- Support for Scroll Speed events for VSlice charts.
+- Throw Exception On Error option.
 
 ### Changed
- - Charts are backed up every 5 minutes now as opposed to 10
- - Reworked autosave button in chart editor, it is now a button that can let you load an actual chart.
- - MS popup text is now always antialiased by default
- - Results screen no longer always rounds down accuracy.
+
+- Charts are backed up every 5 minutes now as opposed to 10
+- Reworked autosave button in chart editor, it is now a button that can let you load an actual chart.
+- MS popup text is now always antialiased by default
+- Results screen no longer always rounds down accuracy.
 
 ## Fixed
- - Softlock on the title screen when check for updates is disabled
- - `MODDING_ALLOWED` define not working properly.
- - FPS counter sometimes being inaccurate
- - Specific vocal tracks per character not loading properly if the character is invalid.
- - Game crash when trying to load an invalid UI skin.
+
+- Softlock on the title screen when check for updates is disabled
+- `MODDING_ALLOWED` define not working properly.
+- FPS counter sometimes being inaccurate
+- Specific vocal tracks per character not loading properly if the character is invalid.
+- Game crash when trying to load an invalid UI skin.
 
 ## [1.0.0] - 7/13/25
 
 ### Added
- - Revamped Character Editor
- - Skip Song option in story mode when developer mode is active.
- - Auto Open Charter option.
- - Input text has more features (highlighting, etc).
- - Split vocal files per character
- - Seperate player and enemy hitsounds checkbox in charter.
- - A revamped HUD config menu.
- - The ability for notes to carry thier own scroll speeds.
- - Functions for setting note speed with Lua.
- - Functions for setting note colors with Lua.
- - Support for animated winning / losing icons.
- - The ability to toggle botplay by hitting the F6 key.
- - A toggle to show the commit hash in the info display (off by default).
- - `getUnspawnedNoteType()` function to Lua.
- - Add a `dead` variable to `PlayState`
- - Performance improvements to outlined text.
- - Add `attack` and `pre-attack` animations to bf.
- - Made shader error messages more descriptive in Lua.
- - Clear progess warning on stage editor.
- - Organized and documented `Project.xml`
- - `HSCRIPT_ALLOWED` define to `Project.xml`
- - `CHECK_FOR_UPDATES` define to `Project.xml`
- - `COMPILE_ALL_CLASSES` define to `Project.xml`
- - `backgroundColor` property for stages.
- - `imageDirectory` property for stages.
- - `dances` property for stage objects.
- - `flipX` and `flipY` propert for stage objects.
- - `zIndex` property for stage objects and characters
- - Improved Discord RPC support.
- - Suppor for reading psych engine characters.
- - The ability to click on the title screen to enter the game.
- - `onError` `onDisconnect` `onReady` signals to Discord RPC.
- - `onUncaughtError` and `onCritcalError` signals.
- - New VSlice pixel note splashes and icons.
- - Allow for engine classes to be extended with HScript.
- - VSync option.
- - Check for Updates option.
- - NdllLoader class.
- - Low Quality option.
- - New toolbox graphic
- - Warning for commit hash macro failing.
- - FlxStringUtil functions to Lua.
- - `pause()` and `resume()` functions to Lua for sounds.
- - `alt animation` notetype.
- - Middescroll and Downscroll toggles to modchart editor
- - XMModifier to modchart editor.
- - YawModifier and PitchModifier to modchart editor.
- - ColorTransformRed ColorTransformBlue and ColorTransformGreen to modchart editor.
- - StrumBounceXModifier, StrumBounceYModifier, StrumBounceZModifier to modchart editor.
+
+- Revamped Character Editor
+- Skip Song option in story mode when developer mode is active.
+- Auto Open Charter option.
+- Input text has more features (highlighting, etc).
+- Split vocal files per character
+- Seperate player and enemy hitsounds checkbox in charter.
+- A revamped HUD config menu.
+- The ability for notes to carry thier own scroll speeds.
+- Functions for setting note speed with Lua.
+- Functions for setting note colors with Lua.
+- Support for animated winning / losing icons.
+- The ability to toggle botplay by hitting the F6 key.
+- A toggle to show the commit hash in the info display (off by default).
+- `getUnspawnedNoteType()` function to Lua.
+- Add a `dead` variable to `PlayState`
+- Performance improvements to outlined text.
+- Add `attack` and `pre-attack` animations to bf.
+- Made shader error messages more descriptive in Lua.
+- Clear progess warning on stage editor.
+- Organized and documented `Project.xml`
+- `HSCRIPT_ALLOWED` define to `Project.xml`
+- `CHECK_FOR_UPDATES` define to `Project.xml`
+- `COMPILE_ALL_CLASSES` define to `Project.xml`
+- `backgroundColor` property for stages.
+- `imageDirectory` property for stages.
+- `dances` property for stage objects.
+- `flipX` and `flipY` propert for stage objects.
+- `zIndex` property for stage objects and characters
+- Improved Discord RPC support.
+- Suppor for reading psych engine characters.
+- The ability to click on the title screen to enter the game.
+- `onError` `onDisconnect` `onReady` signals to Discord RPC.
+- `onUncaughtError` and `onCritcalError` signals.
+- New VSlice pixel note splashes and icons.
+- Allow for engine classes to be extended with HScript.
+- VSync option.
+- Check for Updates option.
+- NdllLoader class.
+- Low Quality option.
+- New toolbox graphic
+- Warning for commit hash macro failing.
+- FlxStringUtil functions to Lua.
+- `pause()` and `resume()` functions to Lua for sounds.
+- `alt animation` notetype.
+- Middescroll and Downscroll toggles to modchart editor
+- XMModifier to modchart editor.
+- YawModifier and PitchModifier to modchart editor.
+- ColorTransformRed ColorTransformBlue and ColorTransformGreen to modchart editor.
+- StrumBounceXModifier, StrumBounceYModifier, StrumBounceZModifier to modchart editor.
+
 ### Changed
- - Updated Haxe to 4.3.7
- - Start using Swordcube lime,flixel,openfl forks for better performance.
- - Use VRAM sprites whenever possible
- - `freeplay.json` to replace `freeplaySonglist.txt`
- - Removed use of deprecated functions from codebase.
- - Chart editor uses sustain graphics for hold notes.
- - Rewritten scripting backend, allowing for easier management of Lua and HScript simletaneously. 
- - Scaled sprites are no longer rounded.
- - Optimized window title bars
- - popup errors now have a cap
- - Crash log stack traces can now be clicked, allowing for jumping to the line for easier engine debugging.
- - Priting to the console with trace/print will now show the file name and line number (HScript only).
+
+- Updated Haxe to 4.3.7
+- Start using Swordcube lime,flixel,openfl forks for better performance.
+- Use VRAM sprites whenever possible
+- `freeplay.json` to replace `freeplaySonglist.txt`
+- Removed use of deprecated functions from codebase.
+- Chart editor uses sustain graphics for hold notes.
+- Rewritten scripting backend, allowing for easier management of Lua and HScript simletaneously.
+- Scaled sprites are no longer rounded.
+- Optimized window title bars
+- popup errors now have a cap
+- Crash log stack traces can now be clicked, allowing for jumping to the line for easier engine debugging.
+- Priting to the console with trace/print will now show the file name and line number (HScript only).
 - Softcoded all stages
+
 ### Fixed
- - Characters that dance left and right not playing the dance right animation
- - Blazin crashing
- - Crash when trying to load an invalid game over character
- - Improved sustain rendering
- - Disabled cliprect rounding on sustains for a sharper cliprect.
- - Sustains not rendering with modcharting tools and VRAM sprites
- - Sustains not clipping properly on the opponent side with modcharting tools
- - Antialiasing not properly applying / unapplying to noteskins in the chart editor.
- - Change UI Skin event not properly working on pixel skins.
- - Changing keycounts with modcharting tools
- - Note sustains scale properly when changing speeds.
- - Vocals not stopping on state reset.
- - Shaders should no longer throw an error when failing to compile, sending the info to the console instead.
- - Icons not loading when not being a multiple of 150x150.
- - Lua scripts causing a game crash when destroyed.
- - State background color not resetting to black when changed.
- - Holes in the event sprite graphic.
- - Copy/Paste events not properly working.
- - Events being invisible in the chart editor when no notes are in a section.
- - `getRenderedNoteType()` function in Lua returning the wrong value.
- - Some graphics not being properly antialiased.
- - Custom Discord RPC not working.
- - Stage script not properly being loaded on change stage event.
- - Chart editor not changing sections when scrolling.
- - Some typing in extern classes.
- - Mods menu allowing you to disable your current mod.
- - Custom mania data per mod not loading
- - Songs not starting sometimes.
- - Webpages not opening on Linux.
- - Cutscenes being above the notes.
- - `setShaderProperty` not working with integer values.
- - Story mode crashing when switching songs on Linux.
- - New Mod Menu inputs being the wrong width by default
+
+- Characters that dance left and right not playing the dance right animation
+- Blazin crashing
+- Crash when trying to load an invalid game over character
+- Improved sustain rendering
+- Disabled cliprect rounding on sustains for a sharper cliprect.
+- Sustains not rendering with modcharting tools and VRAM sprites
+- Sustains not clipping properly on the opponent side with modcharting tools
+- Antialiasing not properly applying / unapplying to noteskins in the chart editor.
+- Change UI Skin event not properly working on pixel skins.
+- Changing keycounts with modcharting tools
+- Note sustains scale properly when changing speeds.
+- Vocals not stopping on state reset.
+- Shaders should no longer throw an error when failing to compile, sending the info to the console instead.
+- Icons not loading when not being a multiple of 150x150.
+- Lua scripts causing a game crash when destroyed.
+- State background color not resetting to black when changed.
+- Holes in the event sprite graphic.
+- Copy/Paste events not properly working.
+- Events being invisible in the chart editor when no notes are in a section.
+- `getRenderedNoteType()` function in Lua returning the wrong value.
+- Some graphics not being properly antialiased.
+- Custom Discord RPC not working.
+- Stage script not properly being loaded on change stage event.
+- Chart editor not changing sections when scrolling.
+- Some typing in extern classes.
+- Mods menu allowing you to disable your current mod.
+- Custom mania data per mod not loading
+- Songs not starting sometimes.
+- Webpages not opening on Linux.
+- Cutscenes being above the notes.
+- `setShaderProperty` not working with integer values.
+- Story mode crashing when switching songs on Linux.
+- New Mod Menu inputs being the wrong width by default
+
 ### Removed
- - Unused screenshot keybind graphic.
- - Fakeout death screen
- - VSlice sound tray
- - FPS lil buddies.
- - Unused `Project.xml` defines.
- - Some deprecated compatability classes
+
+- Unused screenshot keybind graphic.
+- Fakeout death screen
+- VSlice sound tray
+- FPS lil buddies.
+- Unused `Project.xml` defines.
+- Some deprecated compatability classes
 
 ## [0.5.0pre] - 11/9/2024
 

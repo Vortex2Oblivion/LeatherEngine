@@ -6,7 +6,7 @@ Change Keycount~Player 1 Keycount~Player 2 Keycount
 Change Ui Skin~Ui Skin~Nothing
 Change Camera Speed~Speed~Nothing
 Change Camera Zoom Speed~Speed~Nothing
-Change Camera Zoom Strength~intensity~Rate
+Change Camera Zoom Strength~Rate~Intensity
 Play Character Animation~Character (Dad, BF, GF)~Animation to play
 Hey!~BF = Only BF, GF = Only GF, anything else = Both~Nothing
 Character Will Idle~Character (BF, Dad, GF)~"true" or "false"
@@ -18,9 +18,7 @@ Camera Flash~Color (example: 'red')~Duration
 Camera Fade~Color (example: 'red')~Duration
 Add Trail~Object Name (dad, boyfriend, girlfriend, etc)~Properties, formatted like: '10,3,0.4,0.05' (sprite count, frame delay, alpha, alpha diff)
 Remove Trail~Object Name (dad, boyfriend, girlfriend, etc)~Nothing
-3D Shader~Character (BF, Dad, GF)~Properties formated like: '3,10,0.25' (speed, frequency, amplitude)
 No Shader~Character (BF, Dad, GF)~Nothing
-Init Shader~Id~Filename                                                        Shaders must be created before using in other events and scripts
 Set Camera Shader~Id~Camera (hud, game, or both)                                                        Adds a shader to a camera.
 Remove Camera Shader~Id~Camera (hud, game, or both)
 Set Property~actor.property~value - ex: boyfriend.x, 300
