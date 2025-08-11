@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Created with Funkin Packer v0.1.3 DEV https://neeeoo.github.io/funkin-packer/
--->
 <TextureAtlas imagePath="Optimized_bfPixel.png" width="774" height="60" spritePadding="1" borderPadding="1">
 	<SubTexture name="BF DOWN NOTE0000" x="1" y="1" width="55" height="52" frameX="-4" frameY="-20" frameWidth="72" frameHeight="72"/>
 	<SubTexture name="BF DOWN NOTE0001" x="1" y="1" width="55" height="52" frameX="-4" frameY="-20" frameWidth="72" frameHeight="72"/>

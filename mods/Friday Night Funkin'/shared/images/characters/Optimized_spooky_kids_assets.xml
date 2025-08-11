@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Created with Funkin Packer v0.1.3 DEV https://neeeoo.github.io/funkin-packer/
--->
 <TextureAtlas imagePath="Optimized_spooky_kids_assets.png" width="1571" height="2161" spritePadding="1" borderPadding="1">
 	<SubTexture name="SingDOWN0001" x="1" y="1666" width="409" height="464" rotated="true" frameX="0" frameY="-3" frameWidth="464" frameHeight="409"/>
 	<SubTexture name="SingDOWN0003" x="411" y="1666" width="409" height="450" rotated="true" frameX="-7" frameY="0" frameWidth="464" frameHeight="409"/>

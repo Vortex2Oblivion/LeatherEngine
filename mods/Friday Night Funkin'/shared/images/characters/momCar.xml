@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-Created with Funkin Packer v0.1.3 DEV https://neeeoo.github.io/funkin-packer/
--->
 <TextureAtlas imagePath="momCar.png" width="4667" height="3786" spritePadding="1" borderPadding="1">
 	<SubTexture name="MOM DOWN POSE0000" x="2642" y="3324" width="592" height="452" rotated="true" frameX="-1" frameY="-20" frameWidth="452" frameHeight="613"/>
 	<SubTexture name="MOM DOWN POSE0001" x="3842" y="3324" width="584" height="444" rotated="true" frameX="-3" frameY="-28" frameWidth="452" frameHeight="613"/>
