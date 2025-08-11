@@ -27,7 +27,7 @@ function create(stage)
 end
 
 function createPost()
-	set("light.color", lightColors[randomInt(1, 5)])
+	set("light.color", lightColors[randomInt(1, #lightColors)])
 end
 
 -- called each frame with elapsed being the seconds between the last frame
@@ -51,7 +51,7 @@ function beatHit(curBeat)
 
 	if curBeat % 4 == 0 then
 		set('light.alpha', 1)
-		set("light.color", lightColors[randomInt(1, 5)])
+		set("light.color", lightColors[randomInt(1, #lightColors)])
 	end
 
 	if curBeat % 8 == 4 and randomBool(30) and not trainMoving and trainCooldown > 8 then
@@ -105,5 +105,5 @@ end
 
 function updatePost(elapsed)
 	set("timeBar.bar.color", get("light.color"))
-	set('light.alpha', lerp(1, 0, ((Conductor.songPosition / Conductor.crochet / 4) % 1)))
+	set('light.alpha', lerp(1, 0, ((conductor.songPosition / conductor.crochet / 4) % 1)))
 end

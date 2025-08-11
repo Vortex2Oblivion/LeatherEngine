@@ -11,7 +11,7 @@
       "name": "idle",
       "animation_name": "BF idle dance",
       "fps": 24,
-      "looped": false
+      "looped": true
     },
     {
       "name": "singLEFT",
@@ -64,12 +64,6 @@
     {
       "name": "hey",
       "animation_name": "BF HEY",
-      "fps": 24,
-      "looped": false
-    },
-    {
-      "name": "scared",
-      "animation_name": "BF idle shaking",
       "fps": 24,
       "looped": false
     }

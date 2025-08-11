@@ -9,7 +9,7 @@
       "name": "idle",
       "animation_name": "Mom Idle",
       "fps": 24,
-      "looped": false
+      "looped": true
     },
     {
       "name": "singLEFT",

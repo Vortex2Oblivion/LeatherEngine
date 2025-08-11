@@ -31,6 +31,8 @@ class SimpleInfoDisplay extends TextField {
 	public var showTracedLines:Bool = false;
 	public var showCommitHash:Bool = false;
 
+	private var canLie:Bool = true;
+
 	public function new(x:Float = 10.0, y:Float = 10.0, color:Int = 0x000000, ?font:String) {
 		super();
 
@@ -60,6 +62,9 @@ class SimpleInfoDisplay extends TextField {
 
 		if (_updateClock >= 1000) {
 			framerate = (FlxG.drawFramerate > 0) ? FlxMath.minInt(_framesPassed, FlxG.drawFramerate) : _framesPassed;
+			if (canLie) {
+				framerate = FlxMath.boundInt(framerate, 0, Options.getData("maxFPS")); // make sure the counter doesn't go above your max fps
+			}
 
 			_framesPassed = 0;
 			_updateClock = 0;

@@ -66,7 +66,7 @@ function beatHit(beat)
 		if randomBool(10) and carCanGoVroom then
 			playSound("pass" .. tostring(randomInt(1,2)), true)
 
-			set("car.velocity.x", (randomFloat(170, 220) / FlxG.elapsed) * 3)
+			set("car.velocity.x", (randomFloat(170, 220) / flxG.elapsed) * 3)
 
 			carCanGoVroom = false
 			funnyTimer = 0

@@ -4,3 +4,4 @@ singDOWN 68 -105
 singLEFT 84 -13
 singUP 55 50
 hehPrettyGood 0 0
+ugh 0 0

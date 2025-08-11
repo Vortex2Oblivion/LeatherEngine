@@ -1302,43 +1302,12 @@ class PlayState extends MusicBeatState {
 			clearNotesBefore(startOnTime);
 			setSongTime(startOnTime - 350);
 			resyncVocals();
+			setupLuaScripts();
 			return;
 		}
 
 		#if LUA_ALLOWED
-		for (script in scripts) {
-			if (script is LuaScript) {
-				script?.setup();
-			}
-		}
-
-		for (i in 0...strumLineNotes.length) {
-			var member = strumLineNotes.members[i];
-
-			set("defaultStrum" + i + "X", member.x);
-			set("defaultStrum" + i + "Y", member.y);
-			set("defaultStrum" + i + "Angle", member.angle);
-
-			set("defaultStrum" + i, {
-				x: member.x,
-				y: member.y,
-				angle: member.angle,
-			});
-
-			if (enemyStrums.members.contains(member)) {
-				set("enemyStrum" + i % SONG.keyCount, {
-					x: member.x,
-					y: member.y,
-					angle: member.angle,
-				});
-			} else {
-				set("playerStrum" + i % SONG.playerKeyCount, {
-					x: member.x,
-					y: member.y,
-					angle: member.angle,
-				});
-			}
-		}
+		setupLuaScripts();
 
 		call("start", [SONG.song.toLowerCase()], BOTH);
 		#end
@@ -3877,12 +3846,7 @@ class PlayState extends MusicBeatState {
 						}
 					}
 
-					#if LUA_ALLOWED
-					for (script in scripts) {
-						if (script is LuaScript)
-							script.setup();
-					}
-					#end
+					setupLuaScripts();
 				case "dad" | "opponent" | "1":
 					var oldDad = dad;
 					oldDad.alpha = 0.00001;
@@ -3904,12 +3868,7 @@ class PlayState extends MusicBeatState {
 						}
 					}
 
-					#if LUA_ALLOWED
-					for (script in scripts) {
-						if (script is LuaScript)
-							script.setup();
-					}
-					#end
+					setupLuaScripts();
 
 					iconP2.scale.set(iconP2.startSize, iconP2.startSize);
 					iconP2.setupIcon(dad.icon);
@@ -3938,12 +3897,7 @@ class PlayState extends MusicBeatState {
 							}
 						}
 
-						#if LUA_ALLOWED
-						for (script in scripts) {
-							if (script is LuaScript)
-								script.setup();
-						}
-						#end
+						setupLuaScripts();
 					}
 
 					iconP1.scale.set(iconP1.startSize, iconP1.startSize);
@@ -3997,6 +3951,43 @@ class PlayState extends MusicBeatState {
 				script.call(func, args);
 			}
 		}
+	}
+
+	inline function setupLuaScripts() {
+		#if LUA_ALLOWED
+		for (script in scripts) {
+			if (script is LuaScript)
+				script.setup();
+		}
+
+		for (i in 0...strumLineNotes.length) {
+			var member = strumLineNotes.members[i];
+
+			set("defaultStrum" + i + "X", member.x);
+			set("defaultStrum" + i + "Y", member.y);
+			set("defaultStrum" + i + "Angle", member.angle);
+
+			set("defaultStrum" + i, {
+				x: member.x,
+				y: member.y,
+				angle: member.angle,
+			});
+
+			if (enemyStrums.members.contains(member)) {
+				set("enemyStrum" + i % SONG.keyCount, {
+					x: member.x,
+					y: member.y,
+					angle: member.angle,
+				});
+			} else {
+				set("playerStrum" + i % SONG.playerKeyCount, {
+					x: member.x,
+					y: member.y,
+					angle: member.angle,
+				});
+			}
+		}
+		#end
 	}
 
 	function getLuaVar(name:String, type:String):Any {

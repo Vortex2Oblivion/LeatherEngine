@@ -12,16 +12,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Option to toggle traced lines counter off.
 - Lots of new crash dialogue toast messages.
 - Chart editor now remembers the last section you were in.
+- Optimized versions for some characters.
 
 ### Changed
 
 - Info display now shows traced errors seperately.
 - VSlice results screen back into the old results screen.
+- Car characters have looping idle animations
+- Optimized characters no longer have miss animations
 
 ### Fixed
 
 - Change Camera Zoom Strength 2nd argument being linked to the first.
 - Chart editor not loading the proper section when playing song times.
+- Lua scripts not setting variables properly when skipping time
+- Week 3 background lights not changing alpha.
+- Random values in the week 4 stage not working properly;
+- Some FPS counter inaccuracies.
 
 ### Removed
 

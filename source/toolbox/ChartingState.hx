@@ -1780,7 +1780,7 @@ class ChartingState extends MusicBeatState {
 
 			curRenderedNotes.add(note);
 
-			if (doFunnyNumbers) {
+			if (doFunnyNumbers && !note.isSustainNote) {
 				if (i[3] == null)
 					i[3] = 0;
 
