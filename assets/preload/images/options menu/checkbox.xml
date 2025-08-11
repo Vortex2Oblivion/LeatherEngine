@@ -1,17 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="checkbox.png">
-	<!-- Created with Adobe Animate version 22.0.2.168 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Checked0000" x="1" y="1" width="74" height="71" frameX="-12" frameY="-11" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0001" x="76" y="1" width="85" height="82" frameX="-6" frameY="-6" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0002" x="162" y="1" width="98" height="95"/>
-	<SubTexture name="Checked0003" x="261" y="1" width="94" height="90" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0004" x="1" y="97" width="94" height="90" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0005" x="96" y="97" width="93" height="90" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0006" x="1" y="97" width="94" height="90" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Checked0007" x="261" y="1" width="94" height="90" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
-	<SubTexture name="Unchecked0000" x="190" y="97" width="94" height="90"/>
-	<SubTexture name="Unchecked0001" x="190" y="97" width="94" height="90"/>
-	<SubTexture name="Unchecked0002" x="285" y="97" width="94" height="90"/>
-	<SubTexture name="Unchecked0003" x="285" y="97" width="94" height="90"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="checkbox.png" width="709" height="97" spritePadding="1" borderPadding="1">
+	<SubTexture name="Checked0000" x="638" y="1" width="70" height="73" rotated="true" frameX="-12" frameY="-12" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0001" x="555" y="1" width="82" height="85" rotated="true" frameX="-6" frameY="-6" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0002" x="1" y="1" width="98" height="95" frameX="0" frameY="0" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0003" x="100" y="1" width="90" height="94" rotated="true" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0004" x="191" y="1" width="90" height="94" rotated="true" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0005" x="373" y="1" width="90" height="93" rotated="true" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0006" x="191" y="1" width="90" height="94" rotated="true" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Checked0007" x="100" y="1" width="90" height="94" rotated="true" frameX="-2" frameY="-2" frameWidth="98" frameHeight="95"/>
+	<SubTexture name="Unchecked0000" x="282" y="1" width="90" height="94" rotated="true" frameX="0" frameY="0" frameWidth="94" frameHeight="90"/>
+	<SubTexture name="Unchecked0001" x="282" y="1" width="90" height="94" rotated="true" frameX="0" frameY="0" frameWidth="94" frameHeight="90"/>
+	<SubTexture name="Unchecked0002" x="464" y="1" width="90" height="93" rotated="true" frameX="0" frameY="0" frameWidth="94" frameHeight="90"/>
+	<SubTexture name="Unchecked0003" x="464" y="1" width="90" height="93" rotated="true" frameX="0" frameY="0" frameWidth="94" frameHeight="90"/>
 </TextureAtlas>

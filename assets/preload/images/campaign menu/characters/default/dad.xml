@@ -1,19 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="dad.png">
-	<!-- Created with Adobe Animate version 21.0.7.42652 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Dad idle dance BLACK LINE0000" x="1" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0001" x="1" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0002" x="1" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0003" x="1" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0004" x="430" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0005" x="430" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0006" x="430" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0007" x="430" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0008" x="859" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0009" x="859" y="1" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0010" x="859" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0011" x="859" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0012" x="859" y="768" width="429" height="767"/>
-	<SubTexture name="Dad idle dance BLACK LINE0013" x="859" y="768" width="429" height="767"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="dad.png" width="1278" height="1529" spritePadding="1" borderPadding="1">
+	<SubTexture name="Dad idle dance BLACK LINE0000" x="1" y="1" width="429" height="758" frameX="0" frameY="-8" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0001" x="1" y="1" width="429" height="758" frameX="0" frameY="-8" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0002" x="431" y="1" width="425" height="758" frameX="-1" frameY="-9" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0003" x="431" y="1" width="425" height="758" frameX="-1" frameY="-9" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0004" x="843" y="769" width="424" height="759" frameX="-2" frameY="-8" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0005" x="843" y="769" width="424" height="759" frameX="-2" frameY="-8" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0006" x="857" y="1" width="420" height="767" frameX="-4" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0007" x="857" y="1" width="420" height="767" frameX="-4" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0008" x="1" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0009" x="1" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0010" x="422" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0011" x="422" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0012" x="422" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
+	<SubTexture name="Dad idle dance BLACK LINE0013" x="422" y="760" width="420" height="767" frameX="-5" frameY="0" frameWidth="429" frameHeight="767"/>
 </TextureAtlas>

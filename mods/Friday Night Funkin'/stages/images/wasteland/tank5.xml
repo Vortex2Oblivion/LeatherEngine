@@ -1,19 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="tank5.png">
-	<!-- Created with Adobe Animate version 21.0.0.35450 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="fg tankhead far right 0000" x="633" y="457" width="312" height="437" frameX="0" frameY="-13" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0001" x="633" y="457" width="312" height="437" frameX="0" frameY="-13" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0002" x="0" y="460" width="307" height="440" frameX="-5" frameY="-10" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0003" x="0" y="460" width="307" height="440" frameX="-5" frameY="-10" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0004" x="633" y="0" width="306" height="447" frameX="-7" frameY="-3" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0005" x="633" y="0" width="306" height="447" frameX="-7" frameY="-3" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0006" x="0" y="0" width="307" height="450" frameX="-7" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0007" x="0" y="0" width="307" height="450" frameX="-7" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0008" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0009" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0010" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0011" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0012" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
-	<SubTexture name="fg tankhead far right 0013" x="317" y="0" width="306" height="450" frameX="-9" frameY="0" frameWidth="315" frameHeight="450"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="tank5.png" width="1541" height="451" spritePadding="1" borderPadding="1">
+	<SubTexture name="fg tankhead far right 0000" x="1" y="1" width="312" height="436" frameX="0" frameY="-13" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0001" x="1" y="1" width="312" height="436" frameX="0" frameY="-13" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0002" x="314" y="1" width="306" height="439" frameX="-5" frameY="-10" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0003" x="314" y="1" width="306" height="439" frameX="-5" frameY="-10" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0004" x="621" y="1" width="306" height="446" frameX="-7" frameY="-3" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0005" x="621" y="1" width="306" height="446" frameX="-7" frameY="-3" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0006" x="928" y="1" width="306" height="449" frameX="-7" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0007" x="928" y="1" width="306" height="449" frameX="-7" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0008" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0009" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0010" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0011" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0012" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
+	<SubTexture name="fg tankhead far right 0013" x="1235" y="1" width="305" height="449" frameX="-9" frameY="0" frameWidth="312" frameHeight="450"/>
 </TextureAtlas>

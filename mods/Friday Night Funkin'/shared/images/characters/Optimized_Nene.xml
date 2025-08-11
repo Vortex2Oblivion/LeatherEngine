@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="Optimized_Nene.png" width="3168" height="1327" spritePadding="1" borderPadding="1">
+	<SubTexture name="Idle0000" x="2061" y="477" width="321" height="458" frameX="-97" frameY="-7" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0001" x="2061" y="477" width="321" height="458" frameX="-97" frameY="-7" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0002" x="1259" y="477" width="406" height="470" frameX="-13" frameY="-6" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0003" x="1259" y="477" width="406" height="470" frameX="-13" frameY="-6" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0004" x="427" y="477" width="415" height="471" frameX="-4" frameY="-5" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0005" x="843" y="477" width="415" height="471" frameX="-4" frameY="-5" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0006" x="1" y="477" width="425" height="472" frameX="0" frameY="-3" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0007" x="1" y="1" width="441" height="475" frameX="0" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0008" x="1327" y="1" width="440" height="475" frameX="-1" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0009" x="1768" y="1" width="440" height="474" frameX="-1" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0010" x="443" y="1" width="441" height="474" frameX="-3" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0011" x="443" y="1" width="441" height="474" frameX="-3" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0012" x="885" y="1" width="441" height="474" frameX="-3" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0013" x="2209" y="1" width="437" height="474" frameX="-9" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0014" x="2647" y="1" width="437" height="471" frameX="-9" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0015" x="1666" y="477" width="394" height="394" frameX="-67" frameY="-18" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0016" x="1666" y="477" width="394" height="394" frameX="-67" frameY="-18" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0017" x="1" y="950" width="361" height="362" rotated="true" frameX="-99" frameY="-18" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0018" x="1" y="950" width="361" height="362" rotated="true" frameX="-99" frameY="-18" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0019" x="2462" y="950" width="352" height="361" rotated="true" frameX="-99" frameY="-17" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0020" x="1409" y="950" width="352" height="362" rotated="true" frameX="-98" frameY="-17" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0021" x="2815" y="950" width="352" height="360" rotated="true" frameX="-98" frameY="-14" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0022" x="1762" y="950" width="349" height="365" frameX="-98" frameY="-1" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0023" x="2112" y="950" width="349" height="365" frameX="-98" frameY="-1" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0024" x="710" y="950" width="349" height="367" frameX="-98" frameY="-1" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0025" x="1060" y="950" width="348" height="368" frameX="-98" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0026" x="1060" y="950" width="348" height="368" frameX="-98" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0027" x="2730" y="477" width="348" height="376" frameX="-98" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0028" x="363" y="950" width="346" height="376" frameX="-98" frameY="0" frameWidth="441" frameHeight="475"/>
+	<SubTexture name="Idle0029" x="2383" y="477" width="346" height="403" frameX="-98" frameY="0" frameWidth="441" frameHeight="475"/>
+</TextureAtlas>

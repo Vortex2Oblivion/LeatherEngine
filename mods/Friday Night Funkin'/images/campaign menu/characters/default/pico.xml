@@ -1,19 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="pico.png">
-	<!-- Created with Adobe Animate version 21.0.7.42652 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Pico menu asset0000" x="676" y="716" width="333" height="352" frameX="0" frameY="-10" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0001" x="676" y="716" width="333" height="352" frameX="0" frameY="-10" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0002" x="338" y="364" width="338" height="358" frameX="0" frameY="-5" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0003" x="338" y="364" width="338" height="358" frameX="0" frameY="-5" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0004" x="679" y="0" width="343" height="358" frameX="-3" frameY="-5" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0005" x="679" y="358" width="340" height="358" frameX="-6" frameY="-5" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0006" x="0" y="0" width="340" height="363" frameX="-6" frameY="-1" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0007" x="0" y="363" width="338" height="363" frameX="-8" frameY="-1" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0008" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0009" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0010" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0011" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0012" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
-	<SubTexture name="Pico menu asset0013" x="340" y="0" width="339" height="364" frameX="-8" frameY="0" frameWidth="347" frameHeight="364"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="pico.png" width="2520" height="344" spritePadding="1" borderPadding="1">
+	<SubTexture name="Pico menu asset0000" x="1" y="1" width="351" height="333" rotated="true" frameX="0" frameY="-10" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0001" x="1" y="1" width="351" height="333" rotated="true" frameX="0" frameY="-10" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0002" x="353" y="1" width="357" height="338" rotated="true" frameX="0" frameY="-5" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0003" x="353" y="1" width="357" height="338" rotated="true" frameX="0" frameY="-5" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0004" x="2161" y="1" width="358" height="342" rotated="true" frameX="-3" frameY="-5" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0005" x="1074" y="1" width="357" height="339" rotated="true" frameX="-6" frameY="-5" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0006" x="1432" y="1" width="363" height="339" rotated="true" frameX="-7" frameY="-1" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0007" x="711" y="1" width="362" height="338" rotated="true" frameX="-8" frameY="-1" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0008" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0009" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0010" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0011" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0012" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
+	<SubTexture name="Pico menu asset0013" x="1796" y="1" width="364" height="339" rotated="true" frameX="-8" frameY="0" frameWidth="343" frameHeight="364"/>
 </TextureAtlas>

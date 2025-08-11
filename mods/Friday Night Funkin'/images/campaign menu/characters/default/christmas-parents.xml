@@ -1,19 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="christmas-parents.png">
-	<!-- Created with Adobe Animate version 21.0.7.42652 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="Parent Christmas Idle Black Lines0000" x="2" y="2" width="426" height="380" frameX="-3" frameY="-2" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0001" x="2" y="2" width="426" height="380" frameX="-3" frameY="-2" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0002" x="849" y="2" width="427" height="372" frameX="0" frameY="-10" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0003" x="849" y="2" width="427" height="372" frameX="0" frameY="-10" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0004" x="844" y="381" width="427" height="373" frameX="-3" frameY="-8" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0005" x="844" y="381" width="427" height="373" frameX="-3" frameY="-8" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0006" x="428" y="2" width="421" height="379" frameX="-10" frameY="-2" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0007" x="428" y="2" width="421" height="379" frameX="-10" frameY="-2" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0008" x="2" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0009" x="2" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0010" x="423" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0011" x="423" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0012" x="423" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
-	<SubTexture name="Parent Christmas Idle Black Lines0013" x="423" y="382" width="421" height="381" frameX="-10" frameY="0" frameWidth="431" frameHeight="382"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="christmas-parents.png" width="429" height="2269" spritePadding="1" borderPadding="1">
+	<SubTexture name="Parent Christmas Idle Black Lines0000" x="1" y="1" width="426" height="379" frameX="-3" frameY="-2" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0001" x="1" y="1" width="426" height="379" frameX="-3" frameY="-2" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0002" x="1" y="1897" width="427" height="371" frameX="0" frameY="-10" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0003" x="1" y="1897" width="427" height="371" frameX="0" frameY="-10" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0004" x="1" y="1523" width="427" height="373" frameX="-3" frameY="-8" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0005" x="1" y="1523" width="427" height="373" frameX="-3" frameY="-8" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0006" x="1" y="1143" width="421" height="379" frameX="-10" frameY="-2" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0007" x="1" y="1143" width="421" height="379" frameX="-10" frameY="-2" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0008" x="1" y="381" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0009" x="1" y="381" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0010" x="1" y="762" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0011" x="1" y="762" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0012" x="1" y="762" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
+	<SubTexture name="Parent Christmas Idle Black Lines0013" x="1" y="762" width="421" height="380" frameX="-10" frameY="0" frameWidth="427" frameHeight="381"/>
 </TextureAtlas>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<TextureAtlas imagePath="toolbox.png" width="3481" height="186">
-	<SubTexture name="toolbox basic0001" x="1858" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0002" x="1858" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0003" x="1858" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0004" x="2399" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0005" x="2399" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0006" x="2399" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0007" x="2940" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0008" x="2940" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox basic0009" x="2940" y="10" width="531" height="145" frameX="-0" frameY="-0" frameWidth="531" frameHeight="145"/>
-	<SubTexture name="toolbox white0001" x="10" y="10" width="606" height="166" frameX="-0" frameY="-0" frameWidth="606" frameHeight="166"/>
-	<SubTexture name="toolbox white0002" x="626" y="10" width="606" height="165" frameX="-0" frameY="-1" frameWidth="606" frameHeight="166"/>
-	<SubTexture name="toolbox white0003" x="1242" y="10" width="606" height="165" frameX="-0" frameY="-1" frameWidth="606" frameHeight="166"/>
+<TextureAtlas imagePath="toolbox.png" width="1140" height="500" spritePadding="1" borderPadding="1">
+	<SubTexture name="toolbox basic0001" x="608" y="1" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0002" x="608" y="1" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0003" x="608" y="1" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0004" x="608" y="147" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0005" x="608" y="147" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0006" x="608" y="147" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0007" x="608" y="293" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0008" x="608" y="293" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox basic0009" x="608" y="293" width="531" height="145" frameX="0" frameY="0" frameWidth="531" frameHeight="145"/>
+	<SubTexture name="toolbox white0001" x="1" y="1" width="606" height="166" frameX="0" frameY="0" frameWidth="606" frameHeight="166"/>
+	<SubTexture name="toolbox white0002" x="1" y="168" width="606" height="165" frameX="0" frameY="-1" frameWidth="606" frameHeight="166"/>
+	<SubTexture name="toolbox white0003" x="1" y="334" width="606" height="165" frameX="0" frameY="-1" frameWidth="606" frameHeight="166"/>
 </TextureAtlas>

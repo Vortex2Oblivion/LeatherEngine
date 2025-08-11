@@ -1,22 +1,20 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="wked1_cutscene_1_can.png">
-	<!-- Created with Adobe Animate version 22.0.5.191 -->
-	<!-- http://www.adobe.com/products/animate.html -->
-	<SubTexture name="can kick quick0000" x="2" y="2" width="194" height="112" frameX="0" frameY="-126" frameWidth="917" frameHeight="238"/>
-	<SubTexture name="can kick quick0001" x="201" y="2" width="149" height="150" frameX="-244" frameY="-54" frameWidth="917" frameHeight="238"/>
-	<SubTexture name="can kick quick0002" x="355" y="2" width="95" height="170" frameX="-517" frameY="0" frameWidth="917" frameHeight="238"/>
-	<SubTexture name="can kick quick0003" x="455" y="2" width="145" height="162" frameX="-772" frameY="-46" frameWidth="917" frameHeight="238"/>
-	<SubTexture name="can kicked up0000" x="605" y="2" width="89" height="151" frameX="0" frameY="-88" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0001" x="699" y="2" width="82" height="162" frameX="-5" frameY="-21" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0002" x="786" y="2" width="81" height="161" frameX="-5" frameY="-22" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0003" x="872" y="2" width="79" height="158" frameX="-5" frameY="-4" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0004" x="2" y="177" width="79" height="158" frameX="-5" frameY="-4" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0005" x="86" y="177" width="79" height="159" frameX="-5" frameY="-3" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0006" x="170" y="177" width="72" height="167" frameX="-9" frameY="-3" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0007" x="247" y="177" width="75" height="169" frameX="-9" frameY="-1" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0008" x="327" y="177" width="74" height="168" frameX="-9" frameY="-37" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0009" x="406" y="177" width="71" height="167" frameX="-9" frameY="-38" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0010" x="482" y="177" width="71" height="167" frameX="-9" frameY="-126" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0011" x="558" y="177" width="72" height="167" frameX="-9" frameY="-126" frameWidth="89" frameHeight="404"/>
-	<SubTexture name="can kicked up0012" x="635" y="177" width="70" height="199" frameX="-12" frameY="-205" frameWidth="89" frameHeight="404"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<TextureAtlas imagePath="wked1_cutscene_1_can.png" width="306" height="894" spritePadding="1" borderPadding="1">
+	<SubTexture name="can kick quick0000" x="1" y="163" width="110" height="194" rotated="true" frameX="0" frameY="-127" frameWidth="194" frameHeight="170"/>
+	<SubTexture name="can kick quick0001" x="141" y="1" width="149" height="150" frameX="-244" frameY="-54" frameWidth="194" frameHeight="170"/>
+	<SubTexture name="can kick quick0002" x="112" y="163" width="92" height="169" frameX="-517" frameY="-1" frameWidth="194" frameHeight="170"/>
+	<SubTexture name="can kick quick0003" x="1" y="1" width="139" height="161" frameX="-772" frameY="-47" frameWidth="194" frameHeight="170"/>
+	<SubTexture name="can kicked up0000" x="205" y="163" width="88" height="151" frameX="0" frameY="-88" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0001" x="66" y="358" width="79" height="160" frameX="-5" frameY="-23" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0002" x="146" y="358" width="79" height="159" frameX="-5" frameY="-24" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0003" x="1" y="557" width="79" height="158" frameX="-5" frameY="-4" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0004" x="81" y="557" width="79" height="158" frameX="-5" frameY="-4" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0005" x="226" y="358" width="79" height="159" frameX="-5" frameY="-3" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0006" x="1" y="726" width="71" height="167" frameX="-9" frameY="-3" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0007" x="161" y="557" width="71" height="168" frameX="-9" frameY="-2" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0008" x="233" y="557" width="71" height="168" frameX="-9" frameY="-37" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0009" x="73" y="726" width="71" height="167" frameX="-9" frameY="-38" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0010" x="145" y="726" width="71" height="167" frameX="-9" frameY="-126" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0011" x="217" y="726" width="71" height="167" frameX="-9" frameY="-126" frameWidth="89" frameHeight="199"/>
+	<SubTexture name="can kicked up0012" x="1" y="358" width="64" height="198" frameX="-12" frameY="-206" frameWidth="89" frameHeight="199"/>
 </TextureAtlas>
