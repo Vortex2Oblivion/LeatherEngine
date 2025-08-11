@@ -17,7 +17,7 @@ class Boyfriend extends Character
 
 	public function new(x:Float, y:Float, ?char:String = 'bf', ?isDeathCharacter:Bool = false)
 	{
-		if(isDeathCharacter && !Assets.exists(Paths.json('character data/$char'))){
+		if(isDeathCharacter && !Assets.exists(Paths.json('character data/$char/config'))){
 			char = 'bf-dead';
 		}
 		super(x, y, char, true, isDeathCharacter);

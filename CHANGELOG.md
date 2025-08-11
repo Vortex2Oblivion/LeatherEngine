@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Week 3 background lights not changing alpha.
 - Random values in the week 4 stage not working properly;
 - Some FPS counter inaccuracies.
+- Custom gameover characters not loading properly
 
 ### Removed
 
