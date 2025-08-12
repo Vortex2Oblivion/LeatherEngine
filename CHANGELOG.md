@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - VSlice results screen back into the old results screen.
 - Car characters have looping idle animations
 - Optimized characters no longer have miss animations
+- Softcoded some base game cutscenes.
 
 ### Fixed
 
@@ -30,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Random values in the week 4 stage not working properly;
 - Some FPS counter inaccuracies.
 - Custom gameover characters not loading properly
+- addBehind functions not working on group characters.
 
 ### Removed
 

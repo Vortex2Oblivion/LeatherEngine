@@ -268,11 +268,6 @@ class TitleState extends MusicBeatState {
 	public var transitioning:Bool = false;
 
 	public override function update(elapsed:Float) {
-		if (FlxG.keys.justPressed.Y) {
-			FlxTween.tween(FlxG.stage.window, {x: FlxG.stage.window.x + 300}, 1.4, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.35});
-			FlxTween.tween(FlxG.stage.window, {y: FlxG.stage.window.y + 100}, 0.7, {ease: FlxEase.quadInOut, type: PINGPONG});
-		}
-
 		if (controls.LEFT)
 			swagShader.hue -= elapsed * 0.1;
 

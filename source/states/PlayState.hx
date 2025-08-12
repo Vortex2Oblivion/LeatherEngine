@@ -2689,20 +2689,7 @@ class PlayState extends MusicBeatState {
 				if (SONG.validScore)
 					Highscore.saveWeekScore(campaignScore, storyDifficultyStr, (groupWeek != "" ? groupWeek + "Week" : "week") + Std.string(storyWeek));
 			} else {
-				trace('LOADING NEXT SONG');
-				trace(PlayState.storyPlaylist[0].toLowerCase());
-
-				if (SONG.song.toLowerCase() == 'eggnog') {
-					var blackShit:FlxSprite = new FlxSprite(-FlxG.width * FlxG.camera.zoom,
-						-FlxG.height * FlxG.camera.zoom).makeGraphic(FlxG.width * 3, FlxG.height * 3, FlxColor.BLACK);
-					blackShit.scrollFactor.set();
-					add(blackShit);
-
-					camHUD.visible = false;
-
-					FlxG.sound.play(Paths.sound('Lights_Shut_off'));
-				}
-
+				trace('LOADING NEXT SONG: ${PlayState.storyPlaylist[0].toLowerCase()}');
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxTransitionableState.skipNextTransOut = true;
 				prevCamFollow = camFollow;
@@ -4223,15 +4210,15 @@ class PlayState extends MusicBeatState {
 	}
 
 	function addBehindGF(behind:FlxBasic) {
-		insert(members.indexOf(gf), behind);
+		insert(members.indexOf(gf.otherCharacters != null ? gf.otherCharacters[0] : gf), behind);
 	}
 
 	function addBehindDad(behind:FlxBasic) {
-		insert(members.indexOf(dad), behind);
+		insert(members.indexOf(dad.otherCharacters != null ? dad.otherCharacters[0] : dad), behind);
 	}
 
 	function addBehindBF(behind:FlxBasic) {
-		insert(members.indexOf(boyfriend), behind);
+		insert(members.indexOf(boyfriend.otherCharacters != null ? boyfriend.otherCharacters[0] : boyfriend), behind);
 	}
 
 	@:allow(game.EventHandler)
