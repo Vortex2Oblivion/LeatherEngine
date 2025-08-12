@@ -3,6 +3,7 @@
   "dancesLeftAndRight": true,
   "imagePath": "Optimized_gfChristmas",
   "barColor": [186, 49, 104],
+  "positionOffset" : [0, 70],
   "healthIcon": "gf",
   "animations": [
     {
