@@ -1,11 +1,21 @@
 {
   "dancesLeftAndRight": false,
   "imagePath": "senpai-angry",
-  "barColor": [255, 170, 111],
+  "barColor": [
+    255,
+    170,
+    111
+  ],
   "graphicSize": 6,
   "antialiasing": false,
-  "cameraOffset": [15, 0],
-  "positionOffset": [317, 522],
+  "cameraOffset": [
+    -250,
+    -330
+  ],
+  "positionOffset": [
+    317,
+    522
+  ],
   "animations": [
     {
       "name": "idle",

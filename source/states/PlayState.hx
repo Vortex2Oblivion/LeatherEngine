@@ -795,36 +795,12 @@ class PlayState extends MusicBeatState {
 		if (Options.getData("charsAndBGs"))
 			stage.setCharOffsets();
 
-		if (gf.otherCharacters == null) {
-			if (gf.coolTrail != null)
-				add(gf.coolTrail);
-
-			add(gf);
-		} else {
-			for (character in gf.otherCharacters) {
-				if (character.coolTrail != null)
-					add(character.coolTrail);
-
-				add(character);
-			}
-		}
+		addCharacter(gf, false);
 
 		if (!dad.curCharacter.startsWith("gf"))
 			add(stage.infrontOfGFSprites);
 
-		if (dad.otherCharacters == null) {
-			if (dad.coolTrail != null)
-				add(dad.coolTrail);
-
-			add(dad);
-		} else {
-			for (character in dad.otherCharacters) {
-				if (character.coolTrail != null)
-					add(character.coolTrail);
-
-				add(character);
-			}
-		}
+		addCharacter(dad, false);
 
 		if (dad.curCharacter.startsWith("gf"))
 			add(stage.infrontOfGFSprites);
@@ -834,30 +810,7 @@ class PlayState extends MusicBeatState {
 
 		camPos.set(midPos.x + 150 + dad.cameraOffset[0], midPos.y - 100 + dad.cameraOffset[1]);
 
-		switch (dad.curCharacter) {
-			case 'mom':
-				camPos.y = midPos.y;
-			case 'senpai':
-				camPos.y = midPos.y - 430;
-				camPos.x = midPos.x - 100;
-			case 'senpai-angry':
-				camPos.y = midPos.y - 430;
-				camPos.x = midPos.x - 100;
-		}
-
-		if (boyfriend.otherCharacters == null) {
-			if (boyfriend.coolTrail != null)
-				add(boyfriend.coolTrail);
-
-			add(boyfriend);
-		} else {
-			for (character in boyfriend.otherCharacters) {
-				if (character.coolTrail != null)
-					add(character.coolTrail);
-
-				add(character);
-			}
-		}
+		addCharacter(boyfriend, false);
 
 		add(stage.foregroundSprites);
 
@@ -2549,17 +2502,6 @@ class PlayState extends MusicBeatState {
 				if (!paused && !lockedCamera)
 					camFollow.setPosition(midPos.x + 150 + dad.getMainCharacter().cameraOffset[0], midPos.y - 100 + dad.getMainCharacter().cameraOffset[1]);
 
-				switch (dad.curCharacter) {
-					case 'mom':
-						camFollow.y = midPos.y;
-					case 'senpai':
-						camFollow.y = midPos.y - 430;
-						camFollow.x = midPos.x - 100;
-					case 'senpai-angry':
-						camFollow.y = midPos.y - 430;
-						camFollow.x = midPos.x - 100;
-				}
-
 				call("playerTwoTurn", []);
 			case 'bf':
 				var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
@@ -3678,50 +3620,58 @@ class PlayState extends MusicBeatState {
 		return PlayState.boyfriend.getMainCharacter();
 	}
 
+	function removeCharacter(char:Character) {
+		if (char.otherCharacters == null) {
+			if (char.coolTrail != null)
+				remove(char.coolTrail);
+
+			remove(char);
+		} else {
+			for (character in char.otherCharacters) {
+				if (character.coolTrail != null)
+					remove(character.coolTrail);
+
+				remove(character);
+			}
+		}
+	}
+
 	function removeBgStuff() {
 		remove(stage);
 		remove(stage.foregroundSprites);
 		remove(stage.infrontOfGFSprites);
 
-		if (gf.otherCharacters == null) {
-			if (gf.coolTrail != null)
-				remove(gf.coolTrail);
+		removeCharacter(gf);
+		removeCharacter(dad);
+		removeCharacter(boyfriend);
+	}
 
-			remove(gf);
-		} else {
-			for (character in gf.otherCharacters) {
-				if (character.coolTrail != null)
-					remove(character.coolTrail);
-
-				remove(character);
+	function addCharacter(char:Character, removeOld:Bool = true) {
+		if (char.otherCharacters == null) {
+			if (char.coolTrail != null) {
+				if (removeOld) {
+					remove(char.coolTrail);
+				}
+				add(char.coolTrail);
 			}
-		}
 
-		if (dad.otherCharacters == null) {
-			if (dad.coolTrail != null)
-				remove(dad.coolTrail);
-
-			remove(dad);
-		} else {
-			for (character in dad.otherCharacters) {
-				if (character.coolTrail != null)
-					remove(character.coolTrail);
-
-				remove(character);
+			if (removeOld) {
+				remove(char);
 			}
-		}
-
-		if (boyfriend.otherCharacters == null) {
-			if (boyfriend.coolTrail != null)
-				remove(boyfriend.coolTrail);
-
-			remove(boyfriend);
+			add(char);
 		} else {
-			for (character in boyfriend.otherCharacters) {
-				if (character.coolTrail != null)
-					remove(character.coolTrail);
+			for (character in char.otherCharacters) {
+				if (character.coolTrail != null) {
+					if (removeOld) {
+						remove(character.coolTrail);
+					}
+					add(character.coolTrail);
+				}
 
-				remove(character);
+				if (removeOld) {
+					remove(character);
+				}
+				add(character);
 			}
 		}
 	}
@@ -3734,74 +3684,21 @@ class PlayState extends MusicBeatState {
 		if (dad.curCharacter.startsWith("gf")) {
 			dad.setPosition(gf.x, gf.y);
 			gf.visible = false;
-		} else if (!gf.visible && gf.curCharacter != "")
+		} else if (!gf.visible && gf.curCharacter != "") {
 			gf.visible = true;
-
-		if (gf.otherCharacters == null) {
-			if (gf.coolTrail != null) {
-				remove(gf.coolTrail);
-				add(gf.coolTrail);
-			}
-
-			remove(gf);
-			add(gf);
-		} else {
-			for (character in gf.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
 		}
+
+		addCharacter(gf, true);
 
 		if (!dad.curCharacter.startsWith("gf"))
 			add(stage.infrontOfGFSprites);
 
-		if (dad.otherCharacters == null) {
-			if (dad.coolTrail != null) {
-				remove(dad.coolTrail);
-				add(dad.coolTrail);
-			}
-
-			remove(dad);
-			add(dad);
-		} else {
-			for (character in dad.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
-		}
+		addCharacter(dad, true);
 
 		if (dad.curCharacter.startsWith("gf"))
 			add(stage.infrontOfGFSprites);
 
-		if (boyfriend.otherCharacters == null) {
-			if (boyfriend.coolTrail != null) {
-				remove(boyfriend.coolTrail);
-				add(boyfriend.coolTrail);
-			}
-
-			remove(boyfriend);
-			add(boyfriend);
-		} else {
-			for (character in boyfriend.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
-		}
+		addCharacter(boyfriend, true);
 
 		add(stage.foregroundSprites);
 	}

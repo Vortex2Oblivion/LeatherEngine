@@ -3,6 +3,7 @@
   "dancesLeftAndRight": false,
   "imagePath": "Mom_Assets",
   "barColor": [231, 109, 166],
+  "cameraOffset": [0, 100],
   "animations": [
     {
       "name": "idle",
