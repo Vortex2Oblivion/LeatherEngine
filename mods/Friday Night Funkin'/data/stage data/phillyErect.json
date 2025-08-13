@@ -1,5 +1,6 @@
 {
-	"scriptName": "philly",
+	"scriptName": "phillyErect",
+	"imageDirectory": "philly",
 	"character_Positions": [
 		[
 			989.5,
@@ -37,7 +38,7 @@
 			],
 			"scale": 1,
 			"antialiased": true,
-			"file_Name": "sky",
+			"file_Name": "erect/sky",
 			"is_Animated": false
 		},
 		{
@@ -51,7 +52,7 @@
 			],
 			"scale": 0.9,
 			"antialiased": true,
-			"file_Name": "city",
+			"file_Name": "erect/city",
 			"is_Animated": false
 		},
 		{
@@ -80,7 +81,7 @@
 			],
 			"scale": 1,
 			"antialiased": true,
-			"file_Name": "behindTrain",
+			"file_Name": "erect/behindTrain",
 			"is_Animated": false
 		},
 		{
@@ -109,7 +110,7 @@
 			],
 			"scale": 1,
 			"antialiased": true,
-			"file_Name": "street",
+			"file_Name": "erect/street",
 			"is_Animated": false
 		}
 	]

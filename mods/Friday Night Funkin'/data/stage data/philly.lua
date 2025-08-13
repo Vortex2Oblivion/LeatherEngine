@@ -9,8 +9,6 @@ local trainFinishing = false
 
 local trainCars = 0
 
-local time = 0
-
 local lightColors = {
 	0x31A2FD,
 	0x31FD8C,
@@ -21,6 +19,9 @@ local lightColors = {
 
 -- when the stage lua is created
 function create(stage)
+	if stage == "phillyErect" then
+		lightColors = { 0xB66F43, 0x329A6D, 0x932C28, 0x2663AC, 0x502D64 }
+	end
 	print(stage .. " is our stage!")
 
 	createSound("trainSound", "train_passes", "shared")
@@ -32,8 +33,6 @@ end
 
 -- called each frame with elapsed being the seconds between the last frame
 function update(elapsed)
-	time = time + elapsed
-
 	if trainMoving then
 		trainFrameTiming = trainFrameTiming + elapsed
 
@@ -59,8 +58,6 @@ function beatHit(curBeat)
 		startDaTrain()
 	end
 end
-
-
 
 function startDaTrain()
 	trainMoving = true
@@ -94,7 +91,7 @@ end
 
 function trainReset()
 	playCharAnim("girlfriend", "hairFall", true)
-    
+
 	set("train.x", windowWidth + 200)
 	set("train.visible", false)
 	trainMoving = false

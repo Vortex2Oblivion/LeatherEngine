@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lots of new crash dialogue toast messages.
 - Chart editor now remembers the last section you were in.
 - Optimized versions for some characters.
+- Erect mode stage for week 3.
+- `isCharacterGroup` variable to characters/
 
 ### Changed
 
@@ -32,7 +34,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Random values in the week 4 stage not working properly;
 - Some FPS counter inaccuracies.
 - Custom gameover characters not loading properly
-- addBehind functions not working on group characters.
+- `addBehind` functions not working on group characters.
+- Scripts loaded using `loadScript` not setting global variable values
+
 
 ### Removed
 

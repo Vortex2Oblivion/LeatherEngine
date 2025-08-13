@@ -32,6 +32,7 @@ class Character extends FlxSprite {
 	public var positioningOffset:Array<Float> = [0, 0];
 	public var cameraOffset:Array<Float> = [0, 0];
 
+	public var isCharacterGroup(default, null):Bool = false;
 	public var otherCharacters:Array<Character>;
 	public var mainCharacterID:Int = 0;
 	public var followMainCharacter:Bool = false;
@@ -362,6 +363,7 @@ class Character extends FlxSprite {
 			otherCharacters = [];
 			mainCharacterID = config.mainCharacterID;
 			followMainCharacter = config.followMainCharacter;
+			isCharacterGroup = true;
 
 			for (characterData in config.characters) {
 				var character:Character;

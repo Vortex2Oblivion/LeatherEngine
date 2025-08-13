@@ -146,6 +146,9 @@ class LuaScript extends Script {
 	override public function set(name:String, value:Any):Void {
 		Convert.toLua(lua, value);
 		Lua.setglobal(lua, name);
+		for(script in otherScripts){
+			script.set(name, value);
+		}
 	}
 
 	public var trails:Map<String, FlxTrail> = [];

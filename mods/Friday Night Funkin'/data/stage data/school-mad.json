@@ -1,129 +1,221 @@
 {
-    "objects": [
-      {
-        "position": [0, 0],
-        "scroll_Factor": [0.1, 0.1],
-        "scale": 6,
-        "antialiased": false,
-        "file_Name": "weebSky",
-        "is_Animated": false
-      },
-      {
-        "is_Animated": false,
-        "antialiased": false,
-        "scroll_Factor": [0.6, 0.9],
-        "position": [-200, 0],
-        "file_Name": "weebSchool",
-        "scale": 6
-      },
-      {
-        "is_Animated": false,
-        "antialiased": false,
-        "scroll_Factor": [0.95, 0.95],
-        "position": [-200, 0],
-        "file_Name": "weebStreet",
-        "scale": 6
-      },
-      {
-        "is_Animated": false,
-        "antialiased": false,
-        "scroll_Factor": [0.95, 0.95],
-        "position": [-120, 60],
-        "file_Name": "weebTreesBack",
-        "scale": 6
-      },
-      {
-        "is_Animated": true,
-        "antialiased": false,
-        "scroll_Factor": [0.85, 0.85],
-        "position": [-780, -1000],
-        "file_Name": "weebTrees",
-        "scale": 6,
-        "animations": [
-          {
-            "name": "treeLoop",
-            "animation_name": "treeLoop",
-            "fps": 12,
-            "looped": true
-          }
-        ],
-        "start_Animation": "treeLoop"
-      },
-      {
-        "is_Animated": true,
-        "antialiased": false,
-        "scroll_Factor": [0.85, 0.85],
-        "position": [-780, -1000],
-        "file_Name": "weebTrees",
-        "scale": 6,
-        "animations": [
-          {
-            "name": "treeLoop",
-            "animation_name": "treeLoop",
-            "fps": 12,
-            "looped": true
-          }
-        ],
-        "start_Animation": "treeLoop"
-      },
-      {
-        "is_Animated": true,
-        "antialiased": false,
-        "scroll_Factor": [0.85, 0.85],
-        "position": [-20, 64],
-        "file_Name": "petals",
-        "scale": 6,
-        "layer": "foreground",
-        "animations": [
-          {
-            "name": "petals",
-            "animation_name": "petals",
-            "fps": 24,
-            "looped": true
-          }
-        ],
-        "start_Animation": "petals"
-      },
-      {
-        "is_Animated": true,
-        "antialiased": false,
-        "scroll_Factor": [0.85, 0.85],
-        "position": [-100, 190],
-        "file_Name": "bgFreaksMad",
-        "scale": 6,
-        "dances": true,
-        "animations": [
-          {
-            "name": "danceLeft",
-            "animation_name": "BG fangirls dissuaded",
-            "fps": 24,
-            "looped": true,
-            "indices": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
-          },
-          {
-            "name": "danceRight",
-            "animation_name": "BG fangirls dissuaded",
-            "fps": 24,
-            "looped": true,
-            "indices": [
-              15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29
-            ]
-          }
-        ],
-        "start_Animation": "danceLeft"
-      }
-    ],
-    "character_Positions": [
-      [1139, 908],
-      [525, 908],
-      [840, 866]
-    ],
-    "camera_Offsets": [
-      [-200, -100],
-      [0, 0]
-    ],
-    "camera_Zoom": 1.05,
-    "backgroundColor": "#A7D1F2",
-    "imageDirectory": "school"
-  }
-  
+	"objects": [
+		{
+			"position": [
+				0,
+				0
+			],
+			"scroll_Factor": [
+				0.1,
+				0.1
+			],
+			"scale": 6,
+			"antialiased": false,
+			"file_Name": "weebSky",
+			"is_Animated": false
+		},
+		{
+			"is_Animated": false,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.6,
+				0.9
+			],
+			"position": [
+				-200,
+				0
+			],
+			"file_Name": "weebSchool",
+			"scale": 6
+		},
+		{
+			"is_Animated": false,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.95,
+				0.95
+			],
+			"position": [
+				-200,
+				0
+			],
+			"file_Name": "weebStreet",
+			"scale": 6
+		},
+		{
+			"is_Animated": false,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.95,
+				0.95
+			],
+			"position": [
+				-120,
+				60
+			],
+			"file_Name": "weebTreesBack",
+			"scale": 6
+		},
+		{
+			"is_Animated": true,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.85,
+				0.85
+			],
+			"position": [
+				-780,
+				-1000
+			],
+			"file_Name": "weebTrees",
+			"scale": 6,
+			"animations": [
+				{
+					"name": "treeLoop",
+					"animation_name": "treeLoop",
+					"fps": 12,
+					"looped": true
+				}
+			],
+			"start_Animation": "treeLoop"
+		},
+		{
+			"is_Animated": true,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.85,
+				0.85
+			],
+			"position": [
+				-780,
+				-1000
+			],
+			"file_Name": "weebTrees",
+			"scale": 6,
+			"animations": [
+				{
+					"name": "treeLoop",
+					"animation_name": "treeLoop",
+					"fps": 12,
+					"looped": true
+				}
+			],
+			"start_Animation": "treeLoop"
+		},
+		{
+			"is_Animated": true,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.85,
+				0.85
+			],
+			"position": [
+				-20,
+				64
+			],
+			"file_Name": "petals",
+			"scale": 6,
+			"layer": "foreground",
+			"animations": [
+				{
+					"name": "petals",
+					"animation_name": "petals",
+					"fps": 24,
+					"looped": true
+				}
+			],
+			"start_Animation": "petals"
+		},
+		{
+			"is_Animated": true,
+			"antialiased": false,
+			"scroll_Factor": [
+				0.85,
+				0.85
+			],
+			"position": [
+				-100,
+				190
+			],
+			"file_Name": "bgFreaksMad",
+			"scale": 6,
+			"dances": true,
+			"animations": [
+				{
+					"name": "danceLeft",
+					"animation_name": "BG fangirls dissuaded",
+					"fps": 24,
+					"looped": true,
+					"indices": [
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14
+					]
+				},
+				{
+					"name": "danceRight",
+					"animation_name": "BG fangirls dissuaded",
+					"fps": 24,
+					"looped": true,
+					"indices": [
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21,
+						22,
+						23,
+						24,
+						25,
+						26,
+						27,
+						28,
+						29
+					]
+				}
+			],
+			"start_Animation": "danceLeft"
+		}
+	],
+	"character_Positions": [
+		[
+			1139,
+			908
+		],
+		[
+			525,
+			908
+		],
+		[
+			840,
+			866
+		]
+	],
+	"camera_Offsets": [
+		[
+			-200,
+			-100
+		],
+		[
+			0,
+			0
+		]
+	],
+	"camera_Zoom": 1.05,
+	"backgroundColor": "#A7D1F2",
+	"imageDirectory": "school"
+}

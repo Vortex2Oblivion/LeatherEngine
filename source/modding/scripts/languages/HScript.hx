@@ -76,6 +76,9 @@ class HScript extends Script {
 
 	override public function set(variable:String, value:Any){
 		interp.variables.set(variable, value);
+		for(script in otherScripts) {
+			script.set(variable, value);
+		}
 	}
 
 	override public function destroy(){}
