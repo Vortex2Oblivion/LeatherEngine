@@ -1,5 +1,5 @@
 function new()
-    loadScript("../stage data/philly")
+    loadScript("../stage data/philly") 
 end
 
 function createPost()

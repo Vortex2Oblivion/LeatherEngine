@@ -13,8 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Lots of new crash dialogue toast messages.
 - Chart editor now remembers the last section you were in.
 - Optimized versions for some characters.
+- Erect mode stage for week 1.
 - Erect mode stage for week 3.
-- `isCharacterGroup` variable to characters/
+- `isCharacterGroup` variable to characters.
+- `blend` property to stage objects.
+- `scaleY` property to stage objects.
 
 ### Changed
 

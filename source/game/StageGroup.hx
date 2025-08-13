@@ -1,5 +1,6 @@
 package game;
 
+import openfl.display.BlendMode;
 import flixel.util.FlxDestroyUtil;
 import modding.scripts.Script;
 #if MODDING_ALLOWED
@@ -109,6 +110,11 @@ class StageGroup extends FlxGroup {
 							if (object.color != null && object.color != [])
 								sprite.color = FlxColor.fromRGB(object.color[0], object.color[1], object.color[2]);
 
+							if (object.blend != null){
+								@:privateAccess
+								sprite.blend = BlendMode.fromString(object.blend);
+							}
+
 							sprite.antialiasing = object.antialiased && Options.getData("antialiasing");
 							sprite.scrollFactor.set(object.scroll_Factor[0], object.scroll_Factor[1]);
 
@@ -145,10 +151,14 @@ class StageGroup extends FlxGroup {
 							} else
 								sprite.loadGraphic(Paths.gpuBitmap((stageData.imageDirectory ?? stage) + "/" + object.file_Name, "stages"));
 
+							if (object.scaleY == null) {
+								object.scaleY = (object.scale) ?? 1.0;
+							}
+
 							if (object.uses_Frame_Width)
-								sprite.setGraphicSize(sprite.frameWidth * object.scale);
+								sprite.setGraphicSize(sprite.frameWidth * object.scale, sprite.frameHeight * object.scaleY);
 							else
-								sprite.setGraphicSize(sprite.width * object.scale);
+								sprite.setGraphicSize(sprite.width * object.scale, sprite.height * object.scaleY);
 
 							if (object.updateHitbox || object.updateHitbox == null)
 								sprite.updateHitbox();
@@ -181,19 +191,19 @@ class StageGroup extends FlxGroup {
 					if (stageData.scriptName == null) {
 						stageData.scriptName = stage;
 					}
-					if(FlxG.state is PlayState){
+					if (FlxG.state is PlayState) {
 						#if HSCRIPT_ALLOWED
 						if (Assets.exists(Paths.hx('data/stage data/${stageData.scriptName}'))) {
 							stageScript = new HScript(Paths.hx('data/stage data/${stage}'), STAGE);
 							for (object in stageObjects) {
 								stageScript.set(object[0], object[1]);
 							}
-						} 
+						}
 						#end
 						#if LUA_ALLOWED
 						if (Assets.exists(Paths.lua("stage data/" + stageData.scriptName))) {
-							stageScript = new LuaScript(#if MODDING_ALLOWED PolymodAssets #else Assets #end
-								.getPath(Paths.lua("stage data/" + stageData.scriptName)));
+							stageScript = new LuaScript(#if MODDING_ALLOWED PolymodAssets #else Assets #end.getPath(Paths.lua("stage data/"
+								+ stageData.scriptName)));
 							stageScript.executeOn = STAGE;
 						}
 						#end
@@ -349,6 +359,7 @@ typedef StageObject = {
 	var position:Array<Float>;
 	var zIndex:Null<Int>;
 	var scale:Float;
+	var scaleY:Null<Float>;
 	var antialiased:Bool;
 	var scroll_Factor:Array<Float>;
 
@@ -358,6 +369,7 @@ typedef StageObject = {
 	var layer:Null<String>; // default is bg, but fg is possible
 	var alpha:Null<Float>;
 	var updateHitbox:Null<Bool>;
+	var blend:Null<String>;
 
 	var flipX:Null<Bool>;
 	var flipY:Null<Bool>;

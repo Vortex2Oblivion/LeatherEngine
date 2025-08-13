@@ -1,0 +1,177 @@
+{
+	"character_Positions": [
+		[
+			977.5,
+			865
+		],
+		[
+			40,
+			850
+		],
+		[
+			501.5,
+			825
+		]
+	],
+	"characterZIndices": [
+		300,
+		200,
+		100
+	],
+	"camera_Zoom": 0.85,
+	"backgroundColor": "#222026",
+	"imageDirectory": "stage",
+	"objects": [
+		{
+			"position": [
+				967,
+				-103
+			],
+			"scroll_Factor": [
+				1.2,
+				1.2
+			],
+			"scale": 1,
+			"antialiased": true,
+			"zIndex": 10,
+			"file_Name": "erect/brightLightSmall",
+			"blend": "add",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				682,
+				290
+			],
+			"scroll_Factor": [
+				0.8,
+				0.8
+			],
+			"zIndex": 5,
+			"scale": 1,
+			"antialiased": true,
+			"file_Name": "erect/crowd",
+			"is_Animated": true,
+			"animations": [
+				{
+					"name": "idle",
+					"animation_name": "idle0",
+					"fps": 12,
+					"looped": true
+				}
+			],
+			"start_Animation": "idle"
+		},
+		{
+			"position": [
+				-765,
+				-247
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"zIndex": 20,
+			"antialiased": true,
+			"file_Name": "erect/bg",
+			"is_Animated": false,
+			"object_Name": "car"
+		},
+		{
+			"position": [
+				-991,
+				205
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"zIndex": 30,
+			"antialiased": true,
+			"file_Name": "erect/server",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				-847,
+				-245
+			],
+			"scroll_Factor": [
+				1.2,
+				1.2
+			],
+			"scale": 1,
+			"zIndex": 4000,
+			"antialiased": true,
+			"file_Name": "erect/lights",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				189,
+				-500
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"scaleY": 3,
+			"zIndex": 80,
+			"antialiased": true,
+			"file_Name": "erect/orangeLight",
+			"blend": "add",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				-171,
+				242
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"zIndex": 40,
+			"antialiased": true,
+			"file_Name": "erect/lightgreen",
+			"blend": "add",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				-101,
+				560
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"zIndex": 40,
+			"antialiased": true,
+			"file_Name": "erect/lightred",
+			"blend": "add",
+			"is_Animated": false
+		},
+		{
+			"position": [
+				804,
+				-117
+			],
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"scale": 1,
+			"zIndex": 4500,
+			"antialiased": true,
+			"file_Name": "erect/lightAbove",
+			"blend": "add",
+			"is_Animated": false
+		}
+	]
+}
