@@ -1,11 +1,9 @@
 package game;
 
 import toolbox.CharacterCreator;
-import flxanimate.frames.FlxAnimateFrames;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.addons.effects.FlxTrail;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
@@ -27,8 +25,6 @@ class Character extends FlxSprite {
 	public var curCharacter:String = 'bf';
 
 	public var holdTimer:Float = 0;
-
-	public var animationNotes:Array<Dynamic> = [];
 
 	public var dancesLeftAndRight:Bool = false;
 

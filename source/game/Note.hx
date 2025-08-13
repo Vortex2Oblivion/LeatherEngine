@@ -8,14 +8,13 @@ import game.SongLoader.SongData;
 import utilities.NoteVariables;
 import states.PlayState;
 import flixel.FlxG;
-import flixel.addons.effects.FlxSkewedSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.math.FlxRect;
 
 using StringTools;
 
-class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else FlxSkewedSprite #end {
+class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.addons.effects.FlxSkewedSprite #end {
 	/**
 	 * The position of the note (in milliseconds)
 	 */

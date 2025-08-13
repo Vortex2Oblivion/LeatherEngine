@@ -1,72 +1,105 @@
 {
-  "objects": [
-    {
-      "is_Animated": false,
-      "antialiased": true,
-      "scroll_Factor": [1, 1],
-      "position": [-985, -805],
-      "file_Name": "erect/bg",
-      "zIndex": 10,
-      "scale": 1.15
-    },
-    {
-      "is_Animated": true,
-      "antialiased": true,
-      "scroll_Factor": [1, 1],
-      "position": [-127, 349],
-      "zIndex": 20,
-      "file_Name": "erect/sniper",
-      "object_Name": "sniper",
-      "scale": 1.15,
-      "start_Animation": "beatHit",
-      "animations": [
-        {
-          "animation_name": "Tankmanidlebaked instance 1",
-          "looped": false,
-          "fps": 24,
-          "name": "beatHit"
-        },
-        {
-          "animation_name": "tanksippingBaked instance 1",
-          "looped": false,
-          "fps": 24,
-          "name": "sip"
-        }
-      ]
-    },
-    {
-      "is_Animated": true,
-      "antialiased": true,
-      "scroll_Factor": [1, 1],
-      "position": [1398, 407],
-      "zIndex": 20,
-      "file_Name": "erect/guy",
-      "scale": 1.15,
-      "start_Animation": "beatHit",
-      "animations": [
-        {
-          "animation_name": "BLTank2 instance 1",
-          "looped": false,
-          "fps": 24,
-          "name": "beatHit"
-        }
-      ]
-    }
-  ],
-  "character_Positions": [
-    [1340.5, 885],
-    [230.5, 885],
-    [800.5, 775]
-  ],
-  "characterZIndices": [
-    100,
-	100, 
-	100
-  ],
-  "imageDirectory": "wasteland",
-  "camera_Zoom": 0.7,
-  "camera_Offsets": [
-	[-220, -100],
-	[250, -100]
-  ]
+	"objects": [
+		{
+			"is_Animated": false,
+			"antialiased": true,
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"position": [
+				-985,
+				-805
+			],
+			"file_Name": "erect/bg",
+			"zIndex": 10,
+			"scale": 1.15
+		},
+		{
+			"is_Animated": true,
+			"antialiased": true,
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"position": [
+				-127,
+				349
+			],
+			"zIndex": 20,
+			"file_Name": "erect/sniper",
+			"object_Name": "sniper",
+			"scale": 1.15,
+			"start_Animation": "beatHit",
+			"animations": [
+				{
+					"animation_name": "Tankmanidlebaked instance 1",
+					"looped": false,
+					"fps": 24,
+					"name": "beatHit"
+				},
+				{
+					"animation_name": "tanksippingBaked instance 1",
+					"looped": false,
+					"fps": 24,
+					"name": "sip"
+				}
+			]
+		},
+		{
+			"is_Animated": true,
+			"antialiased": true,
+			"scroll_Factor": [
+				1,
+				1
+			],
+			"position": [
+				1398,
+				407
+			],
+			"zIndex": 20,
+			"file_Name": "erect/guy",
+			"scale": 1.15,
+			"start_Animation": "beatHit",
+			"animations": [
+				{
+					"animation_name": "BLTank2 instance 1",
+					"looped": false,
+					"fps": 24,
+					"name": "beatHit"
+				}
+			]
+		}
+	],
+	"character_Positions": [
+		[
+			1340.5,
+			885
+		],
+		[
+			230.5,
+			885
+		],
+		[
+			800.5,
+			775
+		]
+	],
+	"characterZIndices": [
+		100,
+		100,
+		100
+	],
+	"imageDirectory": "wasteland",
+	"camera_Zoom": 0.7,
+	"camera_Offsets": [
+		[
+			-220,
+			-100
+		],
+		[
+			250,
+			-100
+		]
+	]
 }

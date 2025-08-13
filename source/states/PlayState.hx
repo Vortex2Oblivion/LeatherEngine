@@ -36,7 +36,6 @@ import game.Cutscene;
 import game.Highscore;
 import game.Note;
 import game.NoteSplash;
-import game.SongLoader.Section as SwagSection;
 import game.SongLoader;
 import game.SoundGroup;
 import game.StageGroup;
@@ -60,9 +59,6 @@ using StringTools;
 
 #if DISCORD_ALLOWED
 import utilities.DiscordClient;
-#end
-#if MODDING_ALLOWED
-import polymod.backends.PolymodAssets;
 #end
 #if VIDEOS_ALLOWED
 import hxvlc.flixel.FlxVideo;
@@ -1692,7 +1688,7 @@ class PlayState extends MusicBeatState {
 		FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * SONG.timescale[0] / 1000), {ease: FlxEase.elasticInOut});
 	}
 
-	override function openSubState(SubState:FlxSubState) {
+	override function openSubState(subState:FlxSubState) {
 		if (paused) {
 			FlxG.sound.music?.pause();
 
@@ -1708,7 +1704,7 @@ class PlayState extends MusicBeatState {
 				startTimer.active = false;
 		}
 
-		super.openSubState(SubState);
+		super.openSubState(subState);
 	}
 
 	override function closeSubState() {
@@ -1834,6 +1830,21 @@ class PlayState extends MusicBeatState {
 	}
 
 	var fixedUpdateTime:Float = 0.0;
+
+	function trackSingDirection(char:Character):Void {
+		if (Options.getData("cameraTracksDirections") && char.getMainCharacter().hasAnims()) {
+			switch (char.getMainCharacter().curAnimName().toLowerCase()) {
+				case "singleft":
+					camFollow.x -= 50;
+				case "singright":
+					camFollow.x += 50;
+				case "singup":
+					camFollow.y -= 50;
+				case "singdown":
+					camFollow.y += 50;
+			}
+		}
+	}
 
 	override function update(elapsed:Float) {
 		super.update(elapsed);
@@ -1983,31 +1994,9 @@ class PlayState extends MusicBeatState {
 					camFollow.x *= 0.5;
 					camFollow.y *= 0.5;
 					if (PlayState.SONG.notes[Std.int(curStep / Conductor.stepsPerSection)].mustHitSection) {
-						if (Options.getData("cameraTracksDirections") && boyfriend.getMainCharacter().hasAnims()) {
-							switch (boyfriend.getMainCharacter().curAnimName().toLowerCase()) {
-								case "singleft":
-									camFollow.x -= 50;
-								case "singright":
-									camFollow.x += 50;
-								case "singup":
-									camFollow.y -= 50;
-								case "singdown":
-									camFollow.y += 50;
-							}
-						}
+						trackSingDirection(boyfriend);
 					} else {
-						if (Options.getData("cameraTracksDirections") && dad.getMainCharacter().hasAnims()) {
-							switch (dad.getMainCharacter().curAnimName().toLowerCase()) {
-								case "singleft":
-									camFollow.x -= 50;
-								case "singright":
-									camFollow.x += 50;
-								case "singup":
-									camFollow.y -= 50;
-								case "singdown":
-									camFollow.y += 50;
-							}
-						}
+						trackSingDirection(dad);
 					}
 				}
 			}
@@ -2088,18 +2077,7 @@ class PlayState extends MusicBeatState {
 					];
 
 					if (characterPlayingAs == BF) {
-						if (dad.otherCharacters == null || dad.otherCharacters.length - 1 < note.character)
-							dad.playAnim(singAnim, true);
-						else {
-							if (note.characters.length <= 1)
-								dad.otherCharacters[note.character].playAnim(singAnim, true);
-							else {
-								for (character in note.characters) {
-									if (dad.otherCharacters.length - 1 >= character)
-										dad.otherCharacters[character].playAnim(singAnim, true);
-								}
-							}
-						}
+						playAnimOnNote(dad, note, singAnim);
 
 						if (note.isSustainNote) {
 							call('playerTwoSingHeld', luaData);
@@ -2107,16 +2085,7 @@ class PlayState extends MusicBeatState {
 							call('playerTwoSing', luaData);
 						}
 					} else {
-						if (boyfriend.otherCharacters == null || boyfriend.otherCharacters.length - 1 < note.character)
-							boyfriend.playAnim(singAnim, true);
-						else if (note.characters.length <= 1)
-							boyfriend.otherCharacters[note.character].playAnim(singAnim, true);
-						else {
-							for (character in note.characters) {
-								if (boyfriend.otherCharacters.length - 1 >= character)
-									boyfriend.otherCharacters[character].playAnim(singAnim, true);
-							}
-						}
+						playAnimOnNote(boyfriend, note, singAnim);
 
 						if (note.isSustainNote) {
 							call('playerOneSingHeld', luaData);
@@ -2477,24 +2446,28 @@ class PlayState extends MusicBeatState {
 		super.destroy();
 	}
 
+	function playAnimOnNote(char:Character, note:Note, singAnim:String, force:Bool = true) {
+		if (char.otherCharacters == null || char.otherCharacters.length - 1 < note.character)
+			char.playAnim(singAnim, force);
+		else {
+			if (note.characters.length <= 1)
+				char.otherCharacters[note.character].playAnim(singAnim, force);
+			else {
+				for (character in note.characters) {
+					if (char.otherCharacters.length - 1 >= character)
+						char.otherCharacters[character].playAnim(singAnim, force);
+				}
+			}
+		}
+	}
+
 	function turnChange(char:String) {
 		call("turnChange", [char]);
 		switch (char) {
 			case 'dad':
 				var midPos:FlxPoint = dad.getMainCharacter().getMidpoint();
 
-				if (Options.getData("cameraTracksDirections") && dad.getMainCharacter().hasAnims()) {
-					switch (dad.curAnimName().toLowerCase()) {
-						case "singleft":
-							midPos.x -= 50;
-						case "singright":
-							midPos.x += 50;
-						case "singup":
-							midPos.y -= 50;
-						case "singdown":
-							midPos.y += 50;
-					}
-				}
+				trackSingDirection(dad);
 
 				midPos.x += stage.p2_Cam_Offset.x;
 				midPos.y += stage.p2_Cam_Offset.y;
@@ -2506,19 +2479,7 @@ class PlayState extends MusicBeatState {
 			case 'bf':
 				var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
 
-				if (Options.getData("cameraTracksDirections") && boyfriend.getMainCharacter().hasAnims()) {
-					switch (boyfriend.curAnimName().toLowerCase()) {
-						case "singleft":
-							midPos.x -= 50;
-						case "singright":
-							midPos.x += 50;
-						case "singup":
-							midPos.y -= 50;
-						case "singdown":
-							midPos.y += 50;
-					}
-				}
-
+				trackSingDirection(boyfriend);
 				midPos.x += stage.p1_Cam_Offset.x;
 				midPos.y += stage.p1_Cam_Offset.y;
 
@@ -2529,13 +2490,6 @@ class PlayState extends MusicBeatState {
 						midPos.y
 						- 100
 						+ boyfriend.getMainCharacter().cameraOffset[1]);
-
-				switch (curStage) {
-					case 'limo':
-						camFollow.x = midPos.x - 300;
-					case 'mall':
-						camFollow.y = midPos.y - 200;
-				}
 
 				call("playerOneTurn", []);
 		}
@@ -3239,41 +3193,10 @@ class PlayState extends MusicBeatState {
 
 			songScore -= 10;
 
-			if (note != null) {
-				if (characterPlayingAs == BF) {
-					if (boyfriend.otherCharacters != null && !(boyfriend.otherCharacters.length - 1 < note.character)) {
-						if (note.characters.length <= 1)
-							boyfriend.otherCharacters[note.character].playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction]
-								+ "miss", true);
-						else {
-							for (character in note.characters) {
-								if (boyfriend.otherCharacters.length - 1 >= character)
-									boyfriend.otherCharacters[character].playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction]
-										+ "miss", true);
-							}
-						}
-					} else
-						boyfriend.playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss", true);
-				} else {
-					if (dad.otherCharacters != null && !(dad.otherCharacters.length - 1 < note.character))
-						if (note.characters.length <= 1)
-							dad.otherCharacters[note.character].playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss",
-								true);
-						else {
-							for (character in note.characters) {
-								if (dad.otherCharacters.length - 1 >= character)
-									dad.otherCharacters[character].playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] +
-										"miss", true);
-							}
-						}
-					else
-						dad.playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss", true);
-				}
+			if (characterPlayingAs == BF) {
+				playAnimOnNote(boyfriend, note, NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss");
 			} else {
-				if (characterPlayingAs == BF)
-					boyfriend.playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss", true);
-				else
-					dad.playAnim(NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss", true);
+				playAnimOnNote(dad, note, NoteVariables.characterAnimations[getCorrectKeyCount(true) - 1][direction] + "miss");
 			}
 
 			calculateAccuracy();
@@ -3325,17 +3248,7 @@ class PlayState extends MusicBeatState {
 				singAnim = singAnim.replace('sing', note.singAnimPrefix);
 			}
 			if (characterPlayingAs == BF) {
-				if (boyfriend.otherCharacters != null && !(boyfriend.otherCharacters.length - 1 < note.character))
-					if (note.characters.length <= 1)
-						boyfriend.otherCharacters[note.character].playAnim(singAnim, true);
-					else {
-						for (character in note.characters) {
-							if (boyfriend.otherCharacters.length - 1 >= character)
-								boyfriend.otherCharacters[character].playAnim(singAnim, true);
-						}
-					}
-				else
-					boyfriend.playAnim(singAnim, true);
+				playAnimOnNote(boyfriend, note, singAnim);
 
 				if (note.isSustainNote) {
 					call("playerOneSingHeld", lua_Data);
@@ -3349,17 +3262,7 @@ class PlayState extends MusicBeatState {
 					note.isSustainNote
 				]);
 			} else {
-				if (dad.otherCharacters != null && !(dad.otherCharacters.length - 1 < note.character))
-					if (note.characters.length <= 1)
-						dad.otherCharacters[note.character].playAnim(singAnim, true);
-					else {
-						for (character in note.characters) {
-							if (dad.otherCharacters.length - 1 >= character)
-								dad.otherCharacters[character].playAnim(singAnim, true);
-						}
-					}
-				else
-					dad.playAnim(singAnim, true);
+				playAnimOnNote(dad, note, singAnim);
 
 				if (note.isSustainNote) {
 					call("playerTwoSingHeld", lua_Data);
