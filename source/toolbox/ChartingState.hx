@@ -1847,9 +1847,6 @@ class ChartingState extends MusicBeatState {
 				if (Std.int(event[1]) >= Std.int(sectionStartTime()) && Std.int(event[1]) < Std.int(sectionStartTime(curSection + 1))) {
 					var eventSprite:EventSprite = new EventSprite(event);
 
-					eventSprite.setGraphicSize(GRID_SIZE, GRID_SIZE);
-					eventSprite.updateHitbox();
-
 					eventSprite.y = Math.floor(getYfromStrum((event[1] - sectionStartTime()) % (Conductor.stepCrochet * Conductor.stepsPerSection)));
 
 					curRenderedEvents.add(eventSprite);

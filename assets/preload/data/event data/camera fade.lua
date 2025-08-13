@@ -7,6 +7,6 @@ function onEvent(name, position, argument1, argument2)
             duration = 1
         end
 
-        fadeCamera("game", colorString, duration)
+        fadeCamera("game", colorString, duration, false, true)
     end
 end

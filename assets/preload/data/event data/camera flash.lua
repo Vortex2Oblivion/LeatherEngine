@@ -7,6 +7,6 @@ function onEvent(name, position, argument1, argument2)
             duration = 1
         end
 
-        flashCamera("game", colorString, duration)
+        flashCamera("game", colorString, duration, true)
     end
 end

@@ -82,7 +82,7 @@ class EventHandler {
 					time = 1;
 
 				if (Options.getData("flashingLights"))
-					game.camGame.flash(FlxColor.fromString(event[2].toLowerCase()), time);
+					game.camGame.flash(FlxColor.fromString(event[2].toLowerCase()), time, () -> {}, true);
 			case "camera fade":
 				var time = Std.parseFloat(event[3]);
 
@@ -90,7 +90,7 @@ class EventHandler {
 					time = 1;
 
 				if (Options.getData("flashingLights"))
-					game.camGame.fade(FlxColor.fromString(event[2].toLowerCase()), time);
+					game.camGame.fade(FlxColor.fromString(event[2].toLowerCase()), time, false, () -> {}, true);
 			#end
 			case "add camera zoom":
 				if (game.cameraZooms && ((FlxG.camera.zoom < 1.35 && game.camZooming) || !game.camZooming)) {

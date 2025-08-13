@@ -14,8 +14,8 @@ Set GF Speed~1 = Normal Speed (NOT A DECIMAL)~Nothing
 Set Camera Zoom~Game Camera Zoom (default is defaultCameraZoom)~Hud Camera Zoom (default is 1)
 Add Camera Zoom~Game Camera Add (default = 0.015)~Hud Camera Add (default = 0.03)
 Screen Shake~Camera Shake (duration, intensity)~Hud Shake (duration, intensity)
-Camera Flash~Color (example: 'red')~Duration
-Camera Fade~Color (example: 'red')~Duration
+Camera Flash~Color (example: 'red')~Duration (In Seconds)
+Camera Fade~Color (example: 'red')~Duration (In Seconds)
 Add Trail~Object Name (dad, boyfriend, girlfriend, etc)~Properties, formatted like: '10,3,0.4,0.05' (sprite count, frame delay, alpha, alpha diff)
 Remove Trail~Object Name (dad, boyfriend, girlfriend, etc)~Nothing
 No Shader~Character (BF, Dad, GF)~Nothing
