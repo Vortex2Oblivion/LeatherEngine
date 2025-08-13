@@ -160,8 +160,7 @@ class Character extends FlxSprite {
 	public function loadNamedConfiguration(characterName:String) {
 		if (!Assets.exists((Paths.json("character data/" + characterName)))) {
 			if (!Assets.exists(Paths.json("character data/" + characterName + "/config"))) {
-				characterName = "bf";
-				curCharacter = characterName;
+				curCharacter = characterName = isPlayer ? "bf" : "dad";
 			}
 			#if HSCRIPT_ALLOWED
 			if(FlxG.state is PlayState){

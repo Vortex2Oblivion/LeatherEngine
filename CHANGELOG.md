@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Car characters have looping idle animations
 - Optimized characters no longer have miss animations
 - Softcoded some base game cutscenes.
+- `dad` is now the fallback character when on the opponent side.
 
 ### Fixed
 
