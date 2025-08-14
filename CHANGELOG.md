@@ -46,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Init Shader and 3D shader events from event list (events are still in game for backwards compat reasosn)
+- Init Shader and 3D shader events from event list (events are still in game for backwards compat reasons)
 
 ## [1.0.7] - 8/7/25
 
