@@ -74,7 +74,7 @@ class OptionsMenu extends MusicBeatState {
 			new BoolOption("Flixel Splash Screen", "flixelStartupScreen", "Toggles the haxeflixel startup splash screen."),
 			new BoolOption("Skip Results", "skipResultsScreen", "When toggled, the results screen will be skipped."),
 			#if CHECK_FOR_UPDATES
-			new BoolOption("Check For Updates", "checkForUpdates", "Disables the game checking for an update on startup."),
+			new BoolOption("Check For Updates", "checkForUpdates", "When checked, the game will check for updates on startup."),
 			#end
 			new BoolOption("Show Score", "showScore", "Shows the current score."),
 			new BoolOption("Dinnerbone Mode", "dinnerbone", "Dinnerbone mode."),

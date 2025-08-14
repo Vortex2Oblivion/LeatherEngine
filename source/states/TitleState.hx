@@ -316,8 +316,9 @@ class TitleState extends MusicBeatState {
 			call("checkForUpdate");
 			#if CHECK_FOR_UPDATES
 			if (Options.getData("checkForUpdates")) {
+				trace("Checking for updates...");
 				new FlxTimer().start(2, (tmr:FlxTimer) -> {
-					var http:Http = new Http("https://raw.githubusercontent.com/Vortex2Oblivion/LeatherEngine/main/version.txt");
+					var http:Http = new Http("https://raw.githubusercontent.com/Vortex2Oblivion/LeatherEngine/refs/heads/main/version.txt");
 					http.onData = (data:String) -> {
 						data = 'v' + data;
 						if (CoolUtil.getCurrentVersion() != data) {

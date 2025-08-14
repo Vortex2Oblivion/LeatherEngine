@@ -27,7 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optimized characters no longer have miss animations
 - Softcoded some base game cutscenes.
 - `dad` is now the fallback character when on the opponent side.
-- `camera flash` and `camera fade` events will now override an ongoing flash/fade
+- `camera flash` and `camera fade` events will now override an ongoing flash/fade.
+- Description for check for updates option.
 
 ### Fixed
 
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Scripts loaded using `loadScript` not setting global variable values.
 - Crash when hovering over an event sprite in the chart editor.
 - Popup error messages are now properly always on top.
+- Update checker not working
 
 
 ### Removed
