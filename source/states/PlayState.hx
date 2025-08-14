@@ -1040,7 +1040,7 @@ class PlayState extends MusicBeatState {
 					box.scrollFactor.set();
 					box.onDialogueFinish.add(() -> bruhDialogue(false));
 					box.cameras = [camHUD];
-					box.zIndex = FlxMath.MAX_VALUE_INT;
+					box.zIndex = 99999;
 					startDialogue(box, false);
 				default:
 					startCountdown();
@@ -1126,7 +1126,7 @@ class PlayState extends MusicBeatState {
 							box.scrollFactor.set();
 							box.onDialogueFinish.add(() -> bruhDialogue(endSongVar));
 							box.cameras = [camHUD];
-							box.zIndex = FlxMath.MAX_VALUE_INT;
+							box.zIndex = 99999;
 							startDialogue(box, endSongVar);
 
 						default:
@@ -1200,7 +1200,7 @@ class PlayState extends MusicBeatState {
 					box.scrollFactor.set();
 					box.onDialogueFinish.add(() -> bruhDialogue(endSongVar));
 					box.cameras = [camHUD];
-					box.zIndex = FlxMath.MAX_VALUE_INT;
+					box.zIndex = 99999;
 					startDialogue(box, endSongVar);
 
 				default:
@@ -1301,7 +1301,7 @@ class PlayState extends MusicBeatState {
 					ready.updateHitbox();
 
 					ready.screenCenter();
-					ready.zIndex = FlxMath.MAX_VALUE_INT;
+					ready.zIndex = 99999;
 					add(ready);
 
 					FlxTween.tween(ready, {y: ready.y += 100, alpha: 0}, Conductor.crochet / 1000, {
@@ -1320,7 +1320,7 @@ class PlayState extends MusicBeatState {
 					set.updateHitbox();
 
 					set.screenCenter();
-					set.zIndex = FlxMath.MAX_VALUE_INT;
+					set.zIndex = 99999;
 					add(set);
 
 					FlxTween.tween(set, {y: set.y += 100, alpha: 0}, Conductor.crochet / 1000, {
@@ -1339,7 +1339,7 @@ class PlayState extends MusicBeatState {
 					go.updateHitbox();
 
 					go.screenCenter();
-					go.zIndex = FlxMath.MAX_VALUE_INT;
+					go.zIndex = 99999;
 					add(go);
 
 					FlxTween.tween(go, {y: go.y += 100, alpha: 0}, Conductor.crochet / 1000, {
@@ -2531,7 +2531,7 @@ class PlayState extends MusicBeatState {
 						box.scrollFactor.set();
 						box.onDialogueFinish.add(() -> bruhDialogue(true));
 						box.cameras = [camHUD];
-						box.zIndex = FlxMath.MAX_VALUE_INT;
+						box.zIndex = 99999;
 						startDialogue(box, true);
 					default:
 						moveToResultsScreen(true);

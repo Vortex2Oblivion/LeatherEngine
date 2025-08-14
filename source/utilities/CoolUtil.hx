@@ -1,5 +1,6 @@
 package utilities;
 
+import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import sys.FileSystem;
 import game.SongLoader.FNFCMetadata;
@@ -282,6 +283,8 @@ class CoolUtil {
 		text.borderStyle = OUTLINE_FAST;
 		text.borderColor = FlxColor.BLACK;
 		text.scrollFactor.set();
+		text.cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
+		text.zIndex = FlxMath.MAX_VALUE_INT;
 		errors.set(title + "\n\n" + message, text);
 
 		FlxTween.tween(text, {alpha: 0, y: 64}, 4, {
