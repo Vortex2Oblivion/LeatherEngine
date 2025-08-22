@@ -1399,15 +1399,15 @@ class ChartingState extends MusicBeatState {
 					resetSection();
 			}
 
-			if (FlxG.mouse.wheel != 0 && !control) {
+			if (FlxG.mouse.wheel != 0) {
 				if (control) {
 					cameraShitThing.x += FlxG.mouse.wheel * 5;
 
-					if (cameraShitThing.x > gridBG.x + gridBG.width)
+					/*if (cameraShitThing.x > gridBG.x + gridBG.width)
 						cameraShitThing.x = gridBG.x + gridBG.width;
 
 					if (cameraShitThing.x < 0)
-						cameraShitThing.x = 0;
+						cameraShitThing.x = 0;*/
 				} else {
 					FlxG.sound.music.pause();
 					vocals.pause();
@@ -1506,7 +1506,7 @@ class ChartingState extends MusicBeatState {
 		for (n in curRenderedNotes.members) {
 			if (n?.animation?.curAnim != null) {
 				if (n.isSustainNote && !StringTools.endsWith(n.animation.curAnim.name, "end")) {
-					n.setGraphicSize(n.frameWidth * n.scale.x, zoomLevel * GRID_SIZE);
+					n.setGraphicSize(n.frameWidth * n.scale.x, Math.ceil(zoomLevel * GRID_SIZE));
 					n.updateHitbox();
 				}
 			}

@@ -1461,7 +1461,7 @@ class PlayState extends MusicBeatState {
 				if (vocals.members.length >= 2) {
 					break;
 				}
-				var soundPath:String = Paths.voices(PlayState.SONG.song, SONG.specialAudioName ?? storyDifficultyStr.toLowerCase(), character,
+				var soundPath:String = Paths.voices(SONG.song, SONG.specialAudioName ?? storyDifficultyStr.toLowerCase(), character,
 					boyfriend.curCharacter);
 				if (!addedVocals.contains(soundPath)) {
 					vocals.add(FlxG.sound.list.add(new FlxSound().loadEmbedded(soundPath)));

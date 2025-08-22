@@ -11,7 +11,6 @@ import flixel.FlxSprite;
 import flixel.FlxObject;
 import game.Conductor;
 import flixel.math.FlxMath;
-import states.OptionsMenu;
 import game.Character;
 import ui.FlxScrollableDropDownMenu;
 import states.MusicBeatState;

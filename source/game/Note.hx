@@ -88,6 +88,9 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 	 */
 	public var z:Float = 0;
 	#end
+	
+
+	public static final SCALE_MULT:Float = 1.474;
 
 	/**
 	 * @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
@@ -193,9 +196,11 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 
 		frames = Note.getFrames(this);
 
-		animation.addByPrefix("default", NoteVariables.animationDirections[localKeyCount - 1][noteData] + "0", 24);
-		animation.addByPrefix("hold", NoteVariables.animationDirections[localKeyCount - 1][noteData] + " hold0", 24);
-		animation.addByPrefix("holdend", NoteVariables.animationDirections[localKeyCount - 1][noteData] + " hold end0", 24);
+		var animationName:String = NoteVariables.animationDirections[localKeyCount - 1][noteData];
+
+		animation.addByPrefix("default", '${animationName}0', 24);
+		animation.addByPrefix("hold", '${animationName} hold0', 24);
+		animation.addByPrefix("holdend", '${animationName} hold end0', 24);
 
 		var lmaoStuff:Float = Std.parseFloat(PlayState.instance.ui_settings[0]) * (Std.parseFloat(PlayState.instance.ui_settings[2])
 			- (Std.parseFloat(PlayState.instance.mania_size[localKeyCount - 1])));
@@ -265,7 +270,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 				if (prevNote.animation != null)
 					prevNote.animation.play("hold");
 
-				prevNote.scale.y *= Conductor.stepCrochet / 100 * 1.5 * speed;
+				prevNote.scale.y *= Conductor.stepCrochet / 100 * SCALE_MULT * speed;
 				prevNote.updateHitbox();
 				prevNote.centerOffsets();
 				prevNote.sustainScaleY = prevNote.scale.y;
@@ -283,11 +288,11 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 		}
 
 		colorSwap = new ColorSwap();
-		shader = affectedbycolor ? colorSwap.shader : null;
+		if (affectedbycolor) {
+			shader = colorSwap.shader;
+		}
 
-		var realKeyCount:Int = mustPress ? song.playerKeyCount : song.keyCount;
-
-		var noteColor = NoteColors.getNoteColor(NoteVariables.animationDirections[realKeyCount - 1][noteData]);
+		var noteColor = NoteColors.getNoteColor(animationName);
 
 		if (colorSwap != null && noteColor != null) {
 			colorSwap.r = noteColor[0];
@@ -360,7 +365,7 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 		if (isSustainNote && !inEditor && animation != null && !animation?.curAnim?.name?.endsWith('end')) {
 			scale.y = Std.parseFloat(PlayState.instance.ui_settings[0]) * (Std.parseFloat(PlayState.instance.ui_settings[2])
 				- (Std.parseFloat(PlayState.instance.mania_size[3])));
-			scale.y *= Conductor.stepCrochet / 100 * 1.5 * speed;
+			scale.y *= Conductor.stepCrochet / 100 * SCALE_MULT * speed;
 			updateHitbox();
 			centerOffsets();
 		}
