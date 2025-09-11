@@ -115,6 +115,7 @@ class BoolOption extends Option {
 					}
 					FlxSprite.defaultAntialiasing = optionChecked;
 				}
+				FlxG.allowAntialiasing = FlxSprite.defaultAntialiasing = optionChecked;
 			case "vSync":
 				FlxG.stage.window.vsync = optionChecked;
 			case "throwExceptionOnError":

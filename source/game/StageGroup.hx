@@ -28,9 +28,9 @@ class StageGroup extends FlxGroup {
 	public var stage:String = "stage";
 	public var camZoom:Float = 1.05;
 
-	public var player_1_Point:FlxPoint = new FlxPoint(1000, 800);
-	public var player_2_Point:FlxPoint = new FlxPoint(300, 800);
-	public var gf_Point:FlxPoint = new FlxPoint(600, 750);
+	public var player_1_Point:FlxPoint = FlxPoint.get(1000, 800);
+	public var player_2_Point:FlxPoint = FlxPoint.get(300, 800);
+	public var gf_Point:FlxPoint = FlxPoint.get(600, 750);
 
 	public var p1_Scroll:Float = 1.0;
 	public var p2_Scroll:Float = 1.0;
@@ -40,8 +40,8 @@ class StageGroup extends FlxGroup {
 	public var p2ZIndex:Int = 0;
 	public var gfZIndex:Int = 0;
 
-	public var p1_Cam_Offset:FlxPoint = new FlxPoint(0, 0);
-	public var p2_Cam_Offset:FlxPoint = new FlxPoint(0, 0);
+	public var p1_Cam_Offset:FlxPoint = FlxPoint.get(0, 0);
+	public var p2_Cam_Offset:FlxPoint = FlxPoint.get(0, 0);
 
 	public var stageData:StageData;
 
@@ -56,6 +56,7 @@ class StageGroup extends FlxGroup {
 	public var stageScript:Script = null;
 
 	public var colorSwap:ColorSwapHSV;
+	public var useAbsolutePositions:Null<Bool> = false;
 
 	public function updateStage(?newStage:String) {
 		if (newStage != null)
@@ -76,6 +77,7 @@ class StageGroup extends FlxGroup {
 				{
 					if (stageData != null) {
 						camZoom = stageData.camera_Zoom;
+						useAbsolutePositions = (stageData?.useAbsolutePositions) ?? false;
 
 						if (stageData.camera_Offsets != null) {
 							p1_Cam_Offset.set(stageData.camera_Offsets[0][0], stageData.camera_Offsets[0][1]);
@@ -110,7 +112,7 @@ class StageGroup extends FlxGroup {
 							if (object.color != null && object.color != [])
 								sprite.color = FlxColor.fromRGB(object.color[0], object.color[1], object.color[2]);
 
-							if (object.blend != null){
+							if (object.blend != null) {
 								@:privateAccess
 								sprite.blend = BlendMode.fromString(object.blend);
 							}
@@ -212,59 +214,31 @@ class StageGroup extends FlxGroup {
 		}
 	}
 
+	public function setPosition(char:Character, point:FlxPoint, scroll:Float, zIndex:Int, useAbsolute:Bool) {
+		if (char.isCharacterGroup) {
+			for (other in char.otherCharacters) {
+				setPosition(other, point, scroll, zIndex, useAbsolute);
+			}
+			return;
+		}
+		if (useAbsolute) {
+			char.setPosition(point.x + char.positioningOffset[0], point.y + char.positioningOffset[1]);
+		} else {
+			char.setPosition((point.x - (char.width / 2)) + char.positioningOffset[0], (point.y - char.height) + char.positioningOffset[1]);
+		}
+		char.scrollFactor.set(scroll, scroll);
+	}
+
 	public function setCharOffsets(?p1:Character, ?gf:Character, ?p2:Character):Void {
-		if (p1 == null)
-			p1 = PlayState.boyfriend;
+		p1 ??= PlayState.boyfriend;
 
-		if (gf == null)
-			gf = PlayState.gf;
+		gf ??= PlayState.gf;
 
-		if (p2 == null)
-			p2 = PlayState.dad;
+		p2 ??= PlayState.dad;
 
-		p1.setPosition((player_1_Point.x - (p1.width / 2)) + p1.positioningOffset[0], (player_1_Point.y - p1.height) + p1.positioningOffset[1]);
-		gf.setPosition((gf_Point.x - (gf.width / 2)) + gf.positioningOffset[0], (gf_Point.y - gf.height) + gf.positioningOffset[1]);
-		p2.setPosition((player_2_Point.x - (p2.width / 2)) + p2.positioningOffset[0], (player_2_Point.y - p2.height) + p2.positioningOffset[1]);
-
-		p1.scrollFactor.set(p1_Scroll, p1_Scroll);
-		p2.scrollFactor.set(p2_Scroll, p2_Scroll);
-		gf.scrollFactor.set(gf_Scroll, gf_Scroll);
-
-		p1.zIndex = p1ZIndex;
-		p2.zIndex = p2ZIndex;
-		gf.zIndex = gfZIndex;
-
-		if (p2.curCharacter.startsWith("gf") && gf.curCharacter.startsWith("gf")) {
-			p2.setPosition(gf.x, gf.y);
-			p2.scrollFactor.set(gf_Scroll, gf_Scroll);
-
-			if (p2.visible)
-				gf.visible = false;
-		}
-
-		if (p1.otherCharacters != null) {
-			for (character in p1.otherCharacters) {
-				character.setPosition((player_1_Point.x - (character.width / 2)) + character.positioningOffset[0],
-					(player_1_Point.y - character.height) + character.positioningOffset[1]);
-				character.scrollFactor.set(p1_Scroll, p1_Scroll);
-			}
-		}
-
-		if (gf.otherCharacters != null) {
-			for (character in gf.otherCharacters) {
-				character.setPosition((gf_Point.x - (character.width / 2)) + character.positioningOffset[0],
-					(gf_Point.y - character.height) + character.positioningOffset[1]);
-				character.scrollFactor.set(gf_Scroll, gf_Scroll);
-			}
-		}
-
-		if (p2.otherCharacters != null) {
-			for (character in p2.otherCharacters) {
-				character.setPosition((player_2_Point.x - (character.width / 2)) + character.positioningOffset[0],
-					(player_2_Point.y - character.height) + character.positioningOffset[1]);
-				character.scrollFactor.set(p2_Scroll, p2_Scroll);
-			}
-		}
+		setPosition(p1, player_1_Point, p1_Scroll, p1ZIndex, useAbsolutePositions);
+		setPosition(gf, gf_Point, gf_Scroll, gfZIndex, useAbsolutePositions);
+		setPosition(p2, player_2_Point, p2_Scroll, p2ZIndex, useAbsolutePositions);
 	}
 
 	public function getCharacterPos(character:Int, char:Character = null):Array<Float> {
@@ -352,6 +326,7 @@ typedef StageData = {
 	var scriptName:Null<String>;
 	var backgroundColor:Null<String>;
 	var imageDirectory:Null<String>;
+	var useAbsolutePositions:Null<Bool>;
 }
 
 typedef StageObject = {

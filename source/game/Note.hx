@@ -286,13 +286,16 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 			if (PlayState.instance.arrow_Configs.get(arrow_Type)[5] == "true")
 				affectedbycolor = true;
 		}
+		var noteColor:Array<Float> = cast NoteColors.getNoteColor(animationName);
 
-		colorSwap = new ColorSwap();
+		if(!ColorSwap.colorSwapCache.exists(Std.string(noteColor))){
+			ColorSwap.colorSwapCache.set(Std.string(noteColor), new ColorSwap());
+		}
+		colorSwap = ColorSwap.colorSwapCache.get(Std.string(noteColor));
 		if (affectedbycolor) {
 			shader = colorSwap.shader;
 		}
 
-		var noteColor = NoteColors.getNoteColor(animationName);
 
 		if (colorSwap != null && noteColor != null) {
 			colorSwap.r = noteColor[0];

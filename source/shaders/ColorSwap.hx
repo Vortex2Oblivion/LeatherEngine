@@ -11,6 +11,8 @@ class ColorSwap {
 	public var g(default, set):Float = 0;
 	public var b(default, set):Float = 0;
 
+	public static var colorSwapCache:Map<String, ColorSwap> = [];
+
 	private function set_r(value:Float) {
 		r = value;
 		shader.red.value = [r/255];
@@ -30,7 +32,7 @@ class ColorSwap {
 	}
 
 	public function new() {
-		r = 1;
+		r = 255;
 		g = 0;
 		b = 0;
 	}

@@ -113,9 +113,11 @@ class LuaScript extends Script {
 		if (lua_Cameras.exists(id))
 			return lua_Cameras.get(id);
 
-		switch (id.toLowerCase()) {
+		switch (id.toLowerCase().trim()) {
 			case 'camhud' | 'hud':
 				return lua_Cameras.get("hud");
+			case 'camother' | 'other':
+				return lua_Cameras.get("other");
 		}
 
 		return lua_Cameras.get("game");
@@ -146,7 +148,7 @@ class LuaScript extends Script {
 	override public function set(name:String, value:Any):Void {
 		Convert.toLua(lua, value);
 		Lua.setglobal(lua, name);
-		for(script in otherScripts){
+		for (script in otherScripts) {
 			script.set(name, value);
 		}
 	}
@@ -181,6 +183,7 @@ class LuaScript extends Script {
 
 		lua_Cameras.set("game", {cam: PlayState.instance.camGame, shaders: [], shaderNames: []});
 		lua_Cameras.set("hud", {cam: PlayState.instance.camHUD, shaders: [], shaderNames: []});
+		lua_Cameras.set("other", {cam: PlayState.instance.camOther, shaders: [], shaderNames: []});
 
 		lua_Sounds.set("Inst", FlxG.sound.music);
 
@@ -2194,7 +2197,7 @@ class LuaScript extends Script {
 					ease: CoolUtil.easeFromString(ease),
 					onComplete: function(twn) {
 						lua_Tweens.remove('$obj.$properties');
-						if (onComplete != null){
+						if (onComplete != null) {
 							onComplete();
 						}
 					},
@@ -2259,7 +2262,6 @@ class LuaScript extends Script {
 				trace('Object $object doesn\'t exist!', ERROR);
 			}
 		});
-
 
 		setFunction("tweenCameraPos", function(toX:Int, toY:Int, time:Float, onComplete:String = "") {
 			PlayState.instance.tweenManager.tween(FlxG.camera, {x: toX, y: toY}, time, {
@@ -3718,8 +3720,10 @@ class LuaScript extends Script {
 	function cameraFromString(cam:String):FlxCamera {
 		var camera:LuaCamera = getCameraByName(cam);
 		if (camera == null) {
-			switch (cam.toLowerCase()) {
+			switch (cam.toLowerCase().trim()) {
 				case 'camhud' | 'hud':
+					return PlayState.instance.camHUD;
+				case 'camother' | 'other':
 					return PlayState.instance.camHUD;
 			}
 			return PlayState.instance.camGame;

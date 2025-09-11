@@ -78,7 +78,7 @@ class TitleState extends MusicBeatState {
 
 			LogStyle.ERROR.throwException = Options.getData("throwExceptionOnError");
 
-			FlxSprite.defaultAntialiasing = Options.getData("antialiasing");
+			FlxG.allowAntialiasing = FlxSprite.defaultAntialiasing = Options.getData("antialiasing");
 
 			FlxG.stage.window.vsync = Options.getData("vSync");
 

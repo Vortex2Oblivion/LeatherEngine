@@ -338,6 +338,12 @@ class PlayState extends MusicBeatState {
 	var iconP2:HealthIcon;
 
 	/**
+	 * `FlxCamera` for misc elements.
+	 * Drawn over hud.
+	 */
+	var camOther:FlxCamera;
+
+	/**
 		`FlxCamera` for all HUD/UI elements.
 	**/
 	var camHUD:FlxCamera;
@@ -655,11 +661,14 @@ class PlayState extends MusicBeatState {
 		// setup the cameras
 		camGame = new FlxCamera();
 		camHUD = new FlxCamera();
+		camOther = new FlxCamera();
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false); // false so it's not a default camera
+		FlxG.cameras.add(camOther, false); // false so it's not a default camera
 
 		camHUD.bgColor.alpha = 0;
+		camOther.bgColor.alpha = 0;
 
 		persistentUpdate = true;
 		persistentDraw = true;
@@ -1461,8 +1470,7 @@ class PlayState extends MusicBeatState {
 				if (vocals.members.length >= 2) {
 					break;
 				}
-				var soundPath:String = Paths.voices(SONG.song, SONG.specialAudioName ?? storyDifficultyStr.toLowerCase(), character,
-					boyfriend.curCharacter);
+				var soundPath:String = Paths.voices(SONG.song, SONG.specialAudioName ?? storyDifficultyStr.toLowerCase(), character, boyfriend.curCharacter);
 				if (!addedVocals.contains(soundPath)) {
 					vocals.add(FlxG.sound.list.add(new FlxSound().loadEmbedded(soundPath)));
 					addedVocals.push(soundPath);

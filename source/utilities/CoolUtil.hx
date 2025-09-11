@@ -1,5 +1,6 @@
 package utilities;
 
+import shaders.ColorSwap;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import sys.FileSystem;
@@ -469,6 +470,8 @@ class CoolUtil {
 			lime_cache.audio.get(key).dispose();
 			lime_cache.audio.remove(key);
 		};
+
+		ColorSwap.colorSwapCache.clear();
 
 		Paths.graphics.clear();
 
