@@ -446,7 +446,7 @@ class StageMakingState extends MusicBeatState {
 						if (Object.updateHitbox || Object.updateHitbox == null)
 							Sprite.updateHitbox();
 
-						stageData.objects[selectedObject - 1].scale = nums.value;
+						stageData.objects[selectedObject - 1].scale = stageData.objects[selectedObject - 1].scaleY = nums.value;
 					}
 				case 'alpha_stepper':
 					if (selectedObject != 0 || selected == bf_Pos || selected == dad_Pos || selected == gf_Pos) {
