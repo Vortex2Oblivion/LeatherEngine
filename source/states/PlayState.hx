@@ -2455,15 +2455,17 @@ class PlayState extends MusicBeatState {
 	}
 
 	function playAnimOnNote(char:Character, note:Note, singAnim:String, force:Bool = true) {
-		if (char.otherCharacters == null || char.otherCharacters.length - 1 < note.character)
-			char.playAnim(singAnim, force);
+		if (!char.isCharacterGroup)
+			char?.playAnim(singAnim, force);
 		else {
-			if (note.characters.length <= 1)
-				char.otherCharacters[note.character].playAnim(singAnim, force);
+			var chars:Array<Int> = note?.characters ?? [];
+			var charID:Int = note?.character ?? char.mainCharacterID;
+			if (chars.length <= 1)
+				char.otherCharacters[charID]?.playAnim(singAnim, force);
 			else {
-				for (character in note.characters) {
+				for (character in chars) {
 					if (char.otherCharacters.length - 1 >= character)
-						char.otherCharacters[character].playAnim(singAnim, force);
+						char.otherCharacters[character]?.playAnim(singAnim, force);
 				}
 			}
 		}
