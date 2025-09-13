@@ -154,9 +154,8 @@ class StageGroup extends FlxGroup {
 								sprite.loadGraphic(Paths.gpuBitmap((stageData.imageDirectory ?? stage) + "/" + object.file_Name, "stages"));
 
 							if (object.scaleY == null) {
-								object.scaleY = object.scale;
+								object.scaleY = (object?.scale) ?? 1;
 							}
-
 
 							sprite.scale.set(object.scale, object.scaleY);
 

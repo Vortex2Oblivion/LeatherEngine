@@ -129,9 +129,9 @@ class StageMakingState extends MusicBeatState {
 
 		dad = new Character(0, 0, dadChar);
 
-		var tabs = [{name: 'Editor', label: 'Editor'}, {name: 'Object', label: 'Object'}];
+		var tabs = [{name: 'Editor', label: 'Editor'}, {name: 'object', label: 'object'}];
 
-		UI_box = new FlxUITabMenu(null, /*tabs*/[], false);
+		UI_box = new FlxUITabMenu(null, /*tabs*/ [], false);
 
 		UI_box.resize(300, 400);
 		UI_box.x = 10;
@@ -175,7 +175,7 @@ class StageMakingState extends MusicBeatState {
 		json_Button.scrollFactor.set();
 		json_Button.cameras = [camHUD];
 
-		sprite_Label = new FlxText(20, json_Button.y + json_Button.height + 4, 0, "Sprite Settings", 12);
+		sprite_Label = new FlxText(20, json_Button.y + json_Button.height + 4, 0, "sprite Settings", 12);
 		sprite_Label.scrollFactor.set();
 		sprite_Label.cameras = [camHUD];
 
@@ -425,26 +425,14 @@ class StageMakingState extends MusicBeatState {
 					}
 				case 'scale_stepper':
 					if (selectedObject != 0 && !(selected == bf_Pos || selected == dad_Pos || selected == gf_Pos)) {
-						var Object = stageData.objects[selectedObject - 1];
-						var Sprite:Dynamic = objects[selectedObject - 1][1];
+						var object = stageData.objects[selectedObject - 1];
+						var sprite:Dynamic = objects[selectedObject - 1][1];
 
-						if (Object.updateHitbox || Object.updateHitbox == null) {
-							if (Object.uses_Frame_Width)
-								Sprite.setGraphicSize(Sprite.frameWidth / Object.scale);
-							else
-								Sprite.setGraphicSize(Sprite.width / Object.scale);
+						sprite.scale.set(object.scale, object.scale);
+
+						if (object.updateHitbox || object.updateHitbox == null) {
+							sprite.updateHitbox();
 						}
-
-						if (Object.updateHitbox || Object.updateHitbox == null)
-							Sprite.updateHitbox();
-
-						if (Object.uses_Frame_Width)
-							Sprite.setGraphicSize(Sprite.frameWidth * nums.value);
-						else
-							Sprite.setGraphicSize(Sprite.width * nums.value);
-
-						if (Object.updateHitbox || Object.updateHitbox == null)
-							Sprite.updateHitbox();
 
 						stageData.objects[selectedObject - 1].scale = stageData.objects[selectedObject - 1].scaleY = nums.value;
 					}
@@ -507,46 +495,38 @@ class StageMakingState extends MusicBeatState {
 				stageData.objects[selectedObject - 1].file_Name = fileInput.text;
 
 				if (selectedObject != 0 && !(selected == bf_Pos || selected == dad_Pos || selected == gf_Pos)) {
-					var Object:StageObject = stageData.objects[selectedObject - 1];
-					var Sprite:Dynamic = objects[selectedObject - 1][1];
+					var object:StageObject = stageData.objects[selectedObject - 1];
+					var sprite:Dynamic = objects[selectedObject - 1][1];
 
-					if (Object.updateHitbox || Object.updateHitbox == null) {
-						if (Object.uses_Frame_Width)
-							Sprite.setGraphicSize(Sprite.frameWidth / Object.scale);
-						else
-							Sprite.setGraphicSize(Sprite.width / Object.scale);
-					}
+					sprite.scale.set(object.scale, object.scaleY);
 
-					if (Object.updateHitbox || Object.updateHitbox == null)
-						Sprite.updateHitbox();
+					if (object.updateHitbox || object.updateHitbox == null)
+						sprite.updateHitbox();
 
-					if (Object.is_Animated) {
-						Sprite.frames = Paths.getSparrowAtlas(stage_Name + "/" + fileInput.text, "stages");
+					if (object.is_Animated) {
+						sprite.frames = Paths.getSparrowAtlas(stage_Name + "/" + fileInput.text, "stages");
 
-						for (Animation in Object.animations) {
+						for (Animation in object.animations) {
 							var Anim_Name = Animation.name;
 							@:privateAccess
 							if (Animation.name == "beatHit")
-								stage.onBeatHit_Group.add(Sprite);
+								stage.onBeatHit_Group.add(sprite);
 
-							Sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
+							sprite.animation.addByPrefix(Anim_Name, Animation.animation_name, Animation.fps, Animation.looped);
 						}
 
-						if (Object.start_Animation != "" && Object.start_Animation != null && Object.start_Animation != "null")
-							Sprite.animation.play(Object.start_Animation);
+						if (object.start_Animation != "" && object.start_Animation != null && object.start_Animation != "null")
+							sprite.animation.play(object.start_Animation);
 					} else
-						Sprite.loadGraphic(Paths.gpuBitmap(stage_Name + "/" + fileInput.text, "stages"));
+						sprite.loadGraphic(Paths.gpuBitmap(stage_Name + "/" + fileInput.text, "stages"));
 
-					if (Object.updateHitbox || Object.updateHitbox == null)
-						Sprite.updateHitbox();
+					if (object.updateHitbox || object.updateHitbox == null)
+						sprite.updateHitbox();
 
-					if (Object.uses_Frame_Width)
-						Sprite.setGraphicSize(Sprite.frameWidth * Object.scale);
-					else
-						Sprite.setGraphicSize(Sprite.width * Object.scale);
+					sprite.scale.set(object.scale, object.scaleY);
 
-					if (Object.updateHitbox || Object.updateHitbox == null)
-						Sprite.updateHitbox();
+					if (object.updateHitbox || object.updateHitbox == null)
+						sprite.updateHitbox();
 				}
 			}
 		}
