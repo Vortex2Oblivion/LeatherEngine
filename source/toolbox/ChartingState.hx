@@ -1503,6 +1503,7 @@ class ChartingState extends MusicBeatState {
 			+ "\nZoom Level: "
 			+ zoomLevel
 			+ "\n");
+		bpmTxt.antialiasing = false;
 
 		leftIcon.x = gridBG.x + GRID_SIZE;
 		rightIcon.x = gridBlackLine.x;

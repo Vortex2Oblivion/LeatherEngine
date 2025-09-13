@@ -113,7 +113,6 @@ class BoolOption extends Option {
 					if (member is FlxSprite) {
 						cast(member, FlxSprite).antialiasing = optionChecked;
 					}
-					FlxSprite.defaultAntialiasing = optionChecked;
 				}
 				FlxG.allowAntialiasing = FlxSprite.defaultAntialiasing = optionChecked;
 			case "vSync":
