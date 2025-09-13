@@ -92,7 +92,6 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 	public static final SCALE_MULT:Float = 1.474;
 
 	/**
-	 * @see https://discord.com/channels/929608653173051392/1034954605253107844/1163134784277590056
 	 * @see https://step-mania.fandom.com/wiki/Notes
 	 */
 	public static var quantColors:Array<Array<Int>> = [

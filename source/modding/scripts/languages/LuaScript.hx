@@ -1,5 +1,6 @@
 package modding.scripts.languages;
 
+import shaders.ColorSwap;
 #if LUA_ALLOWED
 #if MODCHARTING_TOOLS
 import modcharting.ModchartFuncs;
@@ -484,7 +485,6 @@ class LuaScript extends Script {
 		setFunction("getSingDirectionAnim", function(id:Int, keyCount:Int = 4) {
 			return NoteVariables.characterAnimations[keyCount - 1][id];
 		});
-
 
 		// sprites
 
@@ -1397,6 +1397,11 @@ class LuaScript extends Script {
 
 		setFunction("setRenderedNoteColor", function(r:Float, g:Float, b:Float, id:Int) {
 			var note:Note = PlayState.instance.notes.members[id];
+			if (!ColorSwap.colorSwapCache.exists(Std.string([r, g, b]))) {
+				ColorSwap.colorSwapCache.set(Std.string([r, g, b]), new ColorSwap());
+			}
+			note.colorSwap = ColorSwap.colorSwapCache.get(Std.string([r, g, b]));
+			note.shader = note.colorSwap.shader;
 			note.colorSwap.r = r;
 			note.colorSwap.g = g;
 			note.colorSwap.b = b;
@@ -1404,6 +1409,11 @@ class LuaScript extends Script {
 
 		setFunction("setUnspawnedNoteColor", function(r:Float, g:Float, b:Float, id:Int) {
 			var note:Note = PlayState.instance.unspawnNotes[id];
+			if (!ColorSwap.colorSwapCache.exists(Std.string([r, g, b]))) {
+				ColorSwap.colorSwapCache.set(Std.string([r, g, b]), new ColorSwap());
+			}
+			note.colorSwap = ColorSwap.colorSwapCache.get(Std.string([r, g, b]));
+			note.shader = note.colorSwap.shader;
 			note.colorSwap.r = r;
 			note.colorSwap.g = g;
 			note.colorSwap.b = b;
@@ -1411,6 +1421,10 @@ class LuaScript extends Script {
 
 		setFunction("setRenderedNoteColorForce", function(r:Float, g:Float, b:Float, id:Int) {
 			var note:Note = PlayState.instance.notes.members[id];
+			if (!ColorSwap.colorSwapCache.exists(Std.string([r, g, b]))) {
+				ColorSwap.colorSwapCache.set(Std.string([r, g, b]), new ColorSwap());
+			}
+			note.colorSwap = ColorSwap.colorSwapCache.get(Std.string([r, g, b]));
 			note.shader = note.colorSwap.shader;
 			note.colorSwap.r = r;
 			note.colorSwap.g = g;
@@ -1419,6 +1433,10 @@ class LuaScript extends Script {
 
 		setFunction("setUnspawnedNoteColorForce", function(r:Float, g:Float, b:Float, id:Int) {
 			var note:Note = PlayState.instance.unspawnNotes[id];
+			if (!ColorSwap.colorSwapCache.exists(Std.string([r, g, b]))) {
+				ColorSwap.colorSwapCache.set(Std.string([r, g, b]), new ColorSwap());
+			}
+			note.colorSwap = ColorSwap.colorSwapCache.get(Std.string([r, g, b]));
 			note.shader = note.colorSwap.shader;
 			note.colorSwap.r = r;
 			note.colorSwap.g = g;
