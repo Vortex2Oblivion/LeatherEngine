@@ -3525,26 +3525,23 @@ class PlayState extends MusicBeatState {
 	static function getCharFromEvent(eventVal:String):Character {
 		switch (eventVal.toLowerCase()) {
 			case "girlfriend" | "gf" | "player3" | "2":
-				return PlayState.gf.getMainCharacter();
+				return gf.getMainCharacter();
 			case "dad" | "opponent" | "player2" | "1":
-				return PlayState.dad.getMainCharacter();
+				return dad.getMainCharacter();
 		}
 
-		return PlayState.boyfriend.getMainCharacter();
+		return boyfriend.getMainCharacter();
 	}
 
 	function removeCharacter(char:Character) {
-		if (char.otherCharacters == null) {
+		if (!char.isCharacterGroup) {
 			if (char.coolTrail != null)
 				remove(char.coolTrail);
 
 			remove(char);
 		} else {
 			for (character in char.otherCharacters) {
-				if (character.coolTrail != null)
-					remove(character.coolTrail);
-
-				remove(character);
+				removeCharacter(character);
 			}
 		}
 	}

@@ -1404,10 +1404,10 @@ class ChartingState extends MusicBeatState {
 					cameraShitThing.x += FlxG.mouse.wheel * 5;
 
 					/*if (cameraShitThing.x > gridBG.x + gridBG.width)
-						cameraShitThing.x = gridBG.x + gridBG.width;
+							cameraShitThing.x = gridBG.x + gridBG.width;
 
-					if (cameraShitThing.x < 0)
-						cameraShitThing.x = 0;*/
+						if (cameraShitThing.x < 0)
+							cameraShitThing.x = 0; */
 				} else {
 					FlxG.sound.music.pause();
 					vocals.pause();
@@ -1445,7 +1445,11 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.pressed.SHIFT)
 				shiftThing = 4;
 			if ((controls.RIGHT_P) && !control) {
-				changeSection(curSection + shiftThing);
+				if (sectionStartTime(curSection + shiftThing) >= Math.min(FlxG.sound.music.length, vocals.maxLength)) {
+					changeSection(0);
+				} else {
+					changeSection(curSection + shiftThing);
+				}
 			}
 			if ((controls.LEFT_P) && !control) {
 				changeSection(curSection - shiftThing);
