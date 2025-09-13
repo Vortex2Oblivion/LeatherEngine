@@ -28,6 +28,7 @@ class Script {
     public var createPost:Bool = false;
 
 	public function new(path:String, executeOn:ExecuteOn = BOTH) {
+		path = path.replace(Sys.getCwd(), '');
 		trace('Loading script at path \'${path}\'');
         this.path = path;
 		var _path:Path = new Path(path);

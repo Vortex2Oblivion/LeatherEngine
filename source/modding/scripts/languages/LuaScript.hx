@@ -481,6 +481,11 @@ class LuaScript extends Script {
 				['singLEFT', 'singDOWN', 'singUP', 'singRIGHT'].indexOf(NoteVariables.characterAnimations[PlayState.SONG.playerKeyCount - 1][Std.int(Math.abs(id % PlayState.SONG.playerKeyCount))]);
 		});
 
+		setFunction("getSingDirectionAnim", function(id:Int, keyCount:Int = 4) {
+			return NoteVariables.characterAnimations[keyCount - 1][id];
+		});
+
+
 		// sprites
 
 		// stage

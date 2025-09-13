@@ -13,7 +13,7 @@ function playerTwoSingHeld(data, time, type)
 end
 
 function playAnimFunc(t, c)
-    if t == "hey" then
+    if string.lower(t) == "hey" then
         playCharAnim(c, "hey", true)
     end
 end
