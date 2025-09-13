@@ -67,6 +67,7 @@ class ChartingState extends MusicBeatState {
 	var curRenderedEvents:FlxTypedGroup<EventSprite>;
 
 	var gridBG:FlxSprite;
+	var gridBGNext:FlxSprite;
 
 	var _song:SongData;
 
@@ -160,6 +161,11 @@ class ChartingState extends MusicBeatState {
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
 		add(gridBG);
 
+		gridBGNext = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
+		gridBGNext.y += gridBG.height;
+		gridBGNext.color = FlxColor.GRAY;
+		add(gridBGNext);
+
 		leftIcon = new HealthIcon('bf');
 		rightIcon = new HealthIcon('bf');
 		leftIcon.scrollFactor.set(1, 1);
@@ -177,10 +183,10 @@ class ChartingState extends MusicBeatState {
 		leftIcon.setPosition(0, -45);
 		rightIcon.setPosition(gridBG.width / 2, -45);
 
-		gridBlackLine = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+		gridBlackLine = new FlxSprite(gridBG.x + gridBG.width / 2).makeGraphic(2, Std.int(gridBG.height) * 2, FlxColor.BLACK);
 		add(gridBlackLine);
 
-		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height) * 2, FlxColor.BLACK);
 		add(gridEventBlackLine);
 
 		curRenderedNotes = new FlxTypedGroup<Note>();
@@ -191,6 +197,8 @@ class ChartingState extends MusicBeatState {
 			_song = PlayState.SONG;
 		else
 			_song = SongLoader.loadFromJson("normal", "tutorial");
+
+		uiSettings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + _song.ui_Skin + "/config"));
 
 		MusicBeatState.windowNameSuffix = " - " + (_song?.song ?? "Unknown Song") + " (Chart Editor)";
 
@@ -883,7 +891,7 @@ class ChartingState extends MusicBeatState {
 		var uiSkinDropDown = new FlxScrollableDropDownMenu(10, stageDropDown.y + 20, FlxScrollableDropDownMenu.makeStrIdLabelArray(uiSkins, true),
 			function(uiSkin:String) {
 				_song.ui_Skin = uiSkins[Std.parseInt(uiSkin)];
-
+				uiSettings = CoolUtil.coolTextFile(Paths.txt("ui skins/" + _song.ui_Skin + "/config"));
 				while (curRenderedNotes.members.length > 0) {
 					curRenderedNotes.remove(curRenderedNotes.members[0], true);
 				}
@@ -942,7 +950,6 @@ class ChartingState extends MusicBeatState {
 		var p2Label = new FlxText(12 + player2DropDown.width, player2DropDown.y, 0, "Player 2", 9);
 		var stageLabel = new FlxText(12 + stageDropDown.width, stageDropDown.y, 0, "Stage", 9);
 		var uiSkinLabel = new FlxText(12 + uiSkinDropDown.width, uiSkinDropDown.y, 0, "UI Skin", 9);
-
 		var modLabel = new FlxText(12 + modDropDown.width, modDropDown.y, 0, "Current Character Group", 9);
 
 		// adding labels
@@ -1697,8 +1704,9 @@ class ChartingState extends MusicBeatState {
 			stepperSusLength.value = curSelectedNote[2];
 	}
 
+	var uiSettings:Array<String>;
+
 	function updateGrid():Void {
-		var uiSettings:Array<String> = CoolUtil.coolTextFile(Paths.txt("ui skins/" + _song.ui_Skin + "/config"));
 		remove(gridBG);
 		gridBG.kill();
 		gridBG.destroy();
@@ -1707,24 +1715,33 @@ class ChartingState extends MusicBeatState {
 			Std.int((GRID_SIZE * Conductor.stepsPerSection) * zoomLevel));
 		add(gridBG);
 
+		remove(gridBGNext);
+		gridBGNext.kill();
+		gridBGNext.destroy();
+
+		gridBGNext = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * (_song.keyCount + _song.playerKeyCount + 1),
+			Std.int((GRID_SIZE * Conductor.stepsPerSection) * zoomLevel));
+		gridBGNext.y += gridBG.height;
+		gridBGNext.color = FlxColor.GRAY;
+		add(gridBGNext);
+
 		remove(gridBlackLine);
 		gridBlackLine.kill();
 		gridBlackLine.destroy();
 
 		gridBlackLine = new FlxSprite(gridBG.x
 			+ (GRID_SIZE * ((!_song.notes[curSection].mustHitSection ? _song.keyCount : _song.playerKeyCount)
-				+ 1))).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+				+ 1))).makeGraphic(2, Std.int(gridBG.height) * 2, FlxColor.BLACK);
 		add(gridBlackLine);
 
 		remove(gridEventBlackLine);
 		gridEventBlackLine.kill();
 		gridEventBlackLine.destroy();
 
-		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height), FlxColor.BLACK);
+		gridEventBlackLine = new FlxSprite(gridBG.x + GRID_SIZE).makeGraphic(2, Std.int(gridBG.height) * 2, FlxColor.BLACK);
 		add(gridEventBlackLine);
 
-		if (strumLine != null)
-			strumLine.makeGraphic(Std.int(gridBG.width), 4);
+		strumLine?.makeGraphic(Std.int(gridBG.width), 4);
 
 		curRenderedNotes.clear();
 
@@ -1732,7 +1749,7 @@ class ChartingState extends MusicBeatState {
 
 		curRenderedIds.clear();
 
-		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
+		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes.concat(_song.notes[curSection + 1].sectionNotes);
 
 		if (_song.notes[curSection].changeBPM && _song.notes[curSection].bpm > 0)
 			Conductor.changeBPM(_song.notes[curSection].bpm);
