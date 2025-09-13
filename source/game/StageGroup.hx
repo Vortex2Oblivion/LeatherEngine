@@ -100,7 +100,7 @@ class StageGroup extends FlxGroup {
 							gfZIndex = stageData.characterZIndices[2];
 						}
 
-						var null_Object_Name_Loop:Int = 0;
+						var nullObjectNameLoop:Int = 0;
 
 						for (object in stageData.objects) {
 							var sprite:FlxSprite = object.dances ? new DancingSprite(object.position[0],
@@ -123,8 +123,8 @@ class StageGroup extends FlxGroup {
 							if (object.object_Name != null && object.object_Name != "")
 								stageObjects.push([object.object_Name, sprite, object]);
 							else {
-								stageObjects.push(["undefinedSprite" + null_Object_Name_Loop, sprite, object]);
-								null_Object_Name_Loop++;
+								stageObjects.push(["undefinedSprite" + nullObjectNameLoop, sprite, object]);
+								nullObjectNameLoop++;
 							}
 
 							if (object.is_Animated) {
@@ -154,13 +154,11 @@ class StageGroup extends FlxGroup {
 								sprite.loadGraphic(Paths.gpuBitmap((stageData.imageDirectory ?? stage) + "/" + object.file_Name, "stages"));
 
 							if (object.scaleY == null) {
-								object.scaleY = (object.scale) ?? 1.0;
+								object.scaleY = object.scale;
 							}
 
-							if (object.uses_Frame_Width)
-								sprite.setGraphicSize(sprite.frameWidth * object.scale, sprite.frameHeight * object.scaleY);
-							else
-								sprite.setGraphicSize(sprite.width * object.scale, sprite.height * object.scaleY);
+
+							sprite.scale.set(object.scale, object.scaleY);
 
 							if (object.updateHitbox || object.updateHitbox == null)
 								sprite.updateHitbox();
@@ -178,7 +176,7 @@ class StageGroup extends FlxGroup {
 								sprite.zIndex = object.zIndex;
 
 							if (object.layer != null) {
-								switch (object.layer.toLowerCase()) {
+								switch (object.layer.toLowerCase().trim()) {
 									case "foreground":
 										foregroundSprites.add(sprite);
 									case "gf":
@@ -339,7 +337,6 @@ typedef StageObject = {
 	var scroll_Factor:Array<Float>;
 
 	var color:Array<Int>;
-	var uses_Frame_Width:Bool;
 	var object_Name:Null<String>;
 	var layer:Null<String>; // default is bg, but fg is possible
 	var alpha:Null<Float>;
