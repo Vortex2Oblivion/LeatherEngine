@@ -3992,13 +3992,13 @@ class PlayState extends MusicBeatState {
 		if (FlxG.state != this)
 			return;
 		#if LUA_ALLOWED
-		if (!scripts.exists(noteType.toLowerCase()) && Assets.exists(Paths.lua("arrow types/" + noteType))) {
-			scripts.set(noteType.toLowerCase(), new LuaScript(Paths.getModPath(Paths.lua("arrow types/" + noteType))));
+		if (!scripts.exists(noteType.toLowerCase()) && Assets.exists(Paths.lua("arrow types/" + noteType.toLowerCase()))) {
+			scripts.set(noteType.toLowerCase(), new LuaScript(Paths.getModPath(Paths.lua("arrow types/" + noteType.toLowerCase()))));
 		}
 		#end
 		#if HSCRIPT_ALLOWED
-		if (Assets.exists(Paths.hx("data/arrow types/" + noteType))) {
-			scripts.set(noteType.toLowerCase(), new HScript(Paths.hx("data/arrow types/" + noteType)));
+		if (Assets.exists(Paths.hx("data/arrow types/" + noteType.toLowerCase()))) {
+			scripts.set(noteType.toLowerCase(), new HScript(Paths.hx("data/arrow types/" + noteType.toLowerCase())));
 		}
 		#end
 	}

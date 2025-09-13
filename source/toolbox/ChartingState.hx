@@ -1820,26 +1820,7 @@ class ChartingState extends MusicBeatState {
 		}
 
 		if (colorQuantization) {
-			var col:Array<Int> = [255, 0, 0];
-			for (note in curRenderedNotes.members) {
-				if (!note.isSustainNote && note.affectedbycolor) {
-					var noteBeat:Int = Math.floor(((note.strumTime / (Conductor.stepCrochet * 4)) * 48) + 0.5);
-					for (beat in 0...Note.beats.length - 1) {
-						if ((noteBeat % (192 / Note.beats[beat]) == 0)) {
-							col = Note.quantColors[beat];
-							break;
-						}
-					}
-					note.colorSwap.r = col[0];
-					note.colorSwap.g = col[1];
-					note.colorSwap.b = col[2];
-					for (sustain in note.sustains) {
-						sustain.colorSwap.r = note.colorSwap.r;
-						sustain.colorSwap.g = note.colorSwap.g;
-						sustain.colorSwap.b = note.colorSwap.b;
-					}
-				}
-			}
+			Note.applyColorQuants(curRenderedNotes.members);
 		}
 
 		if (events.length >= 1) {

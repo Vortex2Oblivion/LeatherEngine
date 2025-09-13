@@ -88,7 +88,6 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 	 */
 	public var z:Float = 0;
 	#end
-	
 
 	public static final SCALE_MULT:Float = 1.474;
 
@@ -129,10 +128,22 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 						break;
 					}
 				}
+
+				if (!ColorSwap.colorSwapCache.exists(Std.string(col))) {
+					ColorSwap.colorSwapCache.set(Std.string(col), new ColorSwap());
+				}
+				note.colorSwap = ColorSwap.colorSwapCache.get(Std.string(col));
+				if (note.affectedbycolor) {
+					note.shader = note.colorSwap.shader;
+				}
 				note.colorSwap.r = col[0];
 				note.colorSwap.g = col[1];
 				note.colorSwap.b = col[2];
 				for (sustain in note.sustains) {
+					sustain.colorSwap = ColorSwap.colorSwapCache.get(Std.string(col));
+					if (sustain.affectedbycolor) {
+						sustain.shader = sustain.colorSwap.shader;
+					}
 					sustain.colorSwap.r = note.colorSwap.r;
 					sustain.colorSwap.g = note.colorSwap.g;
 					sustain.colorSwap.b = note.colorSwap.b;
@@ -288,14 +299,13 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 		}
 		var noteColor:Array<Float> = cast NoteColors.getNoteColor(animationName);
 
-		if(!ColorSwap.colorSwapCache.exists(Std.string(noteColor))){
+		if (!ColorSwap.colorSwapCache.exists(Std.string(noteColor))) {
 			ColorSwap.colorSwapCache.set(Std.string(noteColor), new ColorSwap());
 		}
 		colorSwap = ColorSwap.colorSwapCache.get(Std.string(noteColor));
 		if (affectedbycolor) {
 			shader = colorSwap.shader;
 		}
-
 
 		if (colorSwap != null && noteColor != null) {
 			colorSwap.r = noteColor[0];

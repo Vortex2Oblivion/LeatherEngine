@@ -1,5 +1,6 @@
 package shaders;
 
+import haxe.extern.EitherType;
 import flixel.system.FlxAssets.FlxShader;
 
 /**
@@ -31,10 +32,11 @@ class ColorSwap {
 		return b;
 	}
 
-	public function new() {
-		r = 255;
-		g = 0;
-		b = 0;
+	public function new(?colArray:Array<EitherType<Int, Float>>) {
+		colArray ??= [255, 0, 0];
+		r = colArray[0];
+		g = colArray[1];
+		b = colArray[2];
 	}
 }
 
