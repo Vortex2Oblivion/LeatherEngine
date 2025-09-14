@@ -25,90 +25,89 @@ import haxe.Json;
 
 using StringTools;
 
+@:publicFields
 class StageMakingState extends MusicBeatState {
 	var _file:FileReference;
 
 	/* STAGE STUFF */
-	public var stages:Array<String>;
+	var stages:Array<String>;
 
-	public var stage_Name:String = 'stage';
+	var stage_Name:String = 'stage';
 
-	private var stage:StageGroup;
+	var stage:StageGroup;
 
-	private var stageObjectPos:Array<FlxSprite> = [];
+	var stageObjectPos:Array<FlxSprite> = [];
 
-	public var stageData:StageData;
+	var stageData:StageData;
 
-	private var bfChar:String = "bf";
-	private var gfChar:String = "gf";
-	private var dadChar:String = "dad";
+	var bfChar:String = "bf";
+	var gfChar:String = "gf";
+	var dadChar:String = "dad";
 
-	public var bf:Character;
-	public var gf:Character;
-	public var dad:Character;
+	var bf:Character;
+	var gf:Character;
+	var dad:Character;
 
-	public var bf_Pos:FlxSprite;
-	public var gf_Pos:FlxSprite;
-	public var dad_Pos:FlxSprite;
+	var bf_Pos:FlxSprite;
+	var gf_Pos:FlxSprite;
+	var dad_Pos:FlxSprite;
 
-	private var selectedThing:Bool = false;
-	private var selected:Dynamic;
+	var selectedThing:Bool = false;
+	var selected:Dynamic;
 
-	private var objects:Array<Array<Dynamic>> = [];
-	private var selectedObject:Int = 0;
+	var objects:Array<Array<Dynamic>> = [];
+	var selectedObject:Int = 0;
 
 	/* UI */
-	private var json_Button:FlxButton;
-	private var stage_Dropdown:FlxScrollableDropDownMenu;
-	private var object_Dropdown:FlxScrollableDropDownMenu;
-	private var cam_Zoom:FlxText;
+	var json_Button:FlxButton;
+	var stage_Dropdown:FlxScrollableDropDownMenu;
+	var object_Dropdown:FlxScrollableDropDownMenu;
+	var cam_Zoom:FlxText;
 
-	private var stage_Label:FlxText;
-	private var sprite_Label:FlxText;
+	var stage_Label:FlxText;
+	var sprite_Label:FlxText;
 
-	private var xStepper:FlxUINumericStepper;
-	private var x_Label:FlxText;
+	var xStepper:FlxUINumericStepper;
+	var x_Label:FlxText;
 
-	private var yStepper:FlxUINumericStepper;
-	private var y_Label:FlxText;
+	var yStepper:FlxUINumericStepper;
+	var y_Label:FlxText;
 
-	private var charDropDown:FlxScrollableDropDownMenu;
+	var charDropDown:FlxScrollableDropDownMenu;
 
-	private var scaleStepper:FlxUINumericStepper;
-	private var scale_Label:FlxText;
+	var scaleStepper:FlxUINumericStepper;
+	var scale_Label:FlxText;
 
-	private var alphaStepper:FlxUINumericStepper;
-	private var alpha_Label:FlxText;
+	var alphaStepper:FlxUINumericStepper;
+	var alpha_Label:FlxText;
 
-	private var fileInput:FlxInputText;
-	private var file_Label:FlxText;
+	var fileInput:FlxInputText;
+	var file_Label:FlxText;
 
-	private var scrollStepper:FlxUINumericStepper;
-	private var scroll_Label:FlxText;
+	var scrollStepper:FlxUINumericStepper;
+	var scroll_Label:FlxText;
 
-	private var UI_box:FlxUITabMenu;
+	var UI_box:FlxUITabMenu;
 
-	private var startY:Int = 50;
-	private var zoom:Float;
+	var startY:Int = 50;
+	var zoom:Float;
 
 	/* CAMERA */
-	private var stageCam:FlxCamera;
-	private var camHUD:FlxCamera;
+	var stageCam:FlxCamera;
+	var camHUD:FlxCamera;
 
-	private var camFollow:FlxObject;
+	var camFollow:FlxObject;
 
-	public function new(selectedStage:String) {
+	function new(selectedStage:String) {
 		super();
 
 		stages = CoolUtil.coolTextFile(Paths.txt('stageList'));
 
 		if (selectedStage != null)
 			stage_Name = selectedStage;
-
-		FlxG.mouse.visible = true;
 	}
 
-	override public function create() {
+	override function create() {
 		FlxG.mouse.visible = true;
 
 		stageCam = new FlxCamera();
@@ -487,7 +486,7 @@ class StageMakingState extends MusicBeatState {
 
 	var prevFileName:String = "";
 
-	override public function update(elapsed:Float) {
+	override function update(elapsed:Float) {
 		super.update(elapsed);
 
 		if (selectedObject != 0) {
@@ -508,7 +507,7 @@ class StageMakingState extends MusicBeatState {
 
 						for (Animation in object.animations) {
 							var Anim_Name = Animation.name;
-							@:privateAccess
+							@:Access
 							if (Animation.name == "beatHit")
 								stage.onBeatHit_Group.add(sprite);
 
@@ -706,13 +705,42 @@ class StageMakingState extends MusicBeatState {
 		cam_Zoom.x = FlxG.width - cam_Zoom.width - 2;
 	}
 
+	function removeCharacter(char:Character) {
+		if (!char.isCharacterGroup) {
+			if (char.coolTrail != null)
+				remove(char.coolTrail);
+
+			remove(char);
+			add(char);
+		} else {
+			for (character in char.otherCharacters) {
+				removeCharacter(character);
+			}
+		}
+	}
+
+	function danceCharacter(char:Character) {
+		if (!char.isCharacterGroup)
+			char.dance();
+		else {
+			for (character in char.otherCharacters) {
+				character.dance();
+			}
+		}
+	}
+
 	function reloadStage(changing:Bool = true) {
 		objects = [];
 		stageObjectPos = [];
 		selectedObject = 0;
 
 		if (stage != null) {
+			stage.clear();
 			remove(stage);
+			stage.infrontOfGFSprites.clear();
+			remove(stage.infrontOfGFSprites);
+			stage.foregroundSprites.clear();
+			remove(stage.foregroundSprites);
 		}
 		add(camFollow);
 
@@ -723,70 +751,13 @@ class StageMakingState extends MusicBeatState {
 
 		stage.setCharOffsets(bf, gf, dad);
 
-		if (gf.otherCharacters == null) {
-			if (gf.coolTrail != null) {
-				remove(gf.coolTrail);
-				add(gf.coolTrail);
-			}
+		removeCharacter(gf);
 
-			remove(gf);
-			add(gf);
-		} else {
-			for (character in gf.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
-		}
-
-		remove(stage.infrontOfGFSprites);
 		add(stage.infrontOfGFSprites);
 
-		if (dad.otherCharacters == null) {
-			if (dad.coolTrail != null) {
-				remove(dad.coolTrail);
-				add(dad.coolTrail);
-			}
+		removeCharacter(dad);
+		removeCharacter(bf);
 
-			remove(dad);
-			add(dad);
-		} else {
-			for (character in dad.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
-		}
-
-		if (bf.otherCharacters == null) {
-			if (bf.coolTrail != null) {
-				remove(bf.coolTrail);
-				add(bf.coolTrail);
-			}
-
-			remove(bf);
-			add(bf);
-		} else {
-			for (character in bf.otherCharacters) {
-				if (character.coolTrail != null) {
-					remove(character.coolTrail);
-					add(character.coolTrail);
-				}
-
-				remove(character);
-				add(character);
-			}
-		}
-
-		remove(stage.foregroundSprites);
 		add(stage.foregroundSprites);
 
 		add(bf_Pos);
@@ -841,32 +812,13 @@ class StageMakingState extends MusicBeatState {
 
 		stage.beatHit();
 
-		if (bf.otherCharacters == null)
-			bf.dance();
-		else {
-			for (character in bf.otherCharacters) {
-				character.dance();
-			}
-		}
+		danceCharacter(bf);
+		danceCharacter(dad);
+		danceCharacter(gf);
 
-		if (dad.otherCharacters == null)
-			dad.dance();
-		else {
-			for (character in dad.otherCharacters) {
-				character.dance();
-			}
-		}
-
-		if (gf.otherCharacters == null)
-			gf.dance();
-		else {
-			for (character in gf.otherCharacters) {
-				character.dance();
-			}
-		}
 	}
 
-	private function saveLevel() {
+	function saveLevel() {
 		var data:String = Json.stringify(stageData, null, "\t");
 
 		if ((data != null) && (data.length > 0)) {

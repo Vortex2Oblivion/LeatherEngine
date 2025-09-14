@@ -1359,17 +1359,13 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.justPressed.Q)
 				changeNoteSustain(-Conductor.stepCrochet);
 
-			if (FlxG.keys.justPressed.X)
+			if (FlxG.keys.justPressed.X) {
 				zoomLevel *= 2;
-			if (FlxG.keys.justPressed.Z)
+				zoomLevel = FlxMath.bound(zoomLevel, MIN_ZOOM, MAX_ZOOM);
+				updateGrid();
+			} else if (FlxG.keys.justPressed.Z) {
 				zoomLevel /= 2;
-
-			if (FlxG.keys.justPressed.X || FlxG.keys.justPressed.Z) {
-				if (zoomLevel < MIN_ZOOM)
-					zoomLevel = MIN_ZOOM;
-				if (zoomLevel > MAX_ZOOM)
-					zoomLevel = MAX_ZOOM;
-
+				zoomLevel = FlxMath.bound(zoomLevel, MIN_ZOOM, MAX_ZOOM);
 				updateGrid();
 			}
 
