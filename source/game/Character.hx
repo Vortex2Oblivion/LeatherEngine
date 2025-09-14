@@ -35,7 +35,7 @@ class Character extends FlxSprite {
 	public var isCharacterGroup(default, null):Bool = false;
 	public var otherCharacters:Array<Character>;
 	public var mainCharacterID:Int = 0;
-	public var followMainCharacter:Bool = false;
+	public var followMainCharacter:Bool = true;
 
 	public var offsetsFlipWhenPlayer:Bool = true;
 	public var offsetsFlipWhenEnemy:Bool = false;
