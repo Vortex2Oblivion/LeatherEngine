@@ -160,7 +160,7 @@ class Character extends FlxSprite {
 				curCharacter = characterName = isPlayer ? "bf" : "dad";
 			}
 			#if HSCRIPT_ALLOWED
-			if(FlxG.state is PlayState){
+			if (FlxG.state is PlayState) {
 				if (Assets.exists(Paths.hx("data/character data/" + characterName + "/script"))) {
 					script = new HScript(Paths.hx("data/character data/" + characterName + "/script"));
 
@@ -205,7 +205,7 @@ class Character extends FlxSprite {
 				looped: animation.loop,
 				indices: animation.indices
 			});
-			if(animation.anim.startsWith("dance")){
+			if (animation.anim.startsWith("dance")) {
 				returnCharacter.dancesLeftAndRight = true;
 			}
 			addOffset(animation.anim, (isPlayer ? -1 : 1) * (animation.offsets[0] ?? 0), animation.offsets[1] ?? 0);
@@ -348,7 +348,7 @@ class Character extends FlxSprite {
 			if (config.positionOffset != null)
 				positioningOffset = config.positionOffset;
 
-			if (config.trail || FlxG.state is CharacterCreator){
+			if (config.trail || FlxG.state is CharacterCreator) {
 				coolTrail = new FlxTrail(this, null, config.trailLength ?? 10, config.trailDelay ?? 3, config.trailStalpha ?? 0.4, config.trailDiff ?? 0.05);
 			}
 
@@ -361,8 +361,12 @@ class Character extends FlxSprite {
 				singDuration = config.singDuration;
 		} else {
 			otherCharacters = [];
-			mainCharacterID = config.mainCharacterID;
-			followMainCharacter = config.followMainCharacter;
+			if (config.mainCharacterID != null) {
+				mainCharacterID = config.mainCharacterID;
+			}
+			if (config.followMainCharacter != null) {
+				followMainCharacter = config.followMainCharacter;
+			}
 			isCharacterGroup = true;
 
 			for (characterData in config.characters) {
@@ -578,7 +582,7 @@ class Character extends FlxSprite {
 	}
 
 	public function getMainCharacter():Character {
-		if (otherCharacters != null && otherCharacters.length > 0 && followMainCharacter) {
+		if (isCharacterGroup && followMainCharacter) {
 			return otherCharacters[mainCharacterID];
 		}
 		return this;

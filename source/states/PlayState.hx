@@ -784,7 +784,7 @@ class PlayState extends MusicBeatState {
 		defaultCamZoom = stage.camZoom;
 		camGame.bgColor = FlxColor.fromString(stage.stageData.backgroundColor ?? "#000000");
 
-		var camPos:FlxPoint = new FlxPoint(dad.getGraphicMidpoint().x, dad.getGraphicMidpoint().y);
+		var camPos:FlxPoint =  FlxPoint.get(dad.getMainCharacter().getMidpoint().x, dad.getMainCharacter().getMidpoint().y);
 
 		if (dad.curCharacter.startsWith("gf")) {
 			dad.setPosition(gf.x, gf.y);
@@ -811,9 +811,9 @@ class PlayState extends MusicBeatState {
 			add(stage.infrontOfGFSprites);
 
 		/* we do a little trolling */
-		var midPos:FlxPoint = dad.getMidpoint();
+		var midPos:FlxPoint = dad.getMainCharacter().getMidpoint();
 
-		camPos.set(midPos.x + 150 + dad.cameraOffset[0], midPos.y - 100 + dad.cameraOffset[1]);
+		camPos.set(midPos.x + 150 + dad.getMainCharacter().cameraOffset[0], midPos.y - 100 + dad.getMainCharacter().cameraOffset[1]);
 
 		addCharacter(boyfriend, false);
 
@@ -1466,7 +1466,7 @@ class PlayState extends MusicBeatState {
 		Conductor.changeBPM(SONG.bpm, songMultiplier);
 
 		if (SONG.needsVoices) {
-			for (character in ['player', 'opponent', SONG.player1, SONG.player2]) {
+			for (character in ['bf', 'dad', 'player', 'opponent', SONG.player1, SONG.player2]) {
 				if (vocals.members.length >= 2) {
 					break;
 				}
@@ -1983,29 +1983,27 @@ class PlayState extends MusicBeatState {
 				}
 			}
 
-			if (!lockedCamera && !paused) {
-				if (centerCamera) {
-					var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
-					midPos.x += stage.p1_Cam_Offset.x;
-					midPos.y += stage.p1_Cam_Offset.y;
-					camFollow.setPosition(midPos.x
-						- 100
-						+ boyfriend.getMainCharacter().cameraOffset[0],
-						midPos.y
-						- 100
-						+ boyfriend.getMainCharacter().cameraOffset[1]);
-					midPos = dad.getMainCharacter().getMidpoint();
-					midPos.x += stage.p2_Cam_Offset.x;
-					midPos.y += stage.p2_Cam_Offset.y;
-					camFollow.x += midPos.x + 150 + dad.getMainCharacter().cameraOffset[0];
-					camFollow.y += midPos.y - 100 + dad.getMainCharacter().cameraOffset[1];
-					camFollow.x *= 0.5;
-					camFollow.y *= 0.5;
-					if (PlayState.SONG.notes[Std.int(curStep / Conductor.stepsPerSection)].mustHitSection) {
-						trackSingDirection(boyfriend);
-					} else {
-						trackSingDirection(dad);
-					}
+			if (lockedCamera && !paused && centerCamera) {
+				var midPos:FlxPoint = boyfriend.getMainCharacter().getMidpoint();
+				midPos.x += stage.p1_Cam_Offset.x;
+				midPos.y += stage.p1_Cam_Offset.y;
+				camFollow.setPosition(midPos.x
+					- 100
+					+ boyfriend.getMainCharacter().cameraOffset[0],
+					midPos.y
+					- 100
+					+ boyfriend.getMainCharacter().cameraOffset[1]);
+				midPos = dad.getMainCharacter().getMidpoint();
+				midPos.x += stage.p2_Cam_Offset.x;
+				midPos.y += stage.p2_Cam_Offset.y;
+				camFollow.x += midPos.x + 150 + dad.getMainCharacter().cameraOffset[0];
+				camFollow.y += midPos.y - 100 + dad.getMainCharacter().cameraOffset[1];
+				camFollow.x *= 0.5;
+				camFollow.y *= 0.5;
+				if (PlayState.SONG.notes[Std.int(curStep / Conductor.stepsPerSection)].mustHitSection) {
+					trackSingDirection(boyfriend);
+				} else {
+					trackSingDirection(dad);
 				}
 			}
 		}

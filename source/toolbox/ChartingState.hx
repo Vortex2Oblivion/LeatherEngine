@@ -997,7 +997,7 @@ class ChartingState extends MusicBeatState {
 
 		vocals = new SoundGroup(2);
 		if (_song.needsVoices) {
-			for (character in ['player', 'opponent', _song.player1, _song.player2]) {
+			for (character in ['bf', 'dad', 'player', 'opponent', _song.player1, _song.player2]) {
 				var soundPath:String = Paths.voices(daSong, _song.specialAudioName ?? difficulty_name, character, _song.player1);
 				if (!addedVocals.contains(soundPath)) {
 					vocals.add(FlxG.sound.list.add(new FlxSound().loadEmbedded(soundPath)));
@@ -1749,7 +1749,11 @@ class ChartingState extends MusicBeatState {
 
 		curRenderedIds.clear();
 
-		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes.concat(_song.notes[curSection + 1].sectionNotes);
+		var sectionInfo:Array<Dynamic> = _song.notes[curSection].sectionNotes;
+
+		if (_song?.notes[curSection + 1]?.sectionNotes != null) {
+			sectionInfo = sectionInfo.concat(_song.notes[curSection + 1].sectionNotes);
+		}
 
 		if (_song.notes[curSection].changeBPM && _song.notes[curSection].bpm > 0)
 			Conductor.changeBPM(_song.notes[curSection].bpm);
