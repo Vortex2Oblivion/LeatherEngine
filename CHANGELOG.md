@@ -5,6 +5,32 @@ All notable changes will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.2] - 9/14/25
+
+### Added
+- `useAbsolutePositions` property for stages
+- `camOther` camera
+- GF sing notetype
+- Next section preview in chart editor (like in psych engine)
+
+### Changed
+ - Note shaders are now batched, leading to improved performance.
+ - Scrolling into an invalid section in the chart editor now sends you back to the start.
+
+### Fixed
+ - Sustains are now rendered correctly on downscroll.
+ - Antialiasing sometimes being applied, even when turned off in options.
+ - The game crashing when performing a ghost tap on a character group with ghost tapping disabled.
+ - Scale not saving in character editor
+ - Scale not saving in stage editor
+ - Scaled stage objects not having correct positioning.
+ - Group characters having invalid camera positioning.
+
+
+### Removed
+ - Chart editor horizontal scroll limit.
+
+
 ## [1.1.1] - 8/22/25
 
 ### Fixed
