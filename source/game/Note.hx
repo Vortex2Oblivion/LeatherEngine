@@ -313,13 +313,30 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 		}
 	}
 
+	@:allow(states.PlayState)
+	private var correctionOffset:Float = 0; // dont mess with this
+
 	/**
 	 * Calculates the Y value of a note.
 	 * @param note the note to calculate
 	 * @return The Y value. NOTE: Will return the negative value if downscroll is enabled.
 	 */
-	public static inline function calculateY(note:Note):Float {
-		return (Options.getData("downscroll") ? 1 : -1) * (0.45 * (Conductor.songPosition - note.strumTime) * FlxMath.roundDecimal(note.speed, 2));
+	public inline function calculateY(myStrum:StrumNote):Void {
+		var strumY:Float = myStrum.y;
+
+		var posMath:Float = (0.45 * (Conductor.songPosition - strumTime) * FlxMath.roundDecimal(speed, 2));
+
+		if (!Options.getData("downscroll")) {
+			y = strumY - posMath;
+			return;
+		}
+
+		// thanks for this psych engine
+
+		y = strumY + correctionOffset + posMath;
+		if (isSustainNote) {
+			y -= (frameHeight * scale.y) - (Note.swagWidth);
+		}
 	}
 
 	override function update(elapsed:Float) {
@@ -329,11 +346,8 @@ class Note extends #if MODCHARTING_TOOLS modcharting.FlxSprite3D #else flixel.ad
 
 		calculateCanBeHit();
 
-		if (!inEditor) {
-			if (tooLate) {
-				if (alpha > 0.3)
-					alpha = 0.3;
-			}
+		if (!inEditor && tooLate && alpha > 0.3) {
+			alpha = 0.3;
 		}
 	}
 

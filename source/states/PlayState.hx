@@ -784,7 +784,7 @@ class PlayState extends MusicBeatState {
 		defaultCamZoom = stage.camZoom;
 		camGame.bgColor = FlxColor.fromString(stage.stageData.backgroundColor ?? "#000000");
 
-		var camPos:FlxPoint =  FlxPoint.get(dad.getMainCharacter().getMidpoint().x, dad.getMainCharacter().getMidpoint().y);
+		var camPos:FlxPoint = FlxPoint.get(dad.getMainCharacter().getMidpoint().x, dad.getMainCharacter().getMidpoint().y);
 
 		if (dad.curCharacter.startsWith("gf")) {
 			dad.setPosition(gf.x, gf.y);
@@ -1585,6 +1585,7 @@ class PlayState extends MusicBeatState {
 
 					sustainGroup.push(sustainNote);
 					sustainNote.sustains = sustainGroup;
+					sustainNote.correctionOffset = Options.getData("downscroll") ? 0 : swagNote.height / 2;
 				}
 
 				swagNote.sustains = sustainGroup;
@@ -2049,7 +2050,7 @@ class PlayState extends MusicBeatState {
 				var coolStrum:StrumNote = (note.mustPress ? playerStrums.members[Math.floor(Math.abs(note.noteData)) % playerStrums.members.length] : enemyStrums.members[Math.floor(Math.abs(note.noteData)) % enemyStrums.members.length]);
 				note.visible = true;
 				note.active = true;
-				note.y = coolStrum.y + Note.calculateY(note);
+				note.calculateY(coolStrum);
 				if (note.isSustainNote) {
 					var swagRect:FlxRect = new FlxRect(0, 0, note.frameWidth, note.frameHeight);
 					// TODO: make this not... this
@@ -3338,6 +3339,17 @@ class PlayState extends MusicBeatState {
 		call("stepHit", [curStep]);
 	}
 
+	function danceCharacter(char:Character) {
+		if (!char.isCharacterGroup) {
+			if (char.animation.curAnim != null && !char.animation.curAnim.name.startsWith('sing'))
+				char.dance(altAnim);
+		} else {
+			for (character in char.otherCharacters) {
+				danceCharacter(character);
+			}
+		}
+	}
+
 	override function beatHit() {
 		super.beatHit();
 
@@ -3361,29 +3373,9 @@ class PlayState extends MusicBeatState {
 
 		// Dad doesnt interupt his own notes
 		if (characterPlayingAs == BF) {
-			if (dad.otherCharacters == null) {
-				if (dad.animation.curAnim != null && !dad.animation.curAnim.name.startsWith('sing'))
-					if (!dad.curCharacter.startsWith('gf'))
-						dad.dance(altAnim);
-			} else {
-				for (character in dad.otherCharacters) {
-					if (character.animation.curAnim != null && !character.animation.curAnim.name.startsWith('sing'))
-						if (!character.curCharacter.startsWith('gf'))
-							character.dance(altAnim);
-				}
-			}
+			danceCharacter(dad);
 		} else {
-			if (boyfriend.otherCharacters == null) {
-				if (boyfriend.animation.curAnim != null && !boyfriend.animation.curAnim.name.startsWith('sing'))
-					if (!boyfriend.curCharacter.startsWith('gf'))
-						boyfriend.dance();
-			} else {
-				for (character in boyfriend.otherCharacters) {
-					if (character.animation.curAnim != null && !character.animation.curAnim.name.startsWith('sing'))
-						if (!character.curCharacter.startsWith('gf'))
-							character.dance();
-				}
-			}
+			danceCharacter(boyfriend);
 		}
 		if (camZooming
 			&& FlxG.camera.zoom < (1.35 * FlxCamera.defaultZoom)
@@ -3408,51 +3400,19 @@ class PlayState extends MusicBeatState {
 			gfSpeed = 1;
 
 		if (curBeat % gfSpeed == 0 && !dad.curCharacter.startsWith('gf')) {
-			if (gf.otherCharacters == null) {
-				gf.dance();
-			} else {
-				for (character in gf.otherCharacters) {
-					character.dance();
-				}
-			}
+			danceCharacter(gf);
 		}
 
 		if (dad.animation.curAnim != null) {
 			if (!dad.animation.curAnim.name.startsWith("sing") && curBeat % gfSpeed == 0 && dad.curCharacter.startsWith('gf')) {
-				if (dad.otherCharacters == null) {
-					dad.dance();
-				} else {
-					for (character in dad.otherCharacters) {
-						character.dance();
-					}
-				}
+				danceCharacter(dad);
 			}
 		}
 
 		if (characterPlayingAs == BF) {
-			if (boyfriend.otherCharacters == null) {
-				if (boyfriend.animation.curAnim != null)
-					if (!boyfriend.animation.curAnim.name.startsWith("sing"))
-						boyfriend.dance();
-			} else {
-				for (character in boyfriend.otherCharacters) {
-					if (character.animation.curAnim != null)
-						if (!character.animation.curAnim.name.startsWith("sing"))
-							character.dance();
-				}
-			}
+			danceCharacter(boyfriend);
 		} else {
-			if (dad.otherCharacters == null) {
-				if (dad.animation.curAnim != null)
-					if (!dad.animation.curAnim.name.startsWith("sing"))
-						dad.dance(altAnim);
-			} else {
-				for (character in dad.otherCharacters) {
-					if (character.animation.curAnim != null)
-						if (!character.animation.curAnim.name.startsWith("sing"))
-							character.dance(altAnim);
-				}
-			}
+			danceCharacter(dad);
 		}
 
 		stage.beatHit();
