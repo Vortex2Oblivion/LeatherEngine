@@ -1448,7 +1448,8 @@ class ChartingState extends MusicBeatState {
 			if (FlxG.keys.pressed.SHIFT)
 				shiftThing = 4;
 			if ((controls.RIGHT_P) && !control) {
-				if (sectionStartTime(curSection + shiftThing) >= Math.min(FlxG.sound.music.length, vocals.maxLength)) {
+				if (sectionStartTime(curSection + shiftThing) >= (!_song.needsVoices ? FlxG.sound.music.length : Math.min(FlxG.sound.music.length,
+					vocals.maxLength))) {
 					changeSection(0);
 				} else {
 					changeSection(curSection + shiftThing);
