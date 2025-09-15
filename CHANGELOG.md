@@ -26,11 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
  - Scaled stage objects not having correct positioning.
  - Group characters having invalid camera positioning.
 
-
-### Removed
- - Chart editor horizontal scroll limit.
-
-
 ## [1.1.1] - 8/22/25
 
 ### Fixed
