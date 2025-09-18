@@ -35,7 +35,7 @@ class Character extends FlxSprite {
 	public var isCharacterGroup(default, null):Bool = false;
 	public var otherCharacters:Array<Character>;
 	public var mainCharacterID:Int = 0;
-	public var followMainCharacter:Bool = true;
+	public var followMainCharacter:Bool = false;
 
 	public var offsetsFlipWhenPlayer:Bool = true;
 	public var offsetsFlipWhenEnemy:Bool = false;
@@ -72,6 +72,10 @@ class Character extends FlxSprite {
 		dancesLeftAndRight = false;
 
 		var ilikeyacutg:Bool = false;
+
+		if(!isPlayer){
+			barColor = FlxColor.RED;
+		}
 
 		switch (curCharacter) {
 			case '':
@@ -140,8 +144,6 @@ class Character extends FlxSprite {
 					}
 				}
 			}
-		} else {
-			visible = false;
 		}
 		#if HSCRIPT_ALLOWED
 		if (Assets.exists(Paths.hx("data/character data/" + curCharacter + "/script"))) {
@@ -385,6 +387,7 @@ class Character extends FlxSprite {
 
 				otherCharacters.push(character);
 			}
+			loadGraphic('flixel/images/logo/default.png');
 		}
 
 		if (config.barColor == null)

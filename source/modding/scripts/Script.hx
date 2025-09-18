@@ -28,11 +28,11 @@ class Script {
     public var createPost:Bool = false;
 
 	public function new(path:String, executeOn:ExecuteOn = BOTH) {
-		path = path.replace(Sys.getCwd(), '');
+		path = path.replace(Sys.getCwd(), '').replace('/scripts/..', '');
 		trace('Loading script at path \'${path}\'');
         this.path = path;
 		var _path:Path = new Path(path);
-        this.name = _path.file;
+        this.name = _path.file.replace(Sys.getCwd(), '').replace('/scripts/..', '');
 		this.extension = _path.ext;
 		this.executeOn = executeOn;
 		_path = null; // We dont need this anymore

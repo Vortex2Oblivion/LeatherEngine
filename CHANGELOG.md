@@ -5,6 +5,18 @@ All notable changes will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.3] - 9/18/25
+
+### Changed
+ - Lua script prints now show the lua script path.
+
+### Fixed
+ - Character groups not obeying `cameraOffset`.
+ - Changing sections via keybinds in the chart editor sending you to section 0 when no vocal tracks were present.
+ - Note sustains are now properly clipped at the strumline center on upscroll.
+ - Time bar displaying 0:00 before song has started.
+ - Time bar being colored incorrectly on old kade and psych styles.
+
 ## [1.1.2] - 9/14/25
 
 ### Added

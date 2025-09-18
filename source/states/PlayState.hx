@@ -985,7 +985,6 @@ class PlayState extends MusicBeatState {
 
 		timeBar = new TimeBar(SONG, storyDifficultyStr);
 		timeBar.cameras = [camHUD];
-		timeBar.bar.color = dad.barColor;
 		add(timeBar);
 
 		if (Options.getData("sideRatings")) {
@@ -1437,9 +1436,6 @@ class PlayState extends MusicBeatState {
 			setSongTime(startOnTime - 500);
 		startOnTime = 0;
 
-		// Song duration in a float, useful for the time left feature
-		songLength = FlxG.sound.music.length;
-
 		#if desktop
 		Conductor.recalculateStuff(songMultiplier);
 
@@ -1485,6 +1481,8 @@ class PlayState extends MusicBeatState {
 		FlxG.sound.music = new FlxSound().loadEmbedded(Paths.inst(SONG.song, SONG.specialAudioName ?? storyDifficultyStr.toLowerCase(),
 			boyfriend.curCharacter));
 		FlxG.sound.music.persist = true;
+		// Song duration in a float, useful for the time left feature
+		songLength = FlxG.sound.music.length;
 
 		notes = new FlxTypedGroup<Note>();
 
@@ -1659,6 +1657,7 @@ class PlayState extends MusicBeatState {
 				keyThingLol.cameras = [camHUD];
 				keyThingLol.scrollFactor.set();
 				keyThingLol.borderStyle = SHADOW_XY(6, 6);
+				keyThingLol.antialiasing = false;
 				add(keyThingLol);
 				FlxTween.tween(keyThingLol, {y: keyThingLol.y + 10, alpha: 0}, 3, {
 					ease: FlxEase.circOut,
@@ -2055,12 +2054,12 @@ class PlayState extends MusicBeatState {
 					var swagRect:FlxRect = new FlxRect(0, 0, note.frameWidth, note.frameHeight);
 					// TODO: make this not... this
 					if (Options.getData("downscroll")) {
-						swagRect.height = (coolStrum.y + (coolStrum.width / 2) - note.y) / note.scale.y;
+						swagRect.height = (coolStrum.y + (coolStrum.height / 2) - note.y) / note.scale.y;
 						swagRect.y = note.frameHeight - swagRect.height;
 					} else {
 						// swagRect.width = note.width / note.scale.x;
 						// swagRect.height = note.height / note.scale.y;
-						swagRect.y = (coolStrum.y + Note.swagWidth / 2 - note.y) / note.scale.y;
+						swagRect.y = (coolStrum.y + (coolStrum.height / 2) - note.y) / note.scale.y;
 						swagRect.height -= swagRect.y;
 					}
 					note.clipRect = swagRect;
@@ -3217,9 +3216,7 @@ class PlayState extends MusicBeatState {
 				(note != null ? note.isSustainNote : false)
 			]);
 
-			#if LUA_ALLOWED
 			set("misses", misses);
-			#end
 		}
 	}
 
@@ -3576,7 +3573,7 @@ class PlayState extends MusicBeatState {
 
 		if (gfMap.exists(event[3]) || bfMap.exists(event[3]) || dadMap.exists(event[3])) // prevent game crash
 		{
-			switch (event[2].toLowerCase()) {
+			switch (event[2].toLowerCase().trim()) {
 				case "girlfriend" | "gf" | "2":
 					var oldGf = gf;
 					oldGf.alpha = 0.00001;
@@ -3673,19 +3670,17 @@ class PlayState extends MusicBeatState {
 		if (seconds < 0)
 			seconds = 0;
 
+		var suffix:String = (Options.getData("botplay") ? " (BOT)" : "") + (Options.getData("noDeath") ? " (NO DEATH)" : "");
+
 		switch (timeBarStyle.toLowerCase()) {
 			default: // includes 'leather engine'
-				timeBar.text.text = SONG.song + " ~ " + storyDifficultyStr + ' (${FlxStringUtil.formatTime(seconds, false)})'
-					+ (Options.getData("botplay") ? " (BOT)" : "") + (Options.getData("noDeath") ? " (NO DEATH)" : "");
-				timeBar.text.screenCenter(X);
+				timeBar.text.text = SONG.song + " ~ " + storyDifficultyStr + ' (${FlxStringUtil.formatTime(seconds, false)})$suffix';
 			case "psych engine":
-				timeBar.text.text = '${FlxStringUtil.formatTime(seconds, false)}' + (Options.getData("botplay") ? " (BOT)" : "")
-					+ (Options.getData("noDeath") ? " (NO DEATH)" : "");
-				timeBar.text.screenCenter(X);
+				timeBar.text.text = '${FlxStringUtil.formatTime(seconds, false)}$suffix';
 			case "old kade engine":
-				timeBar.text.text = SONG.song + (Options.getData("botplay") ? " (BOT)" : "") + (Options.getData("noDeath") ? " (NO DEATH)" : "");
-				timeBar.text.screenCenter(X);
+				timeBar.text.text = SONG.song + suffix;
 		}
+		timeBar.text.screenCenter(X);
 	}
 
 	inline function set(name:String, data:Any, ?executeOn:ExecuteOn = BOTH) {
@@ -3812,9 +3807,7 @@ class PlayState extends MusicBeatState {
 		if (totalNotes != 0 && !switchedStates)
 			accuracy = FlxMath.roundDecimal(100.0 / (totalNotes / hitNotes), 2);
 
-		#if LUA_ALLOWED
 		set("accuracy", accuracy);
-		#end
 
 		updateRating();
 		updateScoreText();
@@ -3877,7 +3870,7 @@ class PlayState extends MusicBeatState {
 			for (event in events) {
 				var map:Map<String, Dynamic>;
 
-				switch (event[2].toLowerCase()) {
+				switch (event[2].toLowerCase().trim()) {
 					case "dad" | "opponent" | "player2" | "1":
 						map = dadMap;
 					case "gf" | "girlfriend" | "player3" | "2":

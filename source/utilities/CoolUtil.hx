@@ -349,8 +349,8 @@ class CoolUtil {
 		@author Leather128
 	**/
 	public static function print(message:String, ?type:PrintType = LOG, ?infos:PosInfos):Void {
-		untyped __cpp__("std::cout << {0}", '${Log.formatOutput('${messageFromPrintType(type)} $message', infos)}\n');
-		final formattedMessage:String = Log.formatOutput(message, infos);
+		untyped __cpp__("std::cout << {0}", '${formatOutput('${messageFromPrintType(type)} $message', infos)}\n');
+		final formattedMessage:String = formatOutput(message, infos);
 		EntryPoint.runInMainThread(() -> {
 			switch (type) {
 				case DEBUG:
@@ -363,6 +363,17 @@ class CoolUtil {
 					Logs.log(formattedMessage);
 			}
 		});
+	}
+
+	public static function formatOutput(v:Dynamic, infos:PosInfos):String {
+		var str = Std.string(v);
+		if (infos == null)
+			return str;
+		var pstr = infos.fileName  + (infos.lineNumber >= 0 ? ':${infos.lineNumber}' : "");
+		if (infos.customParams != null)
+			for (v in infos.customParams)
+				str += ", " + Std.string(v);
+		return pstr + ": " + str;
 	}
 
 	public static function messageFromPrintType(?type:PrintType = LOG):String {

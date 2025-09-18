@@ -216,7 +216,6 @@ class StageGroup extends FlxGroup {
 			for (other in char.otherCharacters) {
 				setPosition(other, point, scroll, zIndex, useAbsolute);
 			}
-			return;
 		}
 		if (useAbsolute) {
 			char.setPosition(point.x + char.positioningOffset[0], point.y + char.positioningOffset[1]);

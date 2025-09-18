@@ -351,11 +351,21 @@ class LuaScript extends Script {
 
 		// callbacks
 		setFunction("trace", function(str:Dynamic, printType:String = "LOG") {
-			trace('$path: $str', printType.toUpperCase());
+			CoolUtil.print('$str', printType.toUpperCase(), {
+				className: name,
+				fileName: '$name.$extension',
+				methodName: "",
+				lineNumber: -1
+			});
 		});
 
 		setFunction("print", function(str:Dynamic, printType:String = "LOG") {
-			trace('$path: $str', printType.toUpperCase());
+			CoolUtil.print('$str', printType.toUpperCase(), {
+				className: name,
+				fileName: path,
+				methodName: "",
+				lineNumber: -1
+			});
 		});
 
 		setFunction("stopFlash", function(camera:String = "", color:String = "#FFFFFF", time:Float = 1, force:Bool = false) {
