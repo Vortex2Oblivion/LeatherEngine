@@ -997,7 +997,7 @@ class ChartingState extends MusicBeatState {
 
 		vocals = new SoundGroup(2);
 		if (_song.needsVoices) {
-			for (character in ['bf', 'dad', 'player', 'opponent', _song.player1, _song.player2]) {
+			for (character in ['player', 'opponent', _song.player1, _song.player2, 'dad', 'bf']) {
 				var soundPath:String = Paths.voices(daSong, _song.specialAudioName ?? difficulty_name, character, _song.player1);
 				if (!addedVocals.contains(soundPath)) {
 					vocals.add(FlxG.sound.list.add(new FlxSound().loadEmbedded(soundPath)));

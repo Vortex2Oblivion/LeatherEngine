@@ -1462,7 +1462,7 @@ class PlayState extends MusicBeatState {
 		Conductor.changeBPM(SONG.bpm, songMultiplier);
 
 		if (SONG.needsVoices) {
-			for (character in ['bf', 'dad', 'player', 'opponent', SONG.player1, SONG.player2]) {
+			for (character in ['player', 'opponent', SONG.player1, SONG.player2, 'dad', 'bf']) {
 				if (vocals.members.length >= 2) {
 					break;
 				}
