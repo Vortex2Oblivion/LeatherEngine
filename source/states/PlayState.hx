@@ -3573,7 +3573,7 @@ class PlayState extends MusicBeatState {
 
 		if (gfMap.exists(event[3]) || bfMap.exists(event[3]) || dadMap.exists(event[3])) // prevent game crash
 		{
-			switch (event[2].toLowerCase().trim()) {
+			switch (event[2].toLowerCase()) {
 				case "girlfriend" | "gf" | "2":
 					var oldGf = gf;
 					oldGf.alpha = 0.00001;
@@ -3656,7 +3656,7 @@ class PlayState extends MusicBeatState {
 					healthBar.updateFilledBar();
 			}
 		} else
-			CoolUtil.coolError("The character " + event[3] + " isn't in any character cache!\nHow did this happen? ¯|_(ツ)_|¯",
+			CoolUtil.coolError("The character " + event[3] + " isn't in any character cache!\nHow did this happen?",
 				"Leather Engine's No Crash, We Help Fix Stuff Tool");
 
 		addBgStuff();
@@ -3866,11 +3866,11 @@ class PlayState extends MusicBeatState {
 			}
 		}
 
-		try {
-			for (event in events) {
+		for (event in events) {
+			if (Options.getData("charsAndBGs")) {
 				var map:Map<String, Dynamic>;
 
-				switch (event[2].toLowerCase().trim()) {
+				switch (Std.string(event[2]).toLowerCase()) {
 					case "dad" | "opponent" | "player2" | "1":
 						map = dadMap;
 					case "gf" | "girlfriend" | "player3" | "2":
@@ -3878,62 +3878,56 @@ class PlayState extends MusicBeatState {
 					default:
 						map = bfMap;
 				}
+				if (event[0].toLowerCase() == "change character" && event[1] <= FlxG.sound.music.length && !map.exists(event[3])) {
+					var tmr:Float = Sys.time();
+					var funnyCharacter:Character;
+					trace('Caching ${event[3]}');
 
-				// cache shit
-				if (Options.getData("charsAndBGs")) {
-					if (event[0].toLowerCase() == "change character" && event[1] <= FlxG.sound.music.length && !map.exists(event[3])) {
-						var tmr:Float = Sys.time();
-						var funnyCharacter:Character;
-						trace('Caching ${event[3]}');
+					if (map == bfMap)
+						funnyCharacter = new Boyfriend(100, 100, event[3]);
+					else
+						funnyCharacter = new Character(100, 100, event[3]);
 
-						if (map == bfMap)
-							funnyCharacter = new Boyfriend(100, 100, event[3]);
-						else
-							funnyCharacter = new Character(100, 100, event[3]);
+					funnyCharacter.alpha = 0.00001;
+					add(funnyCharacter);
 
-						funnyCharacter.alpha = 0.00001;
-						add(funnyCharacter);
+					map.set(event[3], funnyCharacter);
 
-						map.set(event[3], funnyCharacter);
-
-						if (funnyCharacter.otherCharacters != null) {
-							for (character in funnyCharacter.otherCharacters) {
-								character.alpha = 0.00001;
-								add(character);
-							}
+					if (funnyCharacter.otherCharacters != null) {
+						for (character in funnyCharacter.otherCharacters) {
+							character.alpha = 0.00001;
+							add(character);
 						}
-
-						trace('Cached ${event[3]} in ${FlxMath.roundDecimal(Sys.time() - tmr, 2)} seconds');
 					}
 
-					if (event[0].toLowerCase() == "change stage"
-						&& event[1] <= FlxG.sound.music.length
-						&& !stageMap.exists(event[2])
-						&& Options.getData("preloadChangeBGs")) {
-						var funnyStage = new StageGroup(event[2]);
-						funnyStage.visible = false;
-
-						stageMap.set(event[2], funnyStage);
-					}
+					trace('Cached ${event[3]} in ${FlxMath.roundDecimal(Sys.time() - tmr, 2)} seconds');
 				}
 
-				#if LUA_ALLOWED
-				if (!scripts.exists(event[0].toLowerCase()) && Assets.exists(Paths.lua("event data/" + event[0].toLowerCase()))) {
-					scripts.set(event[0].toLowerCase(), new LuaScript(Paths.getModPath(Paths.lua("event data/" + event[0].toLowerCase()))));
-				}
-				#end
+				if (event[0].toLowerCase() == "change stage"
+					&& event[1] <= FlxG.sound.music.length
+					&& !stageMap.exists(event[2])
+					&& Options.getData("preloadChangeBGs")) {
+					var funnyStage = new StageGroup(event[2]);
+					funnyStage.visible = false;
 
-				#if HSCRIPT_ALLOWED
-				if (!scripts.exists(event[0].toLowerCase()) && Assets.exists(Paths.hx("data/event data/" + event[0].toLowerCase()))) {
-					scripts.set(event[0].toLowerCase(), new HScript(Paths.hx("data/event data/" + event[0].toLowerCase())));
+					stageMap.set(event[2], funnyStage);
 				}
-				#end
 			}
 
-			events.sort((a, b) -> Std.int(a[1] - b[1]));
-		} catch (e) {
-			// trace(e, ERROR);
+			#if LUA_ALLOWED
+			if (!scripts.exists(event[0].toLowerCase()) && Assets.exists(Paths.lua("event data/" + event[0].toLowerCase()))) {
+				scripts.set(event[0].toLowerCase(), new LuaScript(Paths.getModPath(Paths.lua("event data/" + event[0].toLowerCase()))));
+			}
+			#end
+
+			#if HSCRIPT_ALLOWED
+			if (!scripts.exists(event[0].toLowerCase()) && Assets.exists(Paths.hx("data/event data/" + event[0].toLowerCase()))) {
+				scripts.set(event[0].toLowerCase(), new HScript(Paths.hx("data/event data/" + event[0].toLowerCase())));
+			}
+			#end
 		}
+
+		events.sort((a, b) -> Std.int(a[1] - b[1]));
 	}
 
 	function setupNoteTypeScript(noteType:String) {
