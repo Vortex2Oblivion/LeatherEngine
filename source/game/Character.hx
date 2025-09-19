@@ -63,11 +63,14 @@ class Character extends FlxSprite {
 	public var playFullAnim:Bool = false;
 	public var preventDanceForAnim:Bool = false;
 
+	private var ignoreDraw:Bool = false;
+
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false, ?isDeathCharacter:Bool = false) {
 		super(x, y);
 		curCharacter = character;
 		this.isPlayer = isPlayer;
 		this.isDeathCharacter = isDeathCharacter;
+		deathCharacter = "bf-dead";
 
 		dancesLeftAndRight = false;
 
@@ -77,9 +80,9 @@ class Character extends FlxSprite {
 			barColor = FlxColor.RED;
 		}
 
-		switch (curCharacter) {
-			case '':
-				deathCharacter = "bf-dead";
+		switch (curCharacter.toLowerCase()) {
+			case '' | 'none' | 'empty' | 'nogf':
+				ignoreDraw = true;
 			default:
 				if (isPlayer)
 					flipX = !flipX;
@@ -219,6 +222,9 @@ class Character extends FlxSprite {
 	public var atlas:FlxAnimate;
 
 	override public function draw():Void {
+		if(ignoreDraw){
+			return;
+		}
 		if (atlasMode && atlas != null && visible) {
 			// thanks cne for this shits lol
 			atlas.cameras = cameras;
