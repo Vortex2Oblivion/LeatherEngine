@@ -5,60 +5,74 @@ All notable changes will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.6] - 9/19/25
+
+### Fixed
+
+- Changing to a group character showing HaxeFlixel icon.
+- FPS option changes not taking affect until restarting the game.
+
 ## [1.1.5] - 9/19/25
 
 ### Fixed
- - Split vocal tracks not working.
 
+- Split vocal tracks not working.
 
 ## [1.1.4] - 9/19/25
 
 ### Fixed
- - Change Character event not working properly.
- - Empty characters showing flixel icon.
+
+- Change Character event not working properly.
+- Empty characters showing flixel icon.
 
 ## [1.1.3] - 9/18/25
 
 ### Changed
- - Lua script prints now show the lua script path.
+
+- Lua script prints now show the lua script path.
 
 ### Fixed
- - Character groups not obeying `cameraOffset`.
- - Changing sections via keybinds in the chart editor sending you to section 0 when no vocal tracks were present.
- - Note sustains are now properly clipped at the strumline center on upscroll.
- - Time bar displaying 0:00 before song has started.
- - Time bar being colored incorrectly on old kade and psych styles.
+
+- Character groups not obeying `cameraOffset`.
+- Changing sections via keybinds in the chart editor sending you to section 0 when no vocal tracks were present.
+- Note sustains are now properly clipped at the strumline center on upscroll.
+- Time bar displaying 0:00 before song has started.
+- Time bar being colored incorrectly on old kade and psych styles.
 
 ## [1.1.2] - 9/14/25
 
 ### Added
+
 - `useAbsolutePositions` property for stages
 - `camOther` camera
 - GF sing notetype
 - Next section preview in chart editor (like in psych engine)
 
 ### Changed
- - Note shaders are now batched, leading to improved performance.
- - Scrolling into an invalid section in the chart editor now sends you back to the start.
+
+- Note shaders are now batched, leading to improved performance.
+- Scrolling into an invalid section in the chart editor now sends you back to the start.
 
 ### Fixed
- - Sustains are now rendered correctly on downscroll.
- - Antialiasing sometimes being applied, even when turned off in options.
- - The game crashing when performing a ghost tap on a character group with ghost tapping disabled.
- - Scale not saving in character editor
- - Scale not saving in stage editor
- - Scaled stage objects not having correct positioning.
- - Group characters having invalid camera positioning.
+
+- Sustains are now rendered correctly on downscroll.
+- Antialiasing sometimes being applied, even when turned off in options.
+- The game crashing when performing a ghost tap on a character group with ghost tapping disabled.
+- Scale not saving in character editor
+- Scale not saving in stage editor
+- Scaled stage objects not having correct positioning.
+- Group characters having invalid camera positioning.
 
 ## [1.1.1] - 8/22/25
 
 ### Fixed
- 
- - Scrolling left/right in chart editor.
- - Note sustains overlapping.
+
+- Scrolling left/right in chart editor.
+- Note sustains overlapping.
 
 ### Removed
- - Chart editor horizontal scroll limit.
+
+- Chart editor horizontal scroll limit.
 
 ## [1.1.0] - 8/13/25
 
@@ -99,7 +113,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Crash when hovering over an event sprite in the chart editor.
 - Popup error messages are now properly always on top.
 - Update checker not working
-
 
 ### Removed
 

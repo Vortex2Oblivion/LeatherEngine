@@ -2,7 +2,6 @@ package game;
 
 import flixel.FlxG;
 import flixel.math.FlxMath;
-import game.Tallies;
 
 class Highscore {
 	public static var songScores:Map<String, Int> = new Map<String, Int>();

@@ -46,7 +46,13 @@ class MaxFPSMenu extends MusicBeatSubstate {
 
 		if (back) {
 			Options.setData(fps, "maxFPS");
-			FlxG.stage.frameRate = fps;
+			if (fps > FlxG.drawFramerate) {
+				FlxG.updateFramerate = fps;
+				FlxG.drawFramerate = fps;
+			} else {
+				FlxG.drawFramerate = fps;
+				FlxG.updateFramerate = fps;
+			}
 			FlxG.state.closeSubState();
 		}
 
@@ -60,8 +66,10 @@ class MaxFPSMenu extends MusicBeatSubstate {
 		if (rightP && FlxG.keys.pressed.SHIFT)
 			fps++;
 
+		#if !linux
 		if (accept)
 			fps = Application.current.window.displayMode.refreshRate;
+		#end
 
 		if (fps > 1000)
 			fps = 1000;
@@ -69,7 +77,7 @@ class MaxFPSMenu extends MusicBeatSubstate {
 		if (fps < 10)
 			fps = 10;
 
-		offsetText.text = "Max FPS: " + fps + "\nENTER for VSYNC\n";
+		offsetText.text = "Max FPS: " + fps #if !linux + "\nENTER for VSYNC\n" #end;
 		offsetText.screenCenter();
 	}
 }

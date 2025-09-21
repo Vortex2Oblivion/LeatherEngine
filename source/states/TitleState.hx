@@ -96,7 +96,14 @@ class TitleState extends MusicBeatState {
 			#end
 			NoteVariables.init();
 			Options.fixBinds();
-			FlxG.drawFramerate = Options.getData("maxFPS");
+			var fps:Int = Options.getData("maxFPS");
+			if (fps > FlxG.drawFramerate) {
+				FlxG.updateFramerate = fps;
+				FlxG.drawFramerate = fps;
+			} else {
+				FlxG.drawFramerate = fps;
+				FlxG.updateFramerate = fps;
+			}
 
 			#if FLX_NO_DEBUG
 			if (Options.getData("flixelStartupScreen") && !doneFlixelSplash) {
@@ -126,7 +133,7 @@ class TitleState extends MusicBeatState {
 				if (GamemodeClient.request_end() != 0) {
 					trace('Failed to request gamemode end: ${GamemodeClient.error_string()}...', ERROR);
 					System.exit(1);
-				} else{
+				} else {
 					trace('Succesfully requested gamemode to end...');
 				}
 				#end

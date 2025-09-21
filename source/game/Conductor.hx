@@ -135,7 +135,7 @@ class Conductor {
 		return lastChange;
 	}
 
-	//i stole this from psych engine lol :p
+	// i stole this from psych engine lol :p
 
 	/**
 	 * Returns the current step at the given position of the song.

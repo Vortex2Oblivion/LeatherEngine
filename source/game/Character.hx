@@ -63,7 +63,7 @@ class Character extends FlxSprite {
 	public var playFullAnim:Bool = false;
 	public var preventDanceForAnim:Bool = false;
 
-	private var ignoreDraw:Bool = false;
+	public var ignoreDraw(default, null):Bool = false;
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false, ?isDeathCharacter:Bool = false) {
 		super(x, y);
@@ -375,7 +375,7 @@ class Character extends FlxSprite {
 			if (config.followMainCharacter != null) {
 				followMainCharacter = config.followMainCharacter;
 			}
-			isCharacterGroup = true;
+			ignoreDraw = isCharacterGroup = true;
 
 			for (characterData in config.characters) {
 				var character:Character;
