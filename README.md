@@ -2,6 +2,7 @@
 
 > [!WARNING]
 > This fork is DEPRECATED and will no longer be maintained.
+> I recommend using either [Troll Engine](https://github.com/riconuts/fnf-troll-engine) or [FunkinGodot](https://github.com/cherrythecool/FunkinGodot/)
 
 ![Repo Size](https://img.shields.io/github/repo-size/Vortex2Oblivion/LeatherEngine) ![Open Issues](https://badgen.net/github/open-issues/Vortex2Oblivion/LeatherEngine) ![License](https://badgen.net/badge/license/GPL-3.0/green)
 [![CI build](https://github.com/Vortex2Oblivion/LeatherEngine/actions/workflows/workflow.yml/badge.svg)](https://github.com/Vortex2Oblivion/LeatherEngine/actions/workflows/workflow.yml)
